@@ -1,0 +1,56 @@
+@CHARSET "UTF-8";
+html, body, #main-row, #content{
+	height: 100%;
+}
+
+#container{
+	padding-top: 60px;
+}
+
+h3{
+    padding-left:5px;
+}
+
+h2 {
+	text-align: center;
+}
+
+.center {
+	float: none;
+	margin: 0 auto;
+}
+
+.editing .edit-controls{
+	display: block;
+}
+
+.editing .view{
+	display: none;
+}
+
+.view label{
+	font-weight: normal;
+	word-break: break-word;
+}
+
+.edit-controls{
+	display:none;
+}
+
+.item{
+	height:480px;
+	width:1200px;
+	background-color:#222222;
+}
+
+.undo-button{
+	display: none;
+}
+
+.undoable .undo-button{
+	display: block;
+}
+
+#user-id{
+	padding-right: 5px;
+}

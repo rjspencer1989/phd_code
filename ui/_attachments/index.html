@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Router Configuration</title>
+    	<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <base href="/ui/_design/config/" target>
+        <link rel="stylesheet" href="bower_components/jquery-ui/themes/ui-lightness/jquery-ui.css" type="text/css" media="screen" charset="utf-8"/>
+        <link rel="stylesheet" href="style/jquery.ui.slider.css" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+        <link rel="stylesheet" href="style/style.css" type="text/css"/>
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse"type="button">
+                        <span class="sr-only"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="index.html" class="navbar-brand">Router Configuration</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="index.html" id="home-link"><span class="glyphicon glyphicon-home"></span> Home</a>
+                        </li>
+                        <li class="dropdown">
+                            <a id="network-link" class="dropdown-toggle" data-toggle="dropdown">Network <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a id="network-wifi-link" href="index.html/#/wifi"><span class="glyphicon glyphicon-signal"></span> Wi-Fi</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a id="services-link" class="dropdown-toggle" data-toggle="dropdown">Services <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a id="registrations-link" href="index.html/#/notifications">Notification Registrations</a>
+                                </li>
+                                <li>
+                                    <a id="devices-link" href="index.html/#/control">Devices</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a id="history-link" href="index.html/#/history">History</a>
+                        </li>
+                    </ul>
+                    <div id="user-id" class="navbar-right"></div>
+                </div>
+            </nav>
+        </header>
+        <section class="container" id="container">
+            <div class="row" id="main-row">
+                <div class="col-md-12" id="main-content">
+
+                </div>
+            </div>
+        </section>
+        <!-- ------- Templates ---------------
+             ---------------------------------
+             --------------------------------- -->
+        <script type="text/template" charset="utf-8" id="user_id_src">
+            <p class="navbar-text">Welcome <%-name%> <span class="glyphicon glyphicon-log-out navbar-link" id="logout-link"></span></p>
+        </script>
+
+        <script type="text/template" charset="utf-8" id="notifications-collection-src">
+            <div class="alert alert-danger"><strong>Save Error: </strong></div>
+            <table class="table table-bordered table-striped" id="notification-registration-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Service</th>
+                        <th>User</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <form id="add-notification-form" action="#/notifications">
+                <input type="text" name="name" value="" id="name" placeholder="Name"/>
+                <select name="service" id="service">
+                    <option value="email" data-prompt="Email Address">Email</option>
+                    <option value="growl" data-prompt="Device IP Address">Growl</option>
+                    <option value="phone" data-prompt="Phone Number">Text Message</option>
+                    <option value="twitter" data-prompt="Twitter Username">Twitter</option>
+                </select>
+                <input type="text" name="user" value="" id="user"/>
+                <button class="btn btn-primary" id="add-notification-button" type="button">Add</button>
+            </form>
+        </script>
+        <script type="text/template" charset="utf-8" id="notification-items-src">
+            <td><%- name %></td>
+            <td><%- service %></td>
+            <td>
+                <div class="view">
+                    <label><%- user %></label>
+                </div>
+                <div class="edit-controls">
+                    <input type="text" class="edit" value="<%- user %>"/>
+                    <button class="btn btn-primary save-notification-button" type="button">Save</button>
+                    <button class="btn btn-default cancel-notification-button" type="button">Cancel</button>
+                </div>
+            </td>
+            <td>
+                <button class="btn btn-info edit-notification-button" type="button">Edit</button>
+                <button class="btn btn-danger delete-notification-button" type="button">Delete</button>
+            </td>
+        </script>
+
+        <script type="text/template" charset="utf-8" id="home-src">
+            <div class="row">
+                <div class="col-md-6">
+                  <a id="home-wifi-link" href="index.html/#/wifi">
+                    <h2>Wi-Fi Configuration</h2>
+                    <div id="home-wifi-config"></div>
+                  </a>
+                </div>
+                <div class="col-md-6">
+                  <a id="home-devices-link" href="index.html/#/control">
+                    <h2>Connected Devices</h2>
+                    <div id="home-devices"></div>
+                  </a>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/template" charset="utf-8" id="wifi-src">
+            <div class="alert alert-danger"><strong>Save Error </strong></div>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Network Name (SSID)</td>
+                        <td><%- ssid %></td>
+                        <td><input type="text" id="ssid_input" name="ssid"/></td>
+                    </tr>
+                    <tr>
+                        <td>Security type</td>
+                        <td><%- encryption_type %></td>
+                        <td>
+                            This cannot be changed
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Password Type</td>
+                        <td><%- password_type %></td>
+                        <td><select name="password_type" id="password_type_select">
+                            <option value="blank">Please Select</option>
+                            <option value="txt">Text</option>
+                            <option value="hex">HEX</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><%- password %></td>
+                        <td><input type="text" id="password_input" name="password"/></td>
+                    </tr>
+                    <tr>
+                        <td>Mode</td>
+                        <td><%- mode %></td>
+                        <td><select name="mode" id="mode_select">
+                            <option value="blank">Please Select</option>
+                            <option value="g">G</option>
+                            <option value="n">N</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Channel</td>
+                        <td><%- channel %></td>
+                        <td><select name="channel" id="channel_select">
+                            <option value="blank">Please Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                        </select></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-primary" id="save-wifi-button" type="button">Save</button>
+        </script>
+
+        <script type="text/template" charset="utf-8" id="home-wifi-src">
+        <p>This is an overview of your network configuration</p>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <th>Configuration Item</th>
+                <th>Value</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Network Name (SSID)</td>
+                    <td><%- ssid %></td>
+                </tr>
+                <tr>
+                    <td>Security Type</td>
+                    <td><%- encryption_type %></td>
+                </tr>
+                <tr>
+                    <td>Password Type</td>
+                    <td><%- password_type %></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><%- password %></td>
+                </tr>
+                <tr>
+                    <td>Mode</td>
+                    <td><%- mode %></td>
+                </tr>
+                <tr>
+                    <td>Channel</td>
+                    <td><%- channel %></td>
+                </tr>
+            </tbody>
+        </table>
+        </script>
+
+        <script type="text/template" charset="utf-8" id="home-devices-src">
+            <p>The following devices are currently connected to your network using WiFi</p>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th>Device Name</th>
+                    <th>Device Owner</th>
+                    <th>IP Address</th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </script>
+
+        <script type="text/template" charset="utf-8" id="home_device_src">
+            <td>
+                <%-device_name%>
+            </td>
+            <td>
+                <%-name%>
+            </td>
+            <td>
+                <%-ip_address%>
+            </td>
+        </script>
+
+        <script type="text/template" charset="utf-8" id="control_panel_src">
+            <div class="alert alert-danger"><strong>Save Error: </strong></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Pending Approval</h2>
+                    <p>These devices are requesting permission to access your network, select permit or deny as appropriate.</p>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>MAC Address</th>
+                                <th>IP Address</th>
+                                <th>Hostname</th>
+                                <th>Device Name</th>
+                                <th>Owner</th>
+                                <th>Device Type</th>
+                                <th>Notification Service</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="pending"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Permitted</h2>
+                    <p>These devices can access your network.</p>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Device Name</th>
+                                <th>Owner</th>
+                                <th>Device Type</th>
+                                <th>Notification Service</th>
+                                <th>MAC Address</th>
+                                <th>IP Address</th>
+                                <th>Connected?</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="permit"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Denied</h2>
+                    <p>These devices have been blocked from accessing your network</p>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Device Name</th>
+                                <th>Owner</th>
+                                <th>Device Type</th>
+                                <th>Notification Service</th>
+                                <th>MAC Address</th>
+                                <th>IP Address</th>
+                                <th>Connected?</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="deny"></tbody>
+                    </table>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/template" charset="utf-8" id="device_permit_src">
+            <td>
+                <div class="view">
+                    <%-device_name%>
+                </div>
+                <div class="edit-controls">
+                    <input type="text" name="edit_device_name_input" id="edit_device_name_input" value="<%-device_name%>">
+                </div>
+            </td>
+            <td>
+                <div class="view">
+                    <%-name%>
+                </div>
+                <div class="edit-controls">
+                    <input type="text" name="edit_owner_input" id="edit_owner_input" value="<%-name%>">
+                </div>
+            </td>
+            <td>
+                <div class="view">
+                    <%-device_type%>
+                </div>
+                <div class="edit-controls">
+                    <select name="device_type_select" id="device_type_select">
+                        <option value="desktop">Desktop</option>
+                        <option value="laptop">Laptop</option>
+                        <option value="phone">Phone</option>
+                        <option value="tablet">Tablet</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="view">
+                    <%-notification_service%>
+                </div>
+                <div class="edit-controls">
+                    <select name="device_notification_select" id="device_notification_select">
+                        <option value="email">Email</option>
+                        <option value="phone">SMS</option>
+                        <option value="growl">Growl</option>
+                        <option value="twitter">Twitter</option>
+                    </select>
+                </div>
+            </td>
+            <td><%-mac_address%></td>
+            <td><%-ip_address%></td>
+            <td class="is_connected">
+            </td>
+            <td>
+                <div class="view">
+                    <button class="btn btn-danger deny-button" type="button">Deny</button>
+                    <button class="btn btn-default edit-button" type="button">Edit</button>
+                </div>
+                <div class="edit-controls">
+                    <button class="btn btn-primary save-button" type="button">Save</button>
+                    <button class="btn btn-default cancel-button" type="button">Cancel</button>
+                </div>
+            </td>
+        </script>
+
+        <script type="text/template" charset="utf-8" id="device_deny_src">
+            <td>
+                <div class="view">
+                    <%-device_name%>
+                </div>
+                <div class="edit-controls">
+                    <input type="text" name="edit_device_name_input" id="edit_device_name_input" value="<%-device_name%>">
+                </div>
+            </td>
+            <td>
+                <div class="view">
+                    <%-name%>
+                </div>
+                <div class="edit-controls">
+                    <input type="text" name="edit_owner_input" id="edit_owner_input" value="<%-name%>">
+                </div>
+            </td>
+            <td>
+                <div class="view">
+                    <%-device_type%>
+                </div>
+                <div class="edit-controls">
+                    <select name="device_type_select" id="device_type_select">
+                        <option value="desktop">Desktop</option>
+                        <option value="laptop">Laptop</option>
+                        <option value="phone">Phone</option>
+                        <option value="tablet">Tablet</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="view">
+                    <%-notification_service%>
+                </div>
+                <div class="edit-controls">
+                    <select name="device_notification_select" id="device_notification_select">
+                        <option value="email">Email</option>
+                        <option value="phone">SMS</option>
+                        <option value="growl">Growl</option>
+                        <option value="twitter">Twitter</option>
+                    </select>
+                </div>
+            </td>
+            <td><%-mac_address%></td>
+            <td><%-ip_address%></td>
+            <td class="is_connected">
+            </td>
+            <td>
+                <div class="view">
+                    <button class="btn btn-success permit-button" type="button">Permit</button>
+                    <button class="btn btn-default edit-button" type="button">Edit</button>
+                </div>
+                <div class="edit-controls">
+                    <button class="btn btn-primary save-button" type="button">Save</button>
+                    <button class="btn btn-default cancel-button" type="button">Cancel</button>
+                </div>
+            </td>
+        </script>
+        <script type="text/template" charset="utf-8" id="device_pending_src">
+        <td><%-mac_address%></td>
+        <td><%-ip_address%></td>
+        <td><%-host_name%></td>
+        <td><input type="text" name="device_name_input" id="device_name_input" placeholder="Device Name"></td>
+        <td><input type="text" name="device_owner_input" id="device_owner_input" placeholder="Owner"></td>
+        <td><select name="device_type_select" id="device_type_select">
+            <option value="desktop">Desktop</option>
+            <option value="laptop">Laptop</option>
+            <option value="phone">Phone</option>
+            <option value="tablet">Tablet</option>
+            <option value="other">Other</option>
+        </select></td>
+        <td><select name="device_notification_select" id="device_notification_select">
+            <option value="email">Email</option>
+            <option value="phone">SMS</option>
+            <option value="growl">Growl</option>
+            <option value="twitter">Twitter</option>
+        </select></td>
+        <td>
+            <button class="btn btn-danger deny-button" type="button">Deny</button>
+            <button class="btn btn-success permit-button" type="button">Permit</button>
+        </td>
+        </script>
+
+        <script type="text/template" charset="utf-8" id="login_src">
+            <form action="#/login" class="form-signin form-horizontal" role="form" id="form-signin">
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-3">
+                        <h2 class="form-signin-heading">Please Sign In</h2>
+                        <label for="inputName" class="sr-only">Name</label>
+                        <input type="text" name="inputName" id="inputName" class="form-control" placeholder="Name" required autocapitalize="off" autocorrect="off">
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" id="signin-button">Sign In</button>
+                    </div>
+                </div>
+            </form>
+        </script>
+
+        <script type="text/template" charset="utf-8" id="history_src">
+            <div id="carousel-history" class="carousel slide" data-interval="false" data-wrap="false">
+                <ol class="carousel-indicators">
+                </ol>
+                <div class="carousel-inner" role="listbox"></div>
+                <a class="left carousel-control" href="#carousel-history" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-history" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="jump_date">
+                <h3>Revert to previous date</h3>
+                <input type="text" name="history_dp" id="history_dp" data-provide="datepicker">
+                <button type="button" class="btn btn-primary revert-button">Revert</button>
+            </div>
+        </script>
+
+        <script type="text/template" charset="utf-8" id="history_item_src">
+            <div class="carousel-caption">
+                <h3><%-title%></h3>
+                <p>
+                    <%-description%>
+                </p>
+                <p>
+                    Modified by <%-user%>
+                </p>
+                <p>
+                    At <%-timestamp%>
+                </p>
+                <button class="undo-button btn btn-primary" type="button">Undo</button>
+            </div>
+        </script>
+
+        <!--end of templates -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+        <script src="bower_components/underscore/underscore.js"></script>
+        <script src="bower_components/backbone/backbone.js"></script>
+        <script src="bower_components/backbone-couchdb/backbone-couchdb.js"></script>
+        <script src="bower_components/backbone.validation/dist/backbone-validation.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <!--add src for bootstrap-datepicker -->
+        <script src="bower_components/jquery-json/dist/jquery.json.min.js"></script>
+        <script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
+        <script src="/_utils/script/jquery.couch.js"></script>
+        <script src="script/app.js"></script>
+        <script src="script/utility.js"></script>
+        <script src="script/undo.js"></script>
+        <script src="script/history.js"></script>
+        <script src="script/wifi.js"></script>
+        <script src="script/devices.js"></script>
+        <script src="script/notifications.js"></script>
+        <script src="script/login.js"></script>
+        <script src="script/home.js"></script>
+        <script src="script/routes.js"></script>
+        <script src="script/startup.js"></script>
+    </body>
+</html>

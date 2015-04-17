@@ -1,0 +1,19 @@
+{
+    "name": "phd-config-ui",
+    "version": "0.0.1",
+    "dependencies": {
+        "jquery" : "latest",
+        "backbone":"latest",
+        "backbone-couchdb": "latest",
+        "jasmine": "latest",
+        "jasmine-jquery" : "latest",
+        "bootstrap": "latest",
+        "backbone.validation":"latest",
+        "jquery-ui": "latest",
+        "jquery.cookie": "latest",
+        "jquery-json" : "latest",
+        "couchdb-login-jquery": "latest",
+        "bootstrap-datepicker": "latest"
+    },
+    "private" : true
+}
