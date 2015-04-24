@@ -41,7 +41,7 @@ hwr_conf_init () {
 	t=`which rcconf`
 	[ -z $t ] && C_MSG="rcconf not found" && return 1
 
-	[ ! -e /etc/init.d/hostapd ] && C_MSG="hostapd not installed" && \
+	[ ! -e /etc/init.d/hostapd ] && echo "hostapd not installed" && \
 	return 1
 	/etc/init.d/hostapd stop &>/dev/null
 
@@ -72,10 +72,6 @@ login () {
 	echo "auto login"
 }
 
-c_init () {
-	echo "configure init script"
-}
-
 power () {
 	echo "power"
 }
@@ -91,7 +87,7 @@ while [ $1 ]; do
 						;;
 		-l | --login )	login
 						;;
-		-i | --init	)	c_init
+		-i | --init	)	hwr_conf_init
 						;;
 		-p | --power )	power
 						;;
