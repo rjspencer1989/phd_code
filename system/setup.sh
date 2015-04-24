@@ -60,7 +60,7 @@ hwr_conf_tty1 () {
 	[ -n "$l" ] && return 0
 
 	cp -f $f $f.bak
-	sed -i 's/^exec \/sbin\/getty -8 38400 tty1$/^exec \/sbin\/getty -8 38400 tty1 -a homeuser/' $f
+	sed -i 's/^exec \/sbin\/getty -8 38400 tty1$/exec \/sbin\/getty -8 38400 tty1 -a homeuser/' $f
 	return 0
 }
 
