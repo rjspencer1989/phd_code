@@ -90,13 +90,13 @@ if [ $# -gt 0 ]; then
 			-h | --help )	usage
 							exit
 							;;
-			-l | --login	login
+			-l | --login )	login
 							;;
-			-i | --init		c_init
+			-i | --init	)	c_init
 							;;
-			-p | --power	power
+			-p | --power )	power
 							;;
-			-n | --host		host
+			-n | --host	)	host
 							;;
 			* )
 							usage
