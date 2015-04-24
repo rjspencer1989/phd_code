@@ -28,7 +28,7 @@ hwr_conf_host () {
 
 	n=`hostname`
 	sed -i \
-		"s/\(^127.0.0.1\tlocalhost$\)/127.0.0.1\tlocalhost ${n}/g" \
+		"s/\(^127.0.0.1\tlocalhost$\)/127.0.0.1\tlocalhost\t${n}/g" \
 		/etc/hosts
 	return 0
 }
