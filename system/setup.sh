@@ -65,7 +65,10 @@ hwr_conf_tty1 () {
 }
 
 if [ $# -gt 0 ]; then
-	echo "$# arguments"
+	while [ $1 ]; do
+		echo $1
+		shift
+	done
 else
 	echo "need argument"
 fi
