@@ -68,24 +68,16 @@ usage () {
 	echo "usage: setup.sh [[-a all] | [-i init] [-p power] [-l login] [-n host] [-h help]]"
 }
 
-login () {
-	echo "auto login"
-}
-
-power () {
-	echo "power"
-}
-
 while [ $1 ]; do
 	case $1 in
 		-h | --help )	usage
 						exit
 						;;
-		-l | --login )	login
+		-l | --login )	hwr_conf_tty1
 						;;
 		-i | --init	)	hwr_conf_init
 						;;
-		-p | --power )	power
+		-p | --power )	hwr_conf_acpi
 						;;
 		-n | --host	)	hwr_conf_host
 						;;
