@@ -76,10 +76,6 @@ power () {
 	echo "power"
 }
 
-host () {
-	echo "host"
-}
-
 while [ $1 ]; do
 	case $1 in
 		-h | --help )	usage
@@ -91,7 +87,7 @@ while [ $1 ]; do
 						;;
 		-p | --power )	power
 						;;
-		-n | --host	)	host
+		-n | --host	)	hwr_conf_host
 						;;
 		* )
 						usage
