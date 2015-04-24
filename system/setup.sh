@@ -64,9 +64,44 @@ hwr_conf_tty1 () {
 	return 0
 }
 
+usage () {
+	echo "usage: setup.sh [[-a all] | [-i init] [-p power] [-l login] [-n host] [-h help]]"
+}
+
+login () {
+	echo "auto login"
+}
+
+c_init () {
+	echo "configure init script"
+}
+
+power () {
+	echo "power"
+}
+
+host () {
+	echo "host"
+}
+
 if [ $# -gt 0 ]; then
 	while [ $1 ]; do
-		echo $1
+		case $1 in
+			-h | --help )	usage
+							exit
+							;;
+			-l | --login	login
+							;;
+			-i | --init		c_init
+							;;
+			-p | --power	power
+							;;
+			-n | --host		host
+							;;
+			* )
+							usage
+							exit 1
+		esac
 		shift
 	done
 else
