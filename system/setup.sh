@@ -63,3 +63,9 @@ hwr_conf_tty1 () {
 	sed -i 's/^exec \/sbin\/getty -8 38400 tty1$/^exec \/sbin\/getty -8 38400 tty1 -a homeuser/' $f
 	return 0
 }
+
+if [ $# -gt 0 ]; then
+	echo "$# arguments"
+else
+	echo "need argument"
+fi
