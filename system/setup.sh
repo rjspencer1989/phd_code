@@ -68,6 +68,13 @@ usage () {
 	echo "usage: setup.sh [[-a all] | [-i init] [-p power] [-l login] [-n host] [-h help]]"
 }
 
+all () {
+	hwr_conf_init
+	hwr_conf_acpi
+	hwr_conf_host
+	hwr_conf_tty1
+}
+
 while [ $1 ]; do
 	case $1 in
 		-h | --help )	usage
@@ -80,6 +87,8 @@ while [ $1 ]; do
 		-p | --power )	hwr_conf_acpi
 						;;
 		-n | --host	)	hwr_conf_host
+						;;
+		-a | --all	)	all
 						;;
 		* )
 						usage
