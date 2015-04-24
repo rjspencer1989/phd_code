@@ -39,13 +39,13 @@ hwr_conf_host () {
 hwr_conf_init () {
 
 	t=`which rcconf`
-	[ -z $t ] && C_MSG="rcconf not found" && return 1
+	[ -z $t ] && echo="rcconf not found" && return 1
 
 	[ ! -e /etc/init.d/hostapd ] && echo "hostapd not installed" && \
 	return 1
-	/etc/init.d/hostapd stop &>/dev/null
+	/etc/init.d/hostapd stop
 
-	rcconf --off hostapd &> /dev/null
+	rcconf --off hostapd
 	return 0
 }
 
