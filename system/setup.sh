@@ -57,7 +57,7 @@ hwr_conf_tty1 () {
 	f="/etc/init/tty1.conf"
 	# $f exists by default
 	l=`sed -n '/^exec \/sbin\/getty -8 38400 tty1 -a homeuser$/p' $f`
-	[ -z "$l" ] && return 0
+	[ -n "$l" ] && return 0
 
 	cp -f $f $f.bak
 	sed -i 's/^exec \/sbin\/getty -8 38400 tty1$/^exec \/sbin\/getty -8 38400 tty1 -a homeuser/' $f
