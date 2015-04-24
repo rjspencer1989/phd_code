@@ -104,6 +104,4 @@ if [ $# -gt 0 ]; then
 		esac
 		shift
 	done
-else
-	echo "need argument"
 fi
