@@ -3,7 +3,7 @@ start(){
     echo "starting"
     service hostapd start
     service hostapd stop
-    iptables -t nat -A POSTROUTING -o $GATEWAY -j MASQUERADE
+    
     [ "$(lsmod | grep bridge)" ] && rmmod bridge
     modprobe openvswitch
     [ -e ovsdb.conf ] && rm ovsdb.conf
