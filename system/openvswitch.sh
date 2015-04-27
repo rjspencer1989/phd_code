@@ -3,8 +3,6 @@ start(){
     echo "starting"
     service hostapd start
     service hostapd stop
-    # addr=`ifconfig $WLESS_IF | awk '/HWaddr/ {print "02" substr($5, 3, length($5) - 4) "00"}'`
-    # ifconfig $WLESS_IF hw ether $addr
     iptables -t nat -A POSTROUTING -o $GATEWAY -j MASQUERADE
     [ "$(lsmod | grep bridge)" ] && rmmod bridge
     modprobe openvswitch
