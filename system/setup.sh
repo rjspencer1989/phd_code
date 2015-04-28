@@ -73,6 +73,12 @@ all () {
 	hwr_conf_acpi
 	hwr_conf_host
 	hwr_conf_tty1
+	prep_install
+}
+
+prep_install () {
+	. router.conf
+	mkdir -p $PIDDIR
 }
 
 while [ $1 ]; do
@@ -88,6 +94,8 @@ while [ $1 ]; do
 						;;
 		-n | --host	)	hwr_conf_host
 						;;
+		-d | --piddir )	prep_install
+		;;
 		-a | --all	)	all
 						;;
 		* )
