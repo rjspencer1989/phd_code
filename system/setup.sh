@@ -80,7 +80,7 @@ prep_install () {
 	. $HOME/router.conf
 	mkdir -p $PIDDIR
 	string="#!/bin/sh -e\niptables -t nat -A POSTROUTING -o $GATEWAY -j MASQUERADE\nreturn0"
-	printf "%s\n" $string > /etc/rc.local
+	printf "%s\n" "$string" > /etc/rc.local
 }
 
 while [ $1 ]; do
