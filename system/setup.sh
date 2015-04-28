@@ -79,6 +79,7 @@ all () {
 prep_install () {
 	. router.conf
 	mkdir -p $PIDDIR
+	echo "#!/bin/sh -e\niptables -t nat -A POSTROUTING -o $GATEWAY -j MASQUERADE\nreturn0" > /etc/rc.local
 }
 
 while [ $1 ]; do
