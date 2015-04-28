@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 hwr_conf_acpi () {
 
@@ -79,7 +79,8 @@ all () {
 prep_install () {
 	. $HOME/router.conf
 	mkdir -p $PIDDIR
-	echo "#!/bin/sh -e\niptables -t nat -A POSTROUTING -o $GATEWAY -j MASQUERADE\nreturn0" > /etc/rc.local
+	string="#!/bin/sh -e\niptables -t nat -A POSTROUTING -o $GATEWAY -j MASQUERADE\nreturn0"
+	printf "%s\n" $string > /etc/rc.local
 }
 
 while [ $1 ]; do
