@@ -74,53 +74,6 @@
         <script type="text/template" charset="utf-8" id="user_id_src">
             <p class="navbar-text">Welcome <%-name%> <span class="glyphicon glyphicon-log-out navbar-link" id="logout-link"></span></p>
         </script>
-
-        <script type="text/template" charset="utf-8" id="notifications-collection-src">
-            <div class="alert alert-danger"><strong>Save Error: </strong></div>
-            <table class="table table-bordered table-striped" id="notification-registration-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Service</th>
-                        <th>User</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-            <form id="add-notification-form" action="#/notifications">
-                <input type="text" name="name" value="" id="name" placeholder="Name"/>
-                <select name="service" id="service">
-                    <option value="email" data-prompt="Email Address">Email</option>
-                    <option value="growl" data-prompt="Device IP Address">Growl</option>
-                    <option value="phone" data-prompt="Phone Number">Text Message</option>
-                    <option value="twitter" data-prompt="Twitter Username">Twitter</option>
-                </select>
-                <input type="text" name="user" value="" id="user"/>
-                <button class="btn btn-primary" id="add-notification-button" type="button">Add</button>
-            </form>
-        </script>
-        <script type="text/template" charset="utf-8" id="notification-items-src">
-            <td><%- name %></td>
-            <td><%- service %></td>
-            <td>
-                <div class="view">
-                    <label><%- user %></label>
-                </div>
-                <div class="edit-controls">
-                    <input type="text" class="edit" value="<%- user %>"/>
-                    <button class="btn btn-primary save-notification-button" type="button">Save</button>
-                    <button class="btn btn-default cancel-notification-button" type="button">Cancel</button>
-                </div>
-            </td>
-            <td>
-                <button class="btn btn-info edit-notification-button" type="button">Edit</button>
-                <button class="btn btn-danger delete-notification-button" type="button">Delete</button>
-            </td>
-        </script>
-
         <script type="text/template" charset="utf-8" id="home-src">
             <div class="row">
                 <div class="col-md-6">

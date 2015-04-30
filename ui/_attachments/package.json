@@ -1,0 +1,10 @@
+{
+    "name": "homework-router-ui",
+    "version": "0.0.1",
+    "private": "true",
+    "devDependencies": {
+        "grunt":"latest",
+        "grunt-contrib-concat":"latest",
+        "grunt-contrib-jst":"latest"
+    }
+}
