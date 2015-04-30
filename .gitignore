@@ -3,3 +3,4 @@ notifications/NotificationServices/*.pyc
 .couchapprc
 ui/_attachments/bower_components/*
 *.pyc
+node_modules
