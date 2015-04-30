@@ -44,8 +44,4 @@ describe("wifi data", function () {
     it("collection should have a url property", function () {
         expect(collection.url).toBeDefined();
     });
-
-    it("collection should have a db property with a view", function () {
-        expect(collection.db.view).toBeDefined();
-    });
 });

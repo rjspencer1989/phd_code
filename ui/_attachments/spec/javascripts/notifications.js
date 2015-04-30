@@ -32,8 +32,4 @@ describe("notification registration data", function () {
     it("collection should have a URL", function () {
         expect(collection.url).toBe('notifications');
     });
-
-    it("collection should have a db property with a view", function () {
-        expect(collection.db).toEqual({view: 'notifications'});
-    });
 });
