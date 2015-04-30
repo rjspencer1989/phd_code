@@ -10,7 +10,7 @@ module.exports = function(grunt){
                     "_": true,
                     "JST": true,
                     "addHistoryEvent": true,
-                    "setActiveLink"
+                    "setActiveLink": true
                 }
             },
             files: ['Gruntfile.js', 'script/*.js', 'spec/javascripts/*.js']
