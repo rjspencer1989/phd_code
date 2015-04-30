@@ -53,7 +53,7 @@ App.Views.User = Backbone.View.extend({
                 console.log('logging out');
                 App.routerInstance.navigate('login', true);
             }
-        })
+        });
     }
 });
 
@@ -68,6 +68,5 @@ function drawLogin(){
         }, error: function(data){
             new App.Views.Login();
         }
-    })
-
-};
+    });
+}

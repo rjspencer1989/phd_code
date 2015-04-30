@@ -36,7 +36,7 @@ App.Routers.Router = Backbone.Router.extend({
         console.log('checking session');
         $.couch.session({
             success: function(data){
-                console.log(data)
+                console.log(data);
                 if(data.userCtx.name !== null){
                     App.userCtx = data.userCtx;
                     showMenu();

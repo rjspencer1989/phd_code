@@ -79,4 +79,4 @@ App.Views.Wifi = Backbone.View.extend({
 function drawWifi() {
     App.routerInstance.checkSession();
     window.wifiView = new App.Views.Wifi();
-};
+}

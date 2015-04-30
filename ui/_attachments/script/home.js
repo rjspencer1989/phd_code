@@ -81,4 +81,4 @@ App.Views.Home = Backbone.View.extend({
 function drawHome(){
     App.routerInstance.checkSession();
     new App.Views.Home();
-};
+}
