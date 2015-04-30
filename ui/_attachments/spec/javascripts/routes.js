@@ -17,22 +17,22 @@ describe('router', function(){
     });
 
     it("should have a login route", function() {
-       expect(router.routes['login']).toEqual('login');
+       expect(router.routes.login).toEqual('login');
     });
 
     it("should have a wifi route", function() {
-        expect(router.routes['wifi']).toEqual('wifi');
+        expect(router.routes.wifi).toEqual('wifi');
     });
 
     it("should have a notification route", function() {
-        expect(router.routes['notifications']).toEqual('notifications');
+        expect(router.routes.notifications).toEqual('notifications');
     });
 
     it("should have a history route", function() {
-        expect(router.routes['history']).toEqual('history');
+        expect(router.routes.history).toEqual('history');
     });
 
     it("should have a control route", function() {
-        expect(router.routes['control']).toEqual('controlPanel');
+        expect(router.routes.control).toEqual('controlPanel');
     });
 });
