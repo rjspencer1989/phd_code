@@ -6,7 +6,10 @@ module.exports = function(grunt){
                     "App": true,
                     "Backbone": true,
                     "$": true,
-                    "console": true
+                    "console": true,
+                    "_": true,
+                    "JST": true,
+                    "addHistoryEvent": true
                 }
             },
             files: ['Gruntfile.js', 'script/*.js', 'spec/javascripts/*.js']
