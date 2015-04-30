@@ -1,4 +1,3 @@
-'use strict';
 App.Models.Notification = Backbone.Model.extend({
     defaults: {
         collection: 'notifications',
