@@ -47,7 +47,7 @@ App.Views.Events = Backbone.View.extend({
 
     events: {
         'click .revert-button': 'revert_state'
-    }
+    },
 
     render: function(){
         this.$el.empty().append(this.template());
