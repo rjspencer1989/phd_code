@@ -6,6 +6,6 @@
         "grunt":"latest",
         "grunt-contrib-concat":"latest",
         "grunt-contrib-jst":"latest",
-        "grunt-contrib-js-hint": "latest"
+        "grunt-contrib-jshint": "latest"
     }
 }
