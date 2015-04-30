@@ -27,7 +27,7 @@ describe("wifi data", function () {
         expect(model.get('status')).toEqual('pending');
         expect(model.get('ssid')).toEqual('');
         expect(model.get('password')).toEqual('');
-        expect(model.get('encryption_type')).toEqual('wpa');
+        expect(model.get('encryption_type')).toEqual('wep');
         expect(model.get('password_type')).toEqual('txt');
         expect(model.get('mode')).toEqual('n');
         expect(model.defaults.channel).toEqual(1);

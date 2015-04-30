@@ -20,7 +20,7 @@ describe('application', function(){
     });
 
     it("should have db name set", function(){
-        expect(Backbone.couch_connector.config.db_name).toEqual("homework-remote");
+        expect(Backbone.couch_connector.config.db_name).toEqual("config");
     });
 
     it("should have design doc set", function(){
