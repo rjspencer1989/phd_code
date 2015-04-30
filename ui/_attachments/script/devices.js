@@ -54,7 +54,7 @@ App.Views.Device = Backbone.View.extend({
         this.$el.empty().append(this.template(this.model.toJSON()));
         this.$el.addClass('device');
         txt = "No";
-        if(this.model.get('connected') == true){
+        if(this.model.get('connected') === true){
             txt = 'Yes';
         }
         this.$('.is_connected').html(txt);
@@ -187,4 +187,4 @@ App.Views.ControlPanelView = Backbone.View.extend({
 function drawControlPanel(){
     App.routerInstance.checkSession();
     new App.Views.ControlPanelView();
-};
+}
