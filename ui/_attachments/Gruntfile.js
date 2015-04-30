@@ -4,7 +4,9 @@ module.exports = function(grunt){
             options:{
                 globals : {
                     "App": true,
-                    "Backbone": true
+                    "Backbone": true,
+                    "$": true,
+                    "console": true
                 }
             },
             files: ['Gruntfile.js', 'script/*.js', 'spec/javascripts/*.js']
