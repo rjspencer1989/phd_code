@@ -68,7 +68,7 @@ App.Views.Events = Backbone.View.extend({
             indicator.addClass('active');
             view.$el.addClass('active');
         }
-        if(event.undoable == true){
+        if(event.undoable === true){
             view.$el.addClass('undoable');
         }
     },
@@ -76,7 +76,7 @@ App.Views.Events = Backbone.View.extend({
     revert_state: function(){
         date_selected = this.$('#history_dp').datepicker('getDate').toISOString();
         undo_needed = this.collection.filter(function(m){
-            return (m['timestamp'] > date_selected && m['undoable'] == true);
+            return (m.timestamp > date_selected && m.undoable === true);
         });
         _.each(undo_needed, function(item){
             console.log(item.toJSON());
@@ -99,4 +99,4 @@ function addHistoryEvent(title, description, user, docId, docRev, undoable){
 function drawHistory(){
     App.routerInstance.checkSession();
     new App.Views.Events();
-};
+}
