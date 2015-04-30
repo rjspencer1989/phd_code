@@ -1,6 +1,12 @@
 module.exports = function(grunt){
     grunt.initConfig({
         jshint: {
+            options:{
+                globals : {
+                    "App": true,
+                    "Backbone": true
+                }
+            },
             files: ['Gruntfile.js', 'script/*.js', 'spec/javascripts/*.js']
         },
 
