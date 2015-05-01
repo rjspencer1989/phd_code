@@ -88,7 +88,6 @@ App.Views.Notification = Backbone.View.extend({
 App.Views.Notifications = Backbone.View.extend({
     collection: new App.Collections.Notifications(),
     el: '#main-content',
-    template: window.JST['templates/notifications_collection.html'](),
 
     initialize: function () {
         'use strict';
@@ -106,7 +105,7 @@ App.Views.Notifications = Backbone.View.extend({
 
     render: function () {
         'use strict';
-        this.$el.empty().append(this.template);
+        this.$el.empty().append(window.JST['templates/notifications_collection.html']);
         setActiveLink('services-link');
         this.collection.each(this.addOne, this);
         this.$el.find('#service').trigger('change');
