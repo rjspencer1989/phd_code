@@ -33,7 +33,7 @@ App.Views.DeviceHome = Backbone.View.extend({
 
 App.Views.ConnectedDevicesHome = Backbone.View.extend({
     el: '#home-devices',
-    template: window.JST['templates/home.html'],
+    template: _.template($('#home-devices-src').html()),
     collection: new App.Collections.ConnectedDevices(),
     initialize: function () {
         'use strict';
@@ -63,7 +63,7 @@ App.Views.ConnectedDevicesHome = Backbone.View.extend({
 
 App.Views.Home = Backbone.View.extend({
     el: '#main-content',
-    template : _.template($('#home-src').html()),
+    template : window.JST['templates/home.html'],
     initialize: function () {
         'use strict';
         this.render();
