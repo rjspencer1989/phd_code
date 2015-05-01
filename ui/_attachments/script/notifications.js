@@ -12,78 +12,78 @@ App.Collections.Notifications = Backbone.Collection.extend({
     url: 'notifications'
 });
 
-// App.Views.Notification = Backbone.View.extend({
-//     tagName: 'tr',
-//     template: _.template($('#notification-items-src').html()),
-//
-//     events: {
-//         "click .edit-notification-button" : "edit",
-//         "click .save-notification-button" : "close",
-//         "click .delete-notification-button" : "clear",
-//         "click .cancel-notification-button" : "cancel"
-//     },
-//
-//     render: function () {
-//         'use strict';
-//         this.$el.empty().append(this.template(this.model.toJSON()));
-//         this.input = this.$('.edit');
-//         return this;
-//     },
-//
-//     clear: function () {
-//         'use strict';
-//         this.model.set({_deleted: true});
-//         this.model.save(null, {
-//             success: function (model, response, options) {
-//                 console.log(response);
-//                 addHistoryEvent("Removed Notification Registration", model.get('name') + "  is no longer registered to receive notifications using " + model.get('service') + " identified by " + model.get('user'), App.userCtx.name, model.id, model.get('rev'), true);
-//             },
-//             error: function (model, response, options) {
-//                 console.log(response);
-//                 if (response.status === 401) {
-//                     App.routerInstance.checkSession();
-//                 } else {
-//                     $('.alert').append(response.reason).show();
-//                 }
-//             }
-//         });
-//     },
-//
-//     edit: function () {
-//         'use strict';
-//         console.log(this.input);
-//         this.input.parents('td').addClass('editing');
-//         this.input.focus();
-//     },
-//
-//     cancel: function () {
-//         'use strict';
-//         this.input.parents('td').removeClass('editing');
-//     },
-//
-//     close: function () {
-//         'use strict';
-//         this.input.parents('td').removeClass('editing');
-//         var value = this.input.val();
-//         if (value) {
-//             this.model.set({user: value});
-//             this.model.save(null, {
-//                 success: function (model, response, options) {
-//                     console.log(response);
-//                     addHistoryEvent("Edited Notification Registration", model.get('name') + " changed notifications for " + model.get('service') + " to identify them as " + model.get('user'), App.userCtx.name, model.id, model.get('rev'), true);
-//                 },
-//                 error: function (model, response, options) {
-//                     console.log(response);
-//                     if (response.status === 401) {
-//                         App.routerInstance.checkSession();
-//                     } else {
-//                         $('.alert').append(response.reason).show();
-//                     }
-//                 }
-//             });
-//         }
-//     }
-// });
+App.Views.Notification = Backbone.View.extend({
+    tagName: 'tr',
+    template: _.template($('#notification-items-src').html()),
+
+    events: {
+        "click .edit-notification-button" : "edit",
+        "click .save-notification-button" : "close",
+        "click .delete-notification-button" : "clear",
+        "click .cancel-notification-button" : "cancel"
+    },
+
+    render: function () {
+        'use strict';
+        this.$el.empty().append(this.template(this.model.toJSON()));
+        this.input = this.$('.edit');
+        return this;
+    },
+
+    clear: function () {
+        'use strict';
+        this.model.set({_deleted: true});
+        this.model.save(null, {
+            success: function (model, response, options) {
+                console.log(response);
+                addHistoryEvent("Removed Notification Registration", model.get('name') + "  is no longer registered to receive notifications using " + model.get('service') + " identified by " + model.get('user'), App.userCtx.name, model.id, model.get('rev'), true);
+            },
+            error: function (model, response, options) {
+                console.log(response);
+                if (response.status === 401) {
+                    App.routerInstance.checkSession();
+                } else {
+                    $('.alert').append(response.reason).show();
+                }
+            }
+        });
+    },
+
+    edit: function () {
+        'use strict';
+        console.log(this.input);
+        this.input.parents('td').addClass('editing');
+        this.input.focus();
+    },
+
+    cancel: function () {
+        'use strict';
+        this.input.parents('td').removeClass('editing');
+    },
+
+    close: function () {
+        'use strict';
+        this.input.parents('td').removeClass('editing');
+        var value = this.input.val();
+        if (value) {
+            this.model.set({user: value});
+            this.model.save(null, {
+                success: function (model, response, options) {
+                    console.log(response);
+                    addHistoryEvent("Edited Notification Registration", model.get('name') + " changed notifications for " + model.get('service') + " to identify them as " + model.get('user'), App.userCtx.name, model.id, model.get('rev'), true);
+                },
+                error: function (model, response, options) {
+                    console.log(response);
+                    if (response.status === 401) {
+                        App.routerInstance.checkSession();
+                    } else {
+                        $('.alert').append(response.reason).show();
+                    }
+                }
+            });
+        }
+    }
+});
 
 App.Views.Notifications = Backbone.View.extend({
     collection: new App.Collections.Notifications(),
