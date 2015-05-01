@@ -41,7 +41,7 @@ App.Views.Events = Backbone.View.extend({
     template: _.template($('#history_src').html()),
     collection: new App.Collections.Events(),
     initialize: function(){
-        this.collection.on('reset', this.render, this);
+        this.listenTo(this.collection, 'reset', this.render);
         this.collection.fetch({reset: true});
     },
 

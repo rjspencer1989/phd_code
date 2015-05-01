@@ -160,10 +160,10 @@ App.Views.ControlPanelView = Backbone.View.extend({
     el: '#main-content',
     template: _.template($('#control_panel_src').html()),
     initialize: function(){
-        this.collection.on('reset', this.render, this);
-        this.collection.on('add', this.addOne, this);
-        this.collection.on('change', this.render, this);
-        this.collection.on('remove', this.render, this);
+        this.listenTo(this.collection, 'reset', this.render);
+        this.listenTo(this.collection, 'add', this.addOne);
+        this.listenTo(this.collection, 'change', this.render);
+        this.listenTo(this.collection, 'remove', this.render);
         this.collection.fetch({reset: true});
     },
 

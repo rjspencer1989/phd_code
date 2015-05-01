@@ -22,8 +22,8 @@ App.Views.Wifi = Backbone.View.extend({
     template : _.template($('#wifi-src').html()),
 
     initialize : function(options){
-        this.collection.on('reset', this.render, this);
-        this.collection.on('change', this.render, this);
+        this.listenTo(this.collection, 'reset', this.render);
+        this.listenTo(this.collection, 'change', this.render);
         this.collection.fetch({
             reset: true,
             error: function(data){

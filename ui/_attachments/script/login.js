@@ -34,7 +34,7 @@ App.Views.Login = Backbone.View.extend({
 
 App.Views.User = Backbone.View.extend({
     el: '#user-id',
-    template: _.template($('#user_id_src').html()),
+    template: window.JST['templates/user_id.html'],
     initialize: function(){
         this.render();
     },

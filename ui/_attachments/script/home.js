@@ -4,8 +4,8 @@ App.Views.WifiHome = Backbone.View.extend({
     template: _.template($('#home-wifi-src').html()),
     initialize: function () {
         'use strict';
-        this.collection.on('reset', this.render, this);
-        this.collection.on('change', this.render, this);
+        this.listenTo(this.collection, 'reset', this.render);
+        this.listenTo(this.collection, 'change', this.render);
         this.collection.fetch({
             reset: true,
             error: function(data){
@@ -33,12 +33,12 @@ App.Views.DeviceHome = Backbone.View.extend({
 
 App.Views.ConnectedDevicesHome = Backbone.View.extend({
     el: '#home-devices',
-    template: _.template($('#home-devices-src').html()),
+    template: window.JST['templates/home.html'],
     collection: new App.Collections.ConnectedDevices(),
     initialize: function () {
         'use strict';
-        this.collection.on('reset', this.render, this);
-        this.collection.on('change', this.render, this);
+        this.listenTo(this.collection, 'reset', this.render);
+        this.listenTo(this.collection, 'change', this.render);
         this.collection.fetch({
             reset: true,
             error: function(data){
