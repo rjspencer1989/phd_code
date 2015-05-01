@@ -19,8 +19,7 @@ App.Collections.Wifi = Backbone.Collection.extend({
 App.Views.Wifi = Backbone.View.extend({
     collection: new App.Collections.Wifi(),
     el : '#main-content',
-    template : _.template($('#wifi-src').html()),
-
+    template : window.JST['templates/wifi.html'],
     initialize : function(options){
         this.listenTo(this.collection, 'reset', this.render);
         this.listenTo(this.collection, 'change', this.render);
