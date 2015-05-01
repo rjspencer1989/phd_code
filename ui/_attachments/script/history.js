@@ -22,7 +22,7 @@ App.Collections.Events = Backbone.Collection.extend({
 
 App.Views.Event = Backbone.View.extend({
     className: 'item',
-    template: _.template($('#history_item_src').html()),
+    template: window.JST['templates/history_item.html'],
     events:{
         'click .undo-button': 'request_undo'
     },
@@ -38,7 +38,7 @@ App.Views.Event = Backbone.View.extend({
 
 App.Views.Events = Backbone.View.extend({
     el: '#main-content',
-    template: _.template($('#history_src').html()),
+    template: window.JST['templates/history.html'],
     collection: new App.Collections.Events(),
     initialize: function(){
         this.listenTo(this.collection, 'reset', this.render);

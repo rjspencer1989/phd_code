@@ -1,0 +1,22 @@
+<td><%-mac_address%></td>
+<td><%-ip_address%></td>
+<td><%-host_name%></td>
+<td><input type="text" name="device_name_input" id="device_name_input" placeholder="Device Name"></td>
+<td><input type="text" name="device_owner_input" id="device_owner_input" placeholder="Owner"></td>
+<td><select name="device_type_select" id="device_type_select">
+    <option value="desktop">Desktop</option>
+    <option value="laptop">Laptop</option>
+    <option value="phone">Phone</option>
+    <option value="tablet">Tablet</option>
+    <option value="other">Other</option>
+</select></td>
+<td><select name="device_notification_select" id="device_notification_select">
+    <option value="email">Email</option>
+    <option value="phone">SMS</option>
+    <option value="growl">Growl</option>
+    <option value="twitter">Twitter</option>
+</select></td>
+<td>
+    <button class="btn btn-danger deny-button" type="button">Deny</button>
+    <button class="btn btn-success permit-button" type="button">Permit</button>
+</td>
