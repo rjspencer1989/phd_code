@@ -22,29 +22,9 @@ module.exports = function(grunt){
                     "./templates.js": ["templates/*.html"]
                 }
             }
-        },
-
-        concat: {
-            dist: {
-                src: ['templates.js', 'script/app.js', 'script/utility.js',
-                      'script/history.js', 'script/wifi.js',
-                      'script/devices.js', 'script/notifications.js',
-                      'login.js', 'home.js', 'routes.js'],
-                dest: 'router-ui.js'
-            }
-        },
-
-        uglify: {
-            dist: {
-                files: {
-                    'router-ui.min.js': 'router-ui.js'
-                }
-            }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-jst');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.registerTask('default', ['jshint', 'jst', 'concat', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'jst']);
 };
