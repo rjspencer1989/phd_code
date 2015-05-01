@@ -26,7 +26,7 @@ module.exports = function(grunt){
 
         concat: {
             dist: {
-                src: ['templates.js', 'script/app.js', 'script/utility.js'
+                src: ['templates.js', 'script/app.js', 'script/utility.js',
                       'script/history.js', 'script/wifi.js',
                       'script/devices.js', 'script/notifications.js',
                       'login.js', 'home.js', 'routes.js', 'startup.js'],
