@@ -88,7 +88,7 @@ App.Views.Notification = Backbone.View.extend({
 App.Views.Notifications = Backbone.View.extend({
     collection: new App.Collections.Notifications(),
     el: '#main-content',
-    template: _.template('<div id="foo">bar</div>'),
+    template: JST['templates/notifications_collection.html'](),
 
     initialize: function () {
         'use strict';
