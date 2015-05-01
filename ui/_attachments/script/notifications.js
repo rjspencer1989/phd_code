@@ -91,7 +91,7 @@ App.Views.Notifications = Backbone.View.extend({
     template: window.JST['templates/notification_collection.html'],
     initialize: function () {
         'use strict';
-        this.listentTo(this.collection, 'reset', this.render);
+        this.listenTo(this.collection, 'reset', this.render);
         this.collection.on('change', this.render, this);
         this.collection.on('remove', this.render, this);
         this.collection.on('add', this.addOne, this);
