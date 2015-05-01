@@ -158,7 +158,7 @@ App.Views.Device = Backbone.View.extend({
 App.Views.ControlPanelView = Backbone.View.extend({
     collection: new App.Collections.Devices(),
     el: '#main-content',
-    template: _.template($('#control_panel_src').html()),
+    template: window.JST['templates/control_panel.html'],
     initialize: function(){
         this.listenTo(this.collection, 'reset', this.render);
         this.listenTo(this.collection, 'add', this.addOne);

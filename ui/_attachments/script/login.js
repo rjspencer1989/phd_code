@@ -1,6 +1,6 @@
 App.Views.Login = Backbone.View.extend({
     el : '#main-content',
-    template: _.template($('#login_src').html()),
+    template: window.JST['templates/login.html'],
     initialize: function(){
         App.userCtx = null;
         hideMenu();
