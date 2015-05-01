@@ -4,5 +4,4 @@ $(function(){
     App.routerInstance = router;
     Backbone.history.start();
     App.routerInstance.checkSession();
-    console.log(window.JST);
 });
