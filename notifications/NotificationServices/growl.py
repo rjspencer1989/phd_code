@@ -1,5 +1,5 @@
 import gntp.notifier
-import RemoteNotify
+import remote_notify
 
 def sendNotification(notificationId, to, body):
     growl = gntp.notifier.GrowlNotifier(
@@ -19,6 +19,6 @@ def sendNotification(notificationId, to, body):
     )
 
     if res is True:
-        nr = RemoteNotify.sendNotification("growl", to, body)
+        nr = remote_notify.sendNotification("growl", to, body)
         return True
     return False

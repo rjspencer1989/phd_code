@@ -1,7 +1,7 @@
-import RemoteNotify
+import remote_notify
 
 def sendNotification(notificationId, to, body):
-    nr = RemoteNotify.sendNotification("twitter", to, body)
+    nr = remote_notify.sendNotification("twitter", to, body)
     if nr is not None:
         if nr.code == 200:
-            return RemoteNotify.getStatus(nr.notificationId)
+            return remote_notify.getStatus(nr.notificationId)

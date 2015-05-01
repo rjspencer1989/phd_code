@@ -1,7 +1,7 @@
 import json
 import urllib
 import urllib2
-import NotificationResponse
+import notification_response
 
 def getRouterID():
     with open('/etc/homework/notification.conf', 'r') as fileObj:
@@ -26,7 +26,7 @@ def sendNotification(service, to, body):
             response = urllib2.urlopen(req)
             content = response.readline()
             print content
-            return NotificationResponse.NotificationResponse(response.getcode(), "success", content)
+            return notification_response.NotificationResponse(response.getcode(), "success", content)
         except urllib2.HTTPError, e:
             print e.reason
             return False
@@ -34,9 +34,9 @@ def sendNotification(service, to, body):
     return False
 
 def getStatus(notificationId):
-    router_id = RemoteNotify.getRouterID()
+    router_id = getRouterID()
     if router_id is not None:
-        data = {"notification", notificationId}
+        data = {"notification": notificationId}
         data = urllib.urlencode(data)
         url = "https://2-dot-homework-notify.appspot.com/notify/2/%s/status" % (router_id)
         req = urllib2.Request(url, data)

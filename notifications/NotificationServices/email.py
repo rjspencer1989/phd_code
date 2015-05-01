@@ -1,8 +1,8 @@
-import RemoteNotify
+import remote_notify
 
 
 def sendNotification(notificationId, to, body):
-    nr = RemoteNotify.sendNotification("email", to, body)
+    nr = remote_notify.sendNotification("email", to, body)
     if nr is not None and nr is not False:
       print "sending email to %s with content %s" % (to, body)
       print nr.code
