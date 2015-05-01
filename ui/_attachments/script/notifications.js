@@ -14,7 +14,7 @@ App.Collections.Notifications = Backbone.Collection.extend({
 
 App.Views.Notification = Backbone.View.extend({
     tagName: 'tr',
-    template: _.template($('#notification-items-src').html()),
+    template: _.template("<p>dl</p>"),
 
     events: {
         "click .edit-notification-button" : "edit",
