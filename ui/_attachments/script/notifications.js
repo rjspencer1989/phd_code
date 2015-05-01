@@ -146,5 +146,5 @@ App.Views.Notifications = Backbone.View.extend({
 function drawNotifications() {
     'use strict';
     App.routerInstance.checkSession();
-    notifView = new App.Views.Notifications();
+    window.notifView = new App.Views.Notifications();
 }
