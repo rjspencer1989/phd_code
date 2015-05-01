@@ -60,7 +60,7 @@ App.Collections.Notifications = Backbone.Collection.extend({
 //         'use strict';
 //         this.input.parents('td').removeClass('editing');
 //     },
-// 
+//
 //     close: function () {
 //         'use strict';
 //         this.input.parents('td').removeClass('editing');
@@ -88,7 +88,7 @@ App.Collections.Notifications = Backbone.Collection.extend({
 App.Views.Notifications = Backbone.View.extend({
     collection: new App.Collections.Notifications(),
     el: '#main-content',
-    template: _.template('<div id="foo">bar</div>').html(),
+    template: _.template('<div id="foo">bar</div>'),
 
     initialize: function () {
         'use strict';
