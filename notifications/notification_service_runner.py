@@ -40,28 +40,17 @@ class NotificationRequestProcessor(threading.Thread):
         super(NotificationRequestProcessor, self).__init__(name=threadName)
         self.sharedObject = queue
 
-    def sendNotification(self, notificationId, service, userDetails, message):
-        encoded = service.encode('utf8')
-        print type(encoded)
-        mod = __import__('NotificationServices', fromlist=[encoded])
-        serviceClass = getattr(mod, service)
-        result = serviceClass.sendNotification(notificationId, userDetails, message)
-        return result
-
-    def sendToPerson(self, notificationId, rows, message):
+    def sendNotification(self, notificationId, name, service, rows, message):
         success = False
         if len(rows) > 0:
             for row in rows:
                 print row
-                userDetails = row['value']['user']
-                service = row['value']['service']
-                if self.sendNotification(notificationId, service, userDetails, message):
-                    success = True
-                    break
-            if not success:
-                print 'failed to send'
-            else:
-                print 'sent'
+                userDetails = row['value']
+                encoded = service.encode('utf8')
+                mod = __import__('NotificationServices', fromlist=[encoded])
+                serviceClass = getattr(mod, service)
+                result = serviceClass.sendNotification(notificationId, userDetails, message)
+                success = result
         return success
 
     def run(self):
@@ -83,7 +72,7 @@ class NotificationRequestProcessor(threading.Thread):
                         serviceRes = remoteDB.view('homework-remote/notification_with_service', key=key)
                         serviceResAll = serviceRes.all()
                         if len(serviceResAll) > 0:
-                            ret = self.sendToPerson(currentDoc['id'], serviceResAll, currentDoc['body'])
+                            ret = self.sendNotification(currentDoc['id'], name, service, serviceResAll, currentDoc['body'])
                             if ret:
                                 currentDoc['status'] = "done"
                             else:
@@ -95,7 +84,7 @@ class NotificationRequestProcessor(threading.Thread):
                 serviceRes = remoteDB.view('homework-remote/notification_with_service', key=key)
                 serviceResAll = serviceRes.all()
                 if len(serviceResAll) > 0:
-                    ret = self.sendToPerson(theId, serviceResAll, currentDoc['body'])
+                    ret = self.sendNotification(theId, name, service, serviceResAll, currentDoc['body'])
                     if ret:
                         currentDoc['status'] = "done"
                     else:
