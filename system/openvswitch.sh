@@ -3,7 +3,7 @@ start(){
     echo "starting"
     service hostapd start
     service hostapd stop
-    
+
     [ "$(lsmod | grep bridge)" ] && rmmod bridge
     modprobe openvswitch
     [ -e ovsdb.conf ] && rm ovsdb.conf
@@ -18,6 +18,7 @@ start(){
     ovs-vsctl --db=unix:$f set-controller $BRIDGE tcp:127.0.0.1:6633
     ovs-vsctl --db=unix:$f add-port $BRIDGE $WLESS_IF
     ovs-vsctl --db=unix:$f add-port $BRIDGE $WIRED_IF
+    pwd
 
     cd pox
     ./pox.py misc.full_payload misc.pidfile --file=$PIDDIR/pox.pid --force homework_dhcp homework_routing homework &> $HOME/pox.out &
@@ -70,7 +71,7 @@ if [ $user != "0" ]; then
     echo "error: this script must be run as root" 1>&2
     exit 1
 fi
-cd $HOME
+cd /home/homeuser
 . router.conf
 
 case "$1" in
