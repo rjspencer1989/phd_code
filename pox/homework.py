@@ -16,7 +16,7 @@ class HomeworkMain(EventMixin):
     _eventMixin_events = set([DeviceStateChange])
     def __init__(self):
         cp = ConfigParser.ConfigParser()
-        path = "%s/couchdb.conf" % (expanduser('~'))
+        path = "/home/homeuser/couchdb.conf"
         cp.read(path)
         couchdb_server = cp.get('DEFAULT', 'SERVER_NAME')
         couchdb_port = cp.get('DEFAULT', 'PORT')

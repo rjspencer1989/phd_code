@@ -38,7 +38,7 @@ class HomeworkDHCP(object):
         HomeworkDHCP.instance = self
 
         cp = ConfigParser.ConfigParser()
-        path = "%s/couchdb.conf" % (expanduser('~'))
+        path = "/home/homeuser/couchdb.conf" 
         cp.read(path)
         couchdb_server = cp.get('DEFAULT', 'SERVER_NAME')
         couchdb_port = cp.get('DEFAULT', 'PORT')
