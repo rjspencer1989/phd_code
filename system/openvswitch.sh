@@ -1,24 +1,8 @@
 #!/bin/bash
 start(){
     echo "starting"
-    service hostapd start
-    service hostapd stop
-
-    [ "$(lsmod | grep bridge)" ] && rmmod bridge
-    modprobe openvswitch
-    [ -e ovsdb.conf ] && rm ovsdb.conf
-    ovsdb-tool create ovsdb.conf /usr/local/share/openvswitch/vswitch.ovsschema
-    f="/var/run/ovsdb-server"
-    ovsdb-server ovsdb.conf --remote=punix:$f --detach --monitor --pidfile=$PIDDIR/ovsdb-server.pid
-    ovs-vswitchd unix:$f --detach --monitor --pidfile=$PIDDIR/ovs-vswitchd.pid
-
-    ovs-vsctl --db=unix:$f init
-    ovs-vsctl --db=unix:$f add-br $BRIDGE
-    ovs-vsctl --db=unix:$f set-fail-mode $BRIDGE standalone
-    ovs-vsctl --db=unix:$f set-controller $BRIDGE tcp:127.0.0.1:6633
-    ovs-vsctl --db=unix:$f add-port $BRIDGE $WLESS_IF
-    ovs-vsctl --db=unix:$f add-port $BRIDGE $WIRED_IF
-    pwd
+    ovsdb-server --remote=punix:/usr/local/var/run/openvswitch/db.sock --detach --monitor --pidfile=$PIDDIR/ovsdb-server.pid
+    ovs-vswitchd --detach --monitor --pidfile=$PIDDIR/ovs-vswitchd.pid
 
     cd pox
     ./pox.py misc.full_payload misc.pidfile --file=$PIDDIR/pox.pid --force homework_dhcp homework_routing homework &> $HOME/pox.out &
@@ -32,19 +16,9 @@ start(){
     return 0
 }
 
-bridgeStatus(){
-    f="/var/run/ovsdb-server" # Listens on $f for a connection.
-    ovs-vsctl --db=unix:$f list-ifaces $BRIDGE
-    return 0
-}
-
 stop(){
     echo "stopping"
-    f="/var/run/ovsdb-server" # Listens on $f for a connection.
     ifconfig $BRIDGE down
-    ovs-vsctl --db=unix:$f del-port $BRIDGE $WLESS_IF
-    ovs-vsctl --db=unix:$f del-port $BRIDGE $WIRED_IF
-    ovs-vsctl --db=unix:$f del-br $BRIDGE
 
     [ -e $PIDDIR/pox.pid ] && (
 	pid=`cat $PIDDIR/pox.pid`
@@ -62,7 +36,6 @@ stop(){
         kill $pid
     )
 
-    rmmod openvswitch
     service hostapd stop
 }
 
@@ -80,9 +53,6 @@ case "$1" in
         ;;
     stop)
         stop
-        ;;
-    status)
-        bridgeStatus
         ;;
     *)
         echo $"Usage: $0 {start|stop}"
