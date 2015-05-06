@@ -1,9 +1,5 @@
 #!/bin/bash
 start(){
-    echo "starting"
-    ovsdb-server --remote=punix:/usr/local/var/run/openvswitch/db.sock --detach --monitor --pidfile=$PIDDIR/ovsdb-server.pid
-    ovs-vswitchd --detach --monitor --pidfile=$PIDDIR/ovs-vswitchd.pid
-
     cd pox
     ./pox.py misc.full_payload misc.pidfile --file=$PIDDIR/pox.pid --force homework_dhcp homework_routing homework &> $HOME/pox.out &
     ifconfig $BRIDGE $GATEWAY_ADDRESS up
@@ -28,11 +24,6 @@ stop(){
 
     [ -e $PIDDIR/ovs-vswitchd.pid ] && (
         pid=`cat $PIDDIR/ovs-vswitchd.pid`
-        kill $pid
-    )
-
-    [ -e $PIDDIR/ovsdb-server.pid ] && (
-        pid=`cat $PIDDIR/ovsdb-server.pid`
         kill $pid
     )
 

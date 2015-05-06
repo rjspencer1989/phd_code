@@ -46,7 +46,7 @@ class HomeworkDHCP(object):
         couchdb_admin = cp.get('DEFAULT', 'ADMIN')
         couchdb_admin_password = cp.get('DEFAULT', 'ADMIN_PASSWORD')
         self.couchdb_url = "http://%s:%s@%s:%s" % (couchdb_admin, couchdb_admin_password, couchdb_server, couchdb_port)
-
+        print self.couchdb_url
         #load mappings from couchdb
         self.server = Server(self.couchdb_url)
         self.selected_db = self.server[couchdb_db]
