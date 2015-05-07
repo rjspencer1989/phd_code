@@ -37,7 +37,7 @@ class NotificationProcessor(threading.Thread):
             currentDoc = db.open_doc(theId, rev=theRev)
             state = 0
 
-            if theRev.startsWith('1-'):
+            if theRev.startswith('1-'):
                 self.register(currentDoc)
             elif '_deleted' in currentDoc:
                 self.delete(currentDoc)
