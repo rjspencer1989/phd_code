@@ -35,8 +35,6 @@ class NotificationProcessor(threading.Thread):
             theRev = change['changes'][0]['rev']
             print theId
             currentDoc = db.open_doc(theId, rev=theRev)
-            state = 0
-
             if theRev.startswith('1-'):
                 self.registration(currentDoc)
             elif '_deleted' in currentDoc:
@@ -83,7 +81,7 @@ class NotificationProcessor(threading.Thread):
             try:
                 req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/register" % (router), data, headers)
                 conn = urllib2.urlopen(req)
-                code = conn.getcode()
+                conn.getcode()
             except urllib2.HTTPError, e:
                 print e.code
                 print e.read()
