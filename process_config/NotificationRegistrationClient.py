@@ -63,7 +63,7 @@ class NotificationProcessor(threading.Thread):
             try:
                 req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/register" % (router), data, headers)
                 conn = urllib2.urlopen(req)
-                code = conn.get_code()
+                code = conn.getcode()
                 if code == 200:
                     response = conn.read()
                     print response
@@ -83,7 +83,7 @@ class NotificationProcessor(threading.Thread):
             try:
                 req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/register" % (router), data, headers)
                 conn = urllib2.urlopen(req)
-                code = conn.get_code()
+                code = conn.getcode()
             except urllib2.HTTPError, e:
                 print e.code
                 print e.read()
@@ -98,7 +98,7 @@ class NotificationProcessor(threading.Thread):
             try:
                 req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/register" % (router), data, headers)
                 conn = urllib2.urlopen(req)
-                code = conn.get_code()
+                code = conn.getcode()
                 if code == 200:
                     response = conn.read()
                     print response
