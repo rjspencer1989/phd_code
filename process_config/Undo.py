@@ -4,6 +4,7 @@ from Queue import Queue
 import threading
 import History
 db = CouchdbConfigParser.getDB()
+db_info = db.info()
 
 
 class UndoListener(threading.Thread):

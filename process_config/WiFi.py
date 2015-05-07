@@ -10,6 +10,7 @@ import ChangeNotification
 db = CouchdbConfigParser.getDB()
 db_info = db.info()
 
+
 class WifiListener(threading.Thread):
     def __init__(self, threadName, queue):
         threading.Thread.__init__(self, name=threadName)

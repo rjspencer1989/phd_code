@@ -9,6 +9,7 @@ import threading
 from datetime import datetime
 import CouchdbConfigParser
 db = CouchdbConfigParser.getDB()
+db_info = db.info()
 
 
 class NotificationListener(threading.Thread):
