@@ -10,6 +10,7 @@ from datetime import datetime
 import CouchdbConfigParser
 db = CouchdbConfigParser.getDB()
 
+
 class NotificationListener(threading.Thread):
     def __init__(self, threadName, queue):
         threading.Thread.__init__(self, name=threadName)
@@ -87,7 +88,6 @@ class NotificationProcessor(threading.Thread):
                 print e.read()
             except urllib2.URLError, e:
                 print e.reason
-
 
     def registration(self, doc):
         data = urllib.urlencode({'service': doc['service'], 'userdetails': doc['user']})

@@ -10,7 +10,7 @@ for resItem in vra:
     code = subprocess.call(cmd)
     doc = db.open_doc(resItem['id'])
     if code == 0:
-	doc['connected'] = True
+        doc['connected'] = True
     else:
-	doc['connected'] = False
+        doc['connected'] = False
     db.save_doc(doc)

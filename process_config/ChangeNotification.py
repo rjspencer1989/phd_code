@@ -2,6 +2,7 @@
 from couchdbkit import *
 import CouchdbConfigParser
 
+
 def sendNotification(to, service, message):
     db = CouchdbConfigParser.getDB()
     doc = {}

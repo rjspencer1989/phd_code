@@ -20,6 +20,7 @@ class WifiListener(threading.Thread):
         for change in changeStream:
             self.shared_object.put(change)
 
+
 class WifiProcessor(threading.Thread):
     def __init__(self, threadName, queue):
         threading.Thread.__init__(self, name=threadName)
@@ -30,7 +31,7 @@ class WifiProcessor(threading.Thread):
         vr = db.view('homework-remote/connected_devices')
         self.devices = vr.all()
 
-    def  notify(self):
+    def notify(self):
         if self.devices is not None and len(self.devices) > 0:
             for row in self.devices:
                 if len(row['value']['service']) > 0 && len(row['value']['name']) > 0:
@@ -53,8 +54,6 @@ class WifiProcessor(threading.Thread):
             line_list.append('hw_mode=g\n')
             line_list.append('auth_algs=3\n')
             line_list.append('channel=%s\n' % current_doc['channel'])
-            if current_doc['mode'] == 'n':
-                line_list.append('ieee80211n=1\n')
             line_list.append('eapol_key_index_workaround=0\n')
             line_list.append('eap_server=0\n')
             line_list.append('own_ip_addr=127.0.0.1\n')

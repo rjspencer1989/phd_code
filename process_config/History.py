@@ -2,6 +2,7 @@ import CouchdbConfigParser
 import datetime
 db = CouchdbConfigParser.getDB()
 
+
 def addHistoryItem(title, description, user, docId, docRev, undoable):
     doc = {}
     doc['collection'] = 'events'

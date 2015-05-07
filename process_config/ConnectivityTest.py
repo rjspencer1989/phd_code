@@ -2,7 +2,7 @@ import urllib2
 import History
 
 status = False
-request = urllib2.Request('https;//2-dot-homework-notify.appspot.com/notify/2/')
+request = urllib2.Request('https://2-dot-homework-notify.appspot.com/notify/2/')
 try:
     response = urllib2.urlopen(request)
     status = True

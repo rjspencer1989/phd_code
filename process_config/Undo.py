@@ -16,6 +16,7 @@ class UndoListener(threading.Thread):
         for change in changeStream:
             self.shared_object.put(change)
 
+
 class UndoProcessor(threading.Thread):
     def __init__(self, threadName, queue):
         threading.Thread.__init__(self, name=threadName)
