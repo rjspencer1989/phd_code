@@ -38,7 +38,7 @@ class NotificationProcessor(threading.Thread):
             state = 0
 
             if theRev.startswith('1-'):
-                self.register(currentDoc)
+                self.registration(currentDoc)
             elif '_deleted' in currentDoc:
                 self.delete(currentDoc)
             else:
