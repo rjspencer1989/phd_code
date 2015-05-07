@@ -34,7 +34,7 @@ class NotificationProcessor(threading.Thread):
             theId = change['id']
             theRev = change['changes'][0]['rev']
             print theId
-            currentDoc = remoteDB.open_doc(theId, rev=theRev)
+            currentDoc = db.open_doc(theId, rev=theRev)
             state = 0
 
             if theRev.startsWith('1-'):
