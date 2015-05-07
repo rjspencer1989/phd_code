@@ -5,3 +5,4 @@ ui/_attachments/bower_components/*
 *.pyc
 node_modules
 templates.js
+notifications/~notifications.out
