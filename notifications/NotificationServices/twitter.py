@@ -1,5 +1,6 @@
 import remote_notify
 
+
 def sendNotification(notificationId, to, body):
     nr = remote_notify.sendNotification("twitter", to, body)
     if nr is not None:

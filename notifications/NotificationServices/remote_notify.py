@@ -3,6 +3,7 @@ import urllib
 import urllib2
 import notification_response
 
+
 def getRouterID():
     with open('/etc/homework/notification.conf', 'r') as fileObj:
         line = fileObj.readline()
@@ -11,6 +12,7 @@ def getRouterID():
             router_id = line[line.index('=') + 1:].strip()
             return router_id
     return None
+
 
 def sendNotification(service, to, body):
     data = {"to": to, "body": body}
@@ -32,6 +34,7 @@ def sendNotification(service, to, body):
             return False
 
     return False
+
 
 def getStatus(notificationId):
     router_id = getRouterID()

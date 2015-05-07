@@ -1,6 +1,7 @@
 import gntp.notifier
 import remote_notify
 
+
 def sendNotification(notificationId, to, body):
     growl = gntp.notifier.GrowlNotifier(
         applicationName="homework-notify",

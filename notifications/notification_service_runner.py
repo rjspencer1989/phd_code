@@ -21,6 +21,7 @@ remoteDB = s[remote_db]
 print remoteDB
 remoteDbInf = remoteDB.info()
 
+
 class NotificationRequestListener(threading.Thread):
     def __init__(self, threadName, queue):
         super(NotificationRequestListener, self).__init__(name=threadName)
@@ -93,10 +94,6 @@ class NotificationRequestProcessor(threading.Thread):
 
             self.sharedObject.task_done()
 
-pid = os.getpid()
-pidfile = "%s/.pids/notification.pid" % (expanduser('~'))
-with open(pidfile, 'w') as pd:
-  pd.write(str(pid))
 notificationQueue = Queue()
 print notificationQueue
 notificationProducer = NotificationRequestListener('prod', notificationQueue)
