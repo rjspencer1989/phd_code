@@ -38,7 +38,7 @@ class HomeworkDHCP(object):
         HomeworkDHCP.instance = self
 
         cp = ConfigParser.ConfigParser()
-        path = "/home/homeuser/couchdb.conf" 
+        path = "/home/homeuser/couchdb.conf"
         cp.read(path)
         couchdb_server = cp.get('DEFAULT', 'SERVER_NAME')
         couchdb_port = cp.get('DEFAULT', 'PORT')
@@ -47,7 +47,7 @@ class HomeworkDHCP(object):
         couchdb_admin_password = cp.get('DEFAULT', 'ADMIN_PASSWORD')
         self.couchdb_url = "http://%s:%s@%s:%s" % (couchdb_admin, couchdb_admin_password, couchdb_server, couchdb_port)
         print self.couchdb_url
-        #load mappings from couchdb
+        # load mappings from couchdb
         self.server = Server(self.couchdb_url)
         self.selected_db = self.server[couchdb_db]
 
@@ -279,6 +279,7 @@ class HomeworkDHCP(object):
             return
         dhcp_packet = udp_packet.payload
         self.parse_dhcp(dhcp_packet, event)
+
 
 def launch():
     core.registerNew(HomeworkDHCP)
