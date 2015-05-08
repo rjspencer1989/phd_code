@@ -65,12 +65,16 @@ class NotificationProcessor(threading.Thread):
                     response = conn.read()
                     print response
                     doc['suid'] = response
-                    db.save_doc(doc)
+                    doc['status'] = 'done'
             except urllib2.HTTPError, e:
                 print e.code
                 print e.read()
+                doc['status'] = 'error'
             except urllib2.URLError, e:
                 print e.reason
+                doc['status'] = 'error'
+            finally:
+                db.save_doc(doc)
 
     def delete(self, doc):
         data = urllib.urlencode({'suid': doc['suid']})

@@ -78,6 +78,14 @@ function (newDoc, oldDoc, userCtx){
             unchanged("service");
             unchanged("collection");
             required("user");
+            required("status");
+            if(newDoc.status !== "done"){
+                if(newDoc.status !== "pending"){
+                    if(newDoc.status !== "error"){
+                        throw({forbidden: "Status must be one of done, pending, or error"});
+                    }
+                }
+            }
         } else if(newDoc.collection === "devices"){
             required("action");
             required("device_name");
