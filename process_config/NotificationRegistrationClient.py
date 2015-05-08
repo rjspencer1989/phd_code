@@ -6,7 +6,6 @@ import urllib2
 from couchdbkit import *
 from Queue import Queue
 import threading
-from datetime import datetime
 import CouchdbConfigParser
 db = CouchdbConfigParser.getDB()
 db_info = db.info()
