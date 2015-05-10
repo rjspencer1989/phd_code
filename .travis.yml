@@ -6,7 +6,6 @@ services:
     
 before_script:
     - curl -X PUT localhost:5984/config
-    - "pep8"
     
 install:
     pip install couchdbkit couchapp
