@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/rjspencer1989/phd_code.svg?branch=master)](https://travis-ci.org/rjspencer1989/phd_code)
+
 This contains all code for PhD work, unified from other repos
 
 Database contains CouchDB filters, views and validation for all data.
