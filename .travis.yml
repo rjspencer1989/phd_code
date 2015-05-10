@@ -6,3 +6,6 @@ services:
     
 before_script:
     - curl -X PUT localhost:5984/config
+    
+install:
+    pip install couchdbkit couchapp
