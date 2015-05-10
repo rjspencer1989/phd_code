@@ -11,4 +11,4 @@ install:
     pip install couchdbkit couchapp
 
 script:
-    python -m unittest main
+    python tests/main.py
