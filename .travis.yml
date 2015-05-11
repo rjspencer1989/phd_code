@@ -4,13 +4,11 @@ python:
 services:
     - "couchdb"
 
-before_script:
-    - curl -X PUT localhost:5984/config
-    - couchapp push database/ http://localhost:5984/config
-    - curl localhost:5984/config/_design/homework-remote/_views/dhcp
-
 install:
-    pip install couchdbkit couchapp
+    - pip install couchdbkit couchapp
+    - curl -X PUT http://localhost:5984/config
+    - couchapp push database/ http://localhost:5984/config
+    - curl http://localhost:5984/config/_design/homework-remote/_views/dhcp
 
 script:
     python -m unittest discover -v
