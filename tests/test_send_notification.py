@@ -11,4 +11,9 @@ class TestSendNotification(unittest.TestCase):
         db = CouchdbConfigParser.getDB()
         ret_doc = db.get(the_id)
         print ret_doc
-        self.assertTrue(ret_doc is not None)
+        self.assertEqual(ret_doc['_id'], the_id)
+        self.assertEqual(ret_doc['collection'], 'notification_request')
+        self.assertEqual(ret_doc['status'], 'pending')
+        self.assertEqual(ret_doc['to'], 'Rob')
+        self.assertEqual(ret_doc['service'], 'email')
+        self.assertEqual(ret_doc['body'], 'foo')

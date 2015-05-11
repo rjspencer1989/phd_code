@@ -10,5 +10,6 @@ def sendNotification(to, service, message):
     doc['service'] = service
     doc['status'] = 'pending'
     doc['body'] = message
+    doc['collection'] = 'notification-request'
     res = db.save_doc(doc)
     return res
