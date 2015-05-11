@@ -20,4 +20,5 @@ def getDB():
         addr = 'http://%s:%s' % (server_name, port)
     s = Server(addr)
     db = s.get_db(db_name)
+    db.info()
     return db
