@@ -6,8 +6,8 @@ services:
 
 before_script:
     - curl -X PUT localhost:5984/config
-    - couchapp push database http://localhost:5984
-    - curl localhost:5984/config/design/homework-remote/_views/dhcp
+    - couchapp push database/ http://localhost:5984
+    - curl localhost:5984/config/_design/homework-remote/_views/dhcp
 
 install:
     pip install couchdbkit couchapp
