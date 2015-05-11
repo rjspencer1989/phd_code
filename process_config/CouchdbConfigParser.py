@@ -16,7 +16,7 @@ def getDB():
     db_name = config.get('DEFAULT', 'DB')
     server_name = config.get('DEFAULT', 'SERVER_NAME')
     addr = 'http://%s:%s@%s:%s' % (user, password, server_name, port) if len(user) > 0 else 'http://%s:%s' % (server_name, port)
-    print addr
     s = Server(addr)
     db = s[db_name]
+    print db.info()
     return db
