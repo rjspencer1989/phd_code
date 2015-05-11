@@ -1,6 +1,5 @@
 from couchdbkit import *
 import ConfigParser
-from os.path import expanduser
 
 
 def getDB():

@@ -1,9 +1,9 @@
 import unittest
+from process_config import CouchdbConfigParser
 
 
-class TestStringMethods(unittest.TestCase):
-    def test_isupper(self):
-        self.assertTrue('FOO'.isupper())
-        self.assertFalse('foo'.isupper())
+class TestConfig(unittest.TestCase):
+    def testLoadConfig(self):
+        assertTrue(CouchdbConfigParser.getDB() is not None)
 if __name__ == '__main__':
     unittest.main()
