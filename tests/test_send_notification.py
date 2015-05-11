@@ -12,7 +12,7 @@ class TestSendNotification(unittest.TestCase):
         ret_doc = db.get(the_id)
         print ret_doc
         self.assertEqual(ret_doc['_id'], the_id)
-        self.assertEqual(ret_doc['collection'], 'notification_request')
+        self.assertEqual(ret_doc['collection'], 'notification-request')
         self.assertEqual(ret_doc['status'], 'pending')
         self.assertEqual(ret_doc['to'], 'Rob')
         self.assertEqual(ret_doc['service'], 'email')
