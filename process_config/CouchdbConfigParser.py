@@ -6,7 +6,7 @@ def getDB():
     config = ConfigParser.ConfigParser({"ADMIN": "",
                                         "ADMIN_PASSWORD": "",
                                         "PORT": "5984",
-                                        "DB": "config",
+                                        "DB": "config3",
                                         "SERVER_NAME": "localhost"})
     path = "/home/homeuser/couchdb.conf"
     config.read(path)
