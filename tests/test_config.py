@@ -1,7 +1,8 @@
 import unittest
 from process_config import CouchdbConfigParser
+from couchdbkit import *
 
 
 class TestConfig(unittest.TestCase):
     def test_LoadConfig(self):
-        self.assertTrue(CouchdbConfigParser.getDB() is not None)
+        self.assertTrue(isinstance(CouchdbConfigParser.getDB(), Database))
