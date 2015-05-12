@@ -13,6 +13,6 @@ def addHistoryItem(title, description, user, docId, docRev, undoable):
     doc['doc_id'] = docId
     doc['doc_rev'] = docRev
     doc['undoable'] = undoable
-    doc['process_undo'] = False
+    doc['perform_undo'] = False
     res = db.save_doc(doc)
     return res
