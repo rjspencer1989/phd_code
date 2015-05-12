@@ -21,6 +21,7 @@ class TestWifi(unittest.TestCase):
             'eapol_key_index_workaround=0\n',
             'eap_server=0\n',
             'own_ip_addr=127.0.0.1\n',
+            'wep_default_key=0\n',
             'ignore_broadcast_ssid=0\n',
             'ssid=test\n'
         ]
