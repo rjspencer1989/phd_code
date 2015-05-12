@@ -5,7 +5,6 @@ import os
 
 
 class TestNotificationRegistrationClient(unittest.TestCase):
-    self.ret_doc = {}
     def setUp(self):
         doc = {
             "name" : "Rob",
@@ -24,7 +23,7 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         self.ret_doc = {}
 
     def test_registration(self):
-        self.assertIsNotNone(ret_doc)
+        self.assertIsNotNone(self.ret_doc)
         NotificationRegistrationClient.consumer.registration(ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
         added_doc = db.get(the_id)
         print added_doc
