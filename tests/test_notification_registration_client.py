@@ -6,7 +6,7 @@ import os
 
 class TestNotificationRegistrationClient(unittest.TestCase):
     ret_doc = {}
-    def setUp():
+    def setUp(self):
         doc = {
             "name" : "Rob",
             "service" : "twitter",
