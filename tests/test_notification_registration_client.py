@@ -31,4 +31,10 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         assert('suid' in added_doc)
 
     def test_edit(self):
-        pass
+        self.assertIsNotNone(self.ret_doc)
+        self.ret_doc['user'] = 'robjspencer'
+        v2 = self.db.save_doc(self.ret_doc)
+        NotificationRegistrationClient.consumer.edit(v2, os.environ['APP_ENGINE_ROUTER_ID'])
+        added_doc = self.db.get(v2['_id'])
+        print added_doc
+        assert('suid' in added_doc)
