@@ -2,6 +2,7 @@
 
 import urllib
 import urllib2
+import os
 
 from couchdbkit import *
 from Queue import Queue
@@ -12,14 +13,7 @@ db_info = db.info()
 
 
 def get_router_id():
-    router = ''
-    with open('/etc/homework/notification.conf') as f:
-        router = f.read()
-
-    routerArr = router.split('=')
-    if len(routerArr) == 2:
-        router = routerArr[1].strip()
-    return router
+    return os.environ['APP_ENGINE_ROUTER_ID']
 
 
 class NotificationListener(threading.Thread):
