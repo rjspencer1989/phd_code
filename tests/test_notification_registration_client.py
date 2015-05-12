@@ -5,7 +5,7 @@ import os
 
 
 class TestNotificationRegistrationClient(unittest.TestCase):
-    ret_doc = {}
+    self.ret_doc = {}
     def setUp(self):
         doc = {
             "name" : "Rob",
@@ -18,10 +18,10 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         db = CouchdbConfigParser.getDB()
         res = db.save_doc(doc)
         the_id = res['id']
-        ret_doc = db.get(the_id)
+        self.ret_doc = db.get(the_id)
 
     def tearDown(self):
-        ret_doc = {}
+        self.ret_doc = {}
 
     def test_registration(self):
         self.assertIsNotNone(ret_doc)
