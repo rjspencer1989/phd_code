@@ -14,18 +14,19 @@ class TestNotificationRegistrationClient(unittest.TestCase):
             "status" : "pending"
         }
 
-        db = CouchdbConfigParser.getDB()
-        res = db.save_doc(doc)
+        self.db = CouchdbConfigParser.getDB()
+        res = self.db.save_doc(doc)
         the_id = res['id']
         self.ret_doc = db.get(the_id)
 
     def tearDown(self):
         self.ret_doc = {}
+        self.db = None
 
     def test_registration(self):
         self.assertIsNotNone(self.ret_doc)
         NotificationRegistrationClient.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
-        added_doc = db.get(the_id)
+        added_doc = self.db.get(the_id)
         print added_doc
         assert('suid' in added_doc)
 
