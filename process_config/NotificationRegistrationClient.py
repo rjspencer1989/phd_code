@@ -9,6 +9,18 @@ import threading
 import CouchdbConfigParser
 db = CouchdbConfigParser.getDB()
 db_info = db.info()
+router_id = get_router_id()
+
+
+def get_router_id():
+    router = ''
+    with open('/etc/homework/notification.conf') as f:
+        router = f.read()
+
+    routerArr = router.split('=')
+    if len(routerArr) == 2:
+        router = routerArr[1].strip()
+    return router
 
 
 class NotificationListener(threading.Thread):
@@ -35,27 +47,16 @@ class NotificationProcessor(threading.Thread):
             print theId
             currentDoc = db.open_doc(theId, rev=theRev)
             if theRev.startswith('1-'):
-                self.registration(currentDoc)
+                self.registration(currentDoc, router_id)
             elif '_deleted' in currentDoc:
-                self.delete(currentDoc)
+                self.delete(currentDoc, router_id)
             else:
-                self.edit(currentDoc)
+                self.edit(currentDoc, router_id)
             self.shared_object.task_done()
 
-    def get_router_id(self):
-        router = ''
-        with open('/etc/homework/notification.conf') as f:
-            router = f.read()
-
-        routerArr = router.split('=')
-        if len(routerArr) == 2:
-            router = routerArr[1].strip()
-        return router
-
-    def edit(self, doc):
+    def edit(self, doc, router):
         data = urllib.urlencode({'service': doc['service'], 'userdetails': doc['user'], 'suid': doc['suid']})
         headers = {"Content-type": "application/x-www-form-urlencoded"}
-        router = self.get_router_id()
         if len(router) > 0:
             try:
                 req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/register" % (router), data, headers)
@@ -76,10 +77,9 @@ class NotificationProcessor(threading.Thread):
             finally:
                 db.save_doc(doc)
 
-    def delete(self, doc):
+    def delete(self, doc, router):
         data = urllib.urlencode({'suid': doc['suid']})
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-        router = self.get_router_id()
         if len(router) > 0:
             try:
                 req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/register" % (router), data, headers)
@@ -91,10 +91,9 @@ class NotificationProcessor(threading.Thread):
             except urllib2.URLError, e:
                 print e.reason
 
-    def registration(self, doc):
+    def registration(self, doc, router):
         data = urllib.urlencode({'service': doc['service'], 'userdetails': doc['user']})
         headers = {"Content-type": "application/x-www-form-urlencoded"}
-        router = self.get_router_id()
         if len(router) > 0:
             try:
                 req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/register" % (router), data, headers)
