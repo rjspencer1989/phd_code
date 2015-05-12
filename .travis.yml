@@ -5,10 +5,13 @@ services:
     - "couchdb"
 
 install:
-    - pip install couchdbkit couchapp
+    - pip install couchdbkit couchapp pep8
     - curl -X PUT http://localhost:5984/config
     - couchapp push database/ http://localhost:5984/config
     - curl http://localhost:5984/config/_design/homework-remote/_views/dhcp
+
+before_script:
+    "pep8 --ignore=E501 process_config notifications"
 
 script:
     python -m unittest discover -v
