@@ -5,12 +5,12 @@ from process_config import CouchdbConfigParser, NotificationRegistrationClient
 
 class TestNotificationRegistrationClient(unittest.TestCase):
     def test_registration(self):
-        doc ={
-            name : "Rob",
-            service : "twitter",
-            user : "rjspencer1989",
-            collection: "notifications",
-            status: "pending"
+        doc = {
+            "name" : "Rob",
+            "service" : "twitter",
+            "user" : "rjspencer1989",
+            "collection" : "notifications",
+            "status" : "pending"
         }
 
         db = CouchdbConfigParser.getDB()
