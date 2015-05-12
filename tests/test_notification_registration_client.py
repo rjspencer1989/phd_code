@@ -1,6 +1,7 @@
 import unittest
 from couchdbkit import *
 from process_config import CouchdbConfigParser, NotificationRegistrationClient
+import os
 
 
 class TestNotificationRegistrationClient(unittest.TestCase):
@@ -19,4 +20,4 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         ret_doc = db.get(the_id)
         print ret_doc
         self.assertIsNotNone(ret_doc)
-        # NotificationRegistrationClient.consumer.registration()
+        NotificationRegistrationClient.consumer.registration(ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
