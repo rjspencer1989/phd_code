@@ -17,7 +17,7 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         self.db = CouchdbConfigParser.getDB()
         res = self.db.save_doc(doc)
         the_id = res['id']
-        self.ret_doc = db.get(the_id)
+        self.ret_doc = self.db.get(the_id)
 
     def tearDown(self):
         self.ret_doc = {}
