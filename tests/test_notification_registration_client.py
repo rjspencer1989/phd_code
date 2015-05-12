@@ -31,3 +31,4 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         assert('suid' in added_doc)
 
     def test_edit(self):
+        pass
