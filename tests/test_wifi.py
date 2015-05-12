@@ -34,4 +34,4 @@ class TestWifi(unittest.TestCase):
         self.current_doc['password'] = 'whatever12345'
         self.expected_line_list.append('wep_key0=\"whatever12345\"\n')
         retVal = WiFi.consumer.generate_config(self.current_doc)
-        assertListEqual(self.expected_line_list, retVal)
+        self.assertListEqual(self.expected_line_list, retVal)
