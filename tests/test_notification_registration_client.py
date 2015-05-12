@@ -26,7 +26,7 @@ class TestNotificationRegistrationClient(unittest.TestCase):
     def test_registration(self):
         self.assertIsNotNone(self.ret_doc)
         NotificationRegistrationClient.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
-        added_doc = self.db.get(the_id)
+        added_doc = self.db.get(self.ret_doc['_id'])
         print added_doc
         assert('suid' in added_doc)
 
