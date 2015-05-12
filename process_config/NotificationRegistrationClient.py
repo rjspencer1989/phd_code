@@ -107,5 +107,7 @@ router_id = get_router_id()
 changeQueue = Queue()
 producer = NotificationListener("producer", changeQueue)
 consumer = NotificationProcessor("consumer", changeQueue)
-# producer.start()
-# consumer.start()
+
+if "ENV_TESTS" not in os.environ:
+    producer.start()
+    consumer.start()

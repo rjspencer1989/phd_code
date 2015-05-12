@@ -11,8 +11,9 @@ install:
     - curl http://localhost:5984/config/_design/homework-remote/_views/dhcp
 
 env:
-    - APP_ENGINE_ROUTER_ID="f543593ad5fff705ea7ecaf7c47b9ab4edc91851"
-
+    global:
+        - APP_ENGINE_ROUTER_ID="f543593ad5fff705ea7ecaf7c47b9ab4edc91851"
+        - ENV_TESTS="1"
 
 before_script:
     "pep8 --ignore=E501 process_config notifications"
