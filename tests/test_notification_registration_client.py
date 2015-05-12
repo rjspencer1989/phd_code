@@ -32,8 +32,10 @@ class TestNotificationRegistrationClient(unittest.TestCase):
 
     def test_edit(self):
         self.assertIsNotNone(self.ret_doc)
-        self.ret_doc['user'] = 'robjspencer'
-        res = self.db.save_doc(self.ret_doc)
+        NotificationRegistrationClient.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
+        registered = self.db.get(self.ret_doc['_id'])
+        registered['user'] = 'robjspencer'
+        res = self.db.save_doc(registered)
         v2 = self.db.get(res['id'])
         NotificationRegistrationClient.consumer.edit(v2, os.environ['APP_ENGINE_ROUTER_ID'])
         added_doc = self.db.get(v2['_id'])
