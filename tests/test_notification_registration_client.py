@@ -16,4 +16,4 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         db = CouchdbConfigParser.getDB()
         res = db.save_doc(doc)
         the_id = res['id']
-        assertIsNotNone(the_rev)
+        self.assertIsNotNone(the_rev)
