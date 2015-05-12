@@ -27,7 +27,6 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         self.assertIsNotNone(self.ret_doc)
         NotificationRegistrationClient.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
         added_doc = self.db.get(self.ret_doc['_id'])
-        print added_doc
         assert('suid' in added_doc)
 
     def test_edit(self):
@@ -39,11 +38,11 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         v2 = self.db.get(res['id'])
         NotificationRegistrationClient.consumer.edit(v2, os.environ['APP_ENGINE_ROUTER_ID'])
         added_doc = self.db.get(v2['_id'])
-        print added_doc
         assert('suid' in added_doc)
 
     def test_delete(self):
         self.assertIsNotNone(self.ret_doc)
         NotificationRegistrationClient.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
         registered = self.db.get(self.ret_doc['_id'])
+        print registered
         NotificationRegistrationClient.consumer.delete(registered, os.environ['APP_ENGINE_ROUTER_ID'])
