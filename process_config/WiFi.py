@@ -35,7 +35,7 @@ class WifiProcessor(threading.Thread):
     def notify(self):
         if self.devices is not None and len(self.devices) > 0:
             for row in self.devices:
-                if len(row['value']['service']) > 0 && len(row['value']['name']) > 0:
+                if len(row['value']['service']) > 0 and len(row['value']['name']) > 0:
                     service = row['value']['service']
                     to = row['value']['name']
                     timestr = datetime.now().strftime("%H:%M:%S")
