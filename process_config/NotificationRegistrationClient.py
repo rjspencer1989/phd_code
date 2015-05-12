@@ -9,7 +9,6 @@ import threading
 import CouchdbConfigParser
 db = CouchdbConfigParser.getDB()
 db_info = db.info()
-router_id = get_router_id()
 
 
 def get_router_id():
@@ -110,6 +109,7 @@ class NotificationProcessor(threading.Thread):
             except urllib2.URLError, e:
                 print e.reason
 
+router_id = get_router_id()
 changeQueue = Queue()
 producer = NotificationListener("producer", changeQueue)
 consumer = NotificationProcessor("consumer", changeQueue)
