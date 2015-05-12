@@ -12,7 +12,6 @@ install:
 
 env:
     global:
-        - APP_ENGINE_ROUTER_ID="f543593ad5fff705ea7ecaf7c47b9ab4edc91851"
         - ENV_TESTS="1"
 
 before_script:
