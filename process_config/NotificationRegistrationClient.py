@@ -52,7 +52,7 @@ class NotificationProcessor(threading.Thread):
         headers = {"Content-type": "application/x-www-form-urlencoded"}
         if len(router) > 0:
             try:
-                req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/register" % (router), data, headers)
+                req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/edit" % (router), data, headers)
                 conn = urllib2.urlopen(req)
                 code = conn.getcode()
                 if code == 200:
@@ -75,7 +75,7 @@ class NotificationProcessor(threading.Thread):
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         if len(router) > 0:
             try:
-                req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/register" % (router), data, headers)
+                req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/delete" % (router), data, headers)
                 conn = urllib2.urlopen(req)
                 conn.getcode()
             except urllib2.HTTPError, e:

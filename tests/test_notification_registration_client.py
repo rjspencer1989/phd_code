@@ -41,3 +41,9 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         added_doc = self.db.get(v2['_id'])
         print added_doc
         assert('suid' in added_doc)
+
+    def test_delete(self):
+        self.assertIsNotNone(self.ret_doc)
+        NotificationRegistrationClient.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
+        registered = self.db.get(self.ret_doc['_id'])
+        NotificationRegistrationClient.consumer.delete(registered, os.environ['APP_ENGINE_ROUTER_ID'])
