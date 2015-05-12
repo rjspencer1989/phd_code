@@ -36,3 +36,10 @@ class TestWifi(unittest.TestCase):
         self.expected_line_list.append('wep_key0=\"whatever12345\"\n')
         retVal = WiFi.consumer.generate_config(self.current_doc)
         self.assertListEqual(self.expected_line_list, retVal)
+
+    def testWifiHexPassword(self):
+        self.current_doc['password_type'] = 'hex'
+        self.current_doc['password'] = 'deadbeefdeadbeefdeadbeef01'
+        self.expected_line_list.append('wep_key0=deadbeefdeadbeefdeadbeef01\n')
+        retVal = WiFi.consumer.generate_config(self.current_doc)
+        self.assertListEqual(self.expected_line_list, retVal)
