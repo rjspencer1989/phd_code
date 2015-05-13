@@ -1,7 +1,7 @@
 function (newDoc, oldDoc, userCtx){
     function required(field, message /* optional */) {
         message = message || "Document must have a " + field;
-        if (!newDoc[field]) throw({forbidden : message});
+        if (!newDoc.hasOwnProperty(field)) throw({forbidden : message});
     }
 
     function unchanged(field) {
