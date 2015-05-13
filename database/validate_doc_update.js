@@ -109,5 +109,16 @@ function (newDoc, oldDoc, userCtx){
         if(newDoc.state !== "pending" && newDoc.state !== "permit" && newDoc.state !== "deny"){
             throw({forbidden: 'state must be pending, permit, or deny'});
         }
+    } else if(newDoc.collection === "events"){
+        required("collection");
+        unchanged("collection");
+        required("title");
+        required("description");
+        required("user");
+        required("timestamp");
+        required("doc_id");
+        required("doc_rev");
+        required("undoable");
+        required("perform_undo");
     }
 }
