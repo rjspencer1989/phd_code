@@ -77,12 +77,15 @@ class NotificationProcessor(threading.Thread):
             try:
                 req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/delete" % (router), data, headers)
                 conn = urllib2.urlopen(req)
-                conn.getcode()
+                code = conn.getcode()
+                return code
             except urllib2.HTTPError, e:
                 print e.code
                 print e.read()
+                return code
             except urllib2.URLError, e:
                 print e.reason
+                return -1
 
     def registration(self, doc, router):
         data = urllib.urlencode({'service': doc['service'], 'userdetails': doc['user']})

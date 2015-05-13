@@ -45,4 +45,5 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         NotificationRegistrationClient.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
         registered = self.db.get(self.ret_doc['_id'])
         print registered
-        NotificationRegistrationClient.consumer.delete(registered, os.environ['APP_ENGINE_ROUTER_ID'])
+        code = NotificationRegistrationClient.consumer.delete(registered, os.environ['APP_ENGINE_ROUTER_ID'])
+        self.assertEqual(code, 200)
