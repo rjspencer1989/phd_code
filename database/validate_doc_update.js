@@ -14,8 +14,8 @@ function (newDoc, oldDoc, userCtx){
     }
 
     function is_valid_collection(){
-        if(["wifi", "notification", "devices", "events"].indexOf(newDoc.collection) === -1){
-            throw({forbidden: "collection must be one of wifi, notification, devices, events"});
+        if(["wifi", "notifications", "devices", "events"].indexOf(newDoc.collection) === -1){
+            throw({forbidden: "collection must be one of wifi, notifications, devices, events"});
         }
     }
 
@@ -74,7 +74,7 @@ function (newDoc, oldDoc, userCtx){
             }
         }
 
-    } else if (newDoc.collection === "notification") {
+    } else if (newDoc.collection === "notifications") {
         required("name");
         unchanged("name");
         required("service");
