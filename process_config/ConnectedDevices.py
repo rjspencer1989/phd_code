@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from couchdbkit import *
 import CouchdbConfigParser
 import subprocess
