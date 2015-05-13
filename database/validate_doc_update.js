@@ -102,7 +102,7 @@ function (newDoc, oldDoc, userCtx){
             throw({forbidden: "you can only add or del leases"});
         }
 
-        if(newDoc.action !== "permit" && newDoc.action !== "deny"){
+        if(newDoc.action !== "permit" && newDoc.action !== "deny" && newDoc.action !== ""){
             throw({forbidden: 'you can only permit or deny devices'});
         }
 
