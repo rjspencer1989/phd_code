@@ -13,7 +13,14 @@ function (newDoc, oldDoc, userCtx){
         return userCtx.roles.indexOf(role) >= 0;
     }
 
+    function is_valid_collection(){
+        if(["wifi", "notification", "devices", "events"].indexOf(newDoc.collection) === -1){
+            throw({forbidden: "collection must be one of wifi, notification, devices, events"});
+        }
+    }
+
     required("collection");
+    is_valid_collection()
 
     if(newDoc.collection == "wifi"){
         required("status");
