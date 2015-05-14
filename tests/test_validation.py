@@ -60,7 +60,7 @@ class TestValidation(unittest.TestCase):
             "service" : "twitter",
             "collection": "notifications",
             "user": "rjspencer1989",
-            "status": "foo"
+            "status": "pending"
         }
         db = CouchdbConfigParser.getDB()
         db.save_doc(doc)
