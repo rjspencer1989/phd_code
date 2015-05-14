@@ -4,5 +4,5 @@ from couchdbkit import *
 
 
 class TestConfig(unittest.TestCase):
-    def test_LoadConfig(self):
+    def test_load_config(self):
         self.assertTrue(isinstance(CouchdbConfigParser.getDB(), Database))
