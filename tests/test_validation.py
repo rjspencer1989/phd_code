@@ -188,3 +188,18 @@ class TestValidation(unittest.TestCase):
         }
         db = CouchdbConfigParser.getDB()
         db.save_doc(doc)
+
+    def test_invalid_mode(self):
+        doc = {
+            "collection" : "wifi",
+            "status": "pending",
+            "ssid": "spencer",
+            "mode": "a",
+            "channel": 1,
+            "encryption_type": "wep",
+            "password_type": "txt",
+            "password": "whatever12345"
+        }
+        db = CouchdbConfigParser.getDB()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
