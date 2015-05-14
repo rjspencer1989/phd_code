@@ -1,5 +1,6 @@
 import unittest
 from process_config import CouchdbConfigParser
+import datetime
 
 
 class TestValidation(unittest.TestCase):
@@ -67,3 +68,18 @@ class TestValidation(unittest.TestCase):
         doc['name'] = 'test'
         with self.assertRaises(Exception):
             db.save_doc(doc, force_update=True)
+
+    def test_event(self):
+        doc = {
+            "timestamp" : datetime.datetime.now().isoformat(),
+            "collection": "events",
+            "title": "testing",
+            "description": "testing, testing, 1,2,3",
+            "user": "Rob",
+            "doc_id": "aabbcc",
+            "doc_rev": "1-aabbcc",
+            "undoable": True,
+            "perform_undo": False
+        }
+        db = CouchdbConfigParser.getDB()
+        db.save_doc(doc)

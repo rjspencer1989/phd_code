@@ -39,8 +39,8 @@ function (newDoc, oldDoc, userCtx){
             }
 
             required("mode");
-            if(newDoc.mode !== "n" && newDoc.mode !== "g"){
-                throw({forbidden: "Mode must be n or g"});
+            if(newDoc.mode !== "g"){
+                throw({forbidden: "Mode must be g"});
             }
 
             required("channel");
@@ -60,18 +60,16 @@ function (newDoc, oldDoc, userCtx){
 
             required("password");
 
-            if(newDoc.encryption_type === "wep"){
-                if(newDoc.password_type === "txt"){
-                    if(newDoc.password.length !== 5 && newDoc.password.length !== 13){
-                        throw({forbidden: "WEP passwords in TXT format must be 5 or 13 characters long"});
-                    }
-                } else{
-                    if(newDoc.password.length !== 10 && newDoc.password.length !== 26){
-                        throw({forbidden: "WEP passwords in HEX format must be 10 or 26 characters long"});
-                    }
-                    if(newDoc.password.search("^[0-9A-Fa-f]+$") == -1){
-                        throw({forbidden: "WEP passwords in HEX format must have only 0-9 and A-F"});
-                    }
+            if(newDoc.password_type === "txt"){
+                if(newDoc.password.length !== 5 && newDoc.password.length !== 13){
+                    throw({forbidden: "WEP passwords in TXT format must be 5 or 13 characters long"});
+                }
+            } else{
+                if(newDoc.password.length !== 10 && newDoc.password.length !== 26){
+                    throw({forbidden: "WEP passwords in HEX format must be 10 or 26 characters long"});
+                }
+                if(newDoc.password.search("^[0-9A-Fa-f]+$") == -1){
+                    throw({forbidden: "WEP passwords in HEX format must have only 0-9 and A-F"});
                 }
             }
 
