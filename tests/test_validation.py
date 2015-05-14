@@ -179,7 +179,8 @@ class TestValidation(unittest.TestCase):
         doc = {
             "collection" : "wifi",
             "status": "pending",
-            "ssid": "spencer"
+            "ssid": "spencer",
+            "mode": "g"
         }
         db = CouchdbConfigParser.getDB()
         db.save_doc(doc)
