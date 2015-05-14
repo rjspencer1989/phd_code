@@ -117,3 +117,60 @@ class TestValidation(unittest.TestCase):
         }
         db = CouchdbConfigParser.getDB()
         db.save_doc(doc)
+
+    def test_invalid_lease_action(self):
+        doc = {
+            "action":"",
+            "device_name": "psxrjs-mbp",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address" : "68:a8:6d:3b:05:e4",
+            "name": "Rob",
+            "state": "permit",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "rm",
+            "device_type": "laptop",
+            "notification_service": "email"
+        }
+        db = CouchdbConfigParser.getDB()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_invalid_action(self):
+        doc = {
+            "action":"blacklist",
+            "device_name": "psxrjs-mbp",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address" : "68:a8:6d:3b:05:e4",
+            "name": "Rob",
+            "state": "permit",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "laptop",
+            "notification_service": "email"
+        }
+        db = CouchdbConfigParser.getDB()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_invalid_state(self):
+        doc = {
+            "action":"",
+            "device_name": "psxrjs-mbp",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address" : "68:a8:6d:3b:05:e4",
+            "name": "Rob",
+            "state": "blacklist",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "laptop",
+            "notification_service": "email"
+        }
+        db = CouchdbConfigParser.getDB()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
