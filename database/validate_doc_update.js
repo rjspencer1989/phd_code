@@ -9,10 +9,6 @@ function (newDoc, oldDoc, userCtx){
           throw({forbidden : "Field can't be changed: " + field});
     }
 
-    function user_is(role) {
-        return userCtx.roles.indexOf(role) >= 0;
-    }
-
     function is_valid_collection(){
         if(["wifi", "notifications", "devices", "events", "notification-request"].indexOf(newDoc.collection) === -1){
             throw({forbidden: "collection must be one of wifi, notifications, devices, events, notification-request"});
@@ -21,7 +17,7 @@ function (newDoc, oldDoc, userCtx){
 
     if(!newDoc.hasOwnProperty('_deleted')){
         required("collection");
-        is_valid_collection()
+        is_valid_collection();
 
         if(newDoc.collection === "wifi"){
             required("status");
