@@ -174,3 +174,10 @@ class TestValidation(unittest.TestCase):
         db = CouchdbConfigParser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
+
+    def test_valid_wifi(self):
+        doc = {
+            "collection" : "wifi"
+        }
+        db = CouchdbConfigParser.getDB()
+        db.save_doc(doc)
