@@ -180,7 +180,8 @@ class TestValidation(unittest.TestCase):
             "collection" : "wifi",
             "status": "pending",
             "ssid": "spencer",
-            "mode": "g"
+            "mode": "g",
+            "channel": 1
         }
         db = CouchdbConfigParser.getDB()
         db.save_doc(doc)
