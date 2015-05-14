@@ -7,5 +7,5 @@ class TestValidation(unittest.TestCase):
     def test_no_collection(self):
         doc = {"foo": "bar"}
         db = CouchdbConfigParser.getDB()
-        with self.assertRaises(couchdbkit.exceptions.BadValueError):
+        with self.assertRaises(Exception):
             db.save_doc(doc)
