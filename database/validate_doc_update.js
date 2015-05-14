@@ -19,8 +19,10 @@ function (newDoc, oldDoc, userCtx){
         }
     }
 
-    required("collection");
-    is_valid_collection()
+    if(!newDoc.hasOwnProperty('_deleted') && newDoc._deleted === true){
+        required("collection");
+        is_valid_collection()
+    }
 
     if(newDoc.collection == "wifi"){
         required("status");
