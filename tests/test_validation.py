@@ -1,6 +1,6 @@
 import unittest
 from process_config import CouchdbConfigParser
-from couchdbkit import *
+import couchdbkit
 
 
 class TestValidation(unittest.TestCase):
