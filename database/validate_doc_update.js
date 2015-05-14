@@ -23,7 +23,7 @@ function (newDoc, oldDoc, userCtx){
         required("collection");
         is_valid_collection()
 
-        if(newDoc.collection == "wifi"){
+        if(newDoc.collection === "wifi"){
             required("status");
             if(newDoc.status != "done"){
                 if(newDoc.status != "pending"){
