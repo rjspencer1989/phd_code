@@ -18,3 +18,4 @@ class TestHistory(unittest.TestCase):
         self.assertEqual("2-33aabbcc", doc['doc_rev'])
         self.assertTrue(doc['undoable'])
         self.assertFalse(doc['perform_undo'])
+        db.delete_doc(doc)

@@ -17,3 +17,4 @@ class TestSendNotification(unittest.TestCase):
         self.assertEqual(ret_doc['to'], 'Rob')
         self.assertEqual(ret_doc['service'], 'email')
         self.assertEqual(ret_doc['body'], 'foo')
+        db.delete_doc(ret_doc)
