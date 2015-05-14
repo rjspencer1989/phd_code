@@ -110,7 +110,8 @@ class TestValidation(unittest.TestCase):
             "name": "Rob",
             "state": "permit",
             "timestamp": time.time(),
-            "collection": "devices"
+            "collection": "devices",
+            "lease_action": "add"
         }
         db = CouchdbConfigParser.getDB()
         db.save_doc(doc)
