@@ -37,7 +37,6 @@ class NotificationProcessor(threading.Thread):
             change = self.shared_object.get()
             theId = change['id']
             theRev = change['changes'][0]['rev']
-            print theId
             currentDoc = db.open_doc(theId, rev=theRev)
             if theRev.startswith('1-'):
                 self.registration(currentDoc, router_id)
@@ -57,15 +56,11 @@ class NotificationProcessor(threading.Thread):
                 code = conn.getcode()
                 if code == 200:
                     response = conn.read()
-                    print response
                     doc['suid'] = response
                     doc['status'] = 'done'
             except urllib2.HTTPError, e:
-                print e.code
-                print e.read()
                 doc['status'] = 'error'
             except urllib2.URLError, e:
-                print e.reason
                 doc['status'] = 'error'
             finally:
                 db.save_doc(doc)
@@ -80,11 +75,8 @@ class NotificationProcessor(threading.Thread):
                 code = conn.getcode()
                 return code
             except urllib2.HTTPError, e:
-                print e.code
-                print e.read()
                 return code
             except urllib2.URLError, e:
-                print e.reason
                 return -1
 
     def registration(self, doc, router):
@@ -97,14 +89,14 @@ class NotificationProcessor(threading.Thread):
                 code = conn.getcode()
                 if code == 200:
                     response = conn.read()
-                    print response
                     doc['suid'] = response
-                    db.save_doc(doc)
+                    doc['status'] = 'done'
             except urllib2.HTTPError, e:
-                print e.code
-                print e.read()
+                doc['status'] = 'error'
             except urllib2.URLError, e:
-                print e.reason
+                doc['status'] = 'error'
+            finally:
+                db.save_doc(doc)
 
 router_id = get_router_id()
 changeQueue = Queue()
