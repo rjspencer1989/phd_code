@@ -181,7 +181,10 @@ class TestValidation(unittest.TestCase):
             "status": "pending",
             "ssid": "spencer",
             "mode": "g",
-            "channel": 1
+            "channel": 1,
+            "encryption_type": "wep",
+            "password_type": "txt",
+            "password": "whatever12345"
         }
         db = CouchdbConfigParser.getDB()
         db.save_doc(doc)
