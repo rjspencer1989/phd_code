@@ -177,7 +177,8 @@ class TestValidation(unittest.TestCase):
 
     def test_valid_wifi(self):
         doc = {
-            "collection" : "wifi"
+            "collection" : "wifi",
+            "status": "pending"
         }
         db = CouchdbConfigParser.getDB()
         db.save_doc(doc)
