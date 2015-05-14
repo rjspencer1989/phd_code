@@ -43,7 +43,7 @@ class TestValidation(unittest.TestCase):
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
-    def test_notification_missing_name(self):
+    def test_required(self):
         doc = {
             "service" : "twitter",
             "collection": "notifications",
@@ -53,3 +53,17 @@ class TestValidation(unittest.TestCase):
         db = CouchdbConfigParser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
+
+    def test_unchanged(self):
+        doc = {
+            "name" : "Rob",
+            "service" : "twitter",
+            "collection": "notifications",
+            "user": "rjspencer1989",
+            "status": "foo"
+        }
+        db = CouchdbConfigParser.getDB()
+        db.save_doc(doc)
+        doc['name'] = 'test'
+        with self.assertRaises(Exception):
+            db.save_doc(doc, force_update=True)
