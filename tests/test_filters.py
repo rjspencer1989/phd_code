@@ -40,10 +40,10 @@ class TestFilters(unittest.TestCase):
             "connected": False
         }
         db = CouchdbConfigParser.getDB()
-        d1 = db.save_doc(inc)
-        d2 = db.save_doc(not_inc)
+        db.save_doc(inc)
+        db.save_doc(not_inc)
         stream = ChangesStream(db)
         for change in stream:
             print change
-        db.delete_doc(d1['id'])
-        db.delete_doc(d1['id'])
+        db.delete_doc("aa:bb:cc:dd:ee:ff")
+        db.delete_doc("ab:bc:cd:de:ef:fa")
