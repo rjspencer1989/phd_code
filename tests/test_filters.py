@@ -24,7 +24,7 @@ class TestFilters(unittest.TestCase):
         }
 
         not_inc = {
-            "_id": "ab:bc:cd:de:ef:fa"
+            "_id": "ab:bc:cd:de:ef:fa",
             "action": "",
             "collection": "devices",
             "device_name": "test-device2",
