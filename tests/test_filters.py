@@ -100,7 +100,7 @@ class TestFilters(unittest.TestCase):
 
         not_inc = {
             "collection": "notification-request",
-            "status": "pending",
+            "status": "done",
             "to": "Rob",
             "service":"email",
             "body": "test"
