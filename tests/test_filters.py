@@ -43,6 +43,7 @@ class TestFilters(unittest.TestCase):
         db.save_doc(inc)
         db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/devices_pox")
+        print len(stream)
         for change in stream:
             print change
         db.delete_doc("aa:bb:cc:dd:ee:ff")
