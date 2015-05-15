@@ -331,7 +331,7 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wep",
-            "password_type": "text",
+            "password_type": "txt",
             "password": "whatever12345"
         }
         db = CouchdbConfigParser.getDB()
