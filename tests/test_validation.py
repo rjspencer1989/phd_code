@@ -448,7 +448,7 @@ class TestValidation(unittest.TestCase):
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
-    def test_notification-request-status-invalid(self):
+    def test_notification_request_status_invalid(self):
         doc = {
             "collection": "notification-request",
             "to": "Rob",
