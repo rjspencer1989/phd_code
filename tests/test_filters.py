@@ -46,3 +46,45 @@ class TestFilters(unittest.TestCase):
         self.assertTrue((len(list(stream)) == 1) and ('aa:bb:cc:dd:ee:ff' == list(stream)[0]['id']))
         db.delete_doc("aa:bb:cc:dd:ee:ff")
         db.delete_doc("ab:bc:cd:de:ef:fa")
+
+    def test_devices_ui(self):
+        not_inc = {
+            "_id": "aa:bb:cc:dd:ee:ff",
+            "action": "permit",
+            "collection": "devices",
+            "device_name": "test-device",
+            "host_name": "test-device",
+            "ip_address": "10.2.0.61",
+            "lease_action": "add",
+            "mac_address": "aa:bb:cc:dd:ee:ff",
+            "name": "Rob",
+            "state": "pending",
+            "device_type": "laptop",
+            "notification_service": "email",
+            "timestamp": time.time(),
+            "connected": False
+        }
+
+        inc = {
+            "_id": "ab:bc:cd:de:ef:fa",
+            "action": "",
+            "collection": "devices",
+            "device_name": "test-device2",
+            "host_name": "test-device",
+            "ip_address": "10.2.0.65",
+            "lease_action": "add",
+            "mac_address": "ab:bc:cd:de:ef:fa",
+            "name": "Rob",
+            "state": "permit",
+            "device_type": "laptop",
+            "notification_service": "twitter",
+            "timestamp": time.time(),
+            "connected": False
+        }
+        db = CouchdbConfigParser.getDB()
+        db.save_doc(inc)
+        db.save_doc(not_inc)
+        stream = ChangesStream(db, filter="homework-remote/devices_pox")
+        self.assertTrue((len(list(stream)) == 1) and ('ab:bc:cd:de:ef:fa' == list(stream)[0]['id']))
+        db.delete_doc("aa:bb:cc:dd:ee:ff")
+        db.delete_doc("ab:bc:cd:de:ef:fa")
