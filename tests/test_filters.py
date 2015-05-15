@@ -113,3 +113,6 @@ class TestFilters(unittest.TestCase):
         self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
         db.delete_doc(res['id'])
         db.delete_doc(res2['id'])
+
+    def test_notifications(self):
+        pass
