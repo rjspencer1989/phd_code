@@ -88,3 +88,28 @@ class TestFilters(unittest.TestCase):
         self.assertTrue((len(list(stream)) == 1) and ('ab:bc:cd:de:ef:fa' == list(stream)[0]['id']))
         db.delete_doc("aa:bb:cc:dd:ee:ff")
         db.delete_doc("ab:bc:cd:de:ef:fa")
+
+    def test notification_request(self):
+        inc = {
+            "collection": "notification-request",
+            "status": "pending",
+            "to": "Rob",
+            "service":"email",
+            "body": "test"
+        }
+
+        not_inc = {
+            "collection": "notification-request",
+            "status": "pending",
+            "to": "Rob",
+            "service":"email",
+            "body": "test"
+        }
+
+        db = CouchdbConfigParser.getDB()
+        res = db.save_doc(inc)
+        res2 = db.save_doc(not_inc)
+        stream = ChangesStream(db, filter="homework-remote/notification_request")
+        self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
+        db.delete_doc(res['id'])
+        db.delete_doc(res2['id'])
