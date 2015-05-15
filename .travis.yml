@@ -8,7 +8,6 @@ install:
     - pip install couchdbkit couchapp pep8
     - curl -X PUT http://localhost:5984/config
     - couchapp push database/ http://localhost:5984/config
-    - curl http://localhost:5984/config/_design/homework-remote/_views/dhcp
 
 env:
     global:
@@ -19,6 +18,6 @@ before_script:
 
 script:
     python -m unittest discover -v
-    
+
 notifications:
     email: false
