@@ -89,7 +89,7 @@ class TestFilters(unittest.TestCase):
         db.delete_doc("aa:bb:cc:dd:ee:ff")
         db.delete_doc("ab:bc:cd:de:ef:fa")
 
-    def test notification_request(self):
+    def test_notification_request(self):
         inc = {
             "collection": "notification-request",
             "status": "pending",
