@@ -263,3 +263,91 @@ class TestValidation(unittest.TestCase):
         db = CouchdbConfigParser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
+
+    def test_low_channel(self):
+        doc = {
+            "collection" : "wifi",
+            "status": "pending",
+            "ssid": "spencer",
+            "mode": "g",
+            "channel": -1,
+            "encryption_type": "wep",
+            "password_type": "txt",
+            "password": "whatever12345"
+        }
+        db = CouchdbConfigParser.getDB()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_high_channel(self):
+        doc = {
+            "collection" : "wifi",
+            "status": "pending",
+            "ssid": "spencer",
+            "mode": "g",
+            "channel": 12,
+            "encryption_type": "wep",
+            "password_type": "txt",
+            "password": "whatever12345"
+        }
+        db = CouchdbConfigParser.getDB()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_invalid_password_type(self):
+        doc = {
+            "collection" : "wifi",
+            "status": "pending",
+            "ssid": "spencer",
+            "mode": "g",
+            "channel": 1,
+            "encryption_type": "wep",
+            "password_type": "text",
+            "password": "whatever12345"
+        }
+        db = CouchdbConfigParser.getDB()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_txt_password_5_chars(self):
+        doc = {
+            "collection" : "wifi",
+            "status": "pending",
+            "ssid": "spencer",
+            "mode": "g",
+            "channel": 1,
+            "encryption_type": "wep",
+            "password_type": "txt",
+            "password": "whate"
+        }
+        db = CouchdbConfigParser.getDB()
+        db.save_doc(doc)
+
+    def test_txt_password_13_chars(self):
+        doc = {
+            "collection" : "wifi",
+            "status": "pending",
+            "ssid": "spencer",
+            "mode": "g",
+            "channel": 1,
+            "encryption_type": "wep",
+            "password_type": "text",
+            "password": "whatever12345"
+        }
+        db = CouchdbConfigParser.getDB()
+        db.save_doc(doc)
+
+    def test_txt_password_invalid(self):
+        doc = {
+            "collection" : "wifi",
+            "status": "pending",
+            "ssid": "spencer",
+            "mode": "g",
+            "channel": 1,
+            "encryption_type": "wep",
+            "password_type": "txt",
+            "password": "whatever"
+        }
+        db = CouchdbConfigParser.getDB()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
