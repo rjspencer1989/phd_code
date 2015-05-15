@@ -7,35 +7,37 @@ from couchdbkit.changes import ChangesStream
 class TestFilters(unittest.TestCase):
     def test_devices_pox(self):
         inc = {
-            action: "permit",
-            collection: "devices",
-            device_name: "test-device",
-            host_name: "test-device",
-            ip_address: "10.2.0.61",
-            lease_action: "add",
-            mac_address: "aa:bb:cc:dd:ee:ff",
-            name: "",
-            state: "pending",
-            device_type: "",
-            notification_service: "",
-            timestamp: time.time(),
-            connected: False
+            "_id": "aa:bb:cc:dd:ee:ff",
+            "action": "permit",
+            "collection": "devices",
+            "device_name": "test-device",
+            "host_name": "test-device",
+            "ip_address": "10.2.0.61",
+            "lease_action": "add",
+            "mac_address": "aa:bb:cc:dd:ee:ff",
+            "name": "Rob",
+            "state": "pending",
+            "device_type": "laptop",
+            "notification_service": "email",
+            "timestamp": time.time(),
+            "connected": False
         }
 
         not_inc = {
-            action: "",
-            collection: "devices",
-            device_name: "test-device",
-            host_name: "test-device",
-            ip_address: "10.2.0.61",
-            lease_action: "add",
-            mac_address: "aa:bb:cc:dd:ee:ff",
-            name: "",
-            state: "permit",
-            device_type: "",
-            notification_service: "",
-            timestamp: time.time(),
-            connected: False
+            "_id": "ab:bc:cd:de:ef:fa"
+            "action": "",
+            "collection": "devices",
+            "device_name": "test-device2",
+            "host_name": "test-device",
+            "ip_address": "10.2.0.65",
+            "lease_action": "add",
+            "mac_address": "ab:bc:cd:de:ef:fa",
+            "name": "Rob",
+            "state": "permit",
+            "device_type": "laptop",
+            "notification_service": "twitter",
+            "timestamp": time.time(),
+            "connected": False
         }
         db = CouchdbConfigParser.getDB()
         d1 = db.save_doc(inc)
