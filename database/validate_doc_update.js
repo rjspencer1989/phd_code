@@ -5,13 +5,20 @@ function (newDoc, oldDoc, userCtx){
     }
 
     function unchanged(field) {
-        if (oldDoc && toJSON(oldDoc[field]) !== toJSON(newDoc[field]))
-          throw({forbidden : "Field can't be changed: " + field});
+        if (oldDoc && toJSON(oldDoc[field]) !== toJSON(newDoc[field])){
+            throw({forbidden : "Field can't be changed: " + field});
+        }
     }
 
     function is_valid_collection(){
         if(["wifi", "notifications", "devices", "events", "notification-request"].indexOf(newDoc.collection) === -1){
             throw({forbidden: "collection must be one of wifi, notifications, devices, events, notification-request"});
+        }
+    }
+
+    function empty_string(field) {
+        if(newDoc[field] === ""){
+            throw({forbidden : "Field can't be empty: " + field});
         }
     }
 
@@ -122,6 +129,21 @@ function (newDoc, oldDoc, userCtx){
             required("doc_rev");
             required("undoable");
             required("perform_undo");
+        } else if(newDoc.collection === "notification-request"){
+            required("collection");
+            unchanged("collection");
+            required("to");
+            required("service");
+            required("status");
+            required("body");
+
+            if(newDoc.status !== "pending" && newDoc.status !== "done" && newDoc.status !== "error"){
+                throw({forbidden: "Status must be one of done, pending, or error"});
+            }
+
+            empty_string("to");
+            empty_string("body");
+            empty_string("service");
         }
     }
 }

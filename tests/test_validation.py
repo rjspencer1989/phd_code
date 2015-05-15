@@ -424,3 +424,38 @@ class TestValidation(unittest.TestCase):
         db = CouchdbConfigParser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
+
+    def test_valid_notification_request(self):
+        doc = {
+            "collection": "notification-request",
+            "to": "Rob",
+            "service": "email",
+            "body": "message",
+            "status": "pending"
+        }
+        db = CouchdbConfigParser.getDB()
+        db.save_doc(doc)
+
+    def test_empty_string(self):
+        doc = {
+            "collection": "notification-request",
+            "to": "",
+            "service": "email",
+            "body": "message",
+            "status": "pending"
+        }
+        db = CouchdbConfigParser.getDB()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_notification-request-status-invalid(self):
+        doc = {
+            "collection": "notification-request",
+            "to": "Rob",
+            "service": "email",
+            "body": "message",
+            "status": "complete"
+        }
+        db = CouchdbConfigParser.getDB()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
