@@ -84,7 +84,7 @@ class TestFilters(unittest.TestCase):
         db = CouchdbConfigParser.getDB()
         db.save_doc(inc)
         db.save_doc(not_inc)
-        stream = ChangesStream(db, filter="homework-remote/devices_pox")
+        stream = ChangesStream(db, filter="homework-remote/devices_ui")
         self.assertTrue((len(list(stream)) == 1) and ('ab:bc:cd:de:ef:fa' == list(stream)[0]['id']))
         db.delete_doc("aa:bb:cc:dd:ee:ff")
         db.delete_doc("ab:bc:cd:de:ef:fa")
