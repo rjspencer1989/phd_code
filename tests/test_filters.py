@@ -42,7 +42,7 @@ class TestFilters(unittest.TestCase):
         db = CouchdbConfigParser.getDB()
         db.save_doc(inc)
         db.save_doc(not_inc)
-        stream = ChangesStream(db)
+        stream = ChangesStream(db, filter="homework-remote/devices_pox")
         for change in stream:
             print change
         db.delete_doc("aa:bb:cc:dd:ee:ff")
