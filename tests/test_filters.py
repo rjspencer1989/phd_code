@@ -190,7 +190,7 @@ class TestFilters(unittest.TestCase):
 
         db = CouchdbConfigParser.getDB()
         res = db.save_doc(inc)
-        res2 = db.save_doc(not_inc_not_peform_undo)
+        res2 = db.save_doc(not_inc_not_perform_undo)
         res3 = db.save_doc(not_inc_not_undoable)
         res4 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/undo")
