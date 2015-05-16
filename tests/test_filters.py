@@ -194,6 +194,8 @@ class TestFilters(unittest.TestCase):
         res3 = db.save_doc(not_inc_not_undoable)
         res4 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/undo")
+        for change in stream:
+            print change
         self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
         db.delete_doc(res['id'])
         db.delete_doc(res2['id'])
