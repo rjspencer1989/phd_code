@@ -181,9 +181,37 @@ class TestFilters(unittest.TestCase):
         res2 = db.save_doc(not_inc_not_perform_undo)
         res3 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/undo")
-        for change in stream:
-            print change
         self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
         db.delete_doc(res['id'])
         db.delete_doc(res2['id'])
         db.delete_doc(res3['id'])
+
+    def test_wifi(self):
+        inc = {
+            "collection": "wifi",
+            "status": "pending",
+            "ssid": "spencer",
+            "encryption_type": "wep",
+            "channel": 1,
+            "mode":"g",
+            "password_type": "txt",
+            "password": "whatever12345"
+        }
+        
+        not_inc = {
+            "collection": "wifi",
+            "status": "done",
+            "ssid": "spencer",
+            "encryption_type": "wep",
+            "channel": 1,
+            "mode":"g",
+            "password_type": "txt",
+            "password": "whatever12345"
+        }
+
+        db = CouchdbConfigParser.getDB()
+        res = db.save_doc(inc)
+        res2 = db.save_doc(not_inc)
+        stream = ChangesStream(db, filter="homework-remote/wifi")
+        self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
+        db.delete_doc(res['id'])
