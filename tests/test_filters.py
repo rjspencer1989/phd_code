@@ -115,4 +115,26 @@ class TestFilters(unittest.TestCase):
         db.delete_doc(res2['id'])
 
     def test_notifications(self):
-        pass
+        inc = {
+            "collection": "notifications",
+            "status": "pending",
+            "name": "Rob",
+            "service": "email",
+            "user": "signup@robspencer.me.uk"
+        }
+
+        not_inc = {
+            "collection": "notifications",
+            "status": "done",
+            "name": "Rob",
+            "service": "email",
+            "user": "signup@robspencer.me.uk"
+        }
+
+        db = CouchdbConfigParser.getDB()
+        res = db.save_doc(inc)
+        res2 = db.save_doc(not_inc)
+        stream = ChangesStream(db, filter="homework-remote/notification_request")
+        self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
+        db.delete_doc(res['id'])
+        db.delete_doc(res2['id'])
