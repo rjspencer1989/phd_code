@@ -138,3 +138,64 @@ class TestFilters(unittest.TestCase):
         self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
         db.delete_doc(res['id'])
         db.delete_doc(res2['id'])
+
+    def test_undo(self):
+        inc = {
+            "collection": "events",
+            "perform_undo": True,
+            "undoable": True,
+            "title": "test",
+            "description": "test",
+            "user": "Rob",
+            "doc_id": "aabbcc",
+            "doc_rev": "1-aabbcc",
+            "timestamp": time.time()
+        }
+
+        not_inc_not_perform_undo = {
+            "collection": "events",
+            "perform_undo": False,
+            "undoable": True,
+            "title": "test",
+            "description": "test",
+            "user": "Rob",
+            "doc_id": "aabbcc",
+            "doc_rev": "2-aabbcc",
+            "timestamp": time.time()
+        }
+
+        not_inc_not_undoable = {
+            "collection": "events",
+            "perform_undo": True,
+            "undoable": False,
+            "title": "test",
+            "description": "test",
+            "user": "Rob",
+            "doc_id": "aabbcc",
+            "doc_rev": "3-aabbcc",
+            "timestamp": time.time()
+        }
+
+        not_inc = {
+            "collection": "events",
+            "perform_undo": True,
+            "undoable": True,
+            "title": "test",
+            "description": "test",
+            "user": "Rob",
+            "doc_id": "aabbcc",
+            "doc_rev": "1-aabbcc",
+            "timestamp": time.time()
+        }
+
+        db = CouchdbConfigParser.getDB()
+        res = db.save_doc(inc)
+        res2 = db.save_doc(not_inc_not_peform_undo)
+        res3 = db.save_doc(not_inc_not_undoable)
+        res4 = db.save_doc(not_inc)
+        stream = ChangesStream(db, filter="homework-remote/undo")
+        self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
+        db.delete_doc(res['id'])
+        db.delete_doc(res2['id'])
+        db.delete_doc(res3['id'])
+        db.delete_doc(res4['id'])
