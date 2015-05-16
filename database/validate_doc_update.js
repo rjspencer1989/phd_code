@@ -129,6 +129,9 @@ function (newDoc, oldDoc, userCtx){
             required("doc_rev");
             required("undoable");
             required("perform_undo");
+            if(newDoc.undoable === false && newDoc.perform_undo === true){
+                throw({forbidden: 'You can\'t undo an event that isn\'t undoable'});
+            }
         } else if(newDoc.collection === "notification-request"){
             required("collection");
             unchanged("collection");

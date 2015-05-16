@@ -99,6 +99,22 @@ class TestValidation(unittest.TestCase):
         }
         db = CouchdbConfigParser.getDB()
         db.save_doc(doc)
+        
+    def test_event_perform_undo_not_undoable(self):
+        doc = {
+            "timestamp" : datetime.datetime.now().isoformat(),
+            "collection": "events",
+            "title": "testing",
+            "description": "testing, testing, 1,2,3",
+            "user": "Rob",
+            "doc_id": "aabbcc",
+            "doc_rev": "1-aabbcc",
+            "undoable": False,
+            "perform_undo": True
+        }
+        db = CouchdbConfigParser.getDB()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
 
     def test_valid_device(self):
         doc = {
