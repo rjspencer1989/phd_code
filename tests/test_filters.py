@@ -134,7 +134,7 @@ class TestFilters(unittest.TestCase):
         db = CouchdbConfigParser.getDB()
         res = db.save_doc(inc)
         res2 = db.save_doc(not_inc)
-        stream = ChangesStream(db, filter="homework-remote/notification_request")
+        stream = ChangesStream(db, filter="homework-remote/notifications")
         self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
         db.delete_doc(res['id'])
         db.delete_doc(res2['id'])
