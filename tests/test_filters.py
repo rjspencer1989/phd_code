@@ -192,7 +192,7 @@ class TestFilters(unittest.TestCase):
         res = db.save_doc(inc)
         # res2 = db.save_doc(not_inc_not_perform_undo)
         # res3 = db.save_doc(not_inc_not_undoable)
-        res4 = db.save_doc(not_inc)
+        # res4 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/undo")
         for change in stream:
             print change
@@ -200,4 +200,4 @@ class TestFilters(unittest.TestCase):
         db.delete_doc(res['id'])
         # db.delete_doc(res2['id'])
         # db.delete_doc(res3['id'])
-        db.delete_doc(res4['id'])
+        # db.delete_doc(res4['id'])
