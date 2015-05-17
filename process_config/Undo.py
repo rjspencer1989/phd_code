@@ -56,5 +56,5 @@ class UndoProcessor(threading.Thread):
 changeQueue = Queue()
 producer = UndoListener("producer", changeQueue)
 consumer = UndoProcessor("consumer", changeQueue)
-producer.start()
-consumer.start()
+# producer.start()
+# consumer.start()
