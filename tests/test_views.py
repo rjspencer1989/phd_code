@@ -2,8 +2,8 @@ import unittest
 from process_config import CouchdbConfigParser
 from couchdbkit import *
 import datetime
-
 import time
+
 
 class TestViews(unittest.TestCase):
     def test_notification_with_service(self):
@@ -15,7 +15,7 @@ class TestViews(unittest.TestCase):
             "user": "rob@robspencer.me.uk",
             "status": "done"
         }
-        
+
         doc2 = {
             "collection": "notifications",
             "name": "Rob",
@@ -23,7 +23,7 @@ class TestViews(unittest.TestCase):
             "user": "10.2.0.1",
             "status": "done"
         }
-        
+
         res = db.save_doc(doc1)
         res2 = db.save_doc(doc2)
         key = ["Rob", "email"]
@@ -46,7 +46,7 @@ class TestViews(unittest.TestCase):
             "user": "rob@robspencer.me.uk",
             "status": "done"
         }
-        
+
         doc2 = {
             "collection": "notifications",
             "name": "Rob",
@@ -54,7 +54,7 @@ class TestViews(unittest.TestCase):
             "user": "10.2.0.1",
             "status": "done"
         }
-        
+
         doc3 = {
             "collection": "notifications",
             "name": "Harry",
@@ -82,7 +82,7 @@ class TestViews(unittest.TestCase):
            "device_name": "psxrjs-mbp",
            "host_name": "psxrjs-mbp",
            "ip_address": "10.2.0.1",
-           "mac_address" : "68:a8:6d:3b:05:e4",
+           "mac_address": "68:a8:6d:3b:05:e4",
            "name": "Rob",
            "state": "permit",
            "timestamp": time.time(),
@@ -92,7 +92,7 @@ class TestViews(unittest.TestCase):
            "notification_service": "email",
            "connected": True
         }
-        
+
         doc2 = {
            "action":"",
            "device_name": "psxrjs-mbp-eth",
