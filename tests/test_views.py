@@ -270,7 +270,6 @@ class TestViews(unittest.TestCase):
         db.delete_doc(res['id'])
         db.delete_doc(res2['id'])
 
-    @unittest.skip("demonstrating skipping")
     def test_by_collection(self):
         doc1 = {
            "action":"",
