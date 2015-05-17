@@ -75,7 +75,7 @@ class NotificationProcessor(threading.Thread):
                 code = conn.getcode()
                 return code
             except urllib2.HTTPError, e:
-                return code
+                return e.code
             except urllib2.URLError, e:
                 return -1
 
