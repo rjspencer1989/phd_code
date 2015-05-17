@@ -215,3 +215,4 @@ class TestFilters(unittest.TestCase):
         stream = ChangesStream(db, filter="homework-remote/wifi")
         self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
         db.delete_doc(res['id'])
+        db.delete_doc(res2['id'])

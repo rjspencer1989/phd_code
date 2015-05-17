@@ -31,7 +31,8 @@ class TestValidation(unittest.TestCase):
             "status": "pending"
         }
         db = CouchdbConfigParser.getDB()
-        db.save_doc(doc)
+        res = db.save_doc(doc)
+        db.delete_doc(res['id'])
 
     def test_notification_invalid_status(self):
         doc = {
@@ -83,7 +84,8 @@ class TestValidation(unittest.TestCase):
             "perform_undo": False
         }
         db = CouchdbConfigParser.getDB()
-        db.save_doc(doc)
+        res = db.save_doc(doc)
+        db.delete_doc(res['id'])
 
     def test_event_not_undoable(self):
         doc = {
@@ -98,7 +100,8 @@ class TestValidation(unittest.TestCase):
             "perform_undo": False
         }
         db = CouchdbConfigParser.getDB()
-        db.save_doc(doc)
+        res = db.save_doc(doc)
+        db.delete_doc(res['id'])
         
     def test_event_perform_undo_not_undoable(self):
         doc = {
@@ -132,7 +135,8 @@ class TestValidation(unittest.TestCase):
             "notification_service": "email"
         }
         db = CouchdbConfigParser.getDB()
-        db.save_doc(doc)
+        res = db.save_doc(doc)
+        db.delete_doc(res['id'])
 
     def test_invalid_lease_action(self):
         doc = {
@@ -203,7 +207,8 @@ class TestValidation(unittest.TestCase):
             "password": "whatever12345"
         }
         db = CouchdbConfigParser.getDB()
-        db.save_doc(doc)
+        res = db.save_doc(doc)
+        db.delete_doc(res['id'])
 
     def test_invalid_mode(self):
         doc = {
@@ -337,7 +342,8 @@ class TestValidation(unittest.TestCase):
             "password": "whate"
         }
         db = CouchdbConfigParser.getDB()
-        db.save_doc(doc)
+        res = db.save_doc(doc)
+        db.delete_doc(res['id'])
 
     def test_txt_password_13_chars(self):
         doc = {
@@ -351,7 +357,8 @@ class TestValidation(unittest.TestCase):
             "password": "whatever12345"
         }
         db = CouchdbConfigParser.getDB()
-        db.save_doc(doc)
+        res = db.save_doc(doc)
+        db.delete_doc(res['id'])
 
     def test_txt_password_invalid(self):
         doc = {
@@ -380,7 +387,8 @@ class TestValidation(unittest.TestCase):
             "password": "1234567890"
         }
         db = CouchdbConfigParser.getDB()
-        db.save_doc(doc)
+        res = db.save_doc(doc)
+        db.delete_doc(res['id'])
 
     def test_hex_password_26_chars(self):
         doc = {
@@ -394,7 +402,8 @@ class TestValidation(unittest.TestCase):
             "password": "1234567890abcdef0123456789"
         }
         db = CouchdbConfigParser.getDB()
-        db.save_doc(doc)
+        res = db.save_doc(doc)
+        db.delete_doc(res['id'])
 
     def test_hex_password_invalid_length(self):
         doc = {
@@ -450,7 +459,8 @@ class TestValidation(unittest.TestCase):
             "status": "pending"
         }
         db = CouchdbConfigParser.getDB()
-        db.save_doc(doc)
+        res = db.save_doc(doc)
+        db.delete_doc(res['id'])
 
     def test_empty_string(self):
         doc = {
