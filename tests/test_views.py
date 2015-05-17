@@ -113,6 +113,7 @@ class TestViews(unittest.TestCase):
         vr = db.view("homework-remote/valid_leases")
         vra = vr.all()
         vra_l = list(vra)
+        print vra_l
         self.assertEqual(len(vra_l), 1)
         self.assertEqual(vra_l[0]['key'], '68:a8:6d:3b:05:e4')
         db.delete_doc(res['id'])
