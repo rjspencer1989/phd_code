@@ -73,3 +73,46 @@ class TestViews(unittest.TestCase):
         db.delete_doc(res['id'])
         db.delete_doc(res2['id'])
         db.delete_doc(res3['id'])
+
+    def test_valid_leases(self):
+        doc1 = {
+           "action":"",
+           "device_name": "psxrjs-mbp",
+           "host_name": "psxrjs-mbp",
+           "ip_address": "10.2.0.1",
+           "mac_address" : "68:a8:6d:3b:05:e4",
+           "name": "Rob",
+           "state": "permit",
+           "timestamp": time.time(),
+           "collection": "devices",
+           "lease_action": "add",
+           "device_type": "laptop",
+           "notification_service": "email"
+        }
+        
+        doc2 = {
+           "action":"",
+           "device_name": "psxrjs-mbp-eth",
+           "host_name": "psxrjs-mbp",
+           "ip_address": "10.2.0.4",
+           "mac_address" : "68:a8:6d:3b:05:e5",
+           "name": "Rob",
+           "state": "permit",
+           "timestamp": time.time(),
+           "collection": "devices",
+           "lease_action": "del",
+           "device_type": "laptop",
+           "notification_service": "email"
+        }
+
+        db = CouchdbConfigParser.getDB()
+        res = db.save_doc(doc1)
+        res2 = db.save_doc(doc2)
+
+        vr = db.view("homework-remote/valid_leases")
+        vra = vr.all()
+        vra_l = list(vra)
+        self.assertEqual(len(vra_l), 1)
+        self.assertEqual(vra_l[0]['key'], '68:a8:6d:3b:05:e4')
+        db.delete_doc(res['id'])
+        db.delete_doc(res2['id'])
