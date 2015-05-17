@@ -144,19 +144,19 @@ class TestViews(unittest.TestCase):
 
     def test_dhcp(self):
         doc1 = {
-           "action": "",
-           "device_name": "psxrjs-mbp",
-           "host_name": "psxrjs-mbp",
-           "ip_address": "10.2.0.1",
-           "mac_address": "68:a8:6d:3b:05:e4",
-           "name": "Rob",
-           "state": "permit",
-           "timestamp": time.time(),
-           "collection": "devices",
-           "lease_action": "add",
-           "device_type": "laptop",
-           "notification_service": "email",
-           "connected": True
+            "action": "",
+            "device_name": "psxrjs-mbp",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address": "68:a8:6d:3b:05:e4",
+            "name": "Rob",
+            "state": "permit",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "laptop",
+            "notification_service": "email",
+            "connected": True
         }
 
         db = CouchdbConfigParser.getDB()
@@ -171,21 +171,21 @@ class TestViews(unittest.TestCase):
 
     def test_control(self):
         doc1 = {
-           "action": "",
-           "device_name": "psxrjs-mbp",
-           "host_name": "psxrjs-mbp",
-           "ip_address": "10.2.0.1",
-           "mac_address" : "68:a8:6d:3b:05:e4",
-           "name": "Rob",
-           "state": "permit",
-           "timestamp": time.time(),
-           "collection": "devices",
-           "lease_action": "add",
-           "device_type": "laptop",
-           "notification_service": "email",
-           "connected": True
+            "action": "",
+            "device_name": "psxrjs-mbp",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address": "68:a8:6d:3b:05:e4",
+            "name": "Rob",
+            "state": "permit",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "laptop",
+            "notification_service": "email",
+            "connected": True
         }
-        
+
         db = CouchdbConfigParser.getDB()
         res = db.save_doc(doc1)
         vr = db.view("homework-remote/control")
@@ -198,21 +198,21 @@ class TestViews(unittest.TestCase):
 
     def test_device_notification_service_mapping(self):
         doc1 = {
-           "action":"",
-           "device_name": "psxrjs-mbp",
-           "host_name": "psxrjs-mbp",
-           "ip_address": "10.2.0.1",
-           "mac_address" : "68:a8:6d:3b:05:e4",
-           "name": "Rob",
-           "state": "permit",
-           "timestamp": time.time(),
-           "collection": "devices",
-           "lease_action": "add",
-           "device_type": "laptop",
-           "notification_service": "email",
-           "connected": True
+            "action": "",
+            "device_name": "psxrjs-mbp",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address": "68:a8:6d:3b:05:e4",
+            "name": "Rob",
+            "state": "permit",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "laptop",
+            "notification_service": "email",
+            "connected": True
         }
-        
+
         db = CouchdbConfigParser.getDB()
         res = db.save_doc(doc1)
         vr = db.view("homework-remote/device_notification_service_mapping")
@@ -227,35 +227,35 @@ class TestViews(unittest.TestCase):
 
     def test_connected_devices(self):
         doc1 = {
-           "action":"",
-           "device_name": "psxrjs-mbp",
-           "host_name": "psxrjs-mbp",
-           "ip_address": "10.2.0.1",
-           "mac_address" : "68:a8:6d:3b:05:e4",
-           "name": "Rob",
-           "state": "permit",
-           "timestamp": time.time(),
-           "collection": "devices",
-           "lease_action": "add",
-           "device_type": "laptop",
-           "notification_service": "email",
-           "connected": True
+            "action": "",
+            "device_name": "psxrjs-mbp",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address": "68:a8:6d:3b:05:e4",
+            "name": "Rob",
+            "state": "permit",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "laptop",
+            "notification_service": "email",
+            "connected": True
         }
-        
+
         doc2 = {
-           "action":"",
-           "device_name": "psxrjs-mbp-eth",
-           "host_name": "psxrjs-mbp",
-           "ip_address": "10.2.0.4",
-           "mac_address" : "68:a8:6d:3b:05:e5",
-           "name": "Rob",
-           "state": "permit",
-           "timestamp": time.time(),
-           "collection": "devices",
-           "lease_action": "del",
-           "device_type": "laptop",
-           "notification_service": "email",
-           "connected": False
+            "action": "",
+            "device_name": "psxrjs-mbp-eth",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.4",
+            "mac_address": "68:a8:6d:3b:05:e5",
+            "name": "Rob",
+            "state": "permit",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "del",
+            "device_type": "laptop",
+            "notification_service": "email",
+            "connected": False
         }
         
         db = CouchdbConfigParser.getDB()
