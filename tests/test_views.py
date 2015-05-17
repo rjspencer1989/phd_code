@@ -78,7 +78,7 @@ class TestViews(unittest.TestCase):
 
     def test_valid_leases(self):
         doc1 = {
-           "action":"",
+           "action": "",
            "device_name": "psxrjs-mbp",
            "host_name": "psxrjs-mbp",
            "ip_address": "10.2.0.1",
@@ -94,11 +94,11 @@ class TestViews(unittest.TestCase):
         }
 
         doc2 = {
-           "action":"",
+           "action": "",
            "device_name": "psxrjs-mbp-eth",
            "host_name": "psxrjs-mbp",
            "ip_address": "10.2.0.4",
-           "mac_address" : "68:a8:6d:3b:05:e5",
+           "mac_address": "68:a8:6d:3b:05:e5",
            "name": "Rob",
            "state": "permit",
            "timestamp": time.time(),
@@ -123,7 +123,7 @@ class TestViews(unittest.TestCase):
 
     def test_events(self):
         doc = {
-            "timestamp" : datetime.datetime.now().isoformat(),
+            "timestamp": datetime.datetime.now().isoformat(),
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
@@ -144,11 +144,11 @@ class TestViews(unittest.TestCase):
 
     def test_dhcp(self):
         doc1 = {
-           "action":"",
+           "action": "",
            "device_name": "psxrjs-mbp",
            "host_name": "psxrjs-mbp",
            "ip_address": "10.2.0.1",
-           "mac_address" : "68:a8:6d:3b:05:e4",
+           "mac_address": "68:a8:6d:3b:05:e4",
            "name": "Rob",
            "state": "permit",
            "timestamp": time.time(),
@@ -158,7 +158,7 @@ class TestViews(unittest.TestCase):
            "notification_service": "email",
            "connected": True
         }
-        
+
         db = CouchdbConfigParser.getDB()
         res = db.save_doc(doc1)
         vr = db.view("homework-remote/dhcp")
@@ -171,7 +171,7 @@ class TestViews(unittest.TestCase):
 
     def test_control(self):
         doc1 = {
-           "action":"",
+           "action": "",
            "device_name": "psxrjs-mbp",
            "host_name": "psxrjs-mbp",
            "ip_address": "10.2.0.1",
