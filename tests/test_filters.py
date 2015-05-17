@@ -94,7 +94,7 @@ class TestFilters(unittest.TestCase):
             "collection": "notification-request",
             "status": "pending",
             "to": "Rob",
-            "service":"email",
+            "service": "email",
             "body": "test"
         }
 
@@ -102,7 +102,7 @@ class TestFilters(unittest.TestCase):
             "collection": "notification-request",
             "status": "done",
             "to": "Rob",
-            "service":"email",
+            "service": "email",
             "body": "test"
         }
 
@@ -193,18 +193,18 @@ class TestFilters(unittest.TestCase):
             "ssid": "spencer",
             "encryption_type": "wep",
             "channel": 1,
-            "mode":"g",
+            "mode": "g",
             "password_type": "txt",
             "password": "whatever12345"
         }
-        
+
         not_inc = {
             "collection": "wifi",
             "status": "done",
             "ssid": "spencer",
             "encryption_type": "wep",
             "channel": 1,
-            "mode":"g",
+            "mode": "g",
             "password_type": "txt",
             "password": "whatever12345"
         }
