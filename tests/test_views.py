@@ -257,7 +257,7 @@ class TestViews(unittest.TestCase):
             "notification_service": "email",
             "connected": False
         }
-        
+
         db = CouchdbConfigParser.getDB()
         res = db.save_doc(doc1)
         res2 = db.save_doc(doc2)
