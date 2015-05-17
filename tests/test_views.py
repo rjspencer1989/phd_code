@@ -93,19 +93,20 @@ class TestViews(unittest.TestCase):
             "connected": True
         }
 
-        doc2 = {"action": "",
-           "device_name": "psxrjs-mbp-eth",
-           "host_name": "psxrjs-mbp",
-           "ip_address": "10.2.0.4",
-           "mac_address": "68:a8:6d:3b:05:e5",
-           "name": "Rob",
-           "state": "permit",
-           "timestamp": time.time(),
-           "collection": "devices",
-           "lease_action": "del",
-           "device_type": "laptop",
-           "notification_service": "email",
-           "connected": True
+        doc2 = {
+            "action": "",
+            "device_name": "psxrjs-mbp-eth",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.4",
+            "mac_address": "68:a8:6d:3b:05:e5",
+            "name": "Rob",
+            "state": "permit",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "del",
+            "device_type": "laptop",
+            "notification_service": "email",
+            "connected": True
         }
 
         db = CouchdbConfigParser.getDB()
