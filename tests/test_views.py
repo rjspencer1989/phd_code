@@ -28,7 +28,7 @@ class TestViews(unittest.TestCase):
         vr = db.view("homework-remote/notification_with_service", key=key)
         vr_all = vr.all()
         l_vr_all = list(vr_all)
-        self.asserteEqual(len(l_vr_all), 1)
+        self.assertEqual(len(l_vr_all), 1)
         res_obj = l_vr_all[0]
         self.assertEqual(res_obj['value'], doc1['user'])
         self.assertEqual(res_obj['id'], res['id'])
