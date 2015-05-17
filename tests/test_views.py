@@ -117,3 +117,24 @@ class TestViews(unittest.TestCase):
         self.assertEqual(vra_l[0]['key'], '68:a8:6d:3b:05:e4')
         db.delete_doc(res['id'])
         db.delete_doc(res2['id'])
+
+    def test_events(self):
+        doc = {
+            "timestamp" : datetime.datetime.now().isoformat(),
+            "collection": "events",
+            "title": "testing",
+            "description": "testing, testing, 1,2,3",
+            "user": "Rob",
+            "doc_id": "aabbcc",
+            "doc_rev": "1-aabbcc",
+            "undoable": True,
+            "perform_undo": False
+        }
+        db = CouchdbConfigParser.getDB()
+        res = db.save_doc(doc)
+        vr = db.view("homework-remote/events")
+        vra = vr.all()
+        l_vra = list(vra)
+        self.assertEqual(len(l_vra), 1)
+        self.assertEqual(l_vra[0]['id'], res['id'])
+        db.delete_doc(res['id'])
