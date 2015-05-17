@@ -7,11 +7,11 @@ import os
 class TestNotificationRegistrationClient(unittest.TestCase):
     def setUp(self):
         doc = {
-            "name" : "Rob",
-            "service" : "twitter",
-            "user" : "rjspencer1989",
-            "collection" : "notifications",
-            "status" : "pending"
+            "name": "Rob",
+            "service": "twitter",
+            "user": "rjspencer1989",
+            "collection": "notifications",
+            "status": "pending"
         }
 
         self.db = CouchdbConfigParser.getDB()
