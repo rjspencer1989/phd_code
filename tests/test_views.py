@@ -32,3 +32,5 @@ class TestViews(unittest.TestCase):
         res_obj = l_vr_all[0]
         self.assertEqual(res_obj['value'], doc1['user'])
         self.assertEqual(res_obj['id'], res['id'])
+        db.delete_doc(res['id'])
+        db.delete_doc(res2['id'])
