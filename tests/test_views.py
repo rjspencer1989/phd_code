@@ -2,6 +2,7 @@ import unittest
 from process_config import CouchdbConfigParser
 from couchdbkit import *
 
+import time
 
 class TestViews(unittest.TestCase):
     def test_notification_with_service(self):
