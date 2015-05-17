@@ -157,7 +157,7 @@ class TestViews(unittest.TestCase):
         }
         
         db = CouchdbConfigParser.getDB()
-        res = db.save_doc(doc)
+        res = db.save_doc(doc1)
         vr = db.view("homework-remote/dhcp")
         vra = vr.all()
         l_vra = list(vra)
@@ -183,7 +183,7 @@ class TestViews(unittest.TestCase):
         }
         
         db = CouchdbConfigParser.getDB()
-        res = db.save_doc(doc)
+        res = db.save_doc(doc1)
         vr = db.view("homework-remote/control")
         vra = vr.all()
         l_vra = list(vra)
@@ -209,7 +209,7 @@ class TestViews(unittest.TestCase):
         }
         
         db = CouchdbConfigParser.getDB()
-        res = db.save_doc(doc)
+        res = db.save_doc(doc1)
         vr = db.view("homework-remote/device_notification_service_mapping")
         vra = vr.all()
         l_vra = list(vra)
@@ -254,7 +254,7 @@ class TestViews(unittest.TestCase):
         }
         
         db = CouchdbConfigParser.getDB()
-        res = db.save_doc(doc)
+        res = db.save_doc(doc1)
         res2 = db.save_doc(doc2)
         vr = db.view("homework-remote/connected_devices")
         vra = vr.all()
