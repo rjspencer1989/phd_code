@@ -67,4 +67,9 @@ class TestViews(unittest.TestCase):
         vr = db.view("homework-remote/notification_names", group=True)
         vra = vr.all()
         l_vra = list(vra)
-        print l_vra
+        self.assertEqual(len(l_vra), 2)
+        self.assertEqual(l_vra[0]['key'], 'Harry')
+        self.assertEqual(l_vra[1]['key'], 'Rob')
+        db.delete_doc(res['id'])
+        db.delete_doc(res2['id'])
+        db.delete_doc(res3['id'])
