@@ -1,6 +1,7 @@
 import unittest
 from process_config import WiFi
 
+
 class TestWifi(unittest.TestCase):
     def setUp(self):
         self.current_doc = {
