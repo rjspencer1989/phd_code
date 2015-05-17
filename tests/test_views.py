@@ -269,3 +269,48 @@ class TestViews(unittest.TestCase):
         self.assertEqual(l_vra[0]['key'], "68:a8:6d:3b:05:e4")
         db.delete_doc(res['id'])
         db.delete_doc(res2['id'])
+
+    def test_by_collection(self):
+        doc1 = {
+           "action":"",
+           "device_name": "psxrjs-mbp",
+           "host_name": "psxrjs-mbp",
+           "ip_address": "10.2.0.1",
+           "mac_address" : "68:a8:6d:3b:05:e4",
+           "name": "Rob",
+           "state": "permit",
+           "timestamp": time.time(),
+           "collection": "devices",
+           "lease_action": "add",
+           "device_type": "laptop",
+           "notification_service": "email",
+           "connected": True
+        }
+
+        doc2 = {
+            "collection": "notifications",
+            "name": "Rob",
+            "service": "email",
+            "user": "rob@robspencer.me.uk",
+            "status": "done"
+        }
+
+        db = CouchdbConfigParser.getDB()
+        res = db.save_doc(doc1)
+        res2 = db.save_doc(doc2)
+        vr = db.view("homework-remote/byCollection")
+        vra = vr.all()
+        l_vra = list(vra)
+        self.assertEqual(len(l_vra), 2)
+        self.assertEqual(l_vra[0]['id'], res['id'])
+        self.assertEqual(l_vra[0]['key'], "devices")
+        self.assertEqual(l_vra[1]['id'], res2['id'])
+        self.assertEqual(l_vra[1]['key'], "notifications")
+        vr = db.view("homework-remote/byCollection", key="notifications")
+        vra = vr.all()
+        l_vra = list(vra)
+        self.assertEqual(len(l_vra), 1)
+        self.assertEqual(l_vra[0]['id'], res2['id'])
+        self.assertEqual(l_vra[0]['key'], "notifications")
+        db.delete_doc(res['id'])
+        db.delete_doc(res2['id'])
