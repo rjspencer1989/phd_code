@@ -132,7 +132,8 @@ class TestValidation(unittest.TestCase):
             "collection": "devices",
             "lease_action": "add",
             "device_type": "laptop",
-            "notification_service": "email"
+            "notification_service": "email",
+            "connected": True
         }
         db = CouchdbConfigParser.getDB()
         res = db.save_doc(doc)
@@ -151,7 +152,8 @@ class TestValidation(unittest.TestCase):
             "collection": "devices",
             "lease_action": "rm",
             "device_type": "laptop",
-            "notification_service": "email"
+            "notification_service": "email",
+            "connected": True
         }
         db = CouchdbConfigParser.getDB()
         with self.assertRaises(Exception):
@@ -170,7 +172,8 @@ class TestValidation(unittest.TestCase):
             "collection": "devices",
             "lease_action": "add",
             "device_type": "laptop",
-            "notification_service": "email"
+            "notification_service": "email",
+            "connected": True
         }
         db = CouchdbConfigParser.getDB()
         with self.assertRaises(Exception):
@@ -189,7 +192,8 @@ class TestValidation(unittest.TestCase):
             "collection": "devices",
             "lease_action": "add",
             "device_type": "laptop",
-            "notification_service": "email"
+            "notification_service": "email",
+            "connected": True
         }
         db = CouchdbConfigParser.getDB()
         with self.assertRaises(Exception):
