@@ -179,7 +179,8 @@ class TestViews(unittest.TestCase):
            "collection": "devices",
            "lease_action": "add",
            "device_type": "laptop",
-           "notification_service": "email"
+           "notification_service": "email",
+           "connected": True
         }
         
         db = CouchdbConfigParser.getDB()

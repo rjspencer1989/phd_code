@@ -107,6 +107,7 @@ function (newDoc, oldDoc, userCtx){
             unchanged("ip_address");
             unchanged("mac_address");
             unchanged("collection");
+            required("connected");
             if(newDoc.lease_action !== "add" && newDoc.lease_action !== "del"){
                 throw({forbidden: "you can only add or del leases"});
             }
