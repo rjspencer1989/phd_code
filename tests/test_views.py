@@ -77,8 +77,7 @@ class TestViews(unittest.TestCase):
         db.delete_doc(res3['id'])
 
     def test_valid_leases(self):
-        doc1 = {
-           "action": "",
+        doc1 = {"action": "",
            "device_name": "psxrjs-mbp",
            "host_name": "psxrjs-mbp",
            "ip_address": "10.2.0.1",
@@ -93,8 +92,7 @@ class TestViews(unittest.TestCase):
            "connected": True
         }
 
-        doc2 = {
-           "action": "",
+        doc2 = {"action": "",
            "device_name": "psxrjs-mbp-eth",
            "host_name": "psxrjs-mbp",
            "ip_address": "10.2.0.4",
