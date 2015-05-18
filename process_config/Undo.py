@@ -56,7 +56,7 @@ class UndoProcessor(threading.Thread):
             self.shared_object.task_done()
 
     def get_doc_to_undo(self, event):
-        pass
+        print event
 
     def get_rev_list(self, doc):
         pass
