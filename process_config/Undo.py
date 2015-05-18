@@ -24,20 +24,29 @@ class UndoProcessor(threading.Thread):
         threading.Thread.__init__(self, name=threadName)
         self.shared_object = queue
 
+    def get_doc_to_undo(self, event):
+        undo_id = event['doc_id']
+        undo_doc = db.get(undo_id, rev=event['doc_rev'], revs_info=True)
+        return undo_doc
+
+    def get_rev_list(self, doc_obj):
+        print doc_obj
+
+    def undo(self, rev_list):
+        pass
+
     def run(self):
         while(True):
             change = self.shared_object.get()
             the_id = change['id']
             the_rev = change['changes'][0]['rev']
             current_doc = db.open_doc(the_id, rev=the_rev)
-            undo_id = current_doc['doc_id']
-            undo_rev = current_doc['doc_rev']
-            undo_doc = db.get(undo_id, revs_info=True)
+            undo_doc = self.get_doc_to_undo(current_doc)
             revs_info = undo_doc['_revs_info']
             revs_list = []
             for item in revs:
                 rev_list.append(str(item['rev']))
-            current_index = rev_list.index(undo_rev)
+            current_index = rev_list.index(undo_doc['_rev'])
             undo_rev = 0
             undone_rev = ''
             if len(rev_list) == 1:
@@ -54,15 +63,6 @@ class UndoProcessor(threading.Thread):
 
             History.addHistoryItem("Undo Configuration change", "Undo of %s" % (current_doc['description']), current_doc['user'], undo_id, undone_rev, True)
             self.shared_object.task_done()
-
-    def get_doc_to_undo(self, event):
-        print event
-
-    def get_rev_list(self, doc):
-        pass
-
-    def undo(self, rev_list):
-        pass
 
 changeQueue = Queue()
 producer = UndoListener("producer", changeQueue)
