@@ -4,7 +4,7 @@ from process_config import CouchdbConfigParser, History
 
 class TestHistory(unittest.TestCase):
     def test_history(self):
-        result = History.addHistoryItem("Change WiFi", "Wifi Updated", "Rob", "aabbc", "2-33aabbcc", True)
+        result = History.add_history_item("Change WiFi", "Wifi Updated", "Rob", "aabbc", "2-33aabbcc", True)
         self.assertIsNotNone(result)
         db = CouchdbConfigParser.getDB()
         doc = db.get(result['id'])

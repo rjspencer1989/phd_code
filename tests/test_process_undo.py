@@ -1,6 +1,5 @@
 import unittest
 from process_config import CouchdbConfigParser, Undo, History
-import time
 
 
 class TestProcessUndo(unittest.TestCase):
@@ -15,7 +14,7 @@ class TestProcessUndo(unittest.TestCase):
         }
         db = CouchdbConfigParser.getDB()
         res = db.save_doc(nd)
-        event_res = History.add_history_item("new notification", "added notification mapping for Rob using Twitter and username rjspencer1989", "Rob", res['id'], res['rev'], time.time())
+        event_res = History.add_history_item("new notification", "added notification mapping for Rob using Twitter and username rjspencer1989", "Rob", res['id'], res['rev'], True)
         event = db.get(event_res['id'])
         doc = undo_consumer.get_doc_to_undo(event)
         rev_list = undo_consumer.get_rev_list(doc)
