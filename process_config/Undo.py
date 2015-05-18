@@ -43,7 +43,7 @@ class UndoProcessor(threading.Thread):
     def undo(self, doc, rev_list):
         undone_rev = ''
         if len(rev_list) == 0:
-            res = db.delete_doc(undo_doc)
+            res = db.delete_doc(doc)
             undone_rev = res['rev']
         else:
             undoable_rev = ''
