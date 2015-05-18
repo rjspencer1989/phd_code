@@ -57,6 +57,10 @@ class UndoProcessor(threading.Thread):
 
     def get_doc_to_undo(self, event):
         pass
+
+    def get_rev_list(self, doc):
+        pass
+
 changeQueue = Queue()
 producer = UndoListener("producer", changeQueue)
 consumer = UndoProcessor("consumer", changeQueue)
