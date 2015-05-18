@@ -3,7 +3,6 @@ from process_config import CouchdbConfigParser, Undo, History
 
 
 class TestProcessUndo(unittest.TestCase):
-    @unittest.skip("need to remove auto thread start for tests")
     def test_process_undo(self):
         undo_processor = Undo.UndoProcessor()
         event = {}
