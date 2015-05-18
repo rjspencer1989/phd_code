@@ -3,7 +3,7 @@ import datetime
 db = CouchdbConfigParser.getDB()
 
 
-def addHistoryItem(title, description, user, docId, docRev, undoable):
+def add_history_item(title, description, user, docId, docRev, undoable):
     doc = {}
     doc['collection'] = 'events'
     doc['title'] = title
