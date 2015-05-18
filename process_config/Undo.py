@@ -43,29 +43,28 @@ class UndoProcessor(threading.Thread):
     def undo(self, doc, rev_list):
         undone_rev = ''
         if len(rev_list) == 0:
-            if len(rev_list) == 1:
-                res = db.delete_doc(undo_doc)
-                undone_rev = res['rev']
-            else:
-                undoable_rev = ''
-                for rev in rev_list:
-                    cur = db.get(doc['id'], rev=rev)
-                    if cur['collection'] == 'devices':
-                        if cur['action'] == '':
-                            undoable_rev = rev
-                            break
-                        else:
-                            continue
+            res = db.delete_doc(undo_doc)
+            undone_rev = res['rev']
+        else:
+            undoable_rev = ''
+            for rev in rev_list:
+                cur = db.get(doc['id'], rev=rev)
+                if cur['collection'] == 'devices':
+                    if cur['action'] == '':
+                        undoable_rev = rev
+                        break
                     else:
-                        if cur['status'] == 'done':
-                            undoable_rev = rev
-                            break
-                        else:
-                            continue
-                if undoable_rev != '':
-                    cur = db.get(doc['id'], rev=undoable_rev)
-                    res = db.save_doc(cur, force_update=True)
-                    undone_rev = res['rev']
+                        continue
+                else:
+                    if cur['status'] == 'done':
+                        undoable_rev = rev
+                        break
+                    else:
+                        continue
+            if undoable_rev != '':
+                cur = db.get(doc['id'], rev=undoable_rev)
+                res = db.save_doc(cur, force_update=True)
+                undone_rev = res['rev']
         return undone_rev
 
     def run(self):
