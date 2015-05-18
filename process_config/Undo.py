@@ -26,7 +26,7 @@ class UndoProcessor(threading.Thread):
 
     def get_doc_to_undo(self, event):
         undo_id = event['doc_id']
-        undo_doc = db.get(undo_id, rev=event['doc_rev'], revs_info=True)
+        undo_doc = db.get(undo_id, revs_info=True)
         return undo_doc
 
     def get_rev_list(self, doc_obj):
