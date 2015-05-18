@@ -2,6 +2,7 @@ import CouchdbConfigParser
 from couchdbkit import *
 from Queue import Queue
 import threading
+import os
 import History
 db = CouchdbConfigParser.getDB()
 db_info = db.info()
