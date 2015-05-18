@@ -21,5 +21,4 @@ class TestProcessUndo(unittest.TestCase):
         print rev_list
         result = undo_consumer.undo(doc, rev_list)
         print result
-        db.delete_doc(res['id'])
         db.delete_doc(event_res['id'])
