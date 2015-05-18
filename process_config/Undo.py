@@ -40,8 +40,33 @@ class UndoProcessor(threading.Thread):
         revs_list = rev_list[current_index + 1:]
         return revs_list
 
-    def undo(self, rev_list):
-        pass
+    def undo(self, doc, rev_list):
+        undone_rev = ''
+        if len(rev_list) == 0:
+            if len(rev_list) == 1:
+                res = db.delete_doc(undo_doc)
+                undone_rev = res['rev']
+            else:
+                undoable_rev = ''
+                for rev in rev_list:
+                    cur = db.get(doc['id'], rev=rev)
+                    if cur['collection'] == 'devices':
+                        if cur['action'] == '':
+                            undoable_rev = rev
+                            break
+                        else:
+                            continue
+                    else:
+                        if cur['status'] == 'done':
+                            undoable_rev = rev
+                            break
+                        else:
+                            continue
+                if undoable_rev != '':
+                    cur = db.get(doc['id'], rev=undoable_rev)
+                    res = db.save_doc(cur, force_update=True)
+                    undone_rev = res['rev']
+        return undone_rev
 
     def run(self):
         while(True):
@@ -51,21 +76,11 @@ class UndoProcessor(threading.Thread):
             current_doc = db.open_doc(the_id, rev=the_rev)
             undo_doc = self.get_doc_to_undo(current_doc)
             rev_list = self.get_rev_list(undo_doc, current_doc['doc_rev'])
-            undo_rev = 0
-            undone_rev = ''
-            if len(rev_list) == 1:
-                undo_doc['_deleted'] = True
-                res = db.save_doc(undo_doc)
-                undone_rev = res['rev']
-            elif current_index < len(rev_list) - 1:
-                undo_rev = rev_list[current_index + 1]
-                prev_doc = db.get(undo_id, rev=undo_rev)
-                res = db.save_doc(prev_doc, force_update=True)
-                undone_rev = res['rev']
-            current_doc['process_undo'] = False
-            db.save_doc(current_doc)
-
-            History.addHistoryItem("Undo Configuration change", "Undo of %s" % (current_doc['description']), current_doc['user'], undo_id, undone_rev, True)
+            undone_rev = self.undo(undo_doc, rev_list)
+            if undone_rev != '':
+                current_doc['process_undo'] = False
+                db.save_doc(current_doc)
+                History.addHistoryItem("Undo Configuration change", "Undo of %s" % (current_doc['description']), current_doc['user'], undo_id, undone_rev, True)
             self.shared_object.task_done()
 
 changeQueue = Queue()
