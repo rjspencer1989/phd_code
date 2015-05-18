@@ -56,5 +56,6 @@ class UndoProcessor(threading.Thread):
 changeQueue = Queue()
 producer = UndoListener("producer", changeQueue)
 consumer = UndoProcessor("consumer", changeQueue)
-# producer.start()
-# consumer.start()
+if "ENV_TESTS" not in os.environ:
+    producer.start()
+    consumer.start()
