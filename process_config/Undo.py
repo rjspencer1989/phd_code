@@ -35,6 +35,8 @@ class UndoProcessor(threading.Thread):
         for item in revs_info:
             rev_list.append(str(item['rev']))
         current_index = rev_list.index(doc['_rev'])
+        print rev_list
+        print current_index
         revs_list = rev_list[0:current_index]
         return revs_list
 
