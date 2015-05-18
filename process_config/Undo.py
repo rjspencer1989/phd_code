@@ -54,6 +54,9 @@ class UndoProcessor(threading.Thread):
 
             History.addHistoryItem("Undo Configuration change", "Undo of %s" % (current_doc['description']), current_doc['user'], undo_id, undone_rev, True)
             self.shared_object.task_done()
+
+    def get_doc_to_undo(self, event):
+        pass
 changeQueue = Queue()
 producer = UndoListener("producer", changeQueue)
 consumer = UndoProcessor("consumer", changeQueue)
