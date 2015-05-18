@@ -34,8 +34,8 @@ class UndoProcessor(threading.Thread):
         rev_list = []
         for item in revs_info:
             rev_list.append(str(item['rev']))
-        current_index = rev_list.index(undo_doc['_rev'])
-        revs_list = revs_list[0:current_index]
+        current_index = rev_list.index(doc['_rev'])
+        revs_list = rev_list[0:current_index]
         print revs_list
 
     def undo(self, rev_list):
