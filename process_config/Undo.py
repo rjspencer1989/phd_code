@@ -42,11 +42,11 @@ class UndoProcessor(threading.Thread):
 
     def undo(self, doc, rev_list):
         undone_rev = ''
-        if len(rev_list) == 0: # new doc
+        if len(rev_list) == 0:  # new doc
             res = db.delete_doc(doc)
             undone_rev = res['rev']
-        else: # has multiple revisions
-            if doc['collection'] == 'devices': #devices shouldn't be deleted, just have the state changed
+        else:  # has multiple revisions
+            if doc['collection'] == 'devices':  # devices shouldn't be deleted, just have the state changed
                 if doc['state'] == 'permit':
                     doc['action'] = 'deny'
                 elif doc['state'] == 'pending':
