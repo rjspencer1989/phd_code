@@ -108,6 +108,10 @@ function (newDoc, oldDoc, userCtx){
             unchanged("mac_address");
             unchanged("collection");
             required("connected");
+            required("changed_by");
+            if(newDoc.changed_by !== "system" && newDoc.changed_by !== "user"){
+                throw({forbidden: "devices can only be changed by the system or a user"})
+            }
             if(newDoc.lease_action !== "add" && newDoc.lease_action !== "del"){
                 throw({forbidden: "you can only add or del leases"});
             }
