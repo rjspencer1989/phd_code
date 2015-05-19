@@ -49,8 +49,6 @@ class UndoProcessor(threading.Thread):
             if doc['collection'] == 'devices':  # devices shouldn't be deleted, just have the state changed
                 if doc['state'] == 'permit':
                     doc['action'] = 'deny'
-                elif doc['state'] == 'pending':
-                    doc['action'] = 'deny'
                 else:
                     doc['action'] = 'permit'
                 res = db.save_doc(doc, force_update=True)
