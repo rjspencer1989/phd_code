@@ -37,7 +37,7 @@ class UndoProcessor(threading.Thread):
         current_index = rev_list.index(undo_rev)
         print rev_list
         print current_index
-        revs_list = rev_list[current_index:]
+        revs_list = rev_list[current_index + 1:]
         return revs_list
 
     def undo(self, doc, rev_list):
@@ -62,7 +62,7 @@ class UndoProcessor(threading.Thread):
                     else:
                         continue
             if undoable_rev != '':
-                cur = db.get(doc['id'], rev=undoable_rev)
+                cur = db.get(doc['_id'], rev=undoable_rev)
                 res = db.save_doc(cur, force_update=True)
                 undone_rev = res['rev']
         return undone_rev
