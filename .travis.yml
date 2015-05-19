@@ -14,7 +14,7 @@ env:
         - ENV_TESTS="1"
 
 before_script:
-    "pep8 --ignore=E501 process_config notifications tests"
+    "pep8 --ignore=E501 process_config notifications tests pox"
 
 script:
     python -m unittest discover -v
