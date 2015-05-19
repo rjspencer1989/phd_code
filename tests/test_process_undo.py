@@ -39,7 +39,7 @@ class TestProcessUndo(unittest.TestCase):
         event_res = History.add_history_item("edit notification", "Edited notification mapping for Rob using Twitter and username robjspencer", "Rob", res2['id'], res2['rev'], True)
         event = db.get(event_res['id'])
         doc = undo_consumer.get_doc_to_undo(event)
-        rev_list = undo_consumer.get_rev_list(doc, res['rev'])
+        rev_list = undo_consumer.get_rev_list(doc, res2['rev'])
         print rev_list
         result = undo_consumer.undo(doc, rev_list)
         print db.get(doc['_id'], rev=result)

@@ -48,7 +48,7 @@ class UndoProcessor(threading.Thread):
         else:
             undoable_rev = ''
             for rev in rev_list:
-                cur = db.get(doc['id'], rev=rev)
+                cur = db.get(doc['_id'], rev=rev)
                 if cur['collection'] == 'devices':
                     if cur['action'] == '':
                         undoable_rev = rev
