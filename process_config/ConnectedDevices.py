@@ -14,4 +14,5 @@ for resItem in vra:
         doc['connected'] = True
     else:
         doc['connected'] = False
+    doc['changed_by'] = 'system'
     db.save_doc(doc)
