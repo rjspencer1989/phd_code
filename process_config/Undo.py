@@ -40,36 +40,31 @@ class UndoProcessor(threading.Thread):
         revs_list = rev_list[current_index + 1:]
         return revs_list
 
+    def undo_device_change(self, doc):
+        print doc
+
     def undo(self, doc, rev_list):
         undone_rev = ''
         if len(rev_list) == 0:  # new doc
             res = db.delete_doc(doc)
             undone_rev = res['rev']
         else:  # has multiple revisions
-            if doc['collection'] == 'devices':  # devices shouldn't be deleted, just have the state changed
-                if doc['state'] == 'permit':
-                    doc['action'] = 'deny'
+            rev_to_revert_to = ''
+            for rev in rev_list:
+                cur = db.get(doc['_id'], rev=rev)
+                if cur['status'] == 'done':
+                    rev_to_revert_to = rev
+                    break
                 else:
-                    doc['action'] = 'permit'
-                res = db.save_doc(doc, force_update=True)
+                    continue
+            if rev_to_revert_to != '':
+                print "rev_to_revert_to: " + rev_to_revert_to
+                cur = db.get(doc['_id'], rev=rev_to_revert_to)
+                res = db.save_doc(cur, force_update=True)
                 undone_rev = res['rev']
             else:
-                rev_to_revert_to = ''
-                for rev in rev_list:
-                    cur = db.get(doc['_id'], rev=rev)
-                    if cur['status'] == 'done':
-                        rev_to_revert_to = rev
-                        break
-                    else:
-                        continue
-                if rev_to_revert_to != '':
-                    print "rev_to_revert_to: " + rev_to_revert_to
-                    cur = db.get(doc['_id'], rev=rev_to_revert_to)
-                    res = db.save_doc(cur, force_update=True)
-                    undone_rev = res['rev']
-                else:
-                    res = db.delete_doc(doc)
-                    undone_rev = res['rev']
+                res = db.delete_doc(doc)
+                undone_rev = res['rev']
         return undone_rev
 
     def run(self):
@@ -79,8 +74,12 @@ class UndoProcessor(threading.Thread):
             the_rev = change['changes'][0]['rev']
             current_doc = db.open_doc(the_id, rev=the_rev)
             undo_doc = self.get_doc_to_undo(current_doc)
-            rev_list = self.get_rev_list(undo_doc, current_doc['doc_rev'])
-            undone_rev = self.undo(undo_doc, rev_list)
+            undone_rev = ''
+            if undo_doc['collection'] == 'devices':
+                undone_rev = self.undo_device_change(undo_doc)#fixme
+            else:
+                rev_list = self.get_rev_list(undo_doc, current_doc['doc_rev'])
+                undone_rev = self.undo(undo_doc, rev_list)
             if undone_rev != '':
                 current_doc['process_undo'] = False
                 db.save_doc(current_doc)
