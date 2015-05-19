@@ -62,6 +62,7 @@ class UndoProcessor(threading.Thread):
                     else:
                         continue
             if undoable_rev != '':
+                print "undoable_rev: " + undoable_rev
                 cur = db.get(doc['_id'], rev=undoable_rev)
                 res = db.save_doc(cur, force_update=True)
                 undone_rev = res['rev']
