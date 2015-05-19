@@ -4,16 +4,19 @@ from os.path import expanduser
 from couchdbkit.changes import ChangesStream
 from pox.lib.addresses import EthAddr
 from pox.core import core
-from pox.lib.revent import Event # @UnresolvedImport
+from pox.lib.revent import Event
 from pox.lib.revent.revent import EventMixin
+
 
 class DeviceStateChange(Event):
     def __init__(self, devices):
         Event.__init__(self)
         self.devices = devices
 
+
 class HomeworkMain(EventMixin):
     _eventMixin_events = set([DeviceStateChange])
+
     def __init__(self):
         cp = ConfigParser.ConfigParser()
         path = "/home/homeuser/couchdb.conf"
