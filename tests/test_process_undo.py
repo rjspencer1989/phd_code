@@ -35,7 +35,8 @@ class TestProcessUndo(unittest.TestCase):
         }
         db = CouchdbConfigParser.getDB()
         res = db.save_doc(nd)
-        print "nd: " + nd
+        print("nd: "),
+        print nd
         nd['user'] = 'robjspencer'
         res2 = db.save_doc(nd)
         event_res = History.add_history_item("edit notification", "Edited notification mapping for Rob using Twitter and username robjspencer", "Rob", res2['id'], res2['rev'], True)
