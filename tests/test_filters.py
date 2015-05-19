@@ -20,7 +20,8 @@ class TestFilters(unittest.TestCase):
             "device_type": "laptop",
             "notification_service": "email",
             "timestamp": time.time(),
-            "connected": False
+            "connected": False,
+            "changed_by": "user"
         }
 
         not_inc = {
@@ -37,7 +38,8 @@ class TestFilters(unittest.TestCase):
             "device_type": "laptop",
             "notification_service": "twitter",
             "timestamp": time.time(),
-            "connected": False
+            "connected": False,
+            "changed_by": "system"
         }
         db = CouchdbConfigParser.getDB()
         db.save_doc(inc)
@@ -62,7 +64,8 @@ class TestFilters(unittest.TestCase):
             "device_type": "laptop",
             "notification_service": "email",
             "timestamp": time.time(),
-            "connected": False
+            "connected": False,
+            "changed_by": "user"
         }
 
         inc = {
@@ -79,7 +82,8 @@ class TestFilters(unittest.TestCase):
             "device_type": "laptop",
             "notification_service": "twitter",
             "timestamp": time.time(),
-            "connected": False
+            "connected": False,
+            "changed_by": "system"
         }
         db = CouchdbConfigParser.getDB()
         db.save_doc(inc)
