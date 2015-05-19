@@ -20,13 +20,13 @@ FLOW_TIMEOUT_DURATION = 10
 BRIDGE_INTERFACE_NAME = "br0"
 
 
-class HomeworkRouting( object ):
-    def __init__( self ):
-        core.openflow.addListeners( self )
+class HomeworkRouting(object):
+    def __init__(self):
+        core.openflow.addListeners(self)
         self.multicast_ip = {}
         ipdb = IPDB()
         br = ipdb.interfaces[BRIDGE_INTERFACE_NAME]
-        self.bridge_mac = EthAddr( br['address'] )
+        self.bridge_mac = EthAddr(br['address'])
         self.mac_permit = set()
         self.mac_blacklist = set()
         self.mac_whitelist = set()
@@ -41,7 +41,7 @@ class HomeworkRouting( object ):
             if val['state'] == 'blacklist':
                 self.blacklist_mac(EthAddr(val['mac_address']))
 
-    def _handle_HomeworkMain_DeviceStateChange( self, event ):
+    def _handle_HomeworkMain_DeviceStateChange(self, event):
         for device in event.devices:
             if "permit" == device['action']:
                 self.permit_mac(EthAddr(device['mac']))
@@ -50,7 +50,7 @@ class HomeworkRouting( object ):
             elif "deny" == device['action']:
                 self.whitelist_mac(EthAddr(device['mac']))
 
-    def handle_ARP( self, event ):
+    def handle_ARP(self, event):
         command = of.OFPFC_ADD
         port = of.OFPP_LOCAL
         if event.parsed.src == self.bridge_mac:
@@ -58,7 +58,7 @@ class HomeworkRouting( object ):
         action = of.ofp_action_output(port=port)
         self.send_flow_modification(event, command, [action])
 
-    def handle_IPPacket( self, event ):
+    def handle_IPPacket(self, event):
         is_src_router = (event.ofp.in_port == of.OFPP_LOCAL)
         if event.parsed.next.srcip.inNetwork(NON_ROUTABLE_SUBNET, NON_ROUTABLE_NETMASK):
             print "source ip is not routable"
@@ -120,13 +120,13 @@ class HomeworkRouting( object ):
         command = of.OFPFC_ADD
         self.send_flow_modification(event, command, actions, timeout=30)
 
-    def check_access( self, ether ):
+    def check_access(self, ether):
         return ether in self.mac_permit
 
-    def handle_IGMP( self, ip_packet ):
+    def handle_IGMP(self, ip_packet):
         print "IGMP packet detected"
 
-    def handle_PAE( self, event ):
+    def handle_PAE(self, event):
         packet = event.parsed
         if packet.src in self.mac_blacklist:
             return
@@ -144,33 +144,33 @@ class HomeworkRouting( object ):
         msg.priority = of.OFP_DEFAULT_PRIORITY
         event.connection.send(msg)
 
-    def _handle_PacketIn( self, event ):
+    def _handle_PacketIn(self, event):
         packet = event.parsed
         if packet.type == pkt.ethernet.ARP_TYPE:
-            self.handle_ARP( event )
+            self.handle_ARP(event)
             return
 
         if packet.type == pkt.ethernet.PAE_TYPE:
-            self.handle_PAE( event )
+            self.handle_PAE(event)
             return
 
         if packet.type == pkt.ethernet.IP_TYPE:
             ipp = packet.payload
             if ipp.protocol == ipv4.UDP_PROTOCOL:
                 udpp = ipp.payload
-                if isinstance( udpp.next, pkt.dhcp ):
+                if isinstance(udpp.next, pkt.dhcp):
                     return
             elif ipp.protocol == ipv4.IGMP_PROTOCOL and ipp.dstip == pkt.igmp.IGMP_ADDRESS:
-                self.handle_IGMP( ipp)
+                self.handle_IGMP(ipp)
                 return
             else:
-                self.handle_IPPacket( event )
+                self.handle_IPPacket(event)
                 return
         # check if device is allowed to send traffic or is br0
-        if not self.check_access( packet.src ) and packet.src != self.bridge_mac:
-            print "blocking non IP traffic from %s" % ( str( packet.src ) )
+        if not self.check_access(packet.src) and packet.src != self.bridge_mac:
+            print "blocking non IP traffic from %s" % (str(packet.src))
             return
-        elif self.check_access( packet.dst ):
+        elif self.check_access(packet.dst):
             action = of.ofp_action_output(port=of.OFPP_FLOOD)
             act_list = [action]
             if 0 < event.ofp.in_port and event.ofp.in_port < of.OFPP_MAX:
@@ -183,24 +183,24 @@ class HomeworkRouting( object ):
             command = of.OFPFC_ADD
             action = of.ofp_action_output(port=of.OFPP_LOCAL)
             self.send_flow_modification(event, command, [action], timeout=30)
-        if packet.dst == EthAddr( "\xff\xff\xff\xff\xff\xff" ):
+        if packet.dst == EthAddr("\xff\xff\xff\xff\xff\xff"):
             print "broadcast"
             action = of.ofp_action_output(port=of.OFPP_ALL)
             command = of.OFPFC_ADD
             self.send_flow_modification(event, command, [action], timeout=30)
         return
 
-    def get_DHCP_mapping( self ):
+    def get_DHCP_mapping(self):
         return core.components['HomeworkDHCP'].instance
 
-    def blacklist_mac( self, ether ):
+    def blacklist_mac(self, ether):
         if ether in self.mac_permit:
             self.mac_permit.remove(ether)
         if ether in self.mac_whitelist:
             self.mac_whitelist.remove(ether)
         self.get_DHCP_mapping().change_device_state(ether, 'blacklist')
 
-        ofm  = of.ofp_flow_mod()
+        ofm = of.ofp_flow_mod()
         ofm.match.dl_type = pkt.ethernet.PAE_TYPE
         ofm.match.dl_src = ether
         ofm.command = of.OFPFC_DELETE
@@ -209,7 +209,7 @@ class HomeworkRouting( object ):
         for connection in core.openflow.connections:
             connection.send(ofm)
 
-    def whitelist_mac( self, ether ):
+    def whitelist_mac(self, ether):
         if ether in self.mac_blacklist:
             self.mac_blacklist.remove(ether)
         if ether in self.mac_permit:
@@ -218,7 +218,7 @@ class HomeworkRouting( object ):
         self.get_DHCP_mapping().change_device_state(ether, 'deny')
         self.revoke_mac_access(ether)
 
-    def permit_mac( self, ether ):
+    def permit_mac(self, ether):
         print "permit %s" % (str(ether))
         if ether in self.mac_blacklist:
             self.mac_blacklist.remove(ether)
@@ -227,7 +227,7 @@ class HomeworkRouting( object ):
         self.mac_permit.add(ether)
         self.get_DHCP_mapping().change_device_state(ether, 'permit')
 
-    def revoke_mac_access( self, ether ):
+    def revoke_mac_access(self, ether):
         msg = of.ofp_flow_mod()
         msg.match.dl_src = ether
         msg.out_port = of.OFPP_NONE
@@ -241,6 +241,7 @@ class HomeworkRouting( object ):
         msg.command = of.OFPFC_DELETE
         for connection in core.openflow.connections:
             connection.send(msg)
+
     def send_flow_modification(self, event, command, actions, timeout=of.OFP_FLOW_PERMANENT, priority=of.OFP_DEFAULT_PRIORITY):
         msg = of.ofp_flow_mod()
         match = of.ofp_match()
@@ -283,5 +284,6 @@ class HomeworkRouting( object ):
             msg.actions.append(act)
         event.connection.send(msg)
 
+
 def launch():
-    core.registerNew( HomeworkRouting )
+    core.registerNew(HomeworkRouting)
