@@ -90,7 +90,8 @@ class TestViews(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True
+            "connected": True,
+            "changed_by": "system"
         }
 
         doc2 = {
@@ -106,7 +107,8 @@ class TestViews(unittest.TestCase):
             "lease_action": "del",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True
+            "connected": True,
+            "changed_by": "system"
         }
 
         db = CouchdbConfigParser.getDB()
@@ -156,7 +158,8 @@ class TestViews(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True
+            "connected": True,
+            "changed_by": "system"
         }
 
         db = CouchdbConfigParser.getDB()
@@ -183,7 +186,8 @@ class TestViews(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True
+            "connected": True,
+            "changed_by": "system"
         }
 
         db = CouchdbConfigParser.getDB()
@@ -210,7 +214,8 @@ class TestViews(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True
+            "connected": True,
+            "changed_by": "system"
         }
 
         db = CouchdbConfigParser.getDB()
@@ -239,7 +244,8 @@ class TestViews(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True
+            "connected": True,
+            "changed_by": "system"
         }
 
         doc2 = {
@@ -255,7 +261,8 @@ class TestViews(unittest.TestCase):
             "lease_action": "del",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": False
+            "connected": False,
+            "changed_by": "system"
         }
 
         db = CouchdbConfigParser.getDB()
