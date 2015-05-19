@@ -70,7 +70,7 @@ class HomeworkDHCP(object):
         return vr_all
 
     def increment_ip(self, ip, networkOrder=False):
-        return IPAddr(ip.toUnsigned(networkOrder=networkOrder)+1)
+        return IPAddr(ip.toUnsigned(networkOrder=networkOrder) + 1)
 
     def get_dhcp_mapping(self):
         v = []
@@ -172,7 +172,7 @@ class HomeworkDHCP(object):
         return ip in addr_li
 
     def add_addr(self, ip):
-        iproute= IPRoute()
+        iproute = IPRoute()
         br = iproute.link_lookup(ifname=BRIDGE_INTERFACE_NAME)[0]
         if not self.check_exists(ip, iproute, br):
             iproute.addr('add', br, address=ip, mask=30)
@@ -180,7 +180,7 @@ class HomeworkDHCP(object):
         iproute = None
 
     def del_addr(self, ip):
-        iproute= IPRoute()
+        iproute = IPRoute()
         br = iproute.link_lookup(ifname=BRIDGE_INTERFACE_NAME)[0]
         if not self.check_exists(ip, iproute, br):
             iproute.addr('delete', br, address=ip, mask=30)
@@ -233,7 +233,7 @@ class HomeworkDHCP(object):
         ip = self.select_ip(dhcp_packet.chaddr, mt)
 
         if mt == pkt.dhcp.RELEASE_MSG:
-            #find mapping and delete it
+            # find mapping and delete it
             self.insert_couchdb("del", ip, dhcp_packet.chaddr, None)
             return
 
