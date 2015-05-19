@@ -95,6 +95,7 @@ class HomeworkDHCP(object):
             current_doc = vr_all[0]['value']
             current_doc['state'] = state
             current_doc['action'] = ''
+            current_doc['changed_by'] = 'system'
             self.selected_db.save_doc(current_doc, force=True)
 
     def insert_couchdb(self, lease_action, ip, mac, hostname):
@@ -128,6 +129,7 @@ class HomeworkDHCP(object):
         else:
             print "MAC Address has more than one lease. stopping"
             return
+        current_doc['changed_by'] = 'system'
         self.selected_db.save_doc(current_doc)
 
     def is_valid_mapping(self, ip, mac):
