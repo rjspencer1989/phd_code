@@ -1,9 +1,9 @@
 from pox.core import core
-import pox.lib.packet as pkt # @UnresolvedImport
+import pox.lib.packet as pkt
 import pox.openflow.libopenflow_01 as of
 from pox.lib.packet import ipv4
 from pox.lib.addresses import IPAddr, EthAddr
-from pyroute2 import IPDB  # @UnresolvedImport
+from pyroute2 import IPDB
 
 MAX_ROUTABLE_LEASE = 2400
 MAX_NON_ROUTABLE_LEASE = 30
@@ -51,15 +51,15 @@ class HomeworkRouting( object ):
                 self.whitelist_mac(EthAddr(device['mac']))
 
     def handle_ARP( self, event ):
-        command = of.OFPFC_ADD # @UndefinedVariable
-        port = of.OFPP_LOCAL # @UndefinedVariable
+        command = of.OFPFC_ADD
+        port = of.OFPP_LOCAL
         if event.parsed.src == self.bridge_mac:
-            port = of.OFPP_FLOOD # @UndefinedVariable
+            port = of.OFPP_FLOOD
         action = of.ofp_action_output(port=port)
         self.send_flow_modification(event, command, [action])
 
     def handle_IPPacket( self, event ):
-        is_src_router = (event.ofp.in_port == of.OFPP_LOCAL)  # @UndefinedVariable
+        is_src_router = (event.ofp.in_port == of.OFPP_LOCAL)
         if event.parsed.next.srcip.inNetwork(NON_ROUTABLE_SUBNET, NON_ROUTABLE_NETMASK):
             print "source ip is not routable"
             return
@@ -78,18 +78,18 @@ class HomeworkRouting( object ):
         if event.parsed.next.dstip.inNetwork(MULTICAST_SUBNET, MULTICAST_NETMASK):
             print "multicast"
             if event.parsed.next.dstip in self.multicast_ip:
-                action = of.ofp_action_output(port=of.OFPP_FLOOD)  # @UndefinedVariable
-                command = of.OFPFC_ADD  # @UndefinedVariable
+                action = of.ofp_action_output(port=of.OFPP_FLOOD)
+                command = of.OFPFC_ADD
                 self.send_flow_modification(event, command, [action], timeout=30)
         # check if broadcast. Change nw_dst to 10.2.255.255
         if event.parsed.next.dstip.inNetwork(ROUTABLE_SUBNET, ROUTABLE_NETMASK) and ((event.parsed.next.dstip.toUnsigned(networkOrder=False) & 0x3) == 0x3):
             print "broadcast IP"
             nw_new = of.ofp_action_nw_addr()
-            nw_new.type = of.OFPAT_SET_NW_DST  # @UndefinedVariable
+            nw_new.type = of.OFPAT_SET_NW_DST
             nw_new.nw_addr = IPAddr("10.2.255.255")
-            out = of.ofp_action_output(port=of.OFPP_IN_PORT if event.ofp.in_port == 0 else 0)  # @UndefinedVariable
+            out = of.ofp_action_output(port=of.OFPP_IN_PORT if event.ofp.in_port == 0 else 0)
             actions = [out, nw_new]
-            command = of.OFPFC_ADD  # @UndefinedVariable
+            command = of.OFPFC_ADD
             self.send_flow_modification(event, command, actions, timeout=30)
         dst_port = 0
         if event.parsed.next.dstip.inNetwork(ROUTABLE_SUBNET, ROUTABLE_NETMASK) and ((event.parsed.next.dstip.toUnsigned(networkOrder=False) & 0x01) == 0x01):
@@ -102,22 +102,22 @@ class HomeworkRouting( object ):
             dst_mac = self.get_DHCP_mapping().get_mac(event.parsed.next.dstip)
 
             new_dl_src = of.ofp_action_dl_addr()
-            new_dl_src.type = of.OFPAT_SET_DL_SRC  # @UndefinedVariable
+            new_dl_src.type = of.OFPAT_SET_DL_SRC
             new_dl_src.set_src(self.bridge_mac)
             actions.append(new_dl_src)
 
             new_dl_dst = of.ofp_action_dl_addr()
-            new_dl_dst.type = of.OFPAT_SET_DL_DST  # @UndefinedVariable
+            new_dl_dst.type = of.OFPAT_SET_DL_DST
             new_dl_dst.set_dst(dst_mac)
             actions.append(new_dl_dst)
 
-        out = of.ofp_action_output(port=of.OFPP_FLOOD)  # @UndefinedVariable
+        out = of.ofp_action_output(port=of.OFPP_FLOOD)
         actions.append(out)
-        if 0 < event.ofp.in_port and event.ofp.in_port < of.OFPP_MAX:  # @UndefinedVariable
-            out_of_in = of.ofp_action_output(port=of.OFPP_IN_PORT)  # @UndefinedVariable
+        if 0 < event.ofp.in_port and event.ofp.in_port < of.OFPP_MAX:
+            out_of_in = of.ofp_action_output(port=of.OFPP_IN_PORT)
             actions.append(out_of_in)
 
-        command = of.OFPFC_ADD  # @UndefinedVariable
+        command = of.OFPFC_ADD
         self.send_flow_modification(event, command, actions, timeout=30)
 
     def check_access( self, ether ):
@@ -130,16 +130,16 @@ class HomeworkRouting( object ):
         packet = event.parsed
         if packet.src in self.mac_blacklist:
             return
-        action = of.ofp_action_output(port=of.OFPP_LOCAL) # @UndefinedVariable
-        command = of.OFPFC_ADD  # @UndefinedVariable
+        action = of.ofp_action_output(port=of.OFPP_LOCAL)
+        command = of.OFPFC_ADD
         self.send_flow_modification(event, command, [action])
 
     def _handle_ConnectionUp(self, event):
         msg = of.ofp_flow_mod()
-        msg.actions.append(of.ofp_action_output(port=of.OFPP_CONTROLLER))  # @UndefinedVariable
+        msg.actions.append(of.ofp_action_output(port=of.OFPP_CONTROLLER))
         msg.match.dl_type = pkt.ethernet.IP_TYPE
         msg.match.nw_proto = pkt.ipv4.IGMP_PROTOCOL
-        msg.command = of.OFPFC_ADD  # @UndefinedVariable
+        msg.command = of.OFPFC_ADD
         msg.idle_timeout = of.OFP_FLOW_PERMANENT
         msg.priority = of.OFP_DEFAULT_PRIORITY
         event.connection.send(msg)
@@ -156,7 +156,7 @@ class HomeworkRouting( object ):
 
         if packet.type == pkt.ethernet.IP_TYPE:
             ipp = packet.payload
-            if ipp.protocol == ipv4.UDP_PROTOCOL:  # @UndefinedVariable
+            if ipp.protocol == ipv4.UDP_PROTOCOL:
                 udpp = ipp.payload
                 if isinstance( udpp.next, pkt.dhcp ):
                     return
@@ -171,27 +171,27 @@ class HomeworkRouting( object ):
             print "blocking non IP traffic from %s" % ( str( packet.src ) )
             return
         elif self.check_access( packet.dst ):
-            action = of.ofp_action_output(port=of.OFPP_FLOOD)  # @UndefinedVariable
+            action = of.ofp_action_output(port=of.OFPP_FLOOD)
             act_list = [action]
-            if 0 < event.ofp.in_port and event.ofp.in_port < of.OFPP_MAX:  # @UndefinedVariable
-                action_in = of.ofp_action_output(port=of.OFPP_IN_PORT) # @UndefinedVariable
+            if 0 < event.ofp.in_port and event.ofp.in_port < of.OFPP_MAX:
+                action_in = of.ofp_action_output(port=of.OFPP_IN_PORT)
                 act_list.append(action_in)
-            command = of.OFPFC_ADD  # @UndefinedVariable
+            command = of.OFPFC_ADD
             self.send_flow_modification(event, command, act_list, timeout=30)
         elif packet.dst == self.bridge_mac:
             print "to bridge"
-            command = of.OFPFC_ADD  # @UndefinedVariable
-            action = of.ofp_action_output(port=of.OFPP_LOCAL) # @UndefinedVariable
+            command = of.OFPFC_ADD
+            action = of.ofp_action_output(port=of.OFPP_LOCAL)
             self.send_flow_modification(event, command, [action], timeout=30)
         if packet.dst == EthAddr( "\xff\xff\xff\xff\xff\xff" ):
             print "broadcast"
-            action = of.ofp_action_output(port=of.OFPP_ALL) # @UndefinedVariable
-            command = of.OFPFC_ADD  # @UndefinedVariable
+            action = of.ofp_action_output(port=of.OFPP_ALL)
+            command = of.OFPFC_ADD
             self.send_flow_modification(event, command, [action], timeout=30)
         return
 
     def get_DHCP_mapping( self ):
-        return core.components['HomeworkDHCP'].instance  # @UndefinedVariable
+        return core.components['HomeworkDHCP'].instance
 
     def blacklist_mac( self, ether ):
         if ether in self.mac_permit:
@@ -203,9 +203,9 @@ class HomeworkRouting( object ):
         ofm  = of.ofp_flow_mod()
         ofm.match.dl_type = pkt.ethernet.PAE_TYPE
         ofm.match.dl_src = ether
-        ofm.command = of.OFPFC_DELETE  # @UndefinedVariable
+        ofm.command = of.OFPFC_DELETE
         ofm.buffer_id = -1
-        ofm.out_port = of.OFPP_NONE  # @UndefinedVariable
+        ofm.out_port = of.OFPP_NONE
         for connection in core.openflow.connections:
             connection.send(ofm)
 
@@ -230,15 +230,15 @@ class HomeworkRouting( object ):
     def revoke_mac_access( self, ether ):
         msg = of.ofp_flow_mod()
         msg.match.dl_src = ether
-        msg.out_port = of.OFPP_NONE  # @UndefinedVariable
-        msg.command = of.OFPFC_DELETE  # @UndefinedVariable
+        msg.out_port = of.OFPP_NONE
+        msg.command = of.OFPFC_DELETE
         for connection in core.openflow.connections:
             connection.send(msg)
 
         msg = of.ofp_flow_mod()
         msg.match.dl_dst = ether
-        msg.out_port = of.OFPP_NONE  # @UndefinedVariable
-        msg.command = of.OFPFC_DELETE  # @UndefinedVariable
+        msg.out_port = of.OFPP_NONE
+        msg.command = of.OFPFC_DELETE
         for connection in core.openflow.connections:
             connection.send(msg)
     def send_flow_modification(self, event, command, actions, timeout=of.OFP_FLOW_PERMANENT, priority=of.OFP_DEFAULT_PRIORITY):
@@ -278,7 +278,7 @@ class HomeworkRouting( object ):
         msg.idle_timeout = timeout
         msg.hard_timeout = of.OFP_FLOW_PERMANENT
         msg.priority = priority
-        msg.flags = of.OFPFF_SEND_FLOW_REM  # @UndefinedVariable
+        msg.flags = of.OFPFF_SEND_FLOW_REM
         for act in actions:
             msg.actions.append(act)
         event.connection.send(msg)
