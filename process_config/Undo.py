@@ -47,7 +47,15 @@ class UndoProcessor(threading.Thread):
                 valid.append(rev)
         if len(valid) > 0:
             version_to_revert_to = db.get(doc['_id'], rev=valid[0])
-            print version_to_revert_to
+            if version_to_revert_to['action'] != '':
+                doc['action'] = version_to_revert_to['action']
+            doc['device_name'] = version_to_revert_to['device_name']
+            doc['device_type'] = version_to_revert_to['device_type']
+            doc['name'] = version_to_revert_to['name']
+            doc['notification_service'] = version_to_revert_to['notification_service']
+            doc['changed_by'] = 'user'
+            res = db.save_doc(doc, force_update=True)
+            return res['rev']
 
     def undo(self, doc, rev_list):
         undone_rev = ''
