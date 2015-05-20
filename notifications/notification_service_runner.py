@@ -40,49 +40,44 @@ class NotificationRequestProcessor(threading.Thread):
 
     def get_registered_names(self):
         res = db.view('homework-remote/notification_names', group=True)
-        res_list = res.all()
-        return res_list
+        res_all = res.all()
+        name_list = []
+        for row in res_all:
+            name_list.append(row['key'])
+        return name_list
 
     def run(self):
         while True:
             change = self.sharedObject.get()
             the_id = change['id']
             the_rev = change['changes'][0]['rev']
-            currentDoc = db.open_doc(the_id, rev=the_rev)
-            if currentDoc['to'].lower() == 'everyone':
-                res_list = self.get_registered_names()
-                if len(res_list) > 0:
-                    for nameItem in res_list:
-                        name = nameItem['key']
-                        service = currentDoc['service'].lower()
-                        key = [name, service]
-                        serviceRes = db.view('homework-remote/notification_with_service', key=key)
-                        serviceResAll = serviceRes.all()
-                        if len(serviceResAll) > 0:
-                            ret = self.sendNotification(currentDoc['id'], name, service, serviceResAll, currentDoc['body'])
-                            if ret:
-                                currentDoc['status'] = "done"
-                            else:
-                                currentDoc['status'] = "error"
+            current_doc = db.open_doc(the_id, rev=the_rev)
+            name_list = []
+            if current_doc['to'].lower() == 'everyone':
+                name_list = self.get_registered_names()
             else:
-                name = currentDoc['to']
-                service = currentDoc['service'].lower()
-                key = [name, service]
-                serviceRes = db.view('homework-remote/notification_with_service', key=key)
-                serviceResAll = serviceRes.all()
-                if len(serviceResAll) > 0:
-                    ret = self.sendNotification(the_id, name, service, serviceResAll, currentDoc['body'])
-                    if ret:
-                        currentDoc['status'] = "done"
-                    else:
-                        currentDoc['status'] = "error"
-            db.save_doc(currentDoc)
-
+                name_list = [current_doc['to']]
+            if len(name_list) > 0:
+                for name in name_list:
+                    service = current_doc['service'].lower()
+                    key = [name, service]
+                    serviceRes = db.view('homework-remote/notification_with_service', key=key)
+                    serviceResAll = serviceRes.all()
+                    if len(serviceResAll) > 0:
+                        ret = self.sendNotification(current_doc['id'], name, service, serviceResAll, current_doc['body'])
+                        if ret:
+                            current_doc['status'] = "done"
+                        else:
+                            current_doc['status'] = "error"
+            else:
+                current_doc['status'] = 'error'
+            db.save_doc(current_doc)
             self.sharedObject.task_done()
 
 notificationQueue = Queue()
 notificationProducer = NotificationRequestListener('prod', notificationQueue)
 notificationConsumer = NotificationRequestProcessor('con', notificationQueue)
+
 if "ENV_TESTS" not in os.environ:
     notificationProducer.start()
     notificationConsumer.start()
