@@ -7,21 +7,17 @@ from process_config import CouchdbConfigParser
 import os
 
 db = CouchdbConfigParser.getDB()
-print db
 db_info = db.info()
 
 
 class NotificationRequestListener(threading.Thread):
     def __init__(self, threadName, queue):
         super(NotificationRequestListener, self).__init__(name=threadName)
-        print "starting listener"
         self.sharedObject = queue
 
     def run(self):
-        print 'listener running'
         changeStream = ChangesStream(db, feed="continuous", heartbeat=True, since=db_info['update_seq'], filter='homework-remote/notification_request')
         for change in changeStream:
-            print change
             self.sharedObject.put(change)
 
 
@@ -34,7 +30,6 @@ class NotificationRequestProcessor(threading.Thread):
         success = False
         if len(rows) > 0:
             for row in rows:
-                print row
                 userDetails = row['value']
                 encoded = service.encode('utf8')
                 mod = __import__('NotificationServices', fromlist=[encoded])
@@ -45,10 +40,8 @@ class NotificationRequestProcessor(threading.Thread):
 
     def run(self):
         while True:
-            print "running"
             change = self.sharedObject.get()
             theId = change['id']
-            print theId
             theRev = change['changes'][0]['rev']
             currentDoc = db.open_doc(theId, rev=theRev)
             if currentDoc['to'].lower() == 'everyone':
