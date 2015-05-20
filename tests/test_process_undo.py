@@ -41,7 +41,8 @@ class TestProcessUndo(unittest.TestCase):
         doc = undo_consumer.get_doc_to_undo(event)
         rev_list = undo_consumer.get_rev_list(doc, res2['rev'])
         result = undo_consumer.undo(doc, rev_list)
-        self.assertEqual(nd['user'], 'rjspencer1989')
+        updated = db.get(nd['_id'], rev=result)
+        self.assertEqual(updated['user'], 'rjspencer1989')
         db.delete_doc(res['id'])
         db.delete_doc(event_res['id'])
 
