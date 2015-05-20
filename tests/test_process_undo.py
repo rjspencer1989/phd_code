@@ -51,25 +51,36 @@ class TestProcessUndo(unittest.TestCase):
         undo_consumer = Undo.consumer
         doc = {
             "_id": "aa:bb:cc:dd:ee:ff",
-            "action": "permit",
+            "action": "",
             "collection": "devices",
-            "device_name": "test-device",
+            "device_name": "",
             "host_name": "test-device",
             "ip_address": "10.2.0.61",
             "lease_action": "add",
             "mac_address": "aa:bb:cc:dd:ee:ff",
-            "name": "Rob",
+            "name": "",
             "state": "pending",
-            "device_type": "laptop",
-            "notification_service": "email",
+            "device_type": "",
+            "notification_service": "",
             "timestamp": time.time(),
-            "connected": False,
-            "changed_by": "user"
+            "connected": True,
+            "changed_by": "system"
         }
         db = CouchdbConfigParser.getDB()
         db.save_doc(doc)  # initial from DHCP
+        doc['action'] = 'deny'
+        doc['device_name'] = 'test-device'
+        doc['name'] = 'Rob'
+        doc['device_type'] = 'laptop'
+        doc['notification_service'] = 'phone'
+        doc['changed_by'] = 'user'
         db.save_doc(doc)  # initial user decision
+        doc['action'] = ''
+        doc['state'] = 'deny'
+        doc['changed_by'] = 'system'
         db.save_doc(doc)  # POX applying change
+        doc['action'] = 'permit'
+        doc['changed_by'] = 'user'
         res = db.save_doc(doc)  # user changes their mind
         event_res = History.add_history_item("Permit device", "Permitted  test-device", "Rob", res['id'], res['rev'], True)
         event = db.get(event_res['id'])
