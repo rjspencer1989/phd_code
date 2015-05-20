@@ -48,3 +48,6 @@ class TestProcessUndo(unittest.TestCase):
         print db.get(doc['_id'], rev=result)
         db.delete_doc(res['id'])
         db.delete_doc(event_res['id'])
+
+    def test_process_undo_device_doc(self):
+        pass
