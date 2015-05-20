@@ -46,6 +46,14 @@ class NotificationRequestProcessor(threading.Thread):
             name_list.append(row['key'])
         return name_list
 
+    def get_user_name(self, name, service):
+        key = [name, service]
+        service_res = db.view('homework-remote/notification_with_service', key=key)
+        service_res_all = serviceRes.all()
+        if len(service_res_all) > 0:
+            return service_res_all
+        return None
+
     def run(self):
         while True:
             change = self.sharedObject.get()
@@ -60,11 +68,9 @@ class NotificationRequestProcessor(threading.Thread):
             if len(name_list) > 0:
                 for name in name_list:
                     service = current_doc['service'].lower()
-                    key = [name, service]
-                    serviceRes = db.view('homework-remote/notification_with_service', key=key)
-                    serviceResAll = serviceRes.all()
-                    if len(serviceResAll) > 0:
-                        ret = self.sendNotification(current_doc['id'], name, service, serviceResAll, current_doc['body'])
+                    service_res_all = self.get_user_name(name, service)
+                    if service_res_all is not None:
+                        ret = self.sendNotification(current_doc['id'], name, service, service_res_all, current_doc['body'])
                         if ret:
                             current_doc['status'] = "done"
                         else:
@@ -74,10 +80,10 @@ class NotificationRequestProcessor(threading.Thread):
             db.save_doc(current_doc)
             self.sharedObject.task_done()
 
-notificationQueue = Queue()
-notificationProducer = NotificationRequestListener('prod', notificationQueue)
-notificationConsumer = NotificationRequestProcessor('con', notificationQueue)
+notification_queue = Queue()
+notification_producer = NotificationRequestListener('prod', notification_queue)
+notification_consumer = NotificationRequestProcessor('con', notification_queue)
 
 if "ENV_TESTS" not in os.environ:
-    notificationProducer.start()
-    notificationConsumer.start()
+    notification_producer.start()
+    notification_consumer.start()
