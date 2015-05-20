@@ -38,17 +38,21 @@ class NotificationRequestProcessor(threading.Thread):
                 success = result
         return success
 
+    def get_registered_names(self):
+        res = db.view('homework-remote/notification_names', group=True)
+        res_list = res.all()
+        return res_list
+
     def run(self):
         while True:
             change = self.sharedObject.get()
-            theId = change['id']
-            theRev = change['changes'][0]['rev']
-            currentDoc = db.open_doc(theId, rev=theRev)
+            the_id = change['id']
+            the_rev = change['changes'][0]['rev']
+            currentDoc = db.open_doc(the_id, rev=the_rev)
             if currentDoc['to'].lower() == 'everyone':
-                res = db.view('homework-remote/notification_names', group=True)
-                resList = res.all()
-                if len(resList) > 0:
-                    for nameItem in resList:
+                res_list = self.get_registered_names()
+                if len(res_list) > 0:
+                    for nameItem in res_list:
                         name = nameItem['key']
                         service = currentDoc['service'].lower()
                         key = [name, service]
@@ -67,7 +71,7 @@ class NotificationRequestProcessor(threading.Thread):
                 serviceRes = db.view('homework-remote/notification_with_service', key=key)
                 serviceResAll = serviceRes.all()
                 if len(serviceResAll) > 0:
-                    ret = self.sendNotification(theId, name, service, serviceResAll, currentDoc['body'])
+                    ret = self.sendNotification(the_id, name, service, serviceResAll, currentDoc['body'])
                     if ret:
                         currentDoc['status'] = "done"
                     else:
