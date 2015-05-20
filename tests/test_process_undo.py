@@ -87,6 +87,6 @@ class TestProcessUndo(unittest.TestCase):
         undo_doc = undo_consumer.get_doc_to_undo(event)
         result = undo_consumer.undo_device_change(undo_doc, res['rev'])
         updated = db.open_doc(doc['_id'], rev=result)
-        self.self.assertEqual('deny', updated['action'])
+        self.assertEqual('deny', updated['action'])
         db.delete_doc(event_res['id'])
         db.delete_doc(doc['_id'])
