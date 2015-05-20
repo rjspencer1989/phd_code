@@ -40,7 +40,12 @@ class UndoProcessor(threading.Thread):
 
     def undo_device_change(self, doc, revision):
         revs = self.get_rev_list(doc, revision)
-        print revs
+        valid = []
+        for rev in revs:
+            current = db.get(doc['_id'], rev=rev)
+            if current['changed_by'] == 'user':
+                valid = current['rev']
+        print valid
 
     def undo(self, doc, rev_list):
         undone_rev = ''
