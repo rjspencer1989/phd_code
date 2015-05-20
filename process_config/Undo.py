@@ -46,7 +46,8 @@ class UndoProcessor(threading.Thread):
             if current['changed_by'] == 'user':
                 valid.append(rev)
         if len(valid) > 0:
-            print valid[0]
+            version_to_revert_to = db.get(doc['_id'], rev=valid[0])
+            print version_to_revert_to
 
     def undo(self, doc, rev_list):
         undone_rev = ''
