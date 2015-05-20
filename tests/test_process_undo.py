@@ -20,7 +20,8 @@ class TestProcessUndo(unittest.TestCase):
         doc = undo_consumer.get_doc_to_undo(event)
         rev_list = undo_consumer.get_rev_list(doc, res['rev'])
         result = undo_consumer.undo(doc, rev_list)
-        self.assertTrue('_deleted' in nd)
+        updated = db.get(nd['_id'], rev=result)
+        self.assertTrue('_deleted' in updated)
         db.delete_doc(event_res['id'])
 
     def test_process_undo_existing_doc(self):
