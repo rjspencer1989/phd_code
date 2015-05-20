@@ -3,23 +3,12 @@
 from couchdbkit import *
 from Queue import Queue
 import threading
-import ConfigParser
+from process_config import CouchdbConfigParser
 import os
-from os.path import expanduser
 
-config = ConfigParser.ConfigParser()
-path = "/home/homeuser/couchdb.conf"
-config.read(path)
-user = config.get('DEFAULT', 'ADMIN')
-password = config.get('DEFAULT', 'ADMIN_PASSWORD')
-port = config.get('DEFAULT', 'PORT')
-remote_db = config.get('DEFAULT', 'DB')
-server_name = config.get('DEFAULT', 'SERVER_NAME')
-
-s = Server('http://%s:%s@%s:%s' % (user, password, server_name, port))
-remoteDB = s[remote_db]
-print remoteDB
-remoteDbInf = remoteDB.info()
+db = CouchdbConfigParser.getDB()
+print db
+db_info = db.info()
 
 
 class NotificationRequestListener(threading.Thread):
@@ -30,8 +19,8 @@ class NotificationRequestListener(threading.Thread):
 
     def run(self):
         print 'listener running'
-        remoteStream = ChangesStream(remoteDB, feed="continuous", heartbeat=True, since=remoteDbInf['update_seq'], filter='homework-remote/notification_request')
-        for change in remoteStream:
+        changeStream = ChangesStream(db, feed="continuous", heartbeat=True, since=db_info['update_seq'], filter='homework-remote/notification_request')
+        for change in changeStream:
             print change
             self.sharedObject.put(change)
 
@@ -61,16 +50,16 @@ class NotificationRequestProcessor(threading.Thread):
             theId = change['id']
             print theId
             theRev = change['changes'][0]['rev']
-            currentDoc = remoteDB.open_doc(theId, rev=theRev)
+            currentDoc = db.open_doc(theId, rev=theRev)
             if currentDoc['to'].lower() == 'everyone':
-                res = remoteDB.view('homework-remote/notification_names', group=True)
+                res = db.view('homework-remote/notification_names', group=True)
                 resList = res.all()
                 if len(resList) > 0:
                     for nameItem in resList:
                         name = nameItem['key']
                         service = currentDoc['service'].lower()
                         key = [name, service]
-                        serviceRes = remoteDB.view('homework-remote/notification_with_service', key=key)
+                        serviceRes = db.view('homework-remote/notification_with_service', key=key)
                         serviceResAll = serviceRes.all()
                         if len(serviceResAll) > 0:
                             ret = self.sendNotification(currentDoc['id'], name, service, serviceResAll, currentDoc['body'])
@@ -82,7 +71,7 @@ class NotificationRequestProcessor(threading.Thread):
                 name = currentDoc['to']
                 service = currentDoc['service'].lower()
                 key = [name, service]
-                serviceRes = remoteDB.view('homework-remote/notification_with_service', key=key)
+                serviceRes = db.view('homework-remote/notification_with_service', key=key)
                 serviceResAll = serviceRes.all()
                 if len(serviceResAll) > 0:
                     ret = self.sendNotification(theId, name, service, serviceResAll, currentDoc['body'])
@@ -90,13 +79,13 @@ class NotificationRequestProcessor(threading.Thread):
                         currentDoc['status'] = "done"
                     else:
                         currentDoc['status'] = "error"
-            remoteDB.save_doc(currentDoc)
+            db.save_doc(currentDoc)
 
             self.sharedObject.task_done()
 
 notificationQueue = Queue()
-print notificationQueue
 notificationProducer = NotificationRequestListener('prod', notificationQueue)
 notificationConsumer = NotificationRequestProcessor('con', notificationQueue)
-notificationProducer.start()
-notificationConsumer.start()
+if "ENV_TESTS" not in os.environ:
+    notificationProducer.start()
+    notificationConsumer.start()
