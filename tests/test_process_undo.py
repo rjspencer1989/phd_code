@@ -1,5 +1,6 @@
 import unittest
-from process_config import CouchdbConfigParser, Undo, History
+from process_config import CouchdbConfigParser, Undo, History,
+import time
 
 
 class TestProcessUndo(unittest.TestCase):
