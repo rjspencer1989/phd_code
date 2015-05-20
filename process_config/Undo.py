@@ -39,7 +39,8 @@ class UndoProcessor(threading.Thread):
         return revs_list
 
     def undo_device_change(self, doc, revision):
-        print doc
+        revs = self.get_rev_list(doc, revision)
+        print revs
 
     def undo(self, doc, rev_list):
         undone_rev = ''
