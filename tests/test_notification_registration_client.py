@@ -14,7 +14,7 @@ class TestNotificationRegistrationClient(unittest.TestCase):
             "status": "pending"
         }
 
-        self.db = CouchdbConfigParser.getDB()
+        self.db = couchdb_config_parser.getDB()
         res = self.db.save_doc(doc)
         self.the_id = res['id']
         self.ret_doc = self.db.get(self.the_id)

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import urllib2
-import History
+import history
 
 status = False
 request = urllib2.Request('https://2-dot-homework-notify.appspot.com/notify/2/')

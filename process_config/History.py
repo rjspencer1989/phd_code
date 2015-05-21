@@ -1,6 +1,6 @@
-import CouchdbConfigParser
+import couchdb_config_parser
 import datetime
-db = CouchdbConfigParser.getDB()
+db = couchdb_config_parser.getDB()
 
 
 def add_history_item(title, description, user, docId, docRev, undoable):

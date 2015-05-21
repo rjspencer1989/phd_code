@@ -7,7 +7,7 @@ import time
 class TestValidation(unittest.TestCase):
     def test_no_collection(self):
         doc = {"foo": "bar"}
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -18,7 +18,7 @@ class TestValidation(unittest.TestCase):
             "userdetails": "rob@robspencer.me.uk",
             "collection": "notify"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -30,7 +30,7 @@ class TestValidation(unittest.TestCase):
             "user": "rjspencer1989",
             "status": "pending"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         res = db.save_doc(doc)
         db.delete_doc(res['id'])
 
@@ -42,7 +42,7 @@ class TestValidation(unittest.TestCase):
             "user": "rjspencer1989",
             "status": "foo"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -53,7 +53,7 @@ class TestValidation(unittest.TestCase):
             "user": "rjspencer1989",
             "status": "foo"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -65,7 +65,7 @@ class TestValidation(unittest.TestCase):
             "user": "rjspencer1989",
             "status": "pending"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         db.save_doc(doc)
         doc['name'] = 'test'
         with self.assertRaises(Exception):
@@ -83,7 +83,7 @@ class TestValidation(unittest.TestCase):
             "undoable": True,
             "perform_undo": False
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         res = db.save_doc(doc)
         db.delete_doc(res['id'])
 
@@ -99,7 +99,7 @@ class TestValidation(unittest.TestCase):
             "undoable": False,
             "perform_undo": False
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         res = db.save_doc(doc)
         db.delete_doc(res['id'])
 
@@ -115,7 +115,7 @@ class TestValidation(unittest.TestCase):
             "undoable": False,
             "perform_undo": True
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -136,7 +136,7 @@ class TestValidation(unittest.TestCase):
             "connected": True,
             "changed_by": "system"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         res = db.save_doc(doc)
         db.delete_doc(res['id'])
 
@@ -157,7 +157,7 @@ class TestValidation(unittest.TestCase):
             "connected": True,
             "changed_by": "system"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -178,7 +178,7 @@ class TestValidation(unittest.TestCase):
             "connected": True,
             "changed_by": "system"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -199,7 +199,7 @@ class TestValidation(unittest.TestCase):
             "connected": True,
             "changed_by": "system"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -214,7 +214,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "txt",
             "password": "whatever12345"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         res = db.save_doc(doc)
         db.delete_doc(res['id'])
 
@@ -229,7 +229,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "txt",
             "password": "whatever12345"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -244,7 +244,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "txt",
             "password": "whatever12345"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -259,7 +259,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "txt",
             "password": "whatever12345"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -274,7 +274,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "txt",
             "password": "whatever12345"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -289,7 +289,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "txt",
             "password": "whatever12345"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -304,7 +304,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "txt",
             "password": "whatever12345"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -319,7 +319,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "txt",
             "password": "whatever12345"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -334,7 +334,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "text",
             "password": "whatever12345"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -349,7 +349,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "txt",
             "password": "whate"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         res = db.save_doc(doc)
         db.delete_doc(res['id'])
 
@@ -364,7 +364,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "txt",
             "password": "whatever12345"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         res = db.save_doc(doc)
         db.delete_doc(res['id'])
 
@@ -379,7 +379,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "txt",
             "password": "whatever"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -394,7 +394,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "hex",
             "password": "1234567890"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         res = db.save_doc(doc)
         db.delete_doc(res['id'])
 
@@ -409,7 +409,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "hex",
             "password": "1234567890abcdef0123456789"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         res = db.save_doc(doc)
         db.delete_doc(res['id'])
 
@@ -424,7 +424,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "hex",
             "password": "123456789"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -439,7 +439,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "hex",
             "password": "123456789t"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -454,7 +454,7 @@ class TestValidation(unittest.TestCase):
             "password_type": "hex",
             "password": "12345678q"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -466,7 +466,7 @@ class TestValidation(unittest.TestCase):
             "body": "message",
             "status": "pending"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         res = db.save_doc(doc)
         db.delete_doc(res['id'])
 
@@ -478,7 +478,7 @@ class TestValidation(unittest.TestCase):
             "body": "message",
             "status": "pending"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
@@ -490,6 +490,6 @@ class TestValidation(unittest.TestCase):
             "body": "message",
             "status": "complete"
         }
-        db = CouchdbConfigParser.getDB()
+        db = couchdb_config_parser.getDB()
         with self.assertRaises(Exception):
             db.save_doc(doc)

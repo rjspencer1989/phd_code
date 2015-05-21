@@ -7,8 +7,8 @@ import os
 from couchdbkit import *
 from Queue import Queue
 import threading
-import CouchdbConfigParser
-db = CouchdbConfigParser.getDB()
+import couchdb_config_parser
+db = couchdb_config_parser.getDB()
 db_info = db.info()
 
 

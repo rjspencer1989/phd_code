@@ -2,13 +2,13 @@ from couchdbkit import *
 from Queue import Queue
 import threading
 from datetime import datetime
-import CouchdbConfigParser
+import couchdb_config_parser
 from os.path import expanduser
 import subprocess
 import ChangeNotification
 import os
 
-db = CouchdbConfigParser.getDB()
+db = couchdb_config_parser.getDB()
 db_info = db.info()
 
 

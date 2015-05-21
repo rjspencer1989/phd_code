@@ -1,10 +1,10 @@
-import CouchdbConfigParser
+import couchdb_config_parser
 from couchdbkit import *
 from Queue import Queue
 import threading
 import os
 import History
-db = CouchdbConfigParser.getDB()
+db = couchdb_config_parser.getDB()
 db_info = db.info()
 
 

@@ -3,10 +3,10 @@
 from couchdbkit import *
 from Queue import Queue
 import threading
-from process_config import CouchdbConfigParser
+from process_config import couchdb_config_parser
 import os
 
-db = CouchdbConfigParser.getDB()
+db = couchdb_config_parser.getDB()
 db_info = db.info()
 
 

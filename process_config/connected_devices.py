@@ -1,9 +1,9 @@
 #!/usr/bin/python
 from couchdbkit import *
-import CouchdbConfigParser
+import couchdb_config_parser
 import subprocess
 
-db = CouchdbConfigParser.getDB()
+db = couchdb_config_parser.getDB()
 vr = db.view('homework-remote/valid_leases')
 vra = vr.all()
 for resItem in vra:

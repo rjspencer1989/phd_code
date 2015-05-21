@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 from couchdbkit import *
-import CouchdbConfigParser
+import couchdb_config_parser
 
 
 def sendNotification(to, service, message):
-    db = CouchdbConfigParser.getDB()
+    db = couchdb_config_parser.getDB()
     doc = {}
     doc['to'] = to
     doc['service'] = service
