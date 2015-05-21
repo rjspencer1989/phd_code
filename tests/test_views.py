@@ -26,7 +26,7 @@ class TestViews(unittest.TestCase):
 
         res = db.save_doc(doc1)
         res2 = db.save_doc(doc2)
-        key = ["Rob", "email"]
+        key = ["email", "Rob"]
         vr = db.view("homework-remote/notification_with_service", key=key)
         vr_all = vr.all()
         l_vr_all = list(vr_all)
