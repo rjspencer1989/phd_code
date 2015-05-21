@@ -3,7 +3,7 @@ from couchdbkit import *
 from Queue import Queue
 import threading
 import os
-import History
+import add_history
 db = couchdb_config_parser.getDB()
 db_info = db.info()
 

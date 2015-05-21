@@ -15,7 +15,7 @@ class TestProcessUndo(unittest.TestCase):
         }
         db = couchdb_config_parser.getDB()
         res = db.save_doc(nd)
-        event_res = History.add_history_item("new notification", "added notification mapping for Rob using Twitter and username rjspencer1989", "Rob", res['id'], res['rev'], True)
+        event_res = add_history.add_history_item("new notification", "added notification mapping for Rob using Twitter and username rjspencer1989", "Rob", res['id'], res['rev'], True)
         event = db.get(event_res['id'])
         doc = undo_consumer.get_doc_to_undo(event)
         rev_list = undo_consumer.get_rev_list(doc, res['rev'])
@@ -37,7 +37,7 @@ class TestProcessUndo(unittest.TestCase):
         res = db.save_doc(nd)
         nd['user'] = 'robjspencer'
         res2 = db.save_doc(nd)
-        event_res = History.add_history_item("edit notification", "Edited notification mapping for Rob using Twitter and username robjspencer", "Rob", res2['id'], res2['rev'], True)
+        event_res = add_history.add_history_item("edit notification", "Edited notification mapping for Rob using Twitter and username robjspencer", "Rob", res2['id'], res2['rev'], True)
         event = db.get(event_res['id'])
         doc = undo_consumer.get_doc_to_undo(event)
         rev_list = undo_consumer.get_rev_list(doc, res2['rev'])
@@ -82,7 +82,7 @@ class TestProcessUndo(unittest.TestCase):
         doc['action'] = 'permit'
         doc['changed_by'] = 'user'
         res = db.save_doc(doc)  # user changes their mind
-        event_res = History.add_history_item("Permit device", "Permitted  test-device", "Rob", res['id'], res['rev'], True)
+        event_res = add_history.add_history_item("Permit device", "Permitted  test-device", "Rob", res['id'], res['rev'], True)
         event = db.get(event_res['id'])
         undo_doc = undo_consumer.get_doc_to_undo(event)
         result = undo_consumer.undo_device_change(undo_doc, res['rev'])
