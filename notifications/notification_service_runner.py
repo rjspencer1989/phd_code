@@ -3,7 +3,7 @@
 from couchdbkit import *
 from Queue import Queue
 import threading
-from process_config import CouchdbConfigParser
+from phd_code.process_config import CouchdbConfigParser
 import os
 
 db = CouchdbConfigParser.getDB()
