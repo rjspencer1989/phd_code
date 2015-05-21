@@ -1,6 +1,6 @@
 import unittest
 import time
-from process_config import CouchdbConfigParser
+from process_config import couchdb_config_parser
 from couchdbkit.changes import ChangesStream
 
 

@@ -1,5 +1,5 @@
 import unittest
-from process_config import CouchdbConfigParser
+from process_config import couchdb_config_parser
 import datetime
 import time
 

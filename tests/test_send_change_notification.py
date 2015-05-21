@@ -1,6 +1,6 @@
 import unittest
 from couchdbkit import *
-from process_config import ChangeNotification, CouchdbConfigParser
+from process_config import change_notification, couchdb_config_parser
 
 
 class TestSendNotification(unittest.TestCase):

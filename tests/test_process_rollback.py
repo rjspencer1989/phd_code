@@ -1,5 +1,5 @@
 import unittest
-from process_config import CouchdbConfigParser, Rollback
+from process_config import couchdb_config_parser, rollback
 import time
 
 

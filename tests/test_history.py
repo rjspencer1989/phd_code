@@ -1,10 +1,10 @@
 import unittest
-from process_config import CouchdbConfigParser, History
+from process_config import couchdb_config_parser, history
 
 
 class TestHistory(unittest.TestCase):
     def test_history(self):
-        result = History.add_history_item("Change WiFi", "Wifi Updated", "Rob", "aabbc", "2-33aabbcc", True)
+        result = history.add_history_item("Change WiFi", "Wifi Updated", "Rob", "aabbc", "2-33aabbcc", True)
         self.assertIsNotNone(result)
         db = CouchdbConfigParser.getDB()
         doc = db.get(result['id'])
