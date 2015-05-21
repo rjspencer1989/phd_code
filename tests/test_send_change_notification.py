@@ -6,7 +6,7 @@ from process_config import change_notification, couchdb_config_parser
 class TestSendNotification(unittest.TestCase):
     def test_send_notification(self):
         the_id = ''
-        res = ChangeNotification.sendNotification("Rob", "email", "foo")
+        res = change_notification.sendNotification("Rob", "email", "foo")
         the_id = res['id']
         db = couchdb_config_parser.getDB()
         ret_doc = db.get(the_id)
