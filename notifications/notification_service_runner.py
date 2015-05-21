@@ -30,7 +30,7 @@ class NotificationRequestProcessor(threading.Thread):
         encoded = service.encode('utf8')
         mod = __import__('NotificationServices', fromlist=[encoded])
         service_class = getattr(mod, service)
-        result = service_class.sendNotification(notification_id, user_details, message)
+        result = service_class.sendNotification(notification_id, user, message)
         return result
 
     def get_user_names(self, name, service):
