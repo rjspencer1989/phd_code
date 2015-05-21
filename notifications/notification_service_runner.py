@@ -38,6 +38,26 @@ class NotificationRequestProcessor(threading.Thread):
                 success = result
         return success
 
+    def process_notification(self, doc):
+        name_list = []
+        if doc['to'].lower() == 'everyone':
+            name_list = self.get_registered_names()
+        else:
+            name_list = [doc['to']]
+        if len(name_list) > 0:
+            for name in name_list:
+                service = doc['service'].lower()
+                service_res_all = self.get_user_name(name, service)
+                if service_res_all is not None:
+                    ret = self.sendNotification(doc['id'], name, service, service_res_all, doc['body'])
+                    if ret:
+                        doc['status'] = "done"
+                    else:
+                        doc['status'] = "error"
+        else:
+            doc['status'] = 'error'
+        db.save_doc(doc)
+
     def get_registered_names(self):
         res = db.view('homework-remote/notification_names', group=True)
         res_all = res.all()
@@ -59,25 +79,8 @@ class NotificationRequestProcessor(threading.Thread):
             change = self.sharedObject.get()
             the_id = change['id']
             the_rev = change['changes'][0]['rev']
-            current_doc = db.open_doc(the_id, rev=the_rev)
-            name_list = []
-            if current_doc['to'].lower() == 'everyone':
-                name_list = self.get_registered_names()
-            else:
-                name_list = [current_doc['to']]
-            if len(name_list) > 0:
-                for name in name_list:
-                    service = current_doc['service'].lower()
-                    service_res_all = self.get_user_name(name, service)
-                    if service_res_all is not None:
-                        ret = self.sendNotification(current_doc['id'], name, service, service_res_all, current_doc['body'])
-                        if ret:
-                            current_doc['status'] = "done"
-                        else:
-                            current_doc['status'] = "error"
-            else:
-                current_doc['status'] = 'error'
-            db.save_doc(current_doc)
+            doc = db.open_doc(the_id, rev=the_rev)
+            self.process_notification(doc)
             self.sharedObject.task_done()
 
 notification_queue = Queue()
