@@ -26,15 +26,15 @@ class NotificationRequestProcessor(threading.Thread):
         super(NotificationRequestProcessor, self).__init__(name=threadName)
         self.sharedObject = queue
 
-    def sendNotification(self, notificationId, name, service, rows, message):
+    def send_notification(self, notification_id, name, service, rows, message):
         success = False
         if len(rows) > 0:
             for row in rows:
-                userDetails = row['value']
+                user_details = row['value']
                 encoded = service.encode('utf8')
                 mod = __import__('NotificationServices', fromlist=[encoded])
-                serviceClass = getattr(mod, service)
-                result = serviceClass.sendNotification(notificationId, userDetails, message)
+                service_class = getattr(mod, service)
+                result = service_class.sendNotification(notification_id, user_details, message)
                 success = result
         return success
 
@@ -49,7 +49,7 @@ class NotificationRequestProcessor(threading.Thread):
                 service = doc['service'].lower()
                 service_res_all = self.get_user_name(name, service)
                 if service_res_all is not None:
-                    ret = self.sendNotification(doc['id'], name, service, service_res_all, doc['body'])
+                    ret = self.send_notification(doc['id'], name, service, service_res_all, doc['body'])
                     if ret:
                         doc['status'] = "done"
                     else:
