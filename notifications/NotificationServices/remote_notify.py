@@ -1,17 +1,13 @@
 import json
+import os
 import urllib
 import urllib2
+
 import notification_response
 
 
 def getRouterID():
-    with open('/etc/homework/notification.conf', 'r') as fileObj:
-        line = fileObj.readline()
-        router_id = ''
-        if len(line) > 0:
-            router_id = line[line.index('=') + 1:].strip()
-            return router_id
-    return None
+    return os.environ['APP_ENGINE_ROUTER_ID']
 
 
 def sendNotification(service, to, body):
