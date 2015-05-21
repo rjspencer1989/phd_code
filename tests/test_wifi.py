@@ -1,5 +1,5 @@
 import unittest
-from process_config import wifi
+from process_config import edit_wifi
 
 
 class TestWifi(unittest.TestCase):

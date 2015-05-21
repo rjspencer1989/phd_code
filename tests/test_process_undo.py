@@ -1,5 +1,5 @@
 import unittest
-from process_config import couchdb_config_parser, undo, history
+from process_config import couchdb_config_parser, perform_undo, add_history
 import time
 
 
