@@ -4,7 +4,7 @@ from process_config import add_history
 
 class TestHistory(unittest.TestCase):
     def test_history(self):
-        result = history.add_history_item("Change WiFi", "Wifi Updated", "Rob", "aabbc", "2-33aabbcc", True)
+        result = add_history.add_history_item("Change WiFi", "Wifi Updated", "Rob", "aabbc", "2-33aabbcc", True)
         self.assertIsNotNone(result)
         db = couchdb_config_parser.getDB()
         doc = db.get(result['id'])
