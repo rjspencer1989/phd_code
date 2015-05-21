@@ -3,9 +3,9 @@ from process_config import couchdb_config_parser, perform_undo, add_history
 import time
 
 
-class TestProcessUndo(unittest.TestCase):
+class TestProcessperfom_undo(unittest.TestCase):
     def test_process_undo_new_doc(self):
-        undo_consumer = Undo.consumer
+        undo_consumer = perfom_undo.consumer
         nd = {
             "collection": "notifications",
             "status": "done",
@@ -25,7 +25,7 @@ class TestProcessUndo(unittest.TestCase):
         db.delete_doc(event_res['id'])
 
     def test_process_undo_existing_doc(self):
-        undo_consumer = Undo.consumer
+        undo_consumer = perfom_undo.consumer
         nd = {
             "collection": "notifications",
             "status": "done",
@@ -48,7 +48,7 @@ class TestProcessUndo(unittest.TestCase):
         db.delete_doc(event_res['id'])
 
     def test_process_undo_device_doc(self):
-        undo_consumer = Undo.consumer
+        undo_consumer = perfom_undo.consumer
         doc = {
             "_id": "aa:bb:cc:dd:ee:ff",
             "action": "",
