@@ -41,7 +41,7 @@ class NotificationRequestProcessor(threading.Thread):
             start_key = [service, name]
             end_key = [service, name]
         service_res = db.view('homework-remote/notification_with_service', startkey=start_key, endkey=end_key)
-        service_res_all = serviceRes.all()
+        service_res_all = service_res.all()
         if len(service_res_all) > 0:
             return service_res_all
         return None
