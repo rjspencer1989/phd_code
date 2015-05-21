@@ -5,7 +5,7 @@ from datetime import datetime
 import couchdb_config_parser
 from os.path import expanduser
 import subprocess
-import ChangeNotification
+import change_notification
 import os
 
 db = couchdb_config_parser.getDB()
