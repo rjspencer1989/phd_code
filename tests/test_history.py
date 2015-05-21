@@ -1,5 +1,5 @@
 import unittest
-from process_config import add_history
+from process_config import add_history, couchdb_config_parser
 
 
 class TestHistory(unittest.TestCase):
