@@ -26,24 +26,24 @@ class TestNotificationRegistrationClient(unittest.TestCase):
 
     def test_registration(self):
         self.assertIsNotNone(self.ret_doc)
-        NotificationRegistrationClient.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
+        notification_registration_client.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
         added_doc = self.db.get(self.the_id)
         assert('suid' in added_doc)
 
     def test_edit(self):
         self.assertIsNotNone(self.ret_doc)
-        NotificationRegistrationClient.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
+        notification_registration_client.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
         added_doc = self.db.get(self.the_id)
         added_doc['user'] = 'robjspencer'
         res = self.db.save_doc(added_doc)
         v2 = self.db.get(self.the_id)
-        NotificationRegistrationClient.consumer.edit(v2, os.environ['APP_ENGINE_ROUTER_ID'])
+        notification_registration_client.consumer.edit(v2, os.environ['APP_ENGINE_ROUTER_ID'])
         added_doc = self.db.get(self.the_id)
         assert('suid' in added_doc)
 
     def test_delete(self):
         self.assertIsNotNone(self.ret_doc)
-        NotificationRegistrationClient.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
+        notification_registration_client.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
         added_doc = self.db.get(self.the_id)
-        code = NotificationRegistrationClient.consumer.delete(added_doc, os.environ['APP_ENGINE_ROUTER_ID'])
+        code = notification_registration_client.consumer.delete(added_doc, os.environ['APP_ENGINE_ROUTER_ID'])
         self.assertEqual(code, 200)
