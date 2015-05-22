@@ -27,10 +27,9 @@ class NotificationRequestProcessor(threading.Thread):
         self.sharedObject = queue
 
     def send_notification(self, notification_id, name, service, user, message):
-        encoded = service.encode('utf8')
-        mod = __import__('NotificationServices', fromlist=[encoded])
-        service_class = getattr(mod, service)
-        result = service_class.sendNotification(notification_id, user, message)
+        import_name = 'notifications.NotificationServices.%s' % (service)
+        mod = __import__(import_name, fromlist=[''])
+        result = mod.sendNotification(notification_id, user, message)
         return result
 
     def get_user_names(self, name, service):
