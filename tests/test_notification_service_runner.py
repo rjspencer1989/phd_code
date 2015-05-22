@@ -4,12 +4,12 @@ from process_config import couchdb_config_parser
 
 
 class TestNotificationServiceRunner(unittest.TestCase):
-    @clasmethod
+    @classmethod
     def setUpClass(cls):
         cls.nsr = notification_service_runner.notification_consumer
         cls.db = couchdb_config_parser.get_db()
 
-    @clasmethod
+    @classmethod
     def tearDownClass(cls):
         cls.nsr = None
         cls.db = None
