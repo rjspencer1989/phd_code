@@ -54,3 +54,19 @@ class TestNotificationServiceRunner(unittest.TestCase):
         user_names = TestNotificationServiceRunner.nsr.get_user_names(doc['to'], doc['service'])
         self.assertIsNone(user_names)
         db.delete_doc(res['id'])
+
+    def test_get_user_names_single_name(self):
+        doc = {
+            "body": "test",
+            "collection": "notification-request",
+            "service": "phone",
+            "status": "pending",
+            "to": "Harry"
+        }
+
+        db = couchdb_config_parser.get_db()
+        res = db.save_doc(doc)
+        user_names = TestNotificationServiceRunner.nsr.get_user_names(doc['to'], doc['service'])
+        print user_names
+        self.assertIsNotNone(user_names)
+        db.delete_doc(res['id'])
