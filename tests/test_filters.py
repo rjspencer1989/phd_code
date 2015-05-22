@@ -41,7 +41,7 @@ class TestFilters(unittest.TestCase):
             "connected": False,
             "changed_by": "system"
         }
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         db.save_doc(inc)
         db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/devices_pox")
@@ -85,7 +85,7 @@ class TestFilters(unittest.TestCase):
             "connected": False,
             "changed_by": "system"
         }
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         db.save_doc(inc)
         db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/devices_ui")
@@ -110,7 +110,7 @@ class TestFilters(unittest.TestCase):
             "body": "test"
         }
 
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         res = db.save_doc(inc)
         res2 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/notification_request")
@@ -135,7 +135,7 @@ class TestFilters(unittest.TestCase):
             "user": "signup@robspencer.me.uk"
         }
 
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         res = db.save_doc(inc)
         res2 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/notifications")
@@ -180,7 +180,7 @@ class TestFilters(unittest.TestCase):
             "timestamp": time.time()
         }
 
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         res = db.save_doc(inc)
         res2 = db.save_doc(not_inc_not_perform_undo)
         res3 = db.save_doc(not_inc)
@@ -213,7 +213,7 @@ class TestFilters(unittest.TestCase):
             "password": "whatever12345"
         }
 
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         res = db.save_doc(inc)
         res2 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/wifi")

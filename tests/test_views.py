@@ -7,7 +7,7 @@ import time
 
 class TestViews(unittest.TestCase):
     def test_notification_with_service(self):
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         doc1 = {
             "collection": "notifications",
             "name": "Rob",
@@ -38,7 +38,7 @@ class TestViews(unittest.TestCase):
         db.delete_doc(res2['id'])
 
     def test_notification_names(self):
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         doc1 = {
             "collection": "notifications",
             "name": "Rob",
@@ -111,7 +111,7 @@ class TestViews(unittest.TestCase):
             "changed_by": "system"
         }
 
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         res = db.save_doc(doc1)
         res2 = db.save_doc(doc2)
 
@@ -135,7 +135,7 @@ class TestViews(unittest.TestCase):
             "undoable": True,
             "perform_undo": False
         }
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
         vr = db.view("homework-remote/events")
         vra = vr.all()
@@ -162,7 +162,7 @@ class TestViews(unittest.TestCase):
             "changed_by": "system"
         }
 
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         res = db.save_doc(doc1)
         vr = db.view("homework-remote/dhcp")
         vra = vr.all()
@@ -190,7 +190,7 @@ class TestViews(unittest.TestCase):
             "changed_by": "system"
         }
 
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         res = db.save_doc(doc1)
         vr = db.view("homework-remote/control")
         vra = vr.all()
@@ -218,7 +218,7 @@ class TestViews(unittest.TestCase):
             "changed_by": "system"
         }
 
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         res = db.save_doc(doc1)
         vr = db.view("homework-remote/device_notification_service_mapping")
         vra = vr.all()
@@ -265,7 +265,7 @@ class TestViews(unittest.TestCase):
             "changed_by": "system"
         }
 
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         res = db.save_doc(doc1)
         res2 = db.save_doc(doc2)
         vr = db.view("homework-remote/connected_devices")

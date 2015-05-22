@@ -4,7 +4,7 @@ from Queue import Queue
 import threading
 import os
 import add_history
-db = couchdb_config_parser.getDB()
+db = couchdb_config_parser.get_db()
 db_info = db.info()
 
 

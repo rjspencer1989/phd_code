@@ -13,7 +13,7 @@ class TestProcessperform_undo(unittest.TestCase):
             "service": "twitter",
             "user": "rjspencer1989"
         }
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         res = db.save_doc(nd)
         event_res = add_history.add_history_item("new notification", "added notification mapping for Rob using Twitter and username rjspencer1989", "Rob", res['id'], res['rev'], True)
         event = db.get(event_res['id'])
@@ -33,7 +33,7 @@ class TestProcessperform_undo(unittest.TestCase):
             "service": "twitter",
             "user": "rjspencer1989"
         }
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         res = db.save_doc(nd)
         nd['user'] = 'robjspencer'
         res2 = db.save_doc(nd)
@@ -66,7 +66,7 @@ class TestProcessperform_undo(unittest.TestCase):
             "connected": True,
             "changed_by": "system"
         }
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         db.save_doc(doc)  # initial from DHCP
         doc['action'] = 'deny'
         doc['device_name'] = 'test-device'

@@ -9,5 +9,8 @@ class TestNotificationServiceRunner(unittest.TestCase):
             "body": "test",
             "collection": "notification-request",
             "service": "phone",
-
+            "status": "pending",
+            "to": "Rob"
         }
+
+        db = couchdb_config_parser.get_db()

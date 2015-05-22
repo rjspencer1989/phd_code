@@ -8,7 +8,7 @@ class TestSendNotification(unittest.TestCase):
         the_id = ''
         res = change_notification.sendNotification("Rob", "email", "foo")
         the_id = res['id']
-        db = couchdb_config_parser.getDB()
+        db = couchdb_config_parser.get_db()
         ret_doc = db.get(the_id)
         self.assertEqual(ret_doc['_id'], the_id)
         self.assertEqual(ret_doc['collection'], 'notification-request')

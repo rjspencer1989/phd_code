@@ -2,7 +2,7 @@ from couchdbkit import *
 import ConfigParser
 
 
-def getDB():
+def get_db():
     config = ConfigParser.ConfigParser({"ADMIN": "",
                                         "ADMIN_PASSWORD": "",
                                         "PORT": "5984",

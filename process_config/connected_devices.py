@@ -3,7 +3,7 @@ from couchdbkit import *
 import couchdb_config_parser
 import subprocess
 
-db = couchdb_config_parser.getDB()
+db = couchdb_config_parser.get_db()
 vr = db.view('homework-remote/valid_leases')
 vra = vr.all()
 for resItem in vra:
