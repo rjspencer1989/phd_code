@@ -104,3 +104,18 @@ class TestNotificationServiceRunner(unittest.TestCase):
         result = self.nsr.send_notification(res['id'], doc['to'], doc['service'], '+447972058628', doc['body'])
         self.assertTrue(result)
         self.db.delete_doc(res['id'])
+
+    def test_process_notification(self):
+        doc = {
+            "body": "test",
+            "collection": "notification-request",
+            "service": "phone",
+            "status": "pending",
+            "to": "Harry"
+        }
+
+        res = self.db.save_doc(doc)
+        self.nsr.process_notification(doc)
+        updated = self.db.open_doc(res['id'])
+        self.assertEqual('done', updated['status'])
+        self.db.delete_doc(res['id'])
