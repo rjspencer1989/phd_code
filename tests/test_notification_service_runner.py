@@ -91,3 +91,16 @@ class TestNotificationServiceRunner(unittest.TestCase):
         self.assertEqual('Harry', user_names_lst[0]['key'][1])
         self.assertEqual('Rob', user_names_lst[1]['key'][1])
         self.db.delete_doc(res['id'])
+
+    def test_send_notification(self):
+        doc = {
+            "body": "test",
+            "collection": "notification-request",
+            "service": "phone",
+            "status": "pending",
+            "to": "Harry"
+        }
+
+        res = self.db.save_doc(doc)
+        result = self.nsr.send_notification(res['id'], doc['to'], doc['service'], '+447972058628', doc['body'])
+        self.assertTrue(result)
