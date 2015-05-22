@@ -17,13 +17,11 @@ def sendNotification(service, to, body):
     router_id = getRouterID()
     if router_id is not None:
         url = "https://2-dot-homework-notify.appspot.com/notify/2/%s/%s" % (router_id, service.lower())
-        print url
         content = ''
         req = urllib2.Request(url, data)
         try:
             response = urllib2.urlopen(req)
             content = response.readline()
-            print content
             return notification_response.NotificationResponse(response.getcode(), "success", content)
         except urllib2.HTTPError, e:
             print e.reason
