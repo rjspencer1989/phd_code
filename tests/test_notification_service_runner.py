@@ -31,11 +31,12 @@ class TestNotificationServiceRunner(unittest.TestCase):
             "status": "done"
         }
 
-        self.reg_result1 = db.save_doc(self.registration1)
-        self.reg_result2 = db.save_doc(self.registration2)
+        self.reg_result1 = TestNotificationServiceRunner.db.save_doc(self.registration1)
+        self.reg_result2 = TestNotificationServiceRunner.db.save_doc(self.registration2)
 
     def tearDown(self):
-        db.delete_doc(self.reg_result['id'])
+        TestNotificationServiceRunner.db.delete_doc(self.reg_result1['id'])
+        TestNotificationServiceRunner.db.delete_doc(self.reg_result2['id'])
         self.registration1 = {}
         self.registration2 = {}
 
