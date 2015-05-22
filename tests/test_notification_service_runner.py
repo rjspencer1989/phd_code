@@ -87,4 +87,7 @@ class TestNotificationServiceRunner(unittest.TestCase):
         self.assertIsNotNone(user_names)
         user_names_lst = list(user_names)
         print user_names_lst
+        self.assertEqual(2, len(user_names_lst))
+        self.assertEqual('Harry', user_names_lst[0]['key'][1])
+        self.assertEqual('Rob', user_names_lst[1]['key'][1])
         self.db.delete_doc(res['id'])
