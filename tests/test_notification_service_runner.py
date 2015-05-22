@@ -67,6 +67,10 @@ class TestNotificationServiceRunner(unittest.TestCase):
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
         user_names = TestNotificationServiceRunner.nsr.get_user_names(doc['to'], doc['service'])
-        print user_names
         self.assertIsNotNone(user_names)
+        user_names_lst = list(user_names)
+        self.assertEqual(1, len(user_names_lst))
+        self.assertEqual('Harry', user_names_lst[0]['key'][1])
+        self.assertEqual('phone', user_names_lst[0]['key'][0])
+        self.assertEqual('+447972058628', user_names_lst[0]['value'])
         db.delete_doc(res['id'])
