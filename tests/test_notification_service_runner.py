@@ -31,12 +31,12 @@ class TestNotificationServiceRunner(unittest.TestCase):
             "status": "done"
         }
 
-        self.reg_result1 = TestNotificationServiceRunner.db.save_doc(self.registration1)
-        self.reg_result2 = TestNotificationServiceRunner.db.save_doc(self.registration2)
+        self.reg_result1 = self.db.save_doc(self.registration1)
+        self.reg_result2 = self.db.save_doc(self.registration2)
 
     def tearDown(self):
-        TestNotificationServiceRunner.db.delete_doc(self.reg_result1['id'])
-        TestNotificationServiceRunner.db.delete_doc(self.reg_result2['id'])
+        self.db.delete_doc(self.reg_result1['id'])
+        self.db.delete_doc(self.reg_result2['id'])
         self.registration1 = {}
         self.registration2 = {}
 
@@ -49,9 +49,8 @@ class TestNotificationServiceRunner(unittest.TestCase):
             "to": "Tom"
         }
 
-        db = couchdb_config_parser.get_db()
-        res = db.save_doc(doc)
-        user_names = TestNotificationServiceRunner.nsr.get_user_names(doc['to'], doc['service'])
+        res = self.db.save_doc(doc)
+        user_names = self.nsr.get_user_names(doc['to'], doc['service'])
         self.assertIsNone(user_names)
         db.delete_doc(res['id'])
 
@@ -64,9 +63,8 @@ class TestNotificationServiceRunner(unittest.TestCase):
             "to": "Harry"
         }
 
-        db = couchdb_config_parser.get_db()
-        res = db.save_doc(doc)
-        user_names = TestNotificationServiceRunner.nsr.get_user_names(doc['to'], doc['service'])
+        res = self.db.save_doc(doc)
+        user_names = self.nsr.get_user_names(doc['to'], doc['service'])
         self.assertIsNotNone(user_names)
         user_names_lst = list(user_names)
         self.assertEqual(1, len(user_names_lst))
@@ -74,3 +72,18 @@ class TestNotificationServiceRunner(unittest.TestCase):
         self.assertEqual('phone', user_names_lst[0]['key'][0])
         self.assertEqual('+447972058628', user_names_lst[0]['value'])
         db.delete_doc(res['id'])
+
+    def test_get_user_names_everyone(self):
+        doc = {
+            "body": "test",
+            "collection": "notification-request",
+            "service": "phone",
+            "status": "pending",
+            "to": "everyone"
+        }
+
+        res = self.db.save_doc(doc)
+        user_names = self.nsr.get_user_names(doc['to'], doc['service'])
+        self.assertIsNotNone(user_names)
+        user_names_lst = list(user_names)
+        print user_names_lst
