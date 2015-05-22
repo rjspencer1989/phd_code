@@ -51,6 +51,6 @@ class TestNotificationServiceRunner(unittest.TestCase):
 
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        user_names = nsr.get_user_names(doc['to'], doc['service'])
+        user_names = TestNotificationServiceRunner.nsr.get_user_names(doc['to'], doc['service'])
         self.assertIsNone(user_names)
         db.delete_doc(res['id'])
