@@ -14,3 +14,5 @@ class TestNotificationServiceRunner(unittest.TestCase):
         }
 
         db = couchdb_config_parser.get_db()
+        res = db.save_doc(doc)
+        db.delete_doc(res['id'])
