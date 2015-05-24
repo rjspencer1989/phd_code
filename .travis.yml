@@ -5,7 +5,7 @@ services:
     - "couchdb"
 
 install:
-    - pip install couchdbkit couchapp pep8
+    - pip install couchdbkit couchapp pep8 mock
     - curl -X PUT http://localhost:5984/config
     - couchapp push database/ http://localhost:5984/config
 
