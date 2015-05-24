@@ -7,7 +7,8 @@ class TestProcessRollback(unittest.TestCase):
     def test_process_rollback(self):
         doc1 = {
             "collection": "wifi",
-            "status": "done"
+            "status": "done",
+            "ssid": "testing"
         }
         db = couchdb_config_parser.get_db()
         res1 = db.save_doc(doc1)
