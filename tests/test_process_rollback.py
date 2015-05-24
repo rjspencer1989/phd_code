@@ -8,7 +8,12 @@ class TestProcessRollback(unittest.TestCase):
         doc1 = {
             "collection": "wifi",
             "status": "done",
-            "ssid": "testing"
+            "ssid": "testing",
+            "mode": "g",
+            "encryption_type": "wep",
+            "password_type": "txt",
+            "password": "whatever12345",
+            "channel": 1
         }
         db = couchdb_config_parser.get_db()
         res1 = db.save_doc(doc1)
