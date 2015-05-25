@@ -32,7 +32,8 @@ class TestProcessRollback(unittest.TestCase):
             'doc_id': doc_id,
             'doc_rev': doc_rev,
             'undoable': True,
-            'perform_undo': False
+            'perform_undo': False,
+            'user': 'travis_ci'
         }
 
         db = couchdb_config_parser.get_db()
