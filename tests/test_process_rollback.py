@@ -23,7 +23,7 @@ class TestProcessRollback(unittest.TestCase):
         db.delete_doc(res1['id'])
         db.delete_doc(hist1['id'])
 
-    def add_history_item(doc_id, doc_rev, timestamp):
+    def add_history_item(self, doc_id, doc_rev, timestamp):
         doc = {
             'collection': 'events',
             'title': 'rollback test',
