@@ -23,3 +23,19 @@ class TestProcessRollback(unittest.TestCase):
         result = perform_rollback.perform_rollback(timestamp)
         db.delete_doc(res1['id'])
         db.delete_doc(hist1['id'])
+
+    def addHistoryItem(doc_id, doc_rev, timestamp):
+        doc = {
+            'collection': 'events',
+            'title': 'rollback test',
+            'description': 'rollback description',
+            'timestamp': timestamp,
+            'doc_id': doc_id,
+            'doc_rev': doc_rev,
+            'undoable': True,
+            'perform_undo': False
+        }
+        
+        db = couchdb_config_parser.get_db()
+        res = db.save_doc(doc)
+        return res
