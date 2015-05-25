@@ -23,16 +23,18 @@ class TestProcessRollback(unittest.TestCase):
         doc1['ssid'] = 'testing2'
         res2 = db.save_doc(doc1)
         dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
-        self.add_history_item(res2['id'], res2['rev'], dt.isoformat())
+        hist2 = self.add_history_item(res2['id'], res2['rev'], dt.isoformat())
         doc1['ssid'] = 'testing3'
         res3 = db.save_doc(doc1)
         dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
-        self.add_history_item(res3['id'], res3['rev'], dt.isoformat())
+        hist3 = self.add_history_item(res3['id'], res3['rev'], dt.isoformat())
         result = perform_rollback.perform_rollback(datetime.datetime.now().isoformat())
         result_list = list(result)
         self.assertEqual(3, len(result_list))
         db.delete_doc(res1['id'])
         db.delete_doc(hist1['id'])
+        db.delete_doc(hist2['id'])
+        db.delete_doc(hist3['id'])
 
     def add_history_item(self, doc_id, doc_rev, timestamp):
         doc = {
