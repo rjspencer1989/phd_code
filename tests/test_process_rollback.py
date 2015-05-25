@@ -23,7 +23,7 @@ class TestProcessRollback(unittest.TestCase):
         doc1['ssid'] = 'testing2'
         res2 = db.save_doc(doc1)
         dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
-        self.add_history_item(res2['id'], res2['rev'], dt.isoformat()) 
+        self.add_history_item(res2['id'], res2['rev'], dt.isoformat())
         result = perform_rollback.perform_rollback(datetime.datetime.now().isoformat())
         result_list = list(result)
         self.assertEqual(3, len(result_list))
