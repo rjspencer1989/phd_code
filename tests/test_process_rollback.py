@@ -18,7 +18,12 @@ class TestProcessRollback(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res1 = db.save_doc(doc1)
-        hist1 = self.add_history_item(res1['id'], res1['rev'], datetime.datetime.now().isoformat())
+        dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
+        hist1 = self.add_history_item(res1['id'], res1['rev'], dt.isoformat())
+        doc1['ssid'] = 'testing2'
+        res2 = db.save_doc(doc1)
+        dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
+        self.add_history_item(res2['id'], res2['rev'], dt.isoformat()) 
         result = perform_rollback.perform_rollback(datetime.datetime.now().isoformat())
         result_list = list(result)
         self.assertEqual(3, len(result_list))
