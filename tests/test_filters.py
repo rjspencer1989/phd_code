@@ -1,5 +1,6 @@
 import unittest
 import time
+import datetime
 from process_config import couchdb_config_parser
 from couchdbkit.changes import ChangesStream
 
@@ -153,7 +154,7 @@ class TestFilters(unittest.TestCase):
             "user": "Rob",
             "doc_id": "aabbcc",
             "doc_rev": "1-aabbcc",
-            "timestamp": time.time()
+            "timestamp": datetime.datetime.now().isoformat()
         }
 
         not_inc_not_perform_undo = {
@@ -165,7 +166,7 @@ class TestFilters(unittest.TestCase):
             "user": "Rob",
             "doc_id": "aabbcc",
             "doc_rev": "2-aabbcc",
-            "timestamp": time.time()
+            "timestamp": datetime.datetime.now().isoformat()
         }
 
         not_inc = {
@@ -177,7 +178,7 @@ class TestFilters(unittest.TestCase):
             "user": "Rob",
             "doc_id": "aabbcc",
             "doc_rev": "4-aabbcc",
-            "timestamp": time.time()
+            "timestamp": datetime.datetime.now().isoformat()
         }
 
         db = couchdb_config_parser.get_db()
