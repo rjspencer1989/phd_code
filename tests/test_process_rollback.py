@@ -54,7 +54,8 @@ class TestProcessRollback(unittest.TestCase):
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
         self.hist4 = self.add_history_item(res4['id'], res4['rev'], dt.isoformat())
         self.test_doc_ids.append(self.hist4['id'])
-        self.rb = perform_rollback.Rollback(datetime.datetime(2015, 1, 20).isoformat())
+        self.revert_timestamp = datetime.datetime(2015, 1, 20).isoformat()
+        self.rb = perform_rollback.consumer
 
     def tearDown(self):
         for doc in self.test_doc_ids:
@@ -77,7 +78,7 @@ class TestProcessRollback(unittest.TestCase):
         return res
 
     def test_process_rollback_get_events(self):
-        result = self.rb.get_events_after_timestamp()
+        result = self.rb.get_events_after_timestamp(self.revert_timestamp)
         result_list = list(result)
         self.assertEqual(3, len(result_list))
 

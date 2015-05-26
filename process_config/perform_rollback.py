@@ -21,19 +21,17 @@ class RollbackListener(threading.Thread):
 class RollbackProcessor(threading.Thread):
     def __init__(self, threadName, queue):
         threading.Thread.__init__(self, name=threadName)
-        self.events = None
         self.shared_object = queue
         self.db = couchdb_config_parser.get_db()
 
-    def get_events_after_timestamp(self):
-        vr = self.db.view('homework-remote/events', startkey=self.timestamp)
-        self.events = vr.all()
-        return self.events
+    def get_events_after_timestamp(self, timestamp):
+        vr = self.db.view('homework-remote/events', startkey=timestamp)
+        return = vr.all()
 
-    def get_docs_to_revert(self):
-        self.get_events_after_timestamp()
+    def get_docs_to_revert(self, timestamp):
+        events = self.get_events_after_timestamp(timestamp)
         doc_list = {}
-        for event_val in self.events:
+        for event_val in events:
             event = event_val['value']
             if event['doc_id'] not in doc_list:
                 doc_list[event['doc_id']] = event
@@ -45,6 +43,7 @@ class RollbackProcessor(threading.Thread):
             the_id = change['id']
             the_rev = change['changes'][0]['rev']
             current_doc = self.db.get(the_id, rev=the_rev)
+            self.get_docs_to_revert(current_doc['timestamp'])
             self.shared_object.task_done()
 change_queue = Queue()
 producer = RollbackListener('producer', change_queue)
