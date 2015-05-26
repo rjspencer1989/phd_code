@@ -14,5 +14,5 @@ class Rollback(object):
         return self.events
 
     def get_doc_for_event(self, event):
-        doc = self.db.get(event['doc_id'])
+        doc = self.db.get(event['doc_id'], rev=event['doc_rev'])
         return doc
