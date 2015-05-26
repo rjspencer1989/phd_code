@@ -83,7 +83,7 @@ class TestProcessRollback(unittest.TestCase):
         self.assertEqual(3, len(result_list))
 
     def test_process_rollback_get_docs_to_revert(self):
-        result = self.rb.get_docs_to_revert()
+        result = self.rb.get_docs_to_revert(self.revert_timestamp)
         pprint.pprint(result)
         self.assertEqual(2, len(result))
         k = result.keys()
