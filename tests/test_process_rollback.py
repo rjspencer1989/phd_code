@@ -29,18 +29,19 @@ class TestProcessRollback(unittest.TestCase):
         res1 = self.db.save_doc(self.wifi_doc)
         self.test_doc_ids.append(res1['id'])
         dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
-        hist1 = self.add_history_item(res1['id'], res1['rev'], dt.isoformat())
-        self.test_doc_ids.append(hist1['id'])
+        self.hist1 = self.add_history_item(res1['id'], res1['rev'], dt.isoformat())
+        self.test_doc_ids.append(self.hist1['id'])
         self.wifi_doc['ssid'] = 'testing2'
         res2 = self.db.save_doc(self.wifi_doc)
         dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
-        hist2 = self.add_history_item(res2['id'], res2['rev'], dt.isoformat())
-        self.test_doc_ids.append(hist2['id'])
+        self.hist2 = self.add_history_item(res2['id'], res2['rev'], dt.isoformat())
+        self.test_doc_ids.append(self.hist2['id'])
         self.wifi_doc['ssid'] = 'testing3'
         res3 = self.db.save_doc(self.wifi_doc)
         dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
-        hist3 = self.add_history_item(res3['id'], res3['rev'], dt.isoformat())
-        self.test_doc_ids.append(hist3['id'])
+        self.hist3 = self.add_history_item(res3['id'], res3['rev'], dt.isoformat())
+        self.test_doc_ids.append(self.hist3['id'])
+        self.rb = perform_rollback.Rollback(datetime.datetime(2015, 1, 20).isoformat())
 
     def tearDown(self):
         for doc in self.test_doc_ids:
@@ -63,10 +64,11 @@ class TestProcessRollback(unittest.TestCase):
         return res
 
     def test_process_rollback_get_events(self):
-        rb = perform_rollback.Rollback(datetime.datetime(2015, 1, 20).isoformat())
-        result = rb.get_events_after_timestamp()
+        result = self.rb.get_events_after_timestamp()
         result_list = list(result)
         self.assertEqual(2, len(result_list))
 
     def test_process_rollback_get_docs(self):
-        pass
+        hist_doc = self.db.get(self.hist1['id'])
+        result = self.rb.get_doc_for_event(hist_doc['doc_id'])
+        self.assertEqual('testing', result['ssid'])
