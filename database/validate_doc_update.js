@@ -152,6 +152,18 @@ function (newDoc, oldDoc, userCtx){
             empty_string("to");
             empty_string("body");
             empty_string("service");
+        } else if (newDoc.collection === "request_revert") {
+            required("collection");
+            unchanged("collection");
+            required("timestamp");
+            empty_string("timestamp");
+            required('status');
+            if(newDoc.status !== "pending" && newDoc.status !== "done" && newDoc.status !== "error"){
+                throw({forbidden: "Status must be one of done, pending, or error"});
+            }
+            if (!newDoc.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})[+-](\d{2})\:(\d{2})/)) {
+                throw({forbidden: "not a valid timestamp"});
+            }
         }
     }
 }
