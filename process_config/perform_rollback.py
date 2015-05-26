@@ -10,7 +10,7 @@ class Rollback(object):
         self.timestamp = timestamp
 
     def get_events_after_timestamp(self):
-        vr = self.db.view('homework-remote/events', descending=True, endkey=self.timestamp)
+        vr = self.db.view('homework-remote/events', startkey=self.timestamp)
         self.events = vr.all()
         return self.events
 
