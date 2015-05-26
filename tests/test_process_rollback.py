@@ -2,6 +2,7 @@ import unittest
 from process_config import couchdb_config_parser, perform_rollback, add_history
 import datetime
 import mock
+import pprint
 
 
 class TestProcessRollback(unittest.TestCase):
