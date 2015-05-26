@@ -75,4 +75,5 @@ class TestProcessRollback(unittest.TestCase):
 
     def test_process_rollback_get_docs_to_revert(self):
         result = self.rb.get_docs_to_revert()
-        self.assertEqual(1, len(result))
+        hist_doc = self.db.get(self.hist3['id'], rev=self.hist3['rev'])
+        self.assertEqual(hist_doc, self.rb.events[0])
