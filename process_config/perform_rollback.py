@@ -26,7 +26,7 @@ class RollbackProcessor(threading.Thread):
 
     def get_events_after_timestamp(self, timestamp):
         vr = self.db.view('homework-remote/events', startkey=timestamp)
-        return = vr.all()
+        return vr.all()
 
     def get_docs_to_revert(self, timestamp):
         events = self.get_events_after_timestamp(timestamp)
