@@ -25,7 +25,7 @@ class RollbackProcessor(threading.Thread):
         self.db = couchdb_config_parser.get_db()
 
     def get_events_after_timestamp(self, timestamp):
-        vr = self.db.view('homework-remote/events', startkey=timestamp)
+        vr = self.db.view('homework-remote/undoable_events', startkey=timestamp)
         return vr.all()
 
     def get_docs_to_revert(self, timestamp):
