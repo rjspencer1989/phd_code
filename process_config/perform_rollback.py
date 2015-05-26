@@ -16,3 +16,6 @@ class Rollback(object):
     def get_doc_for_event(self, event):
         doc = self.db.get(event['doc_id'], rev=event['doc_rev'])
         return doc
+
+    def get_docs_to_revert(self):
+        pass
