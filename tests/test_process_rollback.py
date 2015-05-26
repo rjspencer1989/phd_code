@@ -16,13 +16,7 @@ class TestProcessRollback(unittest.TestCase):
     def setUp(self):
         self.test_doc_ids = []
         self.db = couchdb_config_parser.get_db()
-
-    def tearDown(self):
-        for doc in self.test_doc_ids:
-            self.db.delete_doc(doc)
-
-    def test_process_rollback_get_events(self):
-        doc1 = {
+        self.wifi_doc = {
             "collection": "wifi",
             "status": "done",
             "ssid": "testing",
@@ -32,26 +26,25 @@ class TestProcessRollback(unittest.TestCase):
             "password": "whatever12345",
             "channel": 1
         }
-        res1 = self.db.save_doc(doc1)
+        res1 = self.db.save_doc(self.wifi_doc)
         self.test_doc_ids.append(res1['id'])
         dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
         hist1 = self.add_history_item(res1['id'], res1['rev'], dt.isoformat())
         self.test_doc_ids.append(hist1['id'])
-        doc1['ssid'] = 'testing2'
+        wifi_doc['ssid'] = 'testing2'
         res2 = self.db.save_doc(doc1)
         dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
         hist2 = self.add_history_item(res2['id'], res2['rev'], dt.isoformat())
         self.test_doc_ids.append(hist2['id'])
-        doc1['ssid'] = 'testing3'
+        wifi_doc['ssid'] = 'testing3'
         res3 = self.db.save_doc(doc1)
         dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
         hist3 = self.add_history_item(res3['id'], res3['rev'], dt.isoformat())
         self.test_doc_ids.append(hist3['id'])
-        rb = perform_rollback.Rollback(datetime.datetime(2015, 1, 20).isoformat())
-        result = rb.get_events_after_timestamp()
-        print result
-        result_list = list(result)
-        self.assertEqual(2, len(result_list))
+
+    def tearDown(self):
+        for doc in self.test_doc_ids:
+            self.db.delete_doc(doc)
 
     def add_history_item(self, doc_id, doc_rev, timestamp):
         doc = {
@@ -68,3 +61,12 @@ class TestProcessRollback(unittest.TestCase):
 
         res = self.db.save_doc(doc)
         return res
+
+    def test_process_rollback_get_events(self):
+        rb = perform_rollback.Rollback(datetime.datetime(2015, 1, 20).isoformat())
+        result = rb.get_events_after_timestamp()
+        result_list = list(result)
+        self.assertEqual(2, len(result_list))
+
+    def test_process_rollback_get_docs(self):
+        pass
