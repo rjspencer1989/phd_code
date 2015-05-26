@@ -44,6 +44,8 @@ class RollbackProcessor(threading.Thread):
             the_rev = change['changes'][0]['rev']
             current_doc = self.db.get(the_id, rev=the_rev)
             self.get_docs_to_revert(current_doc['timestamp'])
+            doc.status = 'done';
+            db.save_doc(current_doc['_id']);
             self.shared_object.task_done()
 change_queue = Queue()
 producer = RollbackListener('producer', change_queue)
