@@ -20,5 +20,6 @@ class Rollback(object):
     def get_docs_to_revert(self):
         doc_list = []
         for event in self.events:
+            print event
             doc_list.append(self.get_doc_for_event(event))
         return doc_list
