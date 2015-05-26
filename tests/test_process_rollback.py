@@ -70,5 +70,5 @@ class TestProcessRollback(unittest.TestCase):
 
     def test_process_rollback_get_docs(self):
         hist_doc = self.db.get(self.hist1['id'])
-        result = self.rb.get_doc_for_event(hist_doc['doc_id'])
+        result = self.rb.get_doc_for_event(hist_doc)
         self.assertEqual('testing', result['ssid'])
