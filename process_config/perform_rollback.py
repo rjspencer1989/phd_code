@@ -11,7 +11,6 @@ class Rollback(object):
     def get_events_after_timestamp(self):
         vr = self.db.view('homework-remote/events', descending=True, endkey=self.timestamp)
         self.events = vr.all()
-        print self.events
         return self.events
 
     def get_docs_to_revert(self):

@@ -69,6 +69,6 @@ class TestProcessRollback(unittest.TestCase):
         self.assertEqual(2, len(result_list))
 
     def test_process_rollback_get_docs_to_revert(self):
-        self.maxDiff = None
         result = self.rb.get_docs_to_revert()
+        print result
         self.assertEqual(1, len(result))
