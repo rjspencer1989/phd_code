@@ -21,7 +21,7 @@ class TestProcessRollback(unittest.TestCase):
         for doc in self.test_doc_ids:
             self.db.delete_doc(doc)
 
-    def test_process_rollback(self):
+    def test_process_rollback_get_events(self):
         doc1 = {
             "collection": "wifi",
             "status": "done",
@@ -47,7 +47,8 @@ class TestProcessRollback(unittest.TestCase):
         dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
         hist3 = self.add_history_item(res3['id'], res3['rev'], dt.isoformat())
         self.test_doc_ids.append(hist3['id'])
-        result = perform_rollback.perform_rollback(datetime.datetime(2015, 1, 20).isoformat())
+        rb = perform_rollback.Rollback(datetime.datetime(2015, 1, 20).isoformat())
+        result = rb.get_events_after_timestamp()
         print result
         result_list = list(result)
         self.assertEqual(2, len(result_list))
