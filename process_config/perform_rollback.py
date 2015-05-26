@@ -18,4 +18,4 @@ class Rollback(object):
         return doc
 
     def get_docs_to_revert(self):
-        pass
+        return []
