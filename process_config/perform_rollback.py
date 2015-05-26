@@ -14,11 +14,11 @@ class Rollback(object):
         return self.events
 
     def get_doc_for_event(self, event):
-        print event
         doc = self.db.get(event['doc_id'], rev=event['doc_rev'])
         return doc
 
     def get_docs_to_revert(self):
+        self.get_events_after_timestamp()
         doc_list = []
         for event in self.events:
             doc_list.append(self.get_doc_for_event(event))

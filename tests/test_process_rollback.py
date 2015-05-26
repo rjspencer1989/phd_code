@@ -74,6 +74,5 @@ class TestProcessRollback(unittest.TestCase):
         self.assertEqual('testing', result['ssid'])
 
     def test_process_rollback_get_docs_to_revert(self):
-        events = self.rb.get_events_after_timestamp()
         result = self.rb.get_docs_to_revert()
         self.assertEqual(1, len(result))
