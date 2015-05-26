@@ -27,6 +27,13 @@ class TestProcessRollback(unittest.TestCase):
             "password": "whatever12345",
             "channel": 1
         }
+        self.notification_doc = {
+            "collection": "notifications",
+            "name": "Rob",
+            "service": "phone",
+            "user": "+447972058628",
+            "status": "done"
+        }
         res1 = self.db.save_doc(self.wifi_doc)
         self.test_doc_ids.append(res1['id'])
         dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
@@ -42,6 +49,11 @@ class TestProcessRollback(unittest.TestCase):
         dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
         self.hist3 = self.add_history_item(res3['id'], res3['rev'], dt.isoformat())
         self.test_doc_ids.append(self.hist3['id'])
+        res4 = self.db.save_doc(self.notification_doc)
+        self.test_doc_ids.append(res4['id'])
+        dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
+        self.hist4 = self.add_history_item(res4['id'], res4['rev'], dt.isoformat())
+        self.test_doc_ids.append(self.hist4['id'])
         self.rb = perform_rollback.Rollback(datetime.datetime(2015, 1, 20).isoformat())
 
     def tearDown(self):
@@ -67,9 +79,9 @@ class TestProcessRollback(unittest.TestCase):
     def test_process_rollback_get_events(self):
         result = self.rb.get_events_after_timestamp()
         result_list = list(result)
-        self.assertEqual(2, len(result_list))
+        self.assertEqual(3, len(result_list))
 
     def test_process_rollback_get_docs_to_revert(self):
         result = self.rb.get_docs_to_revert()
         pprint.pprint(result)
-        self.assertEqual(1, len(result))
+        self.assertEqual(2, len(result))
