@@ -31,7 +31,7 @@ class TestProcessRollback(unittest.TestCase):
         result = perform_rollback.perform_rollback(datetime.datetime(2015, 1, 20).isoformat())
         print result
         result_list = list(result)
-        self.assertEqual(3, len(result_list))
+        self.assertEqual(2, len(result_list))
         db.delete_doc(res1['id'])
         db.delete_doc(hist1['id'])
         db.delete_doc(hist2['id'])
