@@ -2,8 +2,16 @@ import couchdb_config_parser
 from couchdbkit import *
 
 
-def perform_rollback(timestamp):
-    db = couchdb_config_parser.get_db()
-    vr = db.view('homework-remote/events', descending=True, endkey=timestamp)
-    vra = vr.all()
-    return vra
+class Rollback(object):
+    def __init__(self, timestamp):
+        self.db = couchdb_config_parser.get_db()
+        self.events = None
+        self.timestamp = timestamp
+
+    def get_events_after_timestamp(self):
+        vr = db.view('homework-remote/events', descending=True, endkey=self.timestamp)
+        vra = vr.all()
+        return vra
+
+    def perform_rollback(self):
+        self.events = self.get_events_after_timestamp()
