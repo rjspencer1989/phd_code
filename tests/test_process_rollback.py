@@ -85,3 +85,5 @@ class TestProcessRollback(unittest.TestCase):
         result = self.rb.get_docs_to_revert()
         pprint.pprint(result)
         self.assertEqual(2, len(result))
+        k = result.keys()
+        self.assertNotEqual(k[0], k[1])
