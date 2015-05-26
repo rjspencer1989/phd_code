@@ -23,5 +23,9 @@ class Rollback(object):
         doc_list = []
         for event_val in self.events:
             event = event_val['value']
-            doc_list.append(self.get_doc_for_event(event))
+            for doc in doc_list:
+                if doc['doc_id'] == event['doc_id']:
+                    print 'already got that doc'
+                else:
+                    doc_list.append(self.get_doc_for_event(event))
         return doc_list
