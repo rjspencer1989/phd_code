@@ -460,7 +460,7 @@ class TestValidation(unittest.TestCase):
 
     def test_valid_notification_request(self):
         doc = {
-            "collection": "notification-request",
+            "collection": "request_notification",
             "to": "Rob",
             "service": "email",
             "body": "message",
