@@ -42,6 +42,7 @@ class RollbackProcessor(threading.Thread):
         doc_list = self.get_docs_to_revert(timestamp)
         for key, doc in doc_list.iteritems():
             doc['perform_undo'] = True
+            pprint.pprint(doc)
             self.db.save_doc(doc)
 
     def run(self):
