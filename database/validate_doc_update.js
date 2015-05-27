@@ -105,7 +105,7 @@ function (newDoc, oldDoc, userCtx){
                 }
             }
             if (newDoc['service'] === 'email') {
-                email_regex('service');
+                email_regex('user');
             }
         } else if(newDoc.collection === "devices"){
             required("action");
