@@ -94,4 +94,5 @@ class TestProcessRollback(unittest.TestCase):
         hist_docs = [self.hist1, self.hist2, self.hist3, self.hist4]
         for res in hist_docs:
             doc = self.db.get(res['id'])
+            pprint.pprint(doc)
             self.assertTrue(doc['perform_undo'])
