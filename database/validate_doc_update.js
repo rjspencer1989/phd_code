@@ -31,7 +31,7 @@ function (newDoc, oldDoc, userCtx){
 
     function email_regex(field){
         if (!newDoc[field].match(/^[a-zA_Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
-            throw({forbidden: "not a valid timestamp"});
+            throw({forbidden: "not a valid email address"});
         }
     }
 
