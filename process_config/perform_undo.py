@@ -81,23 +81,26 @@ class UndoProcessor(threading.Thread):
                 undone_rev = res['rev']
         return undone_rev
 
+    def perform_undo(self, current_doc):
+        undo_doc = self.get_doc_to_undo(current_doc)
+        undone_rev = ''
+        if undo_doc['collection'] == 'devices':
+            undone_rev = self.undo_device_change(undo_doc)
+        else:
+            rev_list = self.get_rev_list(undo_doc, current_doc['doc_rev'])
+            undone_rev = self.undo(undo_doc, rev_list)
+        if undone_rev != '':
+            current_doc['process_undo'] = False
+            db.save_doc(current_doc)
+            History.addHistoryItem("Undo Configuration change", "Undo of %s" % (current_doc['description']), current_doc['user'], undo_id, undone_rev, True)
+
     def run(self):
         while(True):
             change = self.shared_object.get()
             the_id = change['id']
             the_rev = change['changes'][0]['rev']
             current_doc = db.open_doc(the_id, rev=the_rev)
-            undo_doc = self.get_doc_to_undo(current_doc)
-            undone_rev = ''
-            if undo_doc['collection'] == 'devices':
-                undone_rev = self.undo_device_change(undo_doc)
-            else:
-                rev_list = self.get_rev_list(undo_doc, current_doc['doc_rev'])
-                undone_rev = self.undo(undo_doc, rev_list)
-            if undone_rev != '':
-                current_doc['process_undo'] = False
-                db.save_doc(current_doc)
-                History.addHistoryItem("Undo Configuration change", "Undo of %s" % (current_doc['description']), current_doc['user'], undo_id, undone_rev, True)
+            self.perform_undo(current_doc)
             self.shared_object.task_done()
 
 changeQueue = Queue()
