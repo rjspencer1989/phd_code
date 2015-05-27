@@ -43,7 +43,7 @@ class TestNotificationServiceRunner(unittest.TestCase):
     def test_get_user_names_no_match(self):
         doc = {
             "body": "test",
-            "collection": "notification-request",
+            "collection": "request_notification",
             "service": "phone",
             "status": "pending",
             "to": "Tom"
@@ -57,7 +57,7 @@ class TestNotificationServiceRunner(unittest.TestCase):
     def test_get_user_names_single_name(self):
         doc = {
             "body": "test",
-            "collection": "notification-request",
+            "collection": "request_notification",
             "service": "phone",
             "status": "pending",
             "to": "Harry"
@@ -76,7 +76,7 @@ class TestNotificationServiceRunner(unittest.TestCase):
     def test_get_user_names_everyone(self):
         doc = {
             "body": "test",
-            "collection": "notification-request",
+            "collection": "request_notification",
             "service": "phone",
             "status": "pending",
             "to": "everyone"
@@ -91,11 +91,11 @@ class TestNotificationServiceRunner(unittest.TestCase):
         self.assertEqual('Rob', user_names_lst[1]['key'][1])
         self.db.delete_doc(res['id'])
 
-    @unittest.skip("stop the spam")
+    # @unittest.skip("stop the spam")
     def test_send_notification(self):
         doc = {
             "body": "test",
-            "collection": "notification-request",
+            "collection": "request_notification",
             "service": "phone",
             "status": "pending",
             "to": "Harry"
@@ -106,11 +106,11 @@ class TestNotificationServiceRunner(unittest.TestCase):
         self.assertTrue(result)
         self.db.delete_doc(res['id'])
 
-    @unittest.skip("stop the spam")
+    # @unittest.skip("stop the spam")
     def test_process_notification(self):
         doc = {
             "body": "test",
-            "collection": "notification-request",
+            "collection": "request_notification",
             "service": "phone",
             "status": "pending",
             "to": "Harry"
