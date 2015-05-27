@@ -91,6 +91,6 @@ class TestProcessRollback(unittest.TestCase):
 
     def test_rollback(self):
         result = self.rb.revert(self.revert_timestamp)
-        hist_docs = [hist1, hist2, hist3, hist4]
+        hist_docs = [self.hist1, self.hist2, self.hist3, self.hist4]
         for doc in hist_docs:
             print doc
