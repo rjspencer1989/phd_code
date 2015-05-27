@@ -221,3 +221,24 @@ class TestFilters(unittest.TestCase):
         self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
         db.delete_doc(res['id'])
         db.delete_doc(res2['id'])
+
+    def test_revert(self):
+        inc = {
+            "collection": "request_revert",
+            "status": "pending",
+            "timestamp": "2015-05-27T14:10:53.829Z"
+        }
+
+        not_inc = {
+            "collection": "request_revert",
+            "status": "done",
+            "timestamp": "2015-05-27T14:10:53.829Z"
+        }
+
+        db = couchdb_config_parser.get_db()
+        res = db.save_doc(inc)
+        res2 = db.save_doc(not_inc)
+        stream = ChangesStream(db, filter="homework-remote/revert")
+        self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
+        db.delete_doc(res['id'])
+        db.delete_doc(res2['id'])
