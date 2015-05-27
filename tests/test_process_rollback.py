@@ -91,8 +91,7 @@ class TestProcessRollback(unittest.TestCase):
 
     def test_rollback(self):
         result = self.rb.revert(self.revert_timestamp)
-        hist_docs = [self.hist1, self.hist2, self.hist3, self.hist4]
-        for res in hist_docs:
-            doc = self.db.get(res['id'])
-            pprint.pprint(doc)
-            self.assertTrue(doc['perform_undo'])
+        revert_docs = self.rb.get_docs_to_revert(self.revert_timestamp)
+        for key, doc in revert_docs.iteritems():
+            opened = self.db.get(doc['_id'])
+            self.assertTrue(opened['perform_undo'])
