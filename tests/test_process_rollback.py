@@ -88,3 +88,9 @@ class TestProcessRollback(unittest.TestCase):
         self.assertEqual(2, len(result))
         k = result.keys()
         self.assertNotEqual(k[0], k[1])
+
+    def test_rollback(self):
+        result = self.rb.revert(self.revert_timestamp)
+        hist_docs = [hist1, hist2, hist3, hist4]
+        for doc in hist_docs:
+            print doc

@@ -37,13 +37,18 @@ class RollbackProcessor(threading.Thread):
                 doc_list[event['doc_id']] = event
         return doc_list
 
+    def revert(self, timestamp):
+        doc_list = self.get_docs_to_revert(timestamp)
+        for doc in doc_list:
+            print doc
+
     def run(self):
         while True:
             change = self.shared_object.get()
             the_id = change['id']
             the_rev = change['changes'][0]['rev']
             current_doc = self.db.get(the_id, rev=the_rev)
-            self.get_docs_to_revert(current_doc['timestamp'])
+            self.revert(current_doc['timestamp'])
             doc.status = 'done'
             db.save_doc(current_doc['_id'])
             self.shared_object.task_done()
