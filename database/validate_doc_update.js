@@ -22,6 +22,12 @@ function (newDoc, oldDoc, userCtx){
         }
     }
 
+    function date_regex(field){
+        if (!newDoc[field].match(/^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[0-1]|0[1-9]|[1-2][0-9])T(2[0-3]|[0-1][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])?$/)) {
+            throw({forbidden: "not a valid timestamp"});
+        }
+    }
+
     if(!newDoc.hasOwnProperty('_deleted')){
         required("collection");
         is_valid_collection();
@@ -137,6 +143,7 @@ function (newDoc, oldDoc, userCtx){
             if(newDoc.undoable === false && newDoc.perform_undo === true){
                 throw({forbidden: 'You can\'t undo an event that isn\'t undoable'});
             }
+            date_regex('timestamp');
         } else if(newDoc.collection === "notification-request"){
             required("collection");
             unchanged("collection");
@@ -161,9 +168,7 @@ function (newDoc, oldDoc, userCtx){
             if(newDoc.status !== "pending" && newDoc.status !== "done" && newDoc.status !== "error"){
                 throw({forbidden: "Status must be one of done, pending, or error"});
             }
-            if (!newDoc.match(/^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[0-1]|0[1-9]|[1-2][0-9])T(2[0-3]|[0-1][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])?$/)) {
-                throw({forbidden: "not a valid timestamp"});
-            }
+            date_regex('timestamp');
         }
     }
 }
