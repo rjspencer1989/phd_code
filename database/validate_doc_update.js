@@ -23,7 +23,14 @@ function (newDoc, oldDoc, userCtx){
     }
 
     function date_regex(field){
+        //regex taken from https://code.google.com/p/jquery-localtime/issues/detail?id=4
         if (!newDoc[field].match(/^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[0-1]|0[1-9]|[1-2][0-9])T(2[0-3]|[0-1][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])?$/)) {
+            throw({forbidden: "not a valid timestamp"});
+        }
+    }
+
+    function email_regex(field){
+        if (!newDoc[field].match(/^[a-zA_Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
             throw({forbidden: "not a valid timestamp"});
         }
     }
@@ -96,6 +103,9 @@ function (newDoc, oldDoc, userCtx){
                         throw({forbidden: "Status must be one of done, pending, or error"});
                     }
                 }
+            }
+            if (newDoc.service === 'email') {
+                email_regex('service');
             }
         } else if(newDoc.collection === "devices"){
             required("action");
