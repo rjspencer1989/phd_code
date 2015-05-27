@@ -34,6 +34,18 @@ class TestValidation(unittest.TestCase):
         res = db.save_doc(doc)
         db.delete_doc(res['id'])
 
+    def test_notification_invalid_email(self):
+        doc = {
+            "name": "Rob",
+            "service": "email",
+            "collection": "notifications",
+            "user": "rjspencer1989",
+            "status": "pending"
+        }
+        db = couchdb_config_parser.get_db()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
     def test_notification_invalid_status(self):
         doc = {
             "name": "Rob",
@@ -490,6 +502,39 @@ class TestValidation(unittest.TestCase):
             "body": "message",
             "status": "complete"
         }
+        db = couchdb_config_parser.get_db()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_valid_rollback_request(self):
+        doc = {
+            "collection": "request_revert",
+            "timestamp": datetime.datetime.now().isoformat(),
+            "status": "pending"
+        }
+
+        db = couchdb_config_parser.get_db()
+        res = db.save_doc(doc)
+        db.delete_doc(res['id'])
+
+    def test_rollback_invalid_status(self):
+        doc = {
+            "collection": "request_revert",
+            "timestamp": datetime.datetime.now().isoformat(),
+            "status": "waiting"
+        }
+
+        db = couchdb_config_parser.get_db()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_rollback_invalid_timestamp(self):
+        doc = {
+            "collection": "request_revert",
+            "timestamp": '2015-14-27T15:19:06.690Z',
+            "status": "waiting"
+        }
+
         db = couchdb_config_parser.get_db()
         with self.assertRaises(Exception):
             db.save_doc(doc)
