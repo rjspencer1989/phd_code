@@ -3,6 +3,7 @@ from couchdbkit import *
 from Queue import Queue
 import threading
 import os
+import pprint
 
 
 class RollbackListener(threading.Thread):
@@ -39,8 +40,8 @@ class RollbackProcessor(threading.Thread):
 
     def revert(self, timestamp):
         doc_list = self.get_docs_to_revert(timestamp)
-        for doc in doc_list:
-            print doc
+        for key, doc in doc_list.iteritems():
+            pprint(doc)
 
     def run(self):
         while True:
