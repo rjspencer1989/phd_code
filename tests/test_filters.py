@@ -96,7 +96,7 @@ class TestFilters(unittest.TestCase):
 
     def test_notification_request(self):
         inc = {
-            "collection": "notification-request",
+            "collection": "request_notification",
             "status": "pending",
             "to": "Rob",
             "service": "email",
@@ -104,7 +104,7 @@ class TestFilters(unittest.TestCase):
         }
 
         not_inc = {
-            "collection": "notification-request",
+            "collection": "request_notification",
             "status": "done",
             "to": "Rob",
             "service": "email",
