@@ -161,7 +161,7 @@ function (newDoc, oldDoc, userCtx){
             if(newDoc.status !== "pending" && newDoc.status !== "done" && newDoc.status !== "error"){
                 throw({forbidden: "Status must be one of done, pending, or error"});
             }
-            if (!newDoc.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})[+-](\d{2})\:(\d{2})/)) {
+            if (!newDoc.match(/^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[0-1]|0[1-9]|[1-2][0-9])T(2[0-3]|[0-1][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])?$/)) {
                 throw({forbidden: "not a valid timestamp"});
             }
         }
