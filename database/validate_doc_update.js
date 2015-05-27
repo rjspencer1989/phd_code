@@ -11,8 +11,8 @@ function (newDoc, oldDoc, userCtx){
     }
 
     function is_valid_collection(){
-        if(["wifi", "notifications", "devices", "events", "notification-request"].indexOf(newDoc.collection) === -1){
-            throw({forbidden: "collection must be one of wifi, notifications, devices, events, notification-request"});
+        if(["wifi", "notifications", "devices", "events", "request_notification", "request_revert"].indexOf(newDoc.collection) === -1){
+            throw({forbidden: "collection must be one of wifi, notifications, devices, events, request_notification, request_revert"});
         }
     }
 
