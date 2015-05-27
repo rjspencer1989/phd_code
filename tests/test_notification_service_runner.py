@@ -91,7 +91,7 @@ class TestNotificationServiceRunner(unittest.TestCase):
         self.assertEqual('Rob', user_names_lst[1]['key'][1])
         self.db.delete_doc(res['id'])
 
-    # @unittest.skip("stop the spam")
+    @unittest.skip("stop the spam")
     def test_send_notification(self):
         doc = {
             "body": "test",
@@ -106,7 +106,7 @@ class TestNotificationServiceRunner(unittest.TestCase):
         self.assertTrue(result)
         self.db.delete_doc(res['id'])
 
-    # @unittest.skip("stop the spam")
+    @unittest.skip("stop the spam")
     def test_process_notification(self):
         doc = {
             "body": "test",
