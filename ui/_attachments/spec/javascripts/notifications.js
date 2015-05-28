@@ -19,7 +19,7 @@ describe("notification registration data", function () {
         expect(model.get('name')).toEqual('');
         expect(model.get('service')).toEqual('');
         expect(model.get('user')).toEqual('');
-        expect(model.get('status')).toEqual('');
+        expect(model.get('status')).toEqual('pending');
     });
 
     it("should have a collection defined", function () {
