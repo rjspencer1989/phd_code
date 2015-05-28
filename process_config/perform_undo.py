@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import couchdb_config_parser
 from couchdbkit import *
 from Queue import Queue
