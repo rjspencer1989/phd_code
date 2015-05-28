@@ -3,7 +3,8 @@ App.Models.Notification = Backbone.Model.extend({
         collection: 'notifications',
         name: '',
         service: '',
-        user: ''
+        user: '',
+        status: 'pending'
     }
 });
 
