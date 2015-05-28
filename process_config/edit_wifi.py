@@ -42,7 +42,7 @@ class WifiProcessor(threading.Thread):
                     service = row['value']['notification_service']
                     to = row['value']['name']
                     timestr = datetime.now().strftime("%H:%M:%S")
-                    ChangeNotification.sendNotification(to, service, "network settings updated at %s" % (timestr))
+                    change_notification.sendNotification(to, service, "network settings updated at %s" % (timestr))
         return True
 
     def generate_config(self, current_doc):
