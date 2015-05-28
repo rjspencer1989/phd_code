@@ -101,9 +101,9 @@ App.Views.Device = Backbone.View.extend({
             this.model.set({device_name: device_name});
             this.model.set({device_type: device_type});
             this.model.set({notification_service: notification_service});
-            this.model.set({changed_by: 'user'});
         }
         this.model.set({action: 'permit'});
+        this.model.set({changed_by: 'user'});
         this.model.save(null, {
             success: function(model, response, options){
                 console.log(response);
