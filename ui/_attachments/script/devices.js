@@ -12,7 +12,8 @@ App.Models.Device = Backbone.Model.extend({
         device_type: "",
         notification_service: "",
         timestamp: new Date() / 1000,
-        connected: false
+        connected: false,
+        changed_by: 'system'
     },
 
     url : this.mac_address
