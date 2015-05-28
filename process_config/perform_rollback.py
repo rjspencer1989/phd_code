@@ -3,7 +3,6 @@ from couchdbkit import *
 from Queue import Queue
 import threading
 import os
-import pprint
 
 
 class RollbackListener(threading.Thread):
@@ -42,7 +41,6 @@ class RollbackProcessor(threading.Thread):
         doc_list = self.get_docs_to_revert(timestamp)
         for key, doc in doc_list.iteritems():
             doc['perform_undo'] = True
-            pprint.pprint(doc)
             self.db.save_doc(doc)
 
     def run(self):
@@ -58,6 +56,7 @@ class RollbackProcessor(threading.Thread):
 change_queue = Queue()
 producer = RollbackListener('producer', change_queue)
 consumer = RollbackProcessor('consumer', change_queue)
+
 if 'ENV_TESTS' not in os.environ:
     producer.start()
     consumer.start()
