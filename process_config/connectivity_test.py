@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import urllib2
-import history
+import add_history
 
 status = False
 request = urllib2.Request('https://2-dot-homework-notify.appspot.com/notify/2/')
@@ -10,4 +10,4 @@ try:
 except urllib2.URLError as e:
     print e.reason
     status = False
-    History.addHistoryItem('Internet connection error', e.reason, 'Router', '', '', False)
+    add_history.add_history_item('Internet connection error', e.reason, 'Router', '', '', False)
