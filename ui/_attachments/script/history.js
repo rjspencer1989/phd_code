@@ -93,6 +93,7 @@ function addHistoryEvent(title, description, user, docId, docRev, undoable){
     mod.set({doc_id: docId});
     mod.set({doc_rev: docRev});
     mod.set({undoable: undoable});
+    console.log(mod.toJSON());
     new App.Collections.Events().create(mod);
 }
 
