@@ -89,7 +89,7 @@ function addHistoryEvent(title, description, user, docId, docRev, undoable){
     mod.set({title: title});
     mod.set({description: description});
     mod.set({user: user});
-    mod.set({timestamp: new Date.toISOString()});
+    mod.set({timestamp: new Date().toISOString()});
     mod.set({doc_id: docId});
     mod.set({doc_rev: docRev});
     mod.set({undoable: undoable});
