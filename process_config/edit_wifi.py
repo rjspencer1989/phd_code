@@ -38,11 +38,12 @@ class WifiProcessor(threading.Thread):
     def notify(self):
         if self.devices is not None and len(self.devices) > 0:
             for row in self.devices:
-                if len(row['value']['service']) > 0 and len(row['value']['name']) > 0:
-                    service = row['value']['service']
+                if len(row['value']['notification_service']) > 0 and len(row['value']['name']) > 0:
+                    service = row['value']['notification_service']
                     to = row['value']['name']
                     timestr = datetime.now().strftime("%H:%M:%S")
                     ChangeNotification.sendNotification(to, service, "network settings updated at %s" % (timestr))
+        return True
 
     def generate_config(self, current_doc):
         line_list = []
@@ -76,17 +77,11 @@ class WifiProcessor(threading.Thread):
                 with open('/etc/hostapd/hostapd.conf', 'w') as fh:
                     fh.writelines(line_list)
                 self.get_connected_devices()
-                cmd = ['/etc/init.d/hostapd', 'reload']
-                res = subprocess.Popen(cmd, stdout=subprocess.PIPE).communicate()[0]
-                try:
-                    if res.index('done') != -1:
-                        current_doc['status'] = 'done'
-                        self.notify()
-                except ValueError:
-                    current_doc['status'] = 'error'
-                finally:
-                    db.save_doc(current_doc)
-                    self.shared_object.task_done()
+                current_doc['status'] = 'done'
+                db.save_doc(current_doc)
+                if self.notify():
+                    cmd = ['/sbin/reboot']
+                    res = subprocess.Popen(cmd)
 changeQueue = Queue()
 producer = WifiListener("producer", changeQueue)
 consumer = WifiProcessor("consumer", changeQueue)
