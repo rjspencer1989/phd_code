@@ -37,6 +37,6 @@ describe("control panel", function () {
     });
 
     it("collection should have a db and view", function () {
-        expect(collection.db).toEqual({view:'control'});
+        expect(collection.db).toEqual({view:'control', changes: true, filter: 'homework-remote/devices_ui'});
     });
 });
