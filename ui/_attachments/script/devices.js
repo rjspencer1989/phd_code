@@ -78,7 +78,7 @@ App.Views.Device = Backbone.View.extend({
         this.model.save(null, {
             success: function(model, response, options){
                 console.log(response);
-                //addHistoryEvent('Device Denied', 'The device with MAC Address ' + model.get('mac_address') + ' was denied access to your network');
+                addHistoryEvent('Device Denied', 'The device with MAC Address ' + model.get('mac_address') + ' was denied access to your network');
             },
             error: function(model, response, options){
                 console.log(response);
@@ -107,7 +107,7 @@ App.Views.Device = Backbone.View.extend({
         this.model.save(null, {
             success: function(model, response, options){
                 console.log(response);
-                //addHistoryEvent("Device Permitted", model.get('device_name') + " was permitted to use your network. It belongs to " + model.get('name') + ", it is a " + model.get("device_type") + " and network notifications are sent using " + model.get('service'), App.userCtx.name, model.id, model.get('rev'), true);
+                addHistoryEvent("Device Permitted", model.get('device_name') + " was permitted to use your network. It belongs to " + model.get('name') + ", it is a " + model.get("device_type") + " and network notifications are sent using " + model.get('service'), App.userCtx.name, model.id, model.get('rev'), true);
             },
             error: function(model, response, options){
                 console.log(response);
