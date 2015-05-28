@@ -154,7 +154,7 @@ function (newDoc, oldDoc, userCtx){
                 throw({forbidden: 'You can\'t undo an event that isn\'t undoable'});
             }
             date_regex('timestamp');
-        } else if(newDoc.collection === "notification-request"){
+        } else if(newDoc.collection === "request_notification"){
             required("collection");
             unchanged("collection");
             required("to");
