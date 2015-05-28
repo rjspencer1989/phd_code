@@ -8,9 +8,9 @@ from couchdbkit import *
 from Queue import Queue
 import threading
 import couchdb_config_parser
+
 db = couchdb_config_parser.get_db()
 db_info = db.info()
-
 
 def get_router_id():
     return os.environ['APP_ENGINE_ROUTER_ID']
