@@ -87,7 +87,7 @@ class UndoProcessor(threading.Thread):
         undo_doc = self.get_doc_to_undo(current_doc)
         undone_rev = ''
         if undo_doc['collection'] == 'devices':
-            undone_rev = self.undo_device_change(undo_doc)
+            undone_rev = self.undo_device_change(undo_doc, current_doc['doc_rev'])
         else:
             rev_list = self.get_rev_list(undo_doc, current_doc['doc_rev'])
             undone_rev = self.undo(undo_doc, rev_list)
