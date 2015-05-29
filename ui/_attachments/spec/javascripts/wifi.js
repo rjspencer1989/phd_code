@@ -29,7 +29,7 @@ describe("wifi data", function () {
         expect(model.get('password')).toEqual('');
         expect(model.get('encryption_type')).toEqual('wep');
         expect(model.get('password_type')).toEqual('txt');
-        expect(model.get('mode')).toEqual('n');
+        expect(model.get('mode')).toEqual('g');
         expect(model.defaults.channel).toEqual(1);
     });
 
