@@ -50,7 +50,6 @@ App.Views.Wifi = Backbone.View.extend({
         newPassword = $('#password_input').val();
         mod = this.collection.at(0);
         if(newSSID !== '') mod.set({ssid: newSSID});
-        if(newMode !== 'blank') mod.set({mode: newMode});
         if(newChannel !== 'blank') mod.set({channel: newChannel});
         if(newPasswordType !== 'blank') mod.set({password_type: newPasswordType});
         if(newPassword !== '') mod.set({password: newPassword});
