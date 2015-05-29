@@ -6,7 +6,7 @@ App.Models.Wifi = Backbone.Model.extend({
         password : '',
         encryption_type: 'wep',
         password_type: 'txt',
-        mode : 'n',
+        mode : 'g',
         channel : 1
     }
 });
@@ -45,9 +45,7 @@ App.Views.Wifi = Backbone.View.extend({
 
     saveWifi: function(){
         newSSID = $('#ssid_input').val();
-        newMode = $('#mode_select :selected').val();
         newChannel = $('#channel_select :selected').val();
-        newEncryption = $('#encryption_type_select :selected').val();
         newPasswordType = $('#password_type_select :selected').val();
         newPassword = $('#password_input').val();
         mod = this.collection.at(0);
