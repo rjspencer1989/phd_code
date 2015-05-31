@@ -22,6 +22,7 @@ describe("control panel", function () {
         expect(model.get('device_type')).toEqual('');
         expect(model.get('notification_service')).toEqual('');
         expect(model.get('timestamp')).toBeDefined();
+        expect(model.get('changed_by')).toEqual('system');
     });
 
     it("collection should be defined", function () {
