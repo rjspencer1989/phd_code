@@ -22,7 +22,7 @@ module.exports = function(grunt){
                     processName: function(filepath){
                         name = filepath.split("/").pop();
                         pos = name.indexOf(".html");
-                        key = (pos > -1) ? name.substring(0, pos);
+                        key = (pos > -1) ? name.substring(0, pos) : name;
                         return key;
                     }
                 }
