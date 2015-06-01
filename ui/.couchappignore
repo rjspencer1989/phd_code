@@ -1,1 +1,4 @@
-["node_modules/*"]
+[
+"_attachments/node_modules/*",
+"_attachments/GruntFile.js"
+]
