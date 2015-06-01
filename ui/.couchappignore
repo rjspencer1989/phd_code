@@ -1,4 +1,4 @@
 [
-"_attachments/node_modules/",
-"_attachments/Gruntfile.js"
+"^grunt",
+"Gruntfile.js"
 ]
