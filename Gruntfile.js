@@ -18,6 +18,15 @@ module.exports = function(grunt){
 
         jst: {
             compile: {
+                options: {
+                    processName: function(filepath){
+                        name = filepath.split("/").pop();
+                        pos = name.indexOf(".html");
+                        key = (pos > -1) ? name.substring(0, pos);
+                        return key;
+                    }
+                }
+
                 files : {
                     "ui/_attachments/templates.js": ["ui/_attachments/templates/*.html"]
                 }
