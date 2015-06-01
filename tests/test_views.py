@@ -158,7 +158,7 @@ class TestViews(unittest.TestCase):
         l_vra = list(vra)
         self.assertEqual(len(l_vra), 1)
         self.assertEqual(l_vra[0]['id'], res['id'])
-        self.assertEqual(l_vra[0]['key'], True)
+        self.assertEqual(l_vra[0]['key'], "connect")
         db.delete_doc(res['id'])
 
     def test_device_notification_service_mapping(self):
