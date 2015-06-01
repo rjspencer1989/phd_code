@@ -13,13 +13,13 @@ module.exports = function(grunt){
                     "setActiveLink": true
                 }
             },
-            files: ['Gruntfile.js', 'script/*.js', 'spec/javascripts/*.js']
+            files: ['Gruntfile.js', 'ui/_attachments/script/*.js', 'ui/_attachments/spec/javascripts/*.js']
         },
 
         jst: {
             compile: {
                 files : {
-                    "./templates.js": ["templates/*.html"]
+                    "ui/_attachments/templates.js": ["ui/_attachments/templates/*.html"]
                 }
             }
         }
