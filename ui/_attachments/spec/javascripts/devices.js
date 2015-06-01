@@ -23,7 +23,7 @@ describe("control panel", function () {
         expect(model.get('notification_service')).toEqual('');
         expect(model.get('timestamp')).toBeDefined();
         expect(model.get('changed_by')).toEqual('system');
-        expect(model.get('connected')).toBeTruthy();
+        expect(model.get('connected')).toBeFalsy();
     });
 
     it("collection should be defined", function () {
