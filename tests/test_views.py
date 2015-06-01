@@ -51,7 +51,7 @@ class TestViews(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connection_event": "connected",
+            "connection_event": "connect",
             "changed_by": "system"
         }
 
@@ -68,7 +68,7 @@ class TestViews(unittest.TestCase):
             "lease_action": "del",
             "device_type": "laptop",
             "notification_service": "email",
-            "connection_event": "connected",
+            "connection_event": "connect",
             "changed_by": "system"
         }
 
@@ -119,7 +119,7 @@ class TestViews(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connection_event": "connected",
+            "connection_event": "connect",
             "changed_by": "system"
         }
 
