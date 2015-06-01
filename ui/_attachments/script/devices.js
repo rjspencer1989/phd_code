@@ -12,7 +12,7 @@ App.Models.Device = Backbone.Model.extend({
         device_type: "",
         notification_service: "",
         timestamp: new Date() / 1000,
-        connected: false,
+        connection_event: "disconnect",
         changed_by: 'system'
     },
 
@@ -55,7 +55,7 @@ App.Views.Device = Backbone.View.extend({
         this.$el.empty().append(this.template(this.model.toJSON()));
         this.$el.addClass('device');
         txt = "No";
-        if(this.model.get('connected') === true){
+        if(this.model.get('connection_event') === "connect"){
             txt = 'Yes';
         }
         this.$('.is_connected').html(txt);

@@ -63,7 +63,7 @@ class TestProcessperform_undo(unittest.TestCase):
             "device_type": "",
             "notification_service": "",
             "timestamp": time.time(),
-            "connected": True,
+            "connection_event": True,
             "changed_by": "system"
         }
         db = couchdb_config_parser.get_db()

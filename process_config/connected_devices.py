@@ -10,9 +10,8 @@ for resItem in vra:
     cmd = ['ping', '-c2', resItem['value']]
     code = subprocess.call(cmd)
     doc = db.open_doc(resItem['id'])
-    if code == 0:
-        doc['connected'] = True
-    else:
-        doc['connected'] = False
+    if code != 0:
+        if doc['connection_event'] == 'connect':
+            doc['connection_event'] = 'disconnect'
     doc['changed_by'] = 'connected_devices'
     db.save_doc(doc)

@@ -145,7 +145,7 @@ class TestValidation(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True,
+            "connection_event": "connect",
             "changed_by": "system"
         }
         db = couchdb_config_parser.get_db()
@@ -166,7 +166,7 @@ class TestValidation(unittest.TestCase):
             "lease_action": "rm",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True,
+            "connection_event": "connect",
             "changed_by": "system"
         }
         db = couchdb_config_parser.get_db()
@@ -187,7 +187,7 @@ class TestValidation(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True,
+            "connection_event": "connect",
             "changed_by": "system"
         }
         db = couchdb_config_parser.get_db()
@@ -208,7 +208,7 @@ class TestValidation(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True,
+            "connection_event": "connect",
             "changed_by": "system"
         }
         db = couchdb_config_parser.get_db()

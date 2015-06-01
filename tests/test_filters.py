@@ -21,7 +21,7 @@ class TestFilters(unittest.TestCase):
             "device_type": "laptop",
             "notification_service": "email",
             "timestamp": time.time(),
-            "connected": False,
+            "connection_event": "disconnect",
             "changed_by": "user"
         }
 
@@ -39,7 +39,7 @@ class TestFilters(unittest.TestCase):
             "device_type": "laptop",
             "notification_service": "twitter",
             "timestamp": time.time(),
-            "connected": False,
+            "connection_event": "disconnect",
             "changed_by": "system"
         }
         db = couchdb_config_parser.get_db()
@@ -65,7 +65,7 @@ class TestFilters(unittest.TestCase):
             "device_type": "laptop",
             "notification_service": "email",
             "timestamp": time.time(),
-            "connected": False,
+            "connection_event": "disconnect",
             "changed_by": "user"
         }
 
@@ -83,7 +83,7 @@ class TestFilters(unittest.TestCase):
             "device_type": "laptop",
             "notification_service": "twitter",
             "timestamp": time.time(),
-            "connected": False,
+            "connection_event": "disconnect",
             "changed_by": "system"
         }
         db = couchdb_config_parser.get_db()

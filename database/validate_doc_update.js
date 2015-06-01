@@ -123,7 +123,10 @@ function (newDoc, oldDoc, userCtx){
             unchanged("ip_address");
             unchanged("mac_address");
             unchanged("collection");
-            required("connected");
+            required("connection_event");
+            if (newDoc.connection_event !== "connect" && newDoc.connection_event !== "disconnect") {
+                throw({forbidden: "devices can either connect or disconnect"});
+            }
             required("changed_by");
             if(newDoc.changed_by !== "system" && newDoc.changed_by !== "user" && newDoc.changed_by !== "connected_devices"){
                 throw({forbidden: "devices can only be changed by the system or a user or to update connnected devices"});

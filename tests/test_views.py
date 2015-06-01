@@ -51,7 +51,7 @@ class TestViews(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True,
+            "connection_event": "connected",
             "changed_by": "system"
         }
 
@@ -68,7 +68,7 @@ class TestViews(unittest.TestCase):
             "lease_action": "del",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True,
+            "connection_event": "connected",
             "changed_by": "system"
         }
 
@@ -119,7 +119,7 @@ class TestViews(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True,
+            "connection_event": "connected",
             "changed_by": "system"
         }
 
@@ -147,7 +147,7 @@ class TestViews(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True,
+            "connection_event": "connect",
             "changed_by": "system"
         }
 
@@ -175,7 +175,7 @@ class TestViews(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True,
+            "connection_event": "connect",
             "changed_by": "system"
         }
 
@@ -205,7 +205,7 @@ class TestViews(unittest.TestCase):
             "lease_action": "add",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": True,
+            "connection_event": "connect",
             "changed_by": "system"
         }
 
@@ -222,7 +222,7 @@ class TestViews(unittest.TestCase):
             "lease_action": "del",
             "device_type": "laptop",
             "notification_service": "email",
-            "connected": False,
+            "connection_event": "disconnect",
             "changed_by": "system"
         }
 
