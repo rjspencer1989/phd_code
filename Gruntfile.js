@@ -25,8 +25,7 @@ module.exports = function(grunt){
                         key = (pos > -1) ? name.substring(0, pos) : name;
                         return key;
                     }
-                }
-
+                },
                 files : {
                     "ui/_attachments/templates.js": ["ui/_attachments/templates/*.html"]
                 }
