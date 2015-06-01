@@ -161,7 +161,7 @@ App.Views.Device = Backbone.View.extend({
 App.Views.ControlPanelView = Backbone.View.extend({
     collection: new App.Collections.Devices(),
     el: '#main-content',
-    template: window.JST['templates/control_panel.html'],
+    template: window.JST['control_panel'],
     initialize: function(){
         this.listenTo(this.collection, 'reset', this.render);
         this.listenTo(this.collection, 'add', this.addOne);
@@ -172,7 +172,7 @@ App.Views.ControlPanelView = Backbone.View.extend({
 
     addOne: function(device){
         sel = device.get('state');
-        var view = new App.Views.Device({model: device, template: 'templates/device_' + sel + '.html'});
+        var view = new App.Views.Device({model: device, template: 'device_' + sel});
         this.$('.' + sel).append(view.render().el);
         if(sel === 'pending'){
             view.$el.addClass('edit-device');
