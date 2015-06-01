@@ -8,11 +8,7 @@
         "jasmine": "latest",
         "jasmine-jquery" : "latest",
         "bootstrap": "latest",
-        "backbone.validation":"latest",
-        "jquery-ui": "latest",
-        "jquery.cookie": "latest",
         "jquery-json" : "latest",
-        "couchdb-login-jquery": "latest",
         "bootstrap-datepicker": "latest"
     },
     "private" : true
