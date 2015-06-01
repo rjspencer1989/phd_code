@@ -43,6 +43,7 @@ describe("control panel", function () {
 
     it("model should save", function () {
         val = collection.create(model);
+        console.log(val);
         expect(val).not.toBeNull();
     });
 });
