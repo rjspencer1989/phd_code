@@ -40,4 +40,9 @@ describe("control panel", function () {
     it("collection should have a db and view", function () {
         expect(collection.db).toEqual({view:'control', changes: true, filter: 'homework-remote/devices_ui'});
     });
+
+    it("model should save", function () {
+        val = collection.create(model);
+        expect(val).not.toBeNull();
+    });
 });
