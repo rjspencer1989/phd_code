@@ -27,6 +27,7 @@ App.Views.Login = Backbone.View.extend({
             name: user,
             password: password,
             success: function(data){
+                App.routerInstance.user_view = new App.Views.User();
                 App.routerInstance.navigate('/', {trigger: true});
             },
             error: function(data){
