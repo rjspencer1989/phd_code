@@ -174,7 +174,7 @@ App.Views.ControlPanelView = Backbone.View.extend({
     addOne: function(device){
         sel = device.get('state');
         var view = new App.Views.Device({model: device, template: 'device_' + sel});
-        this.subviews.append(view);
+        this.subviews.push(view);
         this.$('.' + sel).append(view.render().el);
         if(sel === 'pending'){
             view.$el.addClass('edit-device');
