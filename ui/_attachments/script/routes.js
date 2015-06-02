@@ -41,7 +41,7 @@ App.Routers.Router = Backbone.Router.extend({
         if (this.view) {
             this.view.exit();
         }
-        this.view = new App.Views.ControlPanelView();
+        this.view = new App.Views.ControlPanelView({el: $('#main-content')});
     },
 
     checkSession: function(){

@@ -160,7 +160,6 @@ App.Views.Device = Backbone.View.extend({
 
 App.Views.ControlPanelView = Backbone.View.extend({
     collection: new App.Collections.Devices(),
-    el: '#main-content',
     template: window.JST.control_panel,
     initialize: function(){
         this.listenTo(this.collection, 'reset', this.render);
