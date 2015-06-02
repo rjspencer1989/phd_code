@@ -2,9 +2,6 @@ App.Routers.Router = Backbone.Router.extend({
     initialize: function () {
         this.view = null;
         this.user_view = null;
-        if (App.userCtx === null) {
-            this.navigate('login', {trigger: true});
-        }
     },
 
     display_user: function(){
