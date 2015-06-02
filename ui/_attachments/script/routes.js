@@ -20,10 +20,12 @@ App.Routers.Router = Backbone.Router.extend({
     },
 
     home : function(){
+        this.checkSession();
         if (this.view) {
             this.view.exit();
         }
         this.view = new App.Views.Home();
+        showMenu();
     },
 
     login : function(){
@@ -31,7 +33,6 @@ App.Routers.Router = Backbone.Router.extend({
             this.view.exit();
         }
         this.view = new App.Views.Login();
-        console.log(this.view);
         drawLogin();
     },
 
@@ -41,6 +42,7 @@ App.Routers.Router = Backbone.Router.extend({
             this.view.exit();
         }
         this.view = new App.Views.Wifi();
+        showMenu();
     },
 
     history : function(){
@@ -57,6 +59,7 @@ App.Routers.Router = Backbone.Router.extend({
             this.view.exit();
         }
         this.view = new App.Views.ControlPanelView();
+        showMenu();
     },
 
     checkSession: function(){
@@ -66,7 +69,6 @@ App.Routers.Router = Backbone.Router.extend({
                 console.log(data);
                 if(data.userCtx.name !== null){
                     App.userCtx = data.userCtx;
-                    showMenu();
                     App.routerInstance.display_user();
                 }else{
                     App.routerInstance.navigate('login', {trigger: true});
