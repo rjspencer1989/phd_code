@@ -69,10 +69,9 @@ App.Views.Wifi = Backbone.View.extend({
                 }
             }
         });
+    },
+
+    exit: function(){
+        this.remove();
     }
 });
-
-function drawWifi() {
-    App.routerInstance.checkSession();
-    window.wifiView = new App.Views.Wifi();
-}

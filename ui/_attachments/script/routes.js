@@ -21,7 +21,11 @@ App.Routers.Router = Backbone.Router.extend({
     },
 
     wifi : function(){
-        drawWifi();
+        this.checkSession();
+        if (this.view) {
+            this.view.exit();
+        }
+        this.vew = new App.Views.Wifi();
     },
 
     history : function(){
@@ -35,7 +39,7 @@ App.Routers.Router = Backbone.Router.extend({
     controlPanel : function(){
         this.checkSession();
         if (this.view) {
-            this.view.remove();
+            this.view.exit();
         }
         this.view = new App.Views.ControlPanelView();
     },
@@ -50,11 +54,11 @@ App.Routers.Router = Backbone.Router.extend({
                     showMenu();
                     new App.Views.User();
                 }else{
-                    App.routerInstance.navigate('login', true);
+                    this.navigate('login', true);
                 }
             }, error: function(data){
                 console.log(data);
-                App.routerInstance.navigate('login', true);
+                this.navigate('login', true);
             }
         });
     }

@@ -168,11 +168,13 @@ App.Views.ControlPanelView = Backbone.View.extend({
         this.listenTo(this.collection, 'change', this.render);
         this.listenTo(this.collection, 'remove', this.render);
         this.collection.fetch({reset: true});
+        this.subviews = [];
     },
 
     addOne: function(device){
         sel = device.get('state');
         var view = new App.Views.Device({model: device, template: 'device_' + sel});
+        this.subviews.append(view);
         this.$('.' + sel).append(view.render().el);
         if(sel === 'pending'){
             view.$el.addClass('edit-device');
@@ -184,5 +186,12 @@ App.Views.ControlPanelView = Backbone.View.extend({
         setActiveLink('services-link');
         $('.alert').hide();
         this.collection.each(this.addOne, this);
+    },
+
+    exit: function(){
+        for (var view in this.subviews) {
+            view.remove();
+        }
+        this.remove();
     }
 });
