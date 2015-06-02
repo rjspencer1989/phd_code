@@ -2,6 +2,9 @@ App.Routers.Router = Backbone.Router.extend({
     initialize: function () {
         this.view = null;
         this.user_view = null;
+        if (App.userCtx.name === null) {
+            this.navigate('login', {trigger: true});
+        }
     },
 
     display_user: function(){
@@ -20,7 +23,6 @@ App.Routers.Router = Backbone.Router.extend({
     },
 
     home : function(){
-        this.checkSession();
         if (this.view) {
             this.view.exit();
         }
@@ -33,11 +35,9 @@ App.Routers.Router = Backbone.Router.extend({
             this.view.exit();
         }
         this.view = new App.Views.Login();
-        drawLogin();
     },
 
     wifi : function(){
-        this.checkSession();
         if (this.view) {
             this.view.exit();
         }
@@ -54,29 +54,10 @@ App.Routers.Router = Backbone.Router.extend({
     },
 
     controlPanel : function(){
-        this.checkSession();
         if (this.view) {
             this.view.exit();
         }
         this.view = new App.Views.ControlPanelView();
         showMenu();
-    },
-
-    checkSession: function(){
-        console.log('checking session');
-        $.couch.session({
-            success: function(data){
-                console.log(data);
-                if(data.userCtx.name !== null){
-                    App.userCtx = data.userCtx;
-                    App.routerInstance.display_user();
-                }else{
-                    App.routerInstance.navigate('login', {trigger: true});
-                }
-            }, error: function(data){
-                console.log(data);
-                App.routerInstance.navigate('login', {trigger: true});
-            }
-        });
     }
 });

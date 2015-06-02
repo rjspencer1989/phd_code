@@ -5,10 +5,11 @@ App.Views.Login = Backbone.View.extend({
     initialize: function(){
         App.userCtx = null;
         hideMenu();
+        this.render();
     },
 
     events: {
-        'click #signin-button': 'login'
+        'submit #form-signin': 'login'
     },
 
     render: function(){
@@ -64,17 +65,3 @@ App.Views.User = Backbone.View.extend({
         });
     }
 });
-
-function drawLogin(){
-    $.couch.session({
-        success: function(data){
-            if(data.userCtx.name !== null){
-                App.routerInstance.navigate('/', {trigger: true});
-            } else{
-                $('#main-row').html(App.routerInstance.view.render().el);
-            }
-        }, error: function(data){
-            $('#main-row').html(App.routerInstance.view.render().el);
-        }
-    });
-}
