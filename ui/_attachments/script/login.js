@@ -12,7 +12,7 @@ App.Views.Login = Backbone.View.extend({
     },
 
     render: function(){
-        this.html(this.template());
+        $('#main-row').html(this.template());
         return this;
     },
 
