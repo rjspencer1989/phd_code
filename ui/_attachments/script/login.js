@@ -8,7 +8,7 @@ App.Views.Login = Backbone.View.extend({
     },
 
     events: {
-        'submit #form-signin': 'login'
+        'click #signin-button': 'login'
     },
 
     render: function(){
