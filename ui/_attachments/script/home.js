@@ -1,7 +1,7 @@
 App.Views.WifiHome = Backbone.View.extend({
     collection: new App.Collections.Wifi(),
     el: '#home-wifi-config',
-    template: window.JST['home_wifi'],
+    template: window.JST.home_wifi,
     initialize: function () {
         'use strict';
         this.listenTo(this.collection, 'reset', this.render);
@@ -24,7 +24,7 @@ App.Views.WifiHome = Backbone.View.extend({
 
 App.Views.DeviceHome = Backbone.View.extend({
     tagName: 'tr',
-    template: window.JST['home_device'],
+    template: window.JST.home_device,
     render: function(){
         this.$el.empty().append(this.template(this.model.toJSON()));
         return this;
@@ -33,7 +33,7 @@ App.Views.DeviceHome = Backbone.View.extend({
 
 App.Views.ConnectedDevicesHome = Backbone.View.extend({
     el: '#home-devices',
-    template: window.JST['home_devices'],
+    template: window.JST.home_devices,
     collection: new App.Collections.ConnectedDevices(),
     initialize: function () {
         'use strict';
@@ -63,7 +63,7 @@ App.Views.ConnectedDevicesHome = Backbone.View.extend({
 
 App.Views.Home = Backbone.View.extend({
     el: '#main-content',
-    template : window.JST['home'],
+    template : window.JST.home,
     initialize: function () {
         'use strict';
         this.render();

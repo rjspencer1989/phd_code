@@ -15,7 +15,7 @@ App.Collections.Notifications = Backbone.Collection.extend({
 
 App.Views.Notification = Backbone.View.extend({
     tagName: 'tr',
-    template: window.JST['notification_item'],
+    template: window.JST.notification_item,
 
     events: {
         "click .edit-notification-button" : "edit",
@@ -89,7 +89,7 @@ App.Views.Notification = Backbone.View.extend({
 App.Views.Notifications = Backbone.View.extend({
     collection: new App.Collections.Notifications(),
     el: '#main-content',
-    template: window.JST['notification_collection'],
+    template: window.JST.notification_collection,
     initialize: function () {
         'use strict';
         this.listenTo(this.collection, 'reset', this.render);

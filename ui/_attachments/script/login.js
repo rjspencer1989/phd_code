@@ -1,6 +1,6 @@
 App.Views.Login = Backbone.View.extend({
     el : '#main-content',
-    template: window.JST['login'],
+    template: window.JST.login,
     initialize: function(){
         App.userCtx = null;
         hideMenu();
@@ -34,7 +34,7 @@ App.Views.Login = Backbone.View.extend({
 
 App.Views.User = Backbone.View.extend({
     el: '#user-id',
-    template: window.JST['user_id'],
+    template: window.JST.user_id,
     initialize: function(){
         this.render();
     },
