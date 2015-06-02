@@ -160,6 +160,7 @@ App.Views.Device = Backbone.View.extend({
 
 App.Views.ControlPanelView = Backbone.View.extend({
     collection: new App.Collections.Devices(),
+    className: 'col-md-12',
     template: window.JST.control_panel,
     initialize: function(){
         this.listenTo(this.collection, 'reset', this.render);
@@ -181,8 +182,6 @@ App.Views.ControlPanelView = Backbone.View.extend({
     },
 
     render: function(){
-        console.log(this.$el);
-        console.log(this.template());
         this.$el.empty().append(this.template());
         setActiveLink('services-link');
         $('.alert').hide();
