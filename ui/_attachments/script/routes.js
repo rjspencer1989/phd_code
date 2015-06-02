@@ -52,7 +52,6 @@ App.Routers.Router = Backbone.Router.extend({
                 if(data.userCtx.name !== null){
                     App.userCtx = data.userCtx;
                     showMenu();
-                    new App.Views.User();
                 }else{
                     this.navigate('login', true);
                 }

@@ -47,10 +47,12 @@ App.Views.User = Backbone.View.extend({
     },
 
     logout: function(){
+        the_view = this;
         $.couch.logout({
             success: function(data){
                 App.userCtx = null;
                 console.log('logging out');
+                the_view.remove();
                 App.routerInstance.navigate('login', true);
             }
         });
@@ -63,10 +65,10 @@ function drawLogin(){
             if(data.userCtx.name !== null){
                 App.routerInstance.navigate('/', true);
             } else{
-                new App.Views.Login();
+                App.routerInstance.navigate('login', true);
             }
         }, error: function(data){
-            new App.Views.Login();
+            App.routerInstance.navigate('login', true);
         }
     });
 }
