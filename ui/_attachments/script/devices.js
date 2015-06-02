@@ -155,6 +155,10 @@ App.Views.Device = Backbone.View.extend({
         });
         this.$el.removeClass('editing');
 
+    },
+
+    exit: function(){
+        this.remove();
     }
 });
 
@@ -190,7 +194,7 @@ App.Views.ControlPanelView = Backbone.View.extend({
 
     exit: function(){
         for (var item in this.subviews) {
-            item.remove();
+            item.exit();
         }
         this.remove();
     }
