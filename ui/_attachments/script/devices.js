@@ -183,9 +183,11 @@ App.Views.ControlPanelView = Backbone.View.extend({
 
     render: function(){
         this.$el.empty().append(this.template());
+        $('#main-row').empty().append(this.$el.html());
         setActiveLink('services-link');
         $('.alert').hide();
         this.collection.each(this.addOne, this);
+        return this;
     },
 
     exit: function(){
