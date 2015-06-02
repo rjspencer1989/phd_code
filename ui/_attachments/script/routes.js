@@ -1,6 +1,13 @@
 App.Routers.Router = Backbone.Router.extend({
     initialize: function () {
         this.view = null;
+        this.user_view = null;
+    },
+
+    display_user: function(){
+        if (this.user_view === null) {
+            this.user_view = new App.Views.User();
+        }
     },
 
     routes : {
@@ -17,6 +24,10 @@ App.Routers.Router = Backbone.Router.extend({
     },
 
     login : function(){
+        if (this.view) {
+            this.view.exit();
+        }
+        this.view = new App.Views.Login();
         drawLogin();
     },
 
@@ -52,6 +63,7 @@ App.Routers.Router = Backbone.Router.extend({
                 if(data.userCtx.name !== null){
                     App.userCtx = data.userCtx;
                     showMenu();
+                    display_user();
                 }else{
                     this.navigate('login', true);
                 }

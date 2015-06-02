@@ -1,10 +1,10 @@
 App.Views.Login = Backbone.View.extend({
-    el : '#main-content',
+    tagName: "div",
+    className: "col-md-12",
     template: window.JST.login,
     initialize: function(){
         App.userCtx = null;
         hideMenu();
-        this.render();
     },
 
     events: {
@@ -13,6 +13,7 @@ App.Views.Login = Backbone.View.extend({
 
     render: function(){
         this.$el.empty().append(this.template());
+        return this;
     },
 
     login: function(e){
@@ -29,6 +30,10 @@ App.Views.Login = Backbone.View.extend({
                 alert('You could not be logged in');
             }
         });
+    },
+
+    exit: function(){
+        this.remove();
     }
 });
 
@@ -47,12 +52,11 @@ App.Views.User = Backbone.View.extend({
     },
 
     logout: function(){
-        the_view = this;
+        this.remove();
         $.couch.logout({
             success: function(data){
                 App.userCtx = null;
                 console.log('logging out');
-                the_view.remove();
                 App.routerInstance.navigate('login', true);
             }
         });
@@ -65,10 +69,10 @@ function drawLogin(){
             if(data.userCtx.name !== null){
                 App.routerInstance.navigate('/', true);
             } else{
-                App.routerInstance.navigate('login', true);
+                $('#main-row').html(App.routerInstance.view.render().el);
             }
         }, error: function(data){
-            App.routerInstance.navigate('login', true);
+            $('#main-row').html(App.routerInstance.view.render().el);
         }
     });
 }
