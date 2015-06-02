@@ -24,7 +24,7 @@ App.Views.Login = Backbone.View.extend({
             name: user,
             password: password,
             success: function(data){
-                App.routerInstance.navigate('/', true);
+                App.routerInstance.navigate('/', {trigger: true});
             },
             error: function(data){
                 alert('You could not be logged in');
@@ -57,7 +57,7 @@ App.Views.User = Backbone.View.extend({
             success: function(data){
                 App.userCtx = null;
                 console.log('logging out');
-                App.routerInstance.navigate('login', true);
+                App.routerInstance.navigate('login', {trigger: true});
             }
         });
     }
@@ -67,7 +67,7 @@ function drawLogin(){
     $.couch.session({
         success: function(data){
             if(data.userCtx.name !== null){
-                App.routerInstance.navigate('/', true);
+                App.routerInstance.navigate('/', {trigger: true});
             } else{
                 console.log(App.routerInstance.view);
                 $('#main-row').html(App.routerInstance.view.render().el);
