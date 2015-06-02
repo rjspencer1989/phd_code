@@ -163,6 +163,7 @@ App.Views.ControlPanelView = Backbone.View.extend({
     el: '#main-content',
     template: window.JST.control_panel,
     initialize: function(){
+        console.log('init control');
         this.listenTo(this.collection, 'reset', this.render);
         this.listenTo(this.collection, 'add', this.addOne);
         this.listenTo(this.collection, 'change', this.render);
