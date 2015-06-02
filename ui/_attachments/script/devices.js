@@ -186,8 +186,3 @@ App.Views.ControlPanelView = Backbone.View.extend({
         this.collection.each(this.addOne, this);
     }
 });
-
-function drawControlPanel(){
-    App.routerInstance.checkSession();
-    new App.Views.ControlPanelView();
-}

@@ -1,4 +1,8 @@
 App.Routers.Router = Backbone.Router.extend({
+    initialize: function () {
+        this.view = null;
+    },
+
     routes : {
         '' : 'home',
         'login' : 'login',
@@ -29,7 +33,11 @@ App.Routers.Router = Backbone.Router.extend({
     },
 
     controlPanel : function(){
-        drawControlPanel();
+        checkSession();
+        if (this.view) {
+            this.view.remove();
+        }
+        this.view = new App.Views.ControlPanelView();
     },
 
     checkSession: function(){
