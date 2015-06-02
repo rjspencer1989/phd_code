@@ -33,7 +33,7 @@ App.Routers.Router = Backbone.Router.extend({
     },
 
     controlPanel : function(){
-        checkSession();
+        this.checkSession();
         if (this.view) {
             this.view.remove();
         }
