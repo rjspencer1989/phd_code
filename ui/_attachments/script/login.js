@@ -69,7 +69,6 @@ function drawLogin(){
             if(data.userCtx.name !== null){
                 App.routerInstance.navigate('/', {trigger: true});
             } else{
-                console.log(App.routerInstance.view);
                 $('#main-row').html(App.routerInstance.view.render().el);
             }
         }, error: function(data){

@@ -31,6 +31,7 @@ App.Routers.Router = Backbone.Router.extend({
             this.view.exit();
         }
         this.view = new App.Views.Login();
+        console.log(this.view);
         drawLogin();
     },
 
@@ -68,11 +69,11 @@ App.Routers.Router = Backbone.Router.extend({
                     showMenu();
                     App.routerInstance.display_user();
                 }else{
-                    App.routerInstance.navigate('login', true);
+                    App.routerInstance.navigate('login', {trigger: true});
                 }
             }, error: function(data){
                 console.log(data);
-                App.routerInstance.navigate('login', true);
+                App.routerInstance.navigate('login', {trigger: true});
             }
         });
     }
