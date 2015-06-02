@@ -18,7 +18,8 @@ App.Collections.Wifi = Backbone.Collection.extend({
 
 App.Views.Wifi = Backbone.View.extend({
     collection: new App.Collections.Wifi(),
-    el : '#main-content',
+    tagName: 'div',
+    className: 'col-md-12',
     template : window.JST.wifi,
     initialize : function(options){
         this.listenTo(this.collection, 'reset', this.render);
@@ -37,7 +38,8 @@ App.Views.Wifi = Backbone.View.extend({
     },
 
     render: function(){
-        this.$el.empty().append(this.template(this.collection.at(0).toJSON()));
+        this.$el.html(this.template(this.collection.at(0).toJSON()));
+        $('#main-row').empty().append(this.el);
         setActiveLink('network-link');
         $('.alert').hide();
         return this;
