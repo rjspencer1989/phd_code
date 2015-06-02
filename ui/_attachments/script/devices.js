@@ -194,6 +194,7 @@ App.Views.ControlPanelView = Backbone.View.extend({
 
     exit: function(){
         for (var item in this.subviews) {
+            console.log(item);
             item.exit();
         }
         this.remove();
