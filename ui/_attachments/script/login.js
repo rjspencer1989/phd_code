@@ -19,6 +19,7 @@ App.Views.Login = Backbone.View.extend({
 
     login: function(e){
         e.preventDefault();
+        console.log('login function');
         var user = $('#inputName').val();
         var password = $('#inputPassword').val();
         $.couch.login({
