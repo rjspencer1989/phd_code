@@ -65,11 +65,11 @@ App.Routers.Router = Backbone.Router.extend({
                     showMenu();
                     display_user();
                 }else{
-                    this.navigate('login', true);
+                    App.routerInstance.navigate('login', true);
                 }
             }, error: function(data){
                 console.log(data);
-                this.navigate('login', true);
+                App.routerInstance.navigate('login', true);
             }
         });
     }
