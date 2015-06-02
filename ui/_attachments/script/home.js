@@ -62,23 +62,20 @@ App.Views.ConnectedDevicesHome = Backbone.View.extend({
 });
 
 App.Views.Home = Backbone.View.extend({
-    el: '#main-content',
+    tagName: 'div',
+    className: 'col-md-12',
     template : window.JST.home,
     initialize: function () {
         'use strict';
         this.render();
-        new App.Views.WifiHome();
-        new App.Views.ConnectedDevicesHome();
+        //new App.Views.WifiHome();
+        //new App.Views.ConnectedDevicesHome();
     },
 
     render : function () {
         'use strict';
         this.$el.empty().append(this.template());
+        $('#main-row').html(this.el);
         setActiveLink('home-link');
     }
 });
-
-function drawHome(){
-    App.routerInstance.checkSession();
-    new App.Views.Home();
-}
