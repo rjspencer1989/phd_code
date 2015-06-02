@@ -25,7 +25,7 @@ App.Routers.Router = Backbone.Router.extend({
         if (this.view) {
             this.view.exit();
         }
-        this.vew = new App.Views.Wifi();
+        this.view = new App.Views.Wifi();
     },
 
     history : function(){
