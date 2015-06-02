@@ -77,5 +77,9 @@ App.Views.Home = Backbone.View.extend({
         this.$el.empty().append(this.template());
         $('#main-row').html(this.el);
         setActiveLink('home-link');
+    },
+
+    exit: function(){
+        this.remove();
     }
 });

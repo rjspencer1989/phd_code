@@ -20,7 +20,10 @@ App.Routers.Router = Backbone.Router.extend({
     },
 
     home : function(){
-        drawHome();
+        if (this.view) {
+            this.view.exit();
+        }
+        this.view = new App.views.Home();
     },
 
     login : function(){
