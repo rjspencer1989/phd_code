@@ -12,7 +12,6 @@ App.Routers.Router = Backbone.Router.extend({
 
     routes : {
         '' : 'home',
-        'login' : 'login',
         'wifi' : 'wifi',
         'history': 'history',
         'notifications' : 'notifications',
@@ -25,13 +24,6 @@ App.Routers.Router = Backbone.Router.extend({
         }
         this.view = new App.Views.Home();
         showMenu();
-    },
-
-    login : function(){
-        if (this.view) {
-            this.view.exit();
-        }
-        this.view = new App.Views.Login();
     },
 
     wifi : function(){
