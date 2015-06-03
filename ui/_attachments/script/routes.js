@@ -23,7 +23,6 @@ App.Routers.Router = Backbone.Router.extend({
             this.view.exit();
         }
         this.view = new App.Views.Home();
-        showMenu();
     },
 
     wifi : function(){
@@ -31,7 +30,6 @@ App.Routers.Router = Backbone.Router.extend({
             this.view.exit();
         }
         this.view = new App.Views.Wifi();
-        showMenu();
     },
 
     history : function(){
@@ -39,7 +37,10 @@ App.Routers.Router = Backbone.Router.extend({
     },
 
     notifications : function(){
-        drawNotifications();
+        if (this.view) {
+            this.view.exit();
+        }
+        this.view = new App.Views.Notifications();
     },
 
     controlPanel : function(){
@@ -47,6 +48,5 @@ App.Routers.Router = Backbone.Router.extend({
             this.view.exit();
         }
         this.view = new App.Views.ControlPanelView();
-        showMenu();
     }
 });

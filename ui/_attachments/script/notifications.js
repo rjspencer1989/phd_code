@@ -97,6 +97,7 @@ App.Views.Notifications = Backbone.View.extend({
         this.listenTo(this.collection, 'remove', this.render);
         this.listenTo(this.collection, 'add', this.addOne);
         this.collection.fetch({reset: true});
+        this.subviews = [];
     },
 
     events : {
@@ -122,6 +123,7 @@ App.Views.Notifications = Backbone.View.extend({
     addOne: function (notification) {
         'use strict';
         var view = new App.Views.Notification({model: notification});
+        this.subviews.push(view);
         this.$('#notification-registration-table > tbody').append(view.render().el);
     },
 
@@ -140,11 +142,13 @@ App.Views.Notifications = Backbone.View.extend({
                 addHistoryEvent("New Notification Registration", model.get('name') + " registered to receive notifications using " + model.get('service') + " identified by " + model.get('user'), App.userCtx.name, model.id, model.get('rev'), true);
             }
         });
+    },
+
+    exit: function(){
+        for (var index in this.subviews) {
+            item = this.subviews[index]
+            index.remove();
+        }
+        this.remove();
     }
 });
-
-function drawNotifications() {
-    'use strict';
-    App.routerInstance.checkSession();
-    window.notifView = new App.Views.Notifications();
-}

@@ -67,6 +67,7 @@ App.Views.ConnectedDevicesHome = Backbone.View.extend({
         for (var index in this.subviews) {
             this.subviews[index].remove();
         }
+        this.remove();
     }
 });
 
