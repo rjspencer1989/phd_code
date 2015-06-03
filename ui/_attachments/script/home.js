@@ -39,17 +39,19 @@ App.Views.ConnectedDevicesHome = Backbone.View.extend({
         'use strict';
         this.listenTo(this.collection, 'reset', this.render);
         this.listenTo(this.collection, 'change', this.render);
+        this.subviews = [];
         this.collection.fetch({
             reset: true,
             error: function(data){
                 console.log(data);
-                App.routerInstance.checkSession();
             }
         });
     },
 
     addOne: function(device){
+        'use strict';
         var view = new App.Views.DeviceHome({model: device});
+        this.subviews.push(view);
         this.$('tbody').append(view.render().el);
     },
 
@@ -58,6 +60,13 @@ App.Views.ConnectedDevicesHome = Backbone.View.extend({
         this.$el.empty().append(this.template());
         this.collection.each(this.addOne, this);
         return this;
+    },
+
+    exit: function(){
+        'use strict';
+        for (var index in this.subviews) {
+            this.subviews[index].remove();
+        }
     }
 });
 
@@ -81,7 +90,7 @@ App.Views.Home = Backbone.View.extend({
 
     exit: function(){
         this.wifi_view.remove();
-        this.devices_view.remove();
+        this.devices_view.exit();
         this.remove();
     }
 });
