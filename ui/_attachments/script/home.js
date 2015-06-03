@@ -68,8 +68,8 @@ App.Views.Home = Backbone.View.extend({
     initialize: function () {
         'use strict';
         this.render();
-        //new App.Views.WifiHome();
-        //new App.Views.ConnectedDevicesHome();
+        this.wifi_view = new App.Views.WifiHome();
+        this.devices_view = new App.Views.ConnectedDevicesHome();
     },
 
     render : function () {
@@ -80,6 +80,8 @@ App.Views.Home = Backbone.View.extend({
     },
 
     exit: function(){
+        this.wifi_view.remove();
+        this.devices_view.remove();
         this.remove();
     }
 });
