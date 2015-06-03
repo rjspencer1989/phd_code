@@ -3,7 +3,6 @@ var App = {
     Collections : {},
     Views : {},
     Routers : {},
-    userCtx: null,
     routerInstance : null
 };
 

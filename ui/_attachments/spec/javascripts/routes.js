@@ -16,10 +16,6 @@ describe('router', function(){
        expect(router.routes['']).toEqual('home');
     });
 
-    it("should have a login route", function() {
-       expect(router.routes.login).toEqual('login');
-    });
-
     it("should have a wifi route", function() {
         expect(router.routes.wifi).toEqual('wifi');
     });
