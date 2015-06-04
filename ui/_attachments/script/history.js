@@ -70,7 +70,7 @@ App.Views.Events = Backbone.View.extend({
             indicator.addClass('active');
             view.$el.addClass('active');
         }
-        if(event.undoable === true){
+        if(event.get('undoable') === true){
             view.$el.addClass('undoable');
         }
     },
