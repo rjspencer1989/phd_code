@@ -8,5 +8,5 @@ $(function(){
             console.log(data);
             App.userCtx = data.userCtx;
         }
-    })
+    });
 });
