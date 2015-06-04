@@ -54,7 +54,7 @@ App.Views.Device = Backbone.View.extend({
     render: function(){
         this.$el.empty().append(this.template(this.model.toJSON()));
         this.$el.addClass('device');
-        txt = "No";
+        var txt = "No";
         if(this.model.get('connection_event') === "connect"){
             txt = 'Yes';
         }
@@ -62,12 +62,12 @@ App.Views.Device = Backbone.View.extend({
         return this;
     },
 
-    deny: function(event){
+    deny: function(){
         if(this.$el.hasClass('edit-device')){
-            owner = this.$('#device_owner_input').val();
-            device_name = this.$('#device_name_input').val();
-            device_type = this.$('#device_type_select :selected').val();
-            notification_service = this.$('#device_notification_select :selected').val();
+            var owner = this.$('#device_owner_input').val();
+            var device_name = this.$('#device_name_input').val();
+            var device_type = this.$('#device_type_select :selected').val();
+            var notification_service = this.$('#device_notification_select :selected').val();
             this.model.set({name: owner});
             this.model.set({device_name: device_name});
             this.model.set({device_type: device_type});
@@ -76,27 +76,23 @@ App.Views.Device = Backbone.View.extend({
         this.model.set({action: 'deny'});
         this.model.set({changed_by: 'user'});
         this.model.save(null, {
-            success: function(model, response, options){
+            success: function(model, response){
                 console.log(response);
-                addHistoryEvent('Device Denied', 'The device with MAC Address ' + model.get('mac_address') + ' was denied access to your network', App.userCtx.name, model.id, model.get('_rev'), true);
+                addHistoryEvent('Device Denied', 'The device with MAC Address ' + model.get('mac_address') + ' was denied access to your network', App.userCtx.name, model.id, model.get('_rev'), (model.get('state') === 'pending') ? false : true);
             },
-            error: function(model, response, options){
+            error: function(model, response){
                 console.log(response);
-                if(response.status === 401){
-                    App.routerInstance.checkSession();
-                } else{
-                    $('.alert').append(response.reason).show();
-                }
+                $('.alert').append(response.reason).show();
             }
         });
     },
 
-    permit: function(event){
+    permit: function(){
         if(this.$el.hasClass('edit-device')){
-            owner = this.$('#device_owner_input').val();
-            device_name = this.$('#device_name_input').val();
-            device_type = this.$('#device_type_select :selected').val();
-            notification_service = this.$('#device_notification_select :selected').val();
+            var owner = this.$('#device_owner_input').val();
+            var device_name = this.$('#device_name_input').val();
+            var device_type = this.$('#device_type_select :selected').val();
+            var notification_service = this.$('#device_notification_select :selected').val();
             this.model.set({name: owner});
             this.model.set({device_name: device_name});
             this.model.set({device_type: device_type});
@@ -105,56 +101,47 @@ App.Views.Device = Backbone.View.extend({
         this.model.set({action: 'permit'});
         this.model.set({changed_by: 'user'});
         this.model.save(null, {
-            success: function(model, response, options){
+            success: function(model, response){
                 console.log(response);
-                addHistoryEvent("Device Permitted", model.get('device_name') + " was permitted to use your network. It belongs to " + model.get('name') + ", it is a " + model.get("device_type") + " and network notifications are sent using " + model.get('notification_service'), App.userCtx.name, model.id, model.get('_rev'), true);
+                addHistoryEvent("Device Permitted", model.get('device_name') + " was permitted to use your network. It belongs to " + model.get('name') + ", it is a " + model.get("device_type") + " and network notifications are sent using " + model.get('notification_service'), App.userCtx.name, model.id, model.get('_rev'), (model.get('state') === 'pending') ? false : true);
             },
-            error: function(model, response, options){
+            error: function(model, response){
                 console.log(response);
-                if(response.status === 401){
-                    App.routerInstance.checkSession();
-                } else{
-                    $('.alert').append(response.reason).show();
-                }
+                $('.alert').append(response.reason).show();
             }
         });
     },
 
-    edit: function(event){
+    edit: function(){
         this.$el.addClass('editing');
         this.$el.find('#device_notification_select').val(this.model.get('notification_service'));
         this.$el.find('#device_type_select').val(this.model.get('device_type'));
     },
 
-    cancel: function(event){
+    cancel: function(){
         this.$el.removeClass('editing');
     },
 
-    save: function(event){
-        owner = this.$('#edit_owner_input').val();
-        device_name = this.$('#edit_device_name_input').val();
-        device_type = this.$('#device_type_select :selected').val();
-        notification_service = this.$('#device_notification_select :selected').val();
+    save: function(){
+        var owner = this.$('#edit_owner_input').val();
+        var device_name = this.$('#edit_device_name_input').val();
+        var device_type = this.$('#device_type_select :selected').val();
+        var notification_service = this.$('#device_notification_select :selected').val();
         this.model.set({name: owner});
         this.model.set({device_name: device_name});
         this.model.set({device_type: device_type});
         this.model.set({notification_service: notification_service});
         this.model.save(null, {
-            success: function(model, response, options){
+            success: function(model, response){
                 console.log(response);
-                addHistoryEvent("Edited Device settings", "The device with MAC address " + model.get('mac_address') + " has been updated", App.userCtx.name, model.id, model.get('rev'), true);
+                addHistoryEvent("Edited Device settings", "The device with MAC address " + model.get('mac_address') + " has been updated", App.userCtx.name, model.id, model.get('_rev'), (model.get('state') === 'pending') ? false : true);
             },
-            error: function(model, response, options){
+            error: function(model, response){
                 console.log(response);
-                if(response.status === 401){
-                    App.routerInstance.checkSession();
-                } else{
-                    $('.alert').append(response.reason).show();
-                }
+                $('.alert').append(response.reason).show();
             }
         });
         this.$el.removeClass('editing');
-
     }
 });
 
@@ -173,7 +160,7 @@ App.Views.ControlPanelView = Backbone.View.extend({
     },
 
     addOne: function(device){
-        sel = device.get('state');
+        var sel = device.get('state');
         var view = new App.Views.Device({model: device, template: 'device_' + sel});
         this.subviews.push(view);
         this.$('.' + sel).append(view.render().el);
@@ -192,6 +179,7 @@ App.Views.ControlPanelView = Backbone.View.extend({
     },
 
     exit: function(){
+        var item = {};
         for (var index in this.subviews) {
             item = this.subviews[index];
             item.remove();
