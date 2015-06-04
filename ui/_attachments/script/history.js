@@ -16,7 +16,8 @@ App.Collections.Events = Backbone.Collection.extend({
     url: 'events',
     model: App.Models.Event,
     db: {
-        view: 'events'
+        view: 'events',
+        descending: true
     }
 });
 
