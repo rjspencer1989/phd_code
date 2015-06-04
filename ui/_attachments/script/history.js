@@ -16,8 +16,7 @@ App.Collections.Events = Backbone.Collection.extend({
     url: 'events',
     model: App.Models.Event,
     db: {
-        view: 'events',
-        descending: true
+        view: 'events'
     }
 });
 
@@ -43,7 +42,7 @@ App.Views.Events = Backbone.View.extend({
     collection: new App.Collections.Events(),
     initialize: function(){
         this.listenTo(this.collection, 'reset', this.render);
-        this.collection.fetch({reset: true});
+        this.collection.fetch({descending: true, reset: true});
         this.subviews = [];
     },
 
