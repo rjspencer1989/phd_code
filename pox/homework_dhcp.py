@@ -10,7 +10,7 @@ from os.path import expanduser
 from pyroute2 import IPRoute  # @UnresolvedImport
 import socket
 
-MAX_ROUTABLE_LEASE = 2400
+MAX_ROUTABLE_LEASE = 43200
 ROUTABLE_SUBNET = "10.2.0.0"
 ROUTABLE_NETMASK = 16
 BRIDGE_INTERFACE_NAME = "br0"
