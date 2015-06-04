@@ -28,7 +28,6 @@ App.Views.Wifi = Backbone.View.extend({
             reset: true,
             error: function(data){
                 console.log(data);
-                App.routerInstance.checkSession();
             }
         });
     },
@@ -60,15 +59,11 @@ App.Views.Wifi = Backbone.View.extend({
             success: function(model, response){
                 console.log(response);
                 //TODO get what settings were changed and put them in the description
-                addHistoryEvent("New WiFi Configuration", "WiFi configuration has been updated and devices will need to be reconnected", App.userCtx.name, model.id, model.get('rev'), true);
+                addHistoryEvent("New WiFi Configuration", "WiFi configuration has been updated and devices will need to be reconnected", App.userCtx.name, model.id, model.get('_rev'), true);
             },
             error: function(model, response){
                 console.log(response);
-                if(response.status === 401){
-                    App.routerInstance.checkSession();
-                } else{
-                    $('.alert').append(response.reason).show();
-                }
+                $('.alert').append(response.reason).show();
             }
         });
     },
