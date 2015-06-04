@@ -42,7 +42,7 @@ App.Views.Events = Backbone.View.extend({
     collection: new App.Collections.Events(),
     initialize: function(){
         this.listenTo(this.collection, 'reset', this.render);
-        this.collection.fetch({descending: true, reset: true});
+        this.collection.fetch({reset: true});
         this.subviews = [];
     },
 
@@ -66,7 +66,7 @@ App.Views.Events = Backbone.View.extend({
         view = new App.Views.Event({model: event});
         this.subviews.push(view);
         this.$('.carousel-inner').append(view.render().el);
-        if(index === 0){
+        if(index === this.collection.length -1){
             indicator.addClass('active');
             view.$el.addClass('active');
         }
