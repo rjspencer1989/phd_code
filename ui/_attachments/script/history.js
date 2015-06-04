@@ -43,6 +43,7 @@ App.Views.Events = Backbone.View.extend({
     initialize: function(){
         this.listenTo(this.collection, 'reset', this.render);
         this.collection.fetch({reset: true});
+        this.subviews = [];
     },
 
     events: {
@@ -63,6 +64,7 @@ App.Views.Events = Backbone.View.extend({
         indicator.attr('data-slide-to', index);
         $('.carousel-indicators').append(indicator);
         view = new App.Views.Event({model: event});
+        this.subviews.push(view);
         this.$('.carousel-inner').append(view.render().el);
         if(index === 0){
             indicator.addClass('active');
@@ -81,6 +83,13 @@ App.Views.Events = Backbone.View.extend({
         _.each(undo_needed, function(item){
             console.log(item.toJSON());
         });
+    },
+
+    exit: function(){
+        for (var index in this.subviews) {
+            this.subviews[index].remove();
+        }
+        this.remove();
     }
 });
 

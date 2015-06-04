@@ -33,7 +33,10 @@ App.Routers.Router = Backbone.Router.extend({
     },
 
     history : function(){
-        drawHistory();
+        if (this.view) {
+            this.view.exit();
+        }
+        this.view = new App.Views.Events();
     },
 
     notifications : function(){
