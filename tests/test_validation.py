@@ -2,6 +2,7 @@ import unittest
 from process_config import couchdb_config_parser
 import datetime
 import time
+from dateutil.tz import *
 
 
 class TestValidation(unittest.TestCase):
@@ -85,7 +86,7 @@ class TestValidation(unittest.TestCase):
 
     def test_event(self):
         doc = {
-            "timestamp": datetime.datetime.now().isoformat(),
+            "timestamp": datetime.datetime.now(tzlocal()).isoformat(),
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
@@ -101,7 +102,7 @@ class TestValidation(unittest.TestCase):
 
     def test_event_not_undoable(self):
         doc = {
-            "timestamp": datetime.datetime.now().isoformat(),
+            "timestamp": datetime.datetime.now(tzlocal()).isoformat(),
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
@@ -117,7 +118,7 @@ class TestValidation(unittest.TestCase):
 
     def test_event_perform_undo_not_undoable(self):
         doc = {
-            "timestamp": datetime.datetime.now().isoformat(),
+            "timestamp": datetime.datetime.now(tzlocal).isoformat(),
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
@@ -509,7 +510,7 @@ class TestValidation(unittest.TestCase):
     def test_valid_rollback_request(self):
         doc = {
             "collection": "request_revert",
-            "timestamp": datetime.datetime.now().isoformat(),
+            "timestamp": datetime.datetime.now(tzlocal()).isoformat(),
             "status": "pending"
         }
 
@@ -520,7 +521,7 @@ class TestValidation(unittest.TestCase):
     def test_rollback_invalid_status(self):
         doc = {
             "collection": "request_revert",
-            "timestamp": datetime.datetime.now().isoformat(),
+            "timestamp": datetime.datetime.now(tzlocal()).isoformat(),
             "status": "waiting"
         }
 

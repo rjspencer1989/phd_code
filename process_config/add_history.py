@@ -1,5 +1,6 @@
 import couchdb_config_parser
 import datetime
+from dateutil.tz import *
 db = couchdb_config_parser.get_db()
 
 
@@ -9,7 +10,7 @@ def add_history_item(title, description, user, docId, docRev, undoable):
     doc['title'] = title
     doc['description'] = description
     doc['user'] = user
-    doc['timestamp'] = datetime.datetime.now().isoformat()
+    doc['timestamp'] = datetime.datetime.now(tzlocal()).isoformat()
     doc['doc_id'] = docId
     doc['doc_rev'] = docRev
     doc['undoable'] = undoable

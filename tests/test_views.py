@@ -3,6 +3,7 @@ from process_config import couchdb_config_parser
 from couchdbkit import *
 import datetime
 import time
+from dateutil.tz import *
 
 
 class TestViews(unittest.TestCase):
@@ -86,7 +87,7 @@ class TestViews(unittest.TestCase):
 
     def test_events(self):
         doc = {
-            "timestamp": datetime.datetime.now().isoformat(),
+            "timestamp": datetime.datetime.now(tzlocal()).isoformat(),
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
@@ -240,7 +241,7 @@ class TestViews(unittest.TestCase):
 
     def test_undoable_events(self):
         doc1 = {
-            "timestamp": datetime.datetime.now().isoformat(),
+            "timestamp": datetime.datetime.now(tzlocal()).isoformat(),
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
@@ -252,7 +253,7 @@ class TestViews(unittest.TestCase):
         }
 
         doc2 = {
-            "timestamp": datetime.datetime.now().isoformat(),
+            "timestamp": datetime.datetime.now(tzlocal()).isoformat(),
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
