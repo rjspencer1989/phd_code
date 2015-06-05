@@ -37,7 +37,8 @@ App.Views.Event = Backbone.View.extend({
 });
 
 App.Views.Events = Backbone.View.extend({
-    el: '#main-content',
+    tagName: 'div',
+    className: 'col-md-12',
     template: window.JST.history,
     collection: new App.Collections.Events(),
     initialize: function(){
@@ -51,7 +52,8 @@ App.Views.Events = Backbone.View.extend({
     },
 
     render: function(){
-        this.$el.empty().append(this.template());
+        this.$el.html(this.template());
+        $('main-row').html(this.el);
         setActiveLink('history-link');
         this.collection.each(this.addOne, this);
         $('.carousel').carousel();
@@ -98,9 +100,4 @@ function addHistoryEvent(title, description, user, docId, docRev, undoable){
     mod.set({undoable: undoable});
     console.log(mod.toJSON());
     new App.Collections.Events().create(mod);
-}
-
-function drawHistory(){
-    App.routerInstance.checkSession();
-    new App.Views.Events();
 }
