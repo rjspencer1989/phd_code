@@ -118,7 +118,7 @@ class TestValidation(unittest.TestCase):
 
     def test_event_perform_undo_not_undoable(self):
         doc = {
-            "timestamp": datetime.datetime.now(tzlocal).isoformat(),
+            "timestamp": datetime.datetime.now(tzlocal()).isoformat(),
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
