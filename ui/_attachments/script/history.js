@@ -53,7 +53,7 @@ App.Views.Events = Backbone.View.extend({
 
     render: function(){
         this.$el.html(this.template());
-        $('main-row').empty().append(this.el);
+        $('#main-row').empty().append(this.el);
         setActiveLink('history-link');
         this.collection.each(this.addOne, this);
         $('.carousel').carousel();
