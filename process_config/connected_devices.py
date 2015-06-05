@@ -13,5 +13,10 @@ for resItem in vra:
     if code != 0:
         if doc['connection_event'] == 'connect':
             doc['connection_event'] = 'disconnect'
-    doc['changed_by'] = 'connected_devices'
-    db.save_doc(doc)
+            doc['changed_by'] = 'connected_devices'
+            db.save_doc(doc)
+    else:
+        if doc['connection_event'] == 'disconnect':
+            doc['connection_event'] = 'connect'
+            doc['changed_by'] = 'connected_devices'
+            db.save_doc(doc)
