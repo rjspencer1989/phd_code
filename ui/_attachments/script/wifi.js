@@ -55,7 +55,7 @@ App.Views.Wifi = Backbone.View.extend({
         if(newPasswordType !== 'blank') mod.set({password_type: newPasswordType});
         if(newPassword !== '') mod.set({password: newPassword});
         mod.set({status: 'pending'});
-        addHistoryEvent("New WiFi Configuration", "WiFi configuration has been updated and devices will need to be reconnected", App.userCtx.name, model.id, model.get('_rev'), true);
+        addHistoryEvent("New WiFi Configuration", "WiFi configuration has been updated and devices will need to be reconnected", App.userCtx.name, mod.id, mod.get('_rev'), true);
         mod.save(null, {
             success: function(model, response){
                 console.log(response);
