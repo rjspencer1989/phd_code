@@ -77,12 +77,6 @@ App.Views.Events = Backbone.View.extend({
 
     revert_state: function(){
         date_selected = this.$('#history_dp').datepicker('getDate').toISOString();
-        undo_needed = this.collection.filter(function(m){
-            return (m.timestamp > date_selected && m.undoable === true);
-        });
-        _.each(undo_needed, function(item){
-            console.log(item.toJSON());
-        });
     },
 
     exit: function(){
