@@ -95,7 +95,7 @@ class UndoProcessor(threading.Thread):
         if undone_rev != '':
             current_doc['perform_undo'] = False
             db.save_doc(current_doc)
-            add_history.add_history_item("Undo Configuration change", "Undo of %s" % (current_doc['description']), current_doc['user'], undo_id, undone_rev, True)
+            add_history.add_history_item("Undo Configuration change", "Undo of %s" % (current_doc['description']), current_doc['user'], current_doc['doc_id'], undone_rev, True)
 
     def run(self):
         while(True):
