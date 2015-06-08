@@ -250,7 +250,7 @@ class HomeworkDHCP(object):
         reply = self.generate_dhcp_reply(dhcp_packet, ip, reply_msg_type, MAX_ROUTABLE_LEASE)
         if reply_msg_type == pkt.dhcp.ACK_MSG:
             self.add_addr(str(self.increment_ip(ip)))
-            print self.connections[0].ports
+            print self.connections[0].ports[event.port]
             self.insert_couchdb("add", ip, dhcp_packet.chaddr, self.hostname, None)
 
         eth = pkt.ethernet(src=ip_for_event(event), dst=event.parsed.src)
