@@ -111,7 +111,7 @@ class HomeworkDHCP(object):
                 current_doc['connection_event'] = 'connect'
             else:
                 current_doc['connection_event'] = 'disconnect'
-            current_doc['port'] = port
+            current_doc['port'] = port['name']
         elif len(vr_all) == 0:
             current_doc = {}
             current_doc['_id'] = str(mac)
@@ -128,7 +128,7 @@ class HomeworkDHCP(object):
             current_doc['notification_service'] = ""
             current_doc['timestamp'] = time.time()
             current_doc['connection_event'] = 'connect',
-            current_doc['port'] = port
+            current_doc['port'] = port['name']
         else:
             print "MAC Address has more than one lease. stopping"
             return
