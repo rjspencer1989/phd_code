@@ -34,6 +34,7 @@ class HomeworkDHCP(object):
         self.ip_mapping = {}
         self.mac_mapping = {}
         self.dhcp_msg_type = 0
+        self.connections = []
         self.clean_leases()
         HomeworkDHCP.instance = self
 
@@ -86,7 +87,7 @@ class HomeworkDHCP(object):
                 continue
             if self.ip_mapping[k].lease_end <= time.time() + 0.2 * MAX_ROUTABLE_LEASE:
                 self.ip_mapping[k].lease_end = 0
-                self.insert_couchdb("del", self.ip_mapping[k].ip, self.ip_mapping[k].mac, None)
+                self.insert_couchdb("del", self.ip_mapping[k].ip, self.ip_mapping[k].mac, None, None)
         core.callDelayed(60, self.clean_leases)
 
     def change_device_state(self, mac, state):
@@ -98,7 +99,7 @@ class HomeworkDHCP(object):
             current_doc['changed_by'] = 'system'
             self.selected_db.save_doc(current_doc, force=True)
 
-    def insert_couchdb(self, lease_action, ip, mac, hostname):
+    def insert_couchdb(self, lease_action, ip, mac, hostname, port):
         vr_all = self.get_data(mac)
         if len(vr_all) == 1:
             current_doc = vr_all[0]['value']
@@ -110,6 +111,7 @@ class HomeworkDHCP(object):
                 current_doc['connection_event'] = 'connect'
             else:
                 current_doc['connection_event'] = 'disconnect'
+            current_doc['port'] = port
         elif len(vr_all) == 0:
             current_doc = {}
             current_doc['_id'] = str(mac)
@@ -125,7 +127,8 @@ class HomeworkDHCP(object):
             current_doc['action'] = ''
             current_doc['notification_service'] = ""
             current_doc['timestamp'] = time.time()
-            current_doc['connection_event'] = 'connect'
+            current_doc['connection_event'] = 'connect',
+            current_doc['port'] = port
         else:
             print "MAC Address has more than one lease. stopping"
             return
@@ -236,7 +239,7 @@ class HomeworkDHCP(object):
 
         if mt == pkt.dhcp.RELEASE_MSG:
             # find mapping and delete it
-            self.insert_couchdb("del", ip, dhcp_packet.chaddr, None)
+            self.insert_couchdb("del", ip, dhcp_packet.chaddr, None, None)
             return
 
         reply_msg_type = pkt.dhcp.OFFER_MSG if self.dhcp_msg_type.type == pkt.dhcp.DISCOVER_MSG else pkt.dhcp.ACK_MSG
@@ -247,7 +250,7 @@ class HomeworkDHCP(object):
         reply = self.generate_dhcp_reply(dhcp_packet, ip, reply_msg_type, MAX_ROUTABLE_LEASE)
         if reply_msg_type == pkt.dhcp.ACK_MSG:
             self.add_addr(str(self.increment_ip(ip)))
-            self.insert_couchdb("add", ip, dhcp_packet.chaddr, self.hostname)
+            self.insert_couchdb("add", ip, dhcp_packet.chaddr, self.hostname, self.connections[0].ports[event.port])
 
         eth = pkt.ethernet(src=ip_for_event(event), dst=event.parsed.src)
         eth.type = pkt.ethernet.IP_TYPE
@@ -268,6 +271,9 @@ class HomeworkDHCP(object):
         msg = of.ofp_packet_out(data=eth.pack())
         msg.actions.append(of.ofp_action_output(port=event.port))
         event.connection.send(msg)
+
+    def _handle_ConnectionUp(self, event):
+        self.connections.append(event.connection)
 
     def _handle_PacketIn(self, event):
         packet = event.parsed
