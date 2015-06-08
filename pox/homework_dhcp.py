@@ -111,10 +111,7 @@ class HomeworkDHCP(object):
                 current_doc['connection_event'] = 'connect'
             else:
                 current_doc['connection_event'] = 'disconnect'
-            if port is not None:
-                current_doc['port'] = port['name']
-            else:
-                current_doc['port'] = None
+            current_doc['port'] = port
         elif len(vr_all) == 0:
             current_doc = {}
             current_doc['_id'] = str(mac)
@@ -131,10 +128,7 @@ class HomeworkDHCP(object):
             current_doc['notification_service'] = ""
             current_doc['timestamp'] = time.time()
             current_doc['connection_event'] = 'connect',
-            if port is not None:
-                current_doc['port'] = port['name']
-            else:
-                current_doc['port'] = None
+            current_doc['port'] = port
         else:
             print "MAC Address has more than one lease. stopping"
             return
@@ -257,7 +251,7 @@ class HomeworkDHCP(object):
         if reply_msg_type == pkt.dhcp.ACK_MSG:
             self.add_addr(str(self.increment_ip(ip)))
             print self.connections[0].ports[event.port].name
-            self.insert_couchdb("add", ip, dhcp_packet.chaddr, self.hostname, None)
+            self.insert_couchdb("add", ip, dhcp_packet.chaddr, self.hostname, self.connections[0].ports[event.port].name)
 
         eth = pkt.ethernet(src=ip_for_event(event), dst=event.parsed.src)
         eth.type = pkt.ethernet.IP_TYPE
