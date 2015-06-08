@@ -87,7 +87,7 @@ class TestViews(unittest.TestCase):
 
     def test_events(self):
         doc = {
-            "timestamp": datetime.datetime.now(tzlocal()).isoformat(),
+            "timestamp": datetime.datetime.now(tzutc()).isoformat(),
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
@@ -241,7 +241,7 @@ class TestViews(unittest.TestCase):
 
     def test_undoable_events(self):
         doc1 = {
-            "timestamp": datetime.datetime.now(tzlocal()).isoformat(),
+            "timestamp": datetime.datetime.now(tzutc()).isoformat(),
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
@@ -253,7 +253,7 @@ class TestViews(unittest.TestCase):
         }
 
         doc2 = {
-            "timestamp": datetime.datetime.now(tzlocal()).isoformat(),
+            "timestamp": datetime.datetime.now(tzutc()).isoformat(),
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",

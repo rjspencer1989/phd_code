@@ -3,7 +3,7 @@ import time
 import datetime
 from process_config import couchdb_config_parser
 from couchdbkit.changes import ChangesStream
-from dateutil.tz import *
+from dateutil.tz import tzutc
 
 
 class TestFilters(unittest.TestCase):
@@ -155,7 +155,7 @@ class TestFilters(unittest.TestCase):
             "user": "Rob",
             "doc_id": "aabbcc",
             "doc_rev": "1-aabbcc",
-            "timestamp": datetime.datetime.now(tzlocal()).isoformat()
+            "timestamp": datetime.datetime.now(tzutc()).isoformat()
         }
 
         not_inc_not_perform_undo = {
@@ -167,7 +167,7 @@ class TestFilters(unittest.TestCase):
             "user": "Rob",
             "doc_id": "aabbcc",
             "doc_rev": "2-aabbcc",
-            "timestamp": datetime.datetime.now(tzlocal()).isoformat()
+            "timestamp": datetime.datetime.now(tzutc()).isoformat()
         }
 
         not_inc = {
@@ -179,7 +179,7 @@ class TestFilters(unittest.TestCase):
             "user": "Rob",
             "doc_id": "aabbcc",
             "doc_rev": "4-aabbcc",
-            "timestamp": datetime.datetime.now(tzlocal()).isoformat()
+            "timestamp": datetime.datetime.now(tzutc()).isoformat()
         }
 
         db = couchdb_config_parser.get_db()
