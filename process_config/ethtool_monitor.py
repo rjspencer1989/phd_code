@@ -18,7 +18,6 @@ while True:
         print rows
         if len(list(rows)) > 0:
             row = rows[0]
-            print row
             mac_address = row['value']
             device_doc = db.get(mac_address)
         result = Popen(['ethtool', iface], stdout=PIPE).communicate()[0]
