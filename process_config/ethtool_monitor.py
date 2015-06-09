@@ -14,9 +14,13 @@ if 'eth0 in ethernet_list':
 while True:
     for iface in ethernet_list:
         vr = db.view('homework-remote/ports', key=iface)
-        row = vr.one()
-        mac_address = row['value']
-        device_doc = db.get(mac_address)
+        rows = vr.all()
+        print rows
+        if len(list(rows)) > 0:
+            row = rows[0]
+            print row
+            mac_address = row['value']
+            device_doc = db.get(mac_address)
         result = Popen(['ethtool', iface], stdout=PIPE).communicate()[0]
         lines = result.split("\n")
 
