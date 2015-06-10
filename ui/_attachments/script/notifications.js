@@ -133,10 +133,10 @@ App.Views.Notifications = Backbone.View.extend({
         var newModel = new App.Models.Notification();
         $('#add-notification-form').children('input').each(function (i, el) {
             if ($(el).val() !== "") {
-                newModel[el.id] = $(el).val();
+                newModel.set(el.id, $(el).val();
             }
         });
-        newModel.service = $('#service').val();
+        newModel.set("service", $('#service').val());
         this.collection.create(newModel, {
             sucess : function (model, response, options) {
                 addHistoryEvent("New Notification Registration", model.get('name') + " registered to receive notifications using " + model.get('service') + " identified by " + model.get('user'), App.userCtx.name, model.id, model.get('rev'), true);
