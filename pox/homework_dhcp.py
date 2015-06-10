@@ -127,7 +127,7 @@ class HomeworkDHCP(object):
             current_doc['action'] = ''
             current_doc['notification_service'] = ""
             current_doc['timestamp'] = time.time()
-            current_doc['connection_event'] = 'connect',
+            current_doc['connection_event'] = 'connect'
             current_doc['port'] = port
         else:
             print "MAC Address has more than one lease. stopping"
