@@ -148,7 +148,7 @@ App.Views.Notifications = Backbone.View.extend({
     exit: function(){
         for (var index in this.subviews) {
             item = this.subviews[index];
-            index.remove();
+            item.remove();
         }
         this.remove();
     }
