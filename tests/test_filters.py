@@ -48,8 +48,10 @@ class TestFilters(unittest.TestCase):
         db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/devices_pox")
         self.assertTrue((len(list(stream)) == 1) and ('aa:bb:cc:dd:ee:ff' == list(stream)[0]['id']))
-        db.delete_doc("aa:bb:cc:dd:ee:ff")
-        db.delete_doc("ab:bc:cd:de:ef:fa")
+        inc['hidden'] = True
+        db.save_doc(inc)
+        not_inc['hidden'] = True
+        db.save_doc(not_inc)
 
     def test_devices_ui(self):
         not_inc = {
