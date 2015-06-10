@@ -34,6 +34,7 @@ App.Views.Notification = Backbone.View.extend({
     clear: function () {
         'use strict';
         this.model.set({_deleted: true});
+        this.model.set({status: 'pending'});
         this.model.save(null, {
             success: function (model, response, options) {
                 console.log(response);
@@ -41,11 +42,7 @@ App.Views.Notification = Backbone.View.extend({
             },
             error: function (model, response, options) {
                 console.log(response);
-                if (response.status === 401) {
-                    App.routerInstance.checkSession();
-                } else {
-                    $('.alert').append(response.reason).show();
-                }
+                $('.alert').append(response.reason).show();
             }
         });
     },
@@ -68,6 +65,7 @@ App.Views.Notification = Backbone.View.extend({
         var value = this.input.val();
         if (value) {
             this.model.set({user: value});
+            this.model.set({status: 'pending'});
             this.model.save(null, {
                 success: function (model, response, options) {
                     console.log(response);
@@ -132,7 +130,7 @@ App.Views.Notifications = Backbone.View.extend({
     addNotification: function (e) {
         'use strict';
         e.preventDefault();
-        var newModel = {};
+        var newModel = App.Models.Notification();
         $('#add-notification-form').children('input').each(function (i, el) {
             if ($(el).val() !== "") {
                 newModel[el.id] = $(el).val();
