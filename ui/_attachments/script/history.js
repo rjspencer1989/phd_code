@@ -61,11 +61,11 @@ App.Views.Events = Backbone.View.extend({
     },
 
     addOne: function(event, index){
-        indicator = $(document.createElement('li'));
+        var indicator = $(document.createElement('li'));
         indicator.attr('data-target', '#carousel-history');
         indicator.attr('data-slide-to', index);
         $('.carousel-indicators').append(indicator);
-        view = new App.Views.Event({model: event});
+        var view = new App.Views.Event({model: event});
         this.subviews.push(view);
         this.$('.carousel-inner').append(view.render().el);
         if(index === this.collection.length -1){
@@ -78,7 +78,8 @@ App.Views.Events = Backbone.View.extend({
     },
 
     revert_state: function(){
-        date_selected = this.$('#history_dp').datepicker('getDate').toISOString();
+        var date_selected = this.$('#history_dp').datepicker('getDate').toISOString();
+        console.log(date_selected);
     },
 
     exit: function(){
