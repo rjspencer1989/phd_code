@@ -130,7 +130,7 @@ App.Views.Notifications = Backbone.View.extend({
     addNotification: function (e) {
         'use strict';
         e.preventDefault();
-        var newModel = App.Models.Notification();
+        var newModel = new App.Models.Notification();
         $('#add-notification-form').children('input').each(function (i, el) {
             if ($(el).val() !== "") {
                 newModel[el.id] = $(el).val();
