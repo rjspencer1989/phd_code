@@ -22,20 +22,21 @@ function (newDoc, oldDoc, userCtx){
         }
     }
 
-    function date_regex(field){
-        //regex taken from https://code.google.com/p/jquery-localtime/issues/detail?id=4
-        if (!newDoc[field].match(/^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[0-1]|0[1-9]|[1-2][0-9])T(2[0-3]|[0-1][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])?$/)) {
-            throw({forbidden: "not a valid timestamp"});
-        }
-    }
-
     function email_regex(field){
         if (!newDoc[field].match(/^[a-zA_Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
             throw({forbidden: "not a valid email address " + newDoc[field]});
         }
     }
 
-    if(!newDoc.hasOwnProperty('_deleted')){
+    function date_regex(field){
+        //regex taken from https://code.google.com/p/jquery-localtime/issues/detail?id=4
+        rg="^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[0-1]|0[1-9]|[1-2][0-9])T(2[0-3]|[0-1][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])?$";
+        if (!newDoc[field].match(new RegExp(rg))) {
+            throw({forbidden: "not a valid timestamp"});
+        }
+    }
+
+    if(!newDoc.hasOwnProperty('hidden')){
         required("collection");
         is_valid_collection();
 
