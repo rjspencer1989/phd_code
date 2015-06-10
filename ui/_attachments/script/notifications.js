@@ -133,7 +133,7 @@ App.Views.Notifications = Backbone.View.extend({
         var newModel = new App.Models.Notification();
         $('#add-notification-form').children('input').each(function (i, el) {
             if ($(el).val() !== "") {
-                newModel.set(el.id, $(el).val();
+                newModel.set(el.id, $(el).val());
             }
         });
         newModel.set("service", $('#service').val());
