@@ -198,9 +198,12 @@ class TestFilters(unittest.TestCase):
         res3 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/undo")
         self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
-        db.delete_doc(res['id'])
-        db.delete_doc(res2['id'])
-        db.delete_doc(res3['id'])
+        inc['_deleted'] = True
+        not_inc_not_perform_undo['_deleted'] = True
+        not_inc['_deleted'] = True
+        db.save_doc(inc, force_update=True)
+        db.save_doc(not_inc, force_update=True)
+        db.save_doc(not_inc_not_perform_undo, force_update=True)
 
     def test_wifi(self):
         inc = {
