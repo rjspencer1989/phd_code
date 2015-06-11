@@ -2,7 +2,6 @@ import unittest
 from process_config import couchdb_config_parser, perform_rollback, add_history
 import datetime
 import mock
-import pprint
 
 
 class TestProcessRollback(unittest.TestCase):
@@ -86,7 +85,6 @@ class TestProcessRollback(unittest.TestCase):
 
     def test_process_rollback_get_docs_to_revert(self):
         result = self.rb.get_docs_to_revert(self.revert_timestamp)
-        pprint.pprint(result)
         self.assertEqual(2, len(result))
         k = result.keys()
         self.assertNotEqual(k[0], k[1])

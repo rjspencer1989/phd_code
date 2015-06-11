@@ -4,7 +4,6 @@ import datetime
 from process_config import couchdb_config_parser
 from couchdbkit.changes import ChangesStream
 from dateutil.tz import tzutc
-from pprint import pprint
 
 
 class TestFilters(unittest.TestCase):
@@ -124,7 +123,6 @@ class TestFilters(unittest.TestCase):
         self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
         inc['hidden'] = True
         not_inc['hidden'] = True
-        pprint(inc)
         db.save_doc(inc, force_update=True)
         db.save_doc(not_inc, force_update=True)
 
