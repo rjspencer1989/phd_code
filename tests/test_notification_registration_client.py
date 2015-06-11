@@ -21,7 +21,7 @@ class TestNotificationRegistrationClient(unittest.TestCase):
 
     def tearDown(self):
         self.ret_doc['hidden'] = True
-        self.db.save_doc(self.ret_doc)
+        self.db.save_doc(self.ret_doc, force_update=True)
         self.ret_doc = {}
         self.db = None
 
