@@ -105,7 +105,8 @@ class TestViews(unittest.TestCase):
         l_vra = list(vra)
         self.assertEqual(len(l_vra), 1)
         self.assertEqual(l_vra[0]['id'], res['id'])
-        db.delete_doc(res['id'])
+        doc['_deleted'] = True
+        db.save_doc(doc, force_update=True)
 
     def test_dhcp(self):
         doc1 = {
