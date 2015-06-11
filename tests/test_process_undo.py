@@ -22,7 +22,8 @@ class TestPerformUndo(unittest.TestCase):
         result = undo_consumer.undo(doc, rev_list)
         updated = db.get(nd['_id'], rev=result)
         self.assertTrue('hidden' in updated)
-        db.delete_doc(event_res['id'])
+        event['_deleted'] = True
+        db.save_doc(event, force_update=True)
 
     def test_process_undo_existing_doc(self):
         undo_consumer = perform_undo.consumer
