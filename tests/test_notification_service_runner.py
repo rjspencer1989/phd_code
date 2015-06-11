@@ -36,9 +36,9 @@ class TestNotificationServiceRunner(unittest.TestCase):
 
     def tearDown(self):
         self.registration1['hidden'] = True
-        self.db.save_doc(registration1, force_update=True)
+        self.db.save_doc(self.registration1, force_update=True)
         self.registration2['hidden'] = True
-        self.db.save_doc(registration2, force_update=True)
+        self.db.save_doc(self.registration2, force_update=True)
         self.registration1 = {}
         self.registration2 = {}
 
