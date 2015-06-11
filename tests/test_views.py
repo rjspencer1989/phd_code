@@ -279,5 +279,5 @@ class TestViews(unittest.TestCase):
         self.assertEqual(l_vra[0]['id'], res['id'])
         doc1['_deleted'] = True
         db.save_doc(doc1, force_update=True)
-        doc2['_deleted'] =True
+        doc2['_deleted'] = True
         db.save_doc(doc2, force_update=True)
