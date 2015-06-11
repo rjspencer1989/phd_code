@@ -33,7 +33,8 @@ class TestValidation(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        db.delete_doc(res['id'])
+        doc['_deleted'] = True
+        db.save_doc(doc, force_update=True)
 
     def test_notification_invalid_email(self):
         doc = {
@@ -232,7 +233,8 @@ class TestValidation(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        db.delete_doc(res['id'])
+        doc['_deleted'] = True
+        db.save_doc(doc, force_update=True)
 
     def test_invalid_mode(self):
         doc = {
@@ -367,7 +369,8 @@ class TestValidation(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        db.delete_doc(res['id'])
+        doc['_deleted'] = True
+        db.save_doc(doc, force_update=True)
 
     def test_txt_password_13_chars(self):
         doc = {
@@ -382,7 +385,8 @@ class TestValidation(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        db.delete_doc(res['id'])
+        doc['_deleted'] = True
+        db.save_doc(doc, force_update=True)
 
     def test_txt_password_invalid(self):
         doc = {
