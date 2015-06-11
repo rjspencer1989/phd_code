@@ -35,8 +35,10 @@ class TestNotificationServiceRunner(unittest.TestCase):
         self.reg_result2 = self.db.save_doc(self.registration2)
 
     def tearDown(self):
-        self.db.delete_doc(self.reg_result1['id'])
-        self.db.delete_doc(self.reg_result2['id'])
+        self.registration1['hidden'] = True
+        self.db.save_doc(registration1, force_update=True)
+        self.registration2['hidden'] = True
+        self.db.save_doc(registration2, force_update=True)
         self.registration1 = {}
         self.registration2 = {}
 
@@ -89,7 +91,8 @@ class TestNotificationServiceRunner(unittest.TestCase):
         self.assertEqual(2, len(user_names_lst))
         self.assertEqual('Harry', user_names_lst[0]['key'][1])
         self.assertEqual('Rob', user_names_lst[1]['key'][1])
-        self.db.delete_doc(res['id'])
+        doc['hidden'] = True
+        self.db.save_doc(doc, force_update=True)
 
     # @unittest.skip("stop the spam")
     def test_send_notification(self):
