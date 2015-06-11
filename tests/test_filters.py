@@ -48,10 +48,10 @@ class TestFilters(unittest.TestCase):
         db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/devices_pox")
         self.assertTrue((len(list(stream)) == 1) and ('aa:bb:cc:dd:ee:ff' == list(stream)[0]['id']))
-        inc['hidden'] = True
-        db.save_doc(inc)
-        not_inc['hidden'] = True
-        db.save_doc(not_inc)
+        inc['_deleted'] = True
+        db.save_doc(inc, force_update=True)
+        not_inc['_deleted'] = True
+        db.save_doc(not_inc, force_update=True)
 
     def test_devices_ui(self):
         not_inc = {
@@ -94,8 +94,8 @@ class TestFilters(unittest.TestCase):
         db.save_doc(not_inc, force_update=True)
         stream = ChangesStream(db, filter="homework-remote/devices_ui")
         self.assertTrue((len(list(stream)) == 1) and ('ab:bc:cd:de:ef:fa' == list(stream)[0]['id']))
-        inc['hidden'] = True
-        not_inc['hidden'] = True
+        inc['_deleted'] = True
+        not_inc['_deleted'] = True
         db.save_doc(inc, force_update=True)
         db.save_doc(not_inc, force_update=True)
 

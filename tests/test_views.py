@@ -41,7 +41,6 @@ class TestViews(unittest.TestCase):
         key = ["email", "Rob"]
         vr = db.view("homework-remote/notification_with_service", key=key)
         vr_all = vr.all()
-        pprint(vr_all)
         self.assertEqual(vr.count(), 1)
         res_obj = vr_all[0]
         self.assertEqual(res_obj['value'], doc1['user'])
@@ -175,10 +174,9 @@ class TestViews(unittest.TestCase):
         vr = db.view("homework-remote/control")
         vra = vr.all()
         pprint(vra)
-        l_vra = list(vra)
-        self.assertEqual(len(l_vra), 1)
-        self.assertEqual(l_vra[0]['id'], res['id'])
-        self.assertEqual(l_vra[0]['key'], "connect")
+        self.assertEqual(vr.count(), 1)
+        self.assertEqual(vra[0]['id'], res['id'])
+        self.assertEqual(vra[0]['key'], "connect")
         doc1['_deleted'] = True
         db.save_doc(doc1, force_update=True)
 
