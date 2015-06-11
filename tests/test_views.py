@@ -29,8 +29,8 @@ class TestViews(unittest.TestCase):
         doc3 = {
             "collection": "notifications",
             "name": "Rob",
-            "service": "twitter",
-            "user": "rjspencer1989",
+            "service": "email",
+            "user": "psxrjs@exmail.nottingham.ac.uk",
             "status": "done",
             "hidden": True
         }
