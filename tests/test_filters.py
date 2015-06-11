@@ -97,8 +97,8 @@ class TestFilters(unittest.TestCase):
         self.assertTrue((len(list(stream)) == 1) and ('ab:bc:cd:de:ef:fa' == list(stream)[0]['id']))
         inc['hidden'] = True
         not_inc['hidden'] = True
-        db.save_doc("aa:bb:cc:dd:ee:ff", force_update=True)
-        db.save_doc("ab:bc:cd:de:ef:fa", force_update=True)
+        db.save_doc(inc, force_update=True)
+        db.save_doc(not_inc, force_update=True)
 
     def test_notification_request(self):
         inc = {
