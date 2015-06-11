@@ -55,7 +55,7 @@ class TestNotificationServiceRunner(unittest.TestCase):
         user_names = self.nsr.get_user_names(doc['to'], doc['service'])
         self.assertIsNone(user_names)
         doc['hidden'] = True
-        db.save_doc(doc, force_update=True)
+        self.db.save_doc(doc, force_update=True)
 
     def test_get_user_names_single_name(self):
         doc = {
@@ -74,7 +74,7 @@ class TestNotificationServiceRunner(unittest.TestCase):
         self.assertEqual('Harry', user_names_lst[0]['key'][1])
         self.assertEqual('phone', user_names_lst[0]['key'][0])
         self.assertEqual('+447972058628', user_names_lst[0]['value'])
-        self.doc['hidden'] = True
+        doc['hidden'] = True
         self.db.save_doc(doc, force_update=True)
 
     def test_get_user_names_everyone(self):
@@ -109,7 +109,8 @@ class TestNotificationServiceRunner(unittest.TestCase):
         res = self.db.save_doc(doc)
         result = self.nsr.send_notification(res['id'], doc['to'], doc['service'], '+447972058628', doc['body'])
         self.assertTrue(result)
-        self.db.delete_doc(res['id'])
+        doc['hidden'] = True
+        self.db.save_doc(doc, force_update=True)
 
     # @unittest.skip("stop the spam")
     def test_process_notification(self):
@@ -125,4 +126,5 @@ class TestNotificationServiceRunner(unittest.TestCase):
         self.nsr.process_notification(doc)
         updated = self.db.open_doc(res['id'])
         self.assertEqual('done', updated['status'])
-        self.db.delete_doc(res['id'])
+        doc['hidden'] = True
+        self.db.save_doc(doc, force_update=True)
