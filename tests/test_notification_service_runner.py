@@ -54,7 +54,8 @@ class TestNotificationServiceRunner(unittest.TestCase):
         res = self.db.save_doc(doc)
         user_names = self.nsr.get_user_names(doc['to'], doc['service'])
         self.assertIsNone(user_names)
-        self.db.delete_doc(res['id'])
+        doc['hidden'] = True
+        db.save_doc(doc, force_update=True)
 
     def test_get_user_names_single_name(self):
         doc = {
@@ -73,7 +74,8 @@ class TestNotificationServiceRunner(unittest.TestCase):
         self.assertEqual('Harry', user_names_lst[0]['key'][1])
         self.assertEqual('phone', user_names_lst[0]['key'][0])
         self.assertEqual('+447972058628', user_names_lst[0]['value'])
-        self.db.delete_doc(res['id'])
+        self.doc['hidden'] = True
+        self.db.save_doc(doc, force_update=True)
 
     def test_get_user_names_everyone(self):
         doc = {
