@@ -88,5 +88,7 @@ class TestPerformUndo(unittest.TestCase):
         result = undo_consumer.undo_device_change(undo_doc, res['rev'])
         updated = db.open_doc(doc['_id'], rev=result)
         self.assertEqual('deny', updated['action'])
-        db.delete_doc(event_res['id'])
-        db.delete_doc(doc['_id'])
+        event['_deleted'] = True
+        doc['_deleted'] = True
+        db.save_doc(doc, force_update=True)
+        db.save_doc(event, force_update=True)
