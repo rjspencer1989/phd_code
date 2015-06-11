@@ -64,7 +64,8 @@ class UndoProcessor(threading.Thread):
     def undo(self, doc, rev_list):
         undone_rev = ''
         if len(rev_list) == 0:  # new doc
-            res = db.delete_doc(doc)
+            doc['hidden'] = True
+            res = db.save_doc(doc, force_update=True)
             undone_rev = res['rev']
         else:  # has multiple revisions
             rev_to_revert_to = ''
