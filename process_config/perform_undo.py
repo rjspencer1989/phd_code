@@ -81,7 +81,8 @@ class UndoProcessor(threading.Thread):
                 res = db.save_doc(cur, force_update=True)
                 undone_rev = res['rev']
             else:
-                res = db.delete_doc(doc)
+                doc['hidden'] = True
+                res = db.save_doc(doc, force_update=True)
                 undone_rev = res['rev']
         return undone_rev
 

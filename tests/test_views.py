@@ -36,8 +36,10 @@ class TestViews(unittest.TestCase):
         res_obj = l_vr_all[0]
         self.assertEqual(res_obj['value'], doc1['user'])
         self.assertEqual(res_obj['id'], res['id'])
-        db.delete_doc(res['id'])
-        db.delete_doc(res2['id'])
+        doc1['hidden'] = True
+        doc2['hidden'] = True
+        db.save_doc(doc1, force_update=True)
+        db.save_doc(doc2, force_update=True)
 
     def test_valid_leases(self):
         doc1 = {
@@ -83,8 +85,10 @@ class TestViews(unittest.TestCase):
         vra_l = list(vra)
         self.assertEqual(len(vra_l), 1)
         self.assertEqual(vra_l[0]['key'], '68:a8:6d:3b:05:e4')
-        db.delete_doc(res['id'])
-        db.delete_doc(res2['id'])
+        doc1['_deleted'] = True
+        doc2['_deleted'] = True
+        db.save_doc(doc1, force_update=True)
+        db.save_doc(doc2, force_update=True)
 
     def test_events(self):
         doc = {
@@ -134,7 +138,8 @@ class TestViews(unittest.TestCase):
         self.assertEqual(len(l_vra), 1)
         self.assertEqual(l_vra[0]['id'], res['id'])
         self.assertEqual(l_vra[0]['key'], "68:a8:6d:3b:05:e4")
-        db.delete_doc(res['id'])
+        doc1['_deleted'] = True
+        db.save_doc(doc1, force_update=True)
 
     def test_control(self):
         doc1 = {
@@ -162,7 +167,8 @@ class TestViews(unittest.TestCase):
         self.assertEqual(len(l_vra), 1)
         self.assertEqual(l_vra[0]['id'], res['id'])
         self.assertEqual(l_vra[0]['key'], "connect")
-        db.delete_doc(res['id'])
+        doc1['_deleted'] = True
+        db.save_doc(doc1, force_update=True)
 
     def test_device_notification_service_mapping(self):
         doc1 = {
@@ -192,7 +198,8 @@ class TestViews(unittest.TestCase):
         self.assertEqual(l_vra[0]['key'], "68:a8:6d:3b:05:e4")
         self.assertEqual(l_vra[0]['value']['name'], "Rob")
         self.assertEqual(l_vra[0]['value']['service'], "email")
-        db.delete_doc(res['id'])
+        doc1['_deleted'] = True
+        db.save_doc(doc1, force_update=True)
 
     def test_connected_devices(self):
         doc1 = {
