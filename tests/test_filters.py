@@ -151,7 +151,7 @@ class TestFilters(unittest.TestCase):
         inc['hidden'] = True
         not_inc['hidden'] = True
         db.save_doc(inc, force_update=True)
-        db.save_doc(inc, force_update=True)
+        db.save_doc(not_inc, force_update=True)
 
     def test_undo(self):
         inc = {
