@@ -4,6 +4,7 @@ from couchdbkit import *
 import datetime
 import time
 from dateutil.tz import *
+from pprint import pprint
 
 
 class TestViews(unittest.TestCase):
@@ -232,6 +233,7 @@ class TestViews(unittest.TestCase):
         res2 = db.save_doc(doc2)
         vr = db.view("homework-remote/connected_devices")
         vra = vr.all()
+        pprint(vra)
         l_vra = list(vra)
         self.assertEqual(len(l_vra), 1)
         self.assertEqual(l_vra[0]['id'], res['id'])
