@@ -4,7 +4,6 @@ from couchdbkit import *
 import datetime
 import time
 from dateutil.tz import *
-from pprint import pprint
 
 
 class TestViews(unittest.TestCase):
@@ -91,9 +90,8 @@ class TestViews(unittest.TestCase):
 
         vr = db.view("homework-remote/valid_leases")
         vra = vr.all()
-        vra_l = list(vra)
-        self.assertEqual(len(vra_l), 1)
-        self.assertEqual(vra_l[0]['key'], '68:a8:6d:3b:05:e4')
+        self.assertEqual(vr.count(), 1)
+        self.assertEqual(vra[0]['key'], '68:a8:6d:3b:05:e4')
         doc1['_deleted'] = True
         doc2['_deleted'] = True
         db.save_doc(doc1, force_update=True)
@@ -115,9 +113,8 @@ class TestViews(unittest.TestCase):
         res = db.save_doc(doc)
         vr = db.view("homework-remote/events")
         vra = vr.all()
-        l_vra = list(vra)
-        self.assertEqual(len(l_vra), 1)
-        self.assertEqual(l_vra[0]['id'], res['id'])
+        self.assertEqual(vr.count(), 1)
+        self.assertEqual(vra[0]['id'], res['id'])
         doc['_deleted'] = True
         db.save_doc(doc, force_update=True)
 
@@ -143,11 +140,9 @@ class TestViews(unittest.TestCase):
         res = db.save_doc(doc1)
         vr = db.view("homework-remote/dhcp")
         vra = vr.all()
-        pprint(vra)
-        l_vra = list(vra)
-        self.assertEqual(len(l_vra), 1)
-        self.assertEqual(l_vra[0]['id'], res['id'])
-        self.assertEqual(l_vra[0]['key'], "68:a8:6d:3b:05:e4")
+        self.assertEqual(vr.count(), 1)
+        self.assertEqual(vra[0]['id'], res['id'])
+        self.assertEqual(vra[0]['key'], "68:a8:6d:3b:05:e4")
         doc1['_deleted'] = True
         db.save_doc(doc1, force_update=True)
 
@@ -173,7 +168,6 @@ class TestViews(unittest.TestCase):
         res = db.save_doc(doc1)
         vr = db.view("homework-remote/control")
         vra = vr.all()
-        pprint(vra)
         self.assertEqual(vr.count(), 1)
         self.assertEqual(vra[0]['id'], res['id'])
         self.assertEqual(vra[0]['key'], "connect")
@@ -202,12 +196,11 @@ class TestViews(unittest.TestCase):
         res = db.save_doc(doc1)
         vr = db.view("homework-remote/device_notification_service_mapping")
         vra = vr.all()
-        l_vra = list(vra)
-        self.assertEqual(len(l_vra), 1)
-        self.assertEqual(l_vra[0]['id'], res['id'])
-        self.assertEqual(l_vra[0]['key'], "68:a8:6d:3b:05:e4")
-        self.assertEqual(l_vra[0]['value']['name'], "Rob")
-        self.assertEqual(l_vra[0]['value']['service'], "email")
+        self.assertEqual(vr.count(), 1)
+        self.assertEqual(vra[0]['id'], res['id'])
+        self.assertEqual(vra[0]['key'], "68:a8:6d:3b:05:e4")
+        self.assertEqual(vra[0]['value']['name'], "Rob")
+        self.assertEqual(vra[0]['value']['service'], "email")
         doc1['_deleted'] = True
         db.save_doc(doc1, force_update=True)
 
@@ -251,10 +244,9 @@ class TestViews(unittest.TestCase):
         res2 = db.save_doc(doc2)
         vr = db.view("homework-remote/connected_devices")
         vra = vr.all()
-        l_vra = list(vra)
-        self.assertEqual(len(l_vra), 1)
-        self.assertEqual(l_vra[0]['id'], res['id'])
-        self.assertEqual(l_vra[0]['key'], "68:a8:6d:3b:05:e4")
+        self.assertEqual(vr.count(), 1)
+        self.assertEqual(vra[0]['id'], res['id'])
+        self.assertEqual(vra[0]['key'], "68:a8:6d:3b:05:e4")
         doc1['_deleted'] = True
         db.save_doc(doc1, force_update=True)
         doc2['_deleted'] = True
@@ -290,9 +282,8 @@ class TestViews(unittest.TestCase):
         res2 = db.save_doc(doc2)
         vr = db.view("homework-remote/undoable_events")
         vra = vr.all()
-        l_vra = list(vra)
-        self.assertEqual(len(l_vra), 1)
-        self.assertEqual(l_vra[0]['id'], res['id'])
+        self.assertEqual(vr.count(), 1)
+        self.assertEqual(vra[0]['id'], res['id'])
         doc1['_deleted'] = True
         db.save_doc(doc1, force_update=True)
         doc2['_deleted'] = True
