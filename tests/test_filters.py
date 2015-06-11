@@ -91,8 +91,8 @@ class TestFilters(unittest.TestCase):
             "changed_by": "system"
         }
         db = couchdb_config_parser.get_db()
-        db.save_doc(inc)
-        db.save_doc(not_inc)
+        db.save_doc(inc, force_update=True)
+        db.save_doc(not_inc, force_update=True)
         stream = ChangesStream(db, filter="homework-remote/devices_ui")
         self.assertTrue((len(list(stream)) == 1) and ('ab:bc:cd:de:ef:fa' == list(stream)[0]['id']))
         db.delete_doc("aa:bb:cc:dd:ee:ff")
@@ -123,8 +123,8 @@ class TestFilters(unittest.TestCase):
         inc['hidden'] = True
         not_inc['hidden'] = True
         pprint(inc)
-        db.save_doc(inc['_id'])
-        db.save_doc(not_inc['_id'])
+        db.save_doc(inc, force_update=True)
+        db.save_doc(not_inc, force_update=True)
 
     def test_notifications(self):
         inc = {
