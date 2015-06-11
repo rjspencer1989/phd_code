@@ -59,7 +59,9 @@ class TestProcessRollback(unittest.TestCase):
 
     def tearDown(self):
         for doc in self.test_doc_ids:
-            self.db.delete_doc(doc)
+            opened = self.db.get(doc)
+            opened['_deleted'] = True
+            self.db.save_doc(opened, force_update=True)
 
     def add_history_item(self, doc_id, doc_rev, timestamp):
         doc = {
