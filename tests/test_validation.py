@@ -98,7 +98,8 @@ class TestValidation(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        db.delete_doc(res['id'])
+        doc['_deleted']: True
+        db.save_doc(doc, force_update=True)
 
     def test_event_not_undoable(self):
         doc = {
@@ -114,7 +115,8 @@ class TestValidation(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        db.delete_doc(res['id'])
+        doc['_deleted'] = True
+        db.save_doc(doc, force_update=True)
 
     def test_event_perform_undo_not_undoable(self):
         doc = {
@@ -151,7 +153,8 @@ class TestValidation(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        db.delete_doc(res['id'])
+        doc['_deleted'] = True
+        db.save_doc(doc, force_update=True)
 
     def test_invalid_lease_action(self):
         doc = {
@@ -409,7 +412,8 @@ class TestValidation(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        db.delete_doc(res['id'])
+        doc['_deleted'] = True
+        db.save_doc(doc, force_update=True)
 
     def test_hex_password_26_chars(self):
         doc = {
@@ -424,7 +428,8 @@ class TestValidation(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        db.delete_doc(res['id'])
+        doc['_deleted'] = True
+        db.save_doc(doc, force_update=True)
 
     def test_hex_password_invalid_length(self):
         doc = {
@@ -481,7 +486,8 @@ class TestValidation(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        db.delete_doc(res['id'])
+        doc['_deleted'] = True
+        db.save_doc(doc, force_update=True)
 
     def test_empty_string(self):
         doc = {
@@ -516,7 +522,8 @@ class TestValidation(unittest.TestCase):
 
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        db.delete_doc(res['id'])
+        doc['_deleted'] = True
+        db.save_doc(doc, force_update=True)
 
     def test_rollback_invalid_status(self):
         doc = {
