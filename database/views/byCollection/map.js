@@ -1,5 +1,5 @@
 function(doc){
-    if(doc.collection){
+    if(doc.collection && !doc.hasOwnProperty('hidden')){
         emit(doc.collection, doc);
     }
 }
