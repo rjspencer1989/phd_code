@@ -1,13 +1,6 @@
 App.Routers.Router = Backbone.Router.extend({
     initialize: function () {
         this.view = null;
-        this.user_view = null;
-    },
-
-    display_user: function(){
-        if (this.user_view === null) {
-            this.user_view = new App.Views.User();
-        }
     },
 
     routes : {

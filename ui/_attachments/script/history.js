@@ -2,7 +2,6 @@ App.Models.Event = Backbone.Model.extend({
     defaults: {
         title: '',
         description: '',
-        user: '',
         timestamp: new Date().toISOString(),
         collection: 'events',
         doc_id: '',
@@ -90,11 +89,10 @@ App.Views.Events = Backbone.View.extend({
     }
 });
 
-function addHistoryEvent(title, description, user, docId, docRev, undoable){
+function addHistoryEvent(title, description, docId, docRev, undoable){
     var mod = new App.Models.Event();
     mod.set({title: title});
     mod.set({description: description});
-    mod.set({user: user});
     mod.set({timestamp: new Date().toISOString()});
     mod.set({doc_id: docId});
     mod.set({doc_rev: docRev});

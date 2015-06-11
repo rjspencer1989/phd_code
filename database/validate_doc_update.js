@@ -146,7 +146,6 @@ function (newDoc, oldDoc, userCtx){
         unchanged("collection");
         required("title");
         required("description");
-        required("user");
         required("timestamp");
         required("doc_id");
         required("doc_rev");

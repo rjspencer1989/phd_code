@@ -15,7 +15,7 @@ class TestPerformUndo(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(nd)
-        event_res = add_history.add_history_item("new notification", "added notification mapping for Rob using Twitter and username rjspencer1989", "Rob", res['id'], res['rev'], True)
+        event_res = add_history.add_history_item("new notification", "added notification mapping for Rob using Twitter and username rjspencer1989", res['id'], res['rev'], True)
         event = db.get(event_res['id'])
         doc = undo_consumer.get_doc_to_undo(event)
         rev_list = undo_consumer.get_rev_list(doc, res['rev'])
@@ -38,7 +38,7 @@ class TestPerformUndo(unittest.TestCase):
         res = db.save_doc(nd)
         nd['user'] = 'robjspencer'
         res2 = db.save_doc(nd)
-        event_res = add_history.add_history_item("edit notification", "Edited notification mapping for Rob using Twitter and username robjspencer", "Rob", res2['id'], res2['rev'], True)
+        event_res = add_history.add_history_item("edit notification", "Edited notification mapping for Rob using Twitter and username robjspencer", res2['id'], res2['rev'], True)
         event = db.get(event_res['id'])
         doc = undo_consumer.get_doc_to_undo(event)
         rev_list = undo_consumer.get_rev_list(doc, res2['rev'])

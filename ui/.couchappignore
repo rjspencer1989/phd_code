@@ -12,7 +12,6 @@
 "login.html",
 "notification_collection.html",
 "notification_item.html",
-"user_id.html",
 "wifi.html",
 "bower.json"
 ]
