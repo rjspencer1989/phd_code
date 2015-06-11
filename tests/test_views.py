@@ -238,8 +238,10 @@ class TestViews(unittest.TestCase):
         self.assertEqual(len(l_vra), 1)
         self.assertEqual(l_vra[0]['id'], res['id'])
         self.assertEqual(l_vra[0]['key'], "68:a8:6d:3b:05:e4")
-        db.delete_doc(res['id'])
-        db.delete_doc(res2['id'])
+        doc1['_deleted'] = True
+        db.save_doc(doc1, force_update=True)
+        doc2['_deleted'] = True
+        db.save_doc(doc2, force_update=True)
 
     def test_undoable_events(self):
         doc1 = {
