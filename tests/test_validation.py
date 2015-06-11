@@ -98,7 +98,7 @@ class TestValidation(unittest.TestCase):
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
-        doc['_deleted']: True
+        doc['_deleted'] = True
         db.save_doc(doc, force_update=True)
 
     def test_event_not_undoable(self):
