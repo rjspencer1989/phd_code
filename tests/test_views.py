@@ -26,15 +26,24 @@ class TestViews(unittest.TestCase):
             "status": "done"
         }
 
+        doc3 = {
+            "collection": "notifications",
+            "name": "Rob",
+            "service": "twitter",
+            "user": "rjspencer1989",
+            "status": "done",
+            "hidden": True
+        }
+
         res = db.save_doc(doc1)
         res2 = db.save_doc(doc2)
+        res3 = db.save_doc(doc3)
         key = ["email", "Rob"]
         vr = db.view("homework-remote/notification_with_service", key=key)
         vr_all = vr.all()
         pprint(vr_all)
-        l_vr_all = list(vr_all)
-        self.assertEqual(len(l_vr_all), 1)
-        res_obj = l_vr_all[0]
+        self.assertEqual(vr.count(), 1)
+        res_obj = vr_all[0]
         self.assertEqual(res_obj['value'], doc1['user'])
         self.assertEqual(res_obj['id'], res['id'])
         doc1['hidden'] = True
