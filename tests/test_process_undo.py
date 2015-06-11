@@ -3,7 +3,7 @@ from process_config import couchdb_config_parser, perform_undo, add_history
 import time
 
 
-class TestProcessperform_undo(unittest.TestCase):
+class TestPerformUndo(unittest.TestCase):
     def test_process_undo_new_doc(self):
         undo_consumer = perform_undo.consumer
         nd = {
@@ -50,14 +50,14 @@ class TestProcessperform_undo(unittest.TestCase):
     def test_process_undo_device_doc(self):
         undo_consumer = perform_undo.consumer
         doc = {
-            "_id": "aa:bb:cc:dd:ee:ff",
+            "_id": "11:aa:33:bb:cc:ff",
             "action": "",
             "collection": "devices",
             "device_name": "",
             "host_name": "test-device",
             "ip_address": "10.2.0.61",
             "lease_action": "add",
-            "mac_address": "aa:bb:cc:dd:ee:ff",
+            "mac_address": "11:aa:33:bb:cc:ff",
             "name": "",
             "state": "pending",
             "device_type": "",
