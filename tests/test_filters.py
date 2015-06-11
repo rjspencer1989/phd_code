@@ -230,8 +230,10 @@ class TestFilters(unittest.TestCase):
         res2 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/wifi")
         self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
-        db.delete_doc(res['id'])
-        db.delete_doc(res2['id'])
+        inc['hidden'] = True
+        not_inc['hidden'] = True
+        db.save_doc(inc, force_update=True)
+        db.save_doc(not_inc, force_update=True)
 
     def test_revert(self):
         inc = {
