@@ -31,6 +31,7 @@ class TestViews(unittest.TestCase):
         key = ["email", "Rob"]
         vr = db.view("homework-remote/notification_with_service", key=key)
         vr_all = vr.all()
+        pprint(vr_all)
         l_vr_all = list(vr_all)
         self.assertEqual(len(l_vr_all), 1)
         res_obj = l_vr_all[0]
@@ -134,6 +135,7 @@ class TestViews(unittest.TestCase):
         res = db.save_doc(doc1)
         vr = db.view("homework-remote/dhcp")
         vra = vr.all()
+        pprint(vra)
         l_vra = list(vra)
         self.assertEqual(len(l_vra), 1)
         self.assertEqual(l_vra[0]['id'], res['id'])
@@ -163,6 +165,7 @@ class TestViews(unittest.TestCase):
         res = db.save_doc(doc1)
         vr = db.view("homework-remote/control")
         vra = vr.all()
+        pprint(vra)
         l_vra = list(vra)
         self.assertEqual(len(l_vra), 1)
         self.assertEqual(l_vra[0]['id'], res['id'])
@@ -241,7 +244,6 @@ class TestViews(unittest.TestCase):
         res2 = db.save_doc(doc2)
         vr = db.view("homework-remote/connected_devices")
         vra = vr.all()
-        pprint(vra)
         l_vra = list(vra)
         self.assertEqual(len(l_vra), 1)
         self.assertEqual(l_vra[0]['id'], res['id'])
