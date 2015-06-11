@@ -33,7 +33,7 @@ App.Views.Notification = Backbone.View.extend({
 
     clear: function () {
         'use strict';
-        this.model.set({_deleted: true});
+        this.model.set({hidden: true});
         this.model.set({status: 'pending'});
         this.model.save(null, {
             success: function (model, response, options) {
