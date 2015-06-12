@@ -38,7 +38,6 @@ App.Views.Notification = Backbone.View.extend({
         this.model.save(null, {
             success: function (model, response, options) {
                 console.log(response);
-                addHistoryEvent("Removed Notification Registration", model.get('name') + "  is no longer registered to receive notifications using " + model.get('service') + " identified by " + model.get('user'), model.id, model.get('_rev'), true);
             },
             error: function (model, response, options) {
                 console.log(response);
@@ -69,15 +68,10 @@ App.Views.Notification = Backbone.View.extend({
             this.model.save(null, {
                 success: function (model, response, options) {
                     console.log(response);
-                    addHistoryEvent("Edited Notification Registration", model.get('name') + " changed notifications for " + model.get('service') + " to identify them as " + model.get('user'), model.id, model.get('_rev'), true);
                 },
                 error: function (model, response, options) {
                     console.log(response);
-                    if (response.status === 401) {
-                        App.routerInstance.checkSession();
-                    } else {
-                        $('.alert').append(response.reason).show();
-                    }
+                    $('.alert').append(response.reason).show();
                 }
             });
         }
@@ -139,8 +133,8 @@ App.Views.Notifications = Backbone.View.extend({
         newModel.set("service", $('#service').val());
         newModel.set("status", "pending");
         this.collection.create(newModel, {
-            sucess : function (model, response, options) {
-                addHistoryEvent("New Notification Registration", model.get('name') + " registered to receive notifications using " + model.get('service') + " identified by " + model.get('user'), model.id, model.get('_rev'), true);
+            sucess : function (model) {
+                console.log(model.toJSON());
             }
         });
     },
