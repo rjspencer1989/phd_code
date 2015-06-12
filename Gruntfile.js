@@ -33,5 +33,6 @@ module.exports = function(grunt){
     });
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-jst');
-    grunt.registerTask('default', ['jshint', 'jst']);
+    grunt.loadNpmTasks('grunt-bowercopy');
+    grunt.registerTask('default', ['jshint', 'jst', 'bowercopy']);
 };

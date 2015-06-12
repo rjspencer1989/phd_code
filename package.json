@@ -5,9 +5,8 @@
   "devDependencies": {
     "grunt": "latest",
     "grunt-contrib-concat": "latest",
-    "grunt-contrib-copy": "^0.8.0",
+    "grunt-bowercopy": "latest",
     "grunt-contrib-jshint": "latest",
-    "grunt-contrib-jst": "latest",
-    "grunt-contrib-uglify": "latest"
+    "grunt-contrib-jst": "latest"
   }
 }
