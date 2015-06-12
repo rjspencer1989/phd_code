@@ -1,12 +1,13 @@
 {
-    "name": "homework-router-ui",
-    "version": "0.0.1",
-    "private": "true",
-    "devDependencies": {
-        "grunt":"latest",
-        "grunt-contrib-concat":"latest",
-        "grunt-contrib-jst":"latest",
-        "grunt-contrib-jshint": "latest",
-        "grunt-contrib-uglify": "latest"
-    }
+  "name": "homework-router-ui",
+  "version": "0.0.1",
+  "private": "true",
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-jst": "latest",
+    "grunt-contrib-uglify": "latest"
+  }
 }
