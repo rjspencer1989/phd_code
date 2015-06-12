@@ -43,6 +43,17 @@ module.exports = function(grunt){
                     'libs/bootstrap/css/bootstrap.css': 'bootstrap/dist/css/bootstrap.css',
                     'libs/bootstrap/fonts': 'bootstrap/dist/fonts',
                     'libs/bootstrap/js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js',
+                    'libs/bootstrap-datepicker/css/bootstrap-datepicker3.css': 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css',
+                    'libs/bootstrap-datepicker/locales': 'bootstrap-datepicker/dist/locales',
+                    'libs/bootstrap-datepicker/js/bootstrap-datepicker.js': 'bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
+                    'libs/jasmine/jasmine.js': 'jasmine/lib/jasmine-core/jasmine.js',
+                    'libs/jasmine/jasmine-html.js': 'jasmine/lib/jasmine-core/jasmine-html.js',
+                    'libs/jasmine/boot.js': 'jasmine/lib/jasmine-core/boot.js',
+                    'libs/jasmine/jasmine.css': 'jasmine/lib/jasmine-core/jasmine.css',
+                    'libs/jasmine-jquery.js': 'jasmine-jquery/lib/jasmine-jquery.js',
+                    'libs/jquery.js': 'jquery/dist/jquery.js',
+                    'libs/jquery.json.min.js': 'jquery-json/dist/jquery.json.min.js',
+                    'libs/underscore.js': 'underscore/underscore.js'
                 }
             }
         }
