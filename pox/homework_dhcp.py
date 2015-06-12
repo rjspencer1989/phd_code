@@ -4,11 +4,10 @@ from pox.lib.addresses import EthAddr, IPAddr, IP_BROADCAST
 import pox.openflow.libopenflow_01 as of
 from pox.lib.util import dpid_to_str
 import time
-import ConfigParser
 from couchdbkit import Server
-from os.path import expanduser
 from pyroute2 import IPRoute  # @UnresolvedImport
 import socket
+from process_config import couchdb_config_parser
 
 MAX_ROUTABLE_LEASE = 43200
 ROUTABLE_SUBNET = "10.2.0.0"
@@ -38,19 +37,7 @@ class HomeworkDHCP(object):
         self.clean_leases()
         HomeworkDHCP.instance = self
 
-        cp = ConfigParser.ConfigParser()
-        path = "/home/homeuser/couchdb.conf"
-        cp.read(path)
-        couchdb_server = cp.get('DEFAULT', 'SERVER_NAME')
-        couchdb_port = cp.get('DEFAULT', 'PORT')
-        couchdb_db = cp.get('DEFAULT', 'DB')
-        couchdb_admin = cp.get('DEFAULT', 'ADMIN')
-        couchdb_admin_password = cp.get('DEFAULT', 'ADMIN_PASSWORD')
-        self.couchdb_url = "http://%s:%s@%s:%s" % (couchdb_admin, couchdb_admin_password, couchdb_server, couchdb_port)
-        print self.couchdb_url
-        # load mappings from couchdb
-        self.server = Server(self.couchdb_url)
-        self.selected_db = self.server[couchdb_db]
+        self.selected_db = couchdb_config_parser.get_db()
 
         vr_all = self.get_data()
         for result in vr_all:
