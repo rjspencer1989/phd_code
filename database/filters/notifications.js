@@ -1,5 +1,5 @@
 function(doc, req){
-    if(doc.collection === 'notifications' && doc.status === 'pending' && !doc.hasOwnProperty('hidden')){
+    if(doc.collection === 'notifications' && doc.status === 'pending'){
         return true;
     }
     return false;
