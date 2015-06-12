@@ -57,7 +57,6 @@ App.Views.Wifi = Backbone.View.extend({
         mod.set({status: 'pending'});
         mod.save(null, {
             success: function(model, response){
-                addHistoryEvent("New WiFi Configuration", "WiFi configuration has been updated and devices will need to be reconnected", model.id, model.get('_rev'), true);
                 console.log(response);
             },
             error: function(model, response){

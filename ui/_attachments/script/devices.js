@@ -132,7 +132,6 @@ App.Views.Device = Backbone.View.extend({
         this.model.save(null, {
             success: function(model, response){
                 console.log(response);
-                addHistoryEvent("Edited Device settings", "The device with MAC address " + model.get('mac_address') + " has been updated", model.id, model.get('_rev'), (model.get('state') === 'pending') ? false : true);
             },
             error: function(model, response){
                 console.log(response);

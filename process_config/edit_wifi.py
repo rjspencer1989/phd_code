@@ -5,10 +5,10 @@ from Queue import Queue
 import threading
 from datetime import datetime
 import couchdb_config_parser
-from os.path import expanduser
 import subprocess
 import change_notification
 import os
+import add_history
 
 db = couchdb_config_parser.get_db()
 db_info = db.info()
@@ -112,6 +112,7 @@ class WifiProcessor(threading.Thread):
                 self.get_connected_devices()
                 current_doc['status'] = 'done'
                 db.save_doc(current_doc)
+                add_history.add_history_item("New WiFi Configuration", "WiFi configuration has been updated and devices will need to be reconnected", the_id, the_rev, True)
                 if self.notify():
                     cmd = ['/sbin/reboot']
                     res = subprocess.Popen(cmd)

@@ -88,15 +88,3 @@ App.Views.Events = Backbone.View.extend({
         this.remove();
     }
 });
-
-function addHistoryEvent(title, description, docId, docRev, undoable){
-    var mod = new App.Models.Event();
-    mod.set({title: title});
-    mod.set({description: description});
-    mod.set({timestamp: new Date().toISOString()});
-    mod.set({doc_id: docId});
-    mod.set({doc_rev: docRev});
-    mod.set({undoable: undoable});
-    console.log(mod.toJSON());
-    new App.Collections.Events().create(mod);
-}

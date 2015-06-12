@@ -9,7 +9,6 @@ module.exports = function(grunt){
                     "console": true,
                     "_": true,
                     "JST": true,
-                    "addHistoryEvent": true,
                     "setActiveLink": true
                 }
             },
