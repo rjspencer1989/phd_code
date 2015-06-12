@@ -42,7 +42,7 @@ module.exports = function(grunt){
                     'libs/backbone-couchdb.js': 'backbone-couchdb/backbone-couchdb.js',
                     'libs/bootstrap/css/bootstrap.css': 'bootstrap/dist/css/bootstrap.css',
                     'libs/bootstrap/fonts': 'bootstrap/dist/fonts',
-                    'libs/bootstrap/js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js',
+                    'libs/bootstrap/js/bootstrap.min.js': 'bootstrap/dist/js/bootstrap.min.js',
                     'libs/bootstrap-datepicker/css/bootstrap-datepicker3.css': 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css',
                     'libs/bootstrap-datepicker/locales': 'bootstrap-datepicker/dist/locales',
                     'libs/bootstrap-datepicker/js/bootstrap-datepicker.js': 'bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
