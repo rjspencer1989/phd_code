@@ -29,6 +29,22 @@ module.exports = function(grunt){
                     "ui/_attachments/templates.js": ["ui/_attachments/templates/*.html"]
                 }
             }
+        },
+
+        bowercopy: {
+            libs: {
+                options: {
+                    destPrefix: 'ui/_attachments'
+                },
+
+                files: {
+                    'libs/backbone.js': 'backbone/backbone.js',
+                    'libs/backbone-couchdb.js': 'backbone-couchdb/backbone-couchdb.js',
+                    'libs/bootstrap/css/bootstrap.css': 'bootstrap/dist/css/bootstrap.css',
+                    'libs/bootstrap': 'bootstrap/dist/fonts',
+                    'libs/bootstrap/js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js',
+                }
+            }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-jshint');
