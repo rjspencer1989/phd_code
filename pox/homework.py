@@ -23,16 +23,15 @@ class HomeworkMain(EventMixin):
         core.callDelayed(1, self.check_device_status)
 
     def get_history_strings(self, device, state):
-        strings = {
-            'permit' : {
-                'title': 'Device Permitted',
-                'description': 'Device %s was permitted to access your network' % (device)
-            }
+        strings = {}
+        strings['permit'] = {
+            'title': 'Device Permitted',
+            'description': 'Device %s was permitted to access your network' % (device)
+        }
 
-            'deny' : {
-                'title': 'Device Denied',
-                'description': 'Device %s was denied access to your network' % (device)
-            }
+        strings['deny'] = {
+            'title': 'Device Denied',
+            'description': 'Device %s was denied access to your network' % (device)
         }
 
         return strings[state]
