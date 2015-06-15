@@ -3,4 +3,4 @@ from base_doc import BaseDoc
 
 class Notifications(BaseDoc):
     def undo(self):
-        print 'boo'
+        print self.doc
