@@ -78,6 +78,7 @@ class NotificationProcessor(threading.Thread):
                 conn = urllib2.urlopen(req)
                 code = conn.getcode()
                 add_history.add_history_item('Removed notification registration', 'Removed registration for %s for service %s identified by %s' % (doc['name'], doc['service'], doc['user']), doc['_id'], doc['_rev'], True)
+                doc['suid'] = ''
                 doc['status'] = 'done'
             except urllib2.HTTPError, e:
                 doc['status'] = 'error'
