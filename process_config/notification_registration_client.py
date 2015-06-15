@@ -1,4 +1,6 @@
 import os
+import urllib
+import urllib2
 import couchdb_config_parser
 
 
