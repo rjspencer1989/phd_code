@@ -13,7 +13,7 @@ class TestProcessRollback(unittest.TestCase):
         if current_events.count() > 0:
             current_events_all = current_events.all()
             for row in current_events_all:
-                current_doc = row.get('id')
+                current_doc = cls.db.get(row['id'])
                 current_doc['_deleted'] = True
                 cls.db.save_doc(current_doc, force_update=True)
 
