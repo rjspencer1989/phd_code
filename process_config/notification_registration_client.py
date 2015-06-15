@@ -2,6 +2,7 @@ import os
 import urllib
 import urllib2
 import couchdb_config_parser
+import add_history
 
 db = couchdb_config_parser.get_db()
 
