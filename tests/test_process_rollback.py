@@ -9,6 +9,13 @@ class TestProcessRollback(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.db = couchdb_config_parser.get_db()
+        current_events = cls.db.view('homework-remote/events')
+        if current_events.count() > 0:
+            current_events_all = current_events.all()
+            for row in current_events_all:
+                current_doc = row.get('id')
+                current_doc['_deleted'] = True
+                cls.db.save_doc(current_doc, force_update=True)
 
     @classmethod
     def tearDownClass(cls):
@@ -16,7 +23,6 @@ class TestProcessRollback(unittest.TestCase):
 
     def setUp(self):
         self.test_doc_ids = []
-        self.db = couchdb_config_parser.get_db()
         self.wifi_doc = {
             "collection": "wifi",
             "status": "done",
