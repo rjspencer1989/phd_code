@@ -3,6 +3,8 @@ import urllib
 import urllib2
 import couchdb_config_parser
 
+db = couchdb_config_parser.get_db()
+
 
 def get_router_id():
     return os.environ['APP_ENGINE_ROUTER_ID']
