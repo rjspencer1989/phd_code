@@ -37,9 +37,9 @@ function (newDoc, oldDoc, userCtx){
     }
 
     function mac_address_regex(field){
-        rg="^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$"
+        rg="^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$";
         if (!newDoc[field].match(new RegExp(rg))) {
-            throw(forbidden: "not a valid mac address");
+            throw({forbidden: "not a valid mac address"});
         }
     }
 
