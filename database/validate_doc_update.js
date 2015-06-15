@@ -150,6 +150,8 @@ function (newDoc, oldDoc, userCtx){
             throw({forbidden: 'state must be pending, permit, or deny'});
         }
 
+        empty_string('mac_address');
+        empty_string('ip_address');
         mac_address_regex('mac_address');
 
     } else if(newDoc.collection === "events"){

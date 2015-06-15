@@ -154,6 +154,27 @@ class TestValidation(unittest.TestCase):
         doc['_deleted'] = True
         db.save_doc(doc, force_update=True)
 
+    def test_invalid_mac_address(self):
+        doc = {
+            "action": "",
+            "device_name": "",
+            "host_name": "",
+            "ip_address": "",
+            "mac_address": "",
+            "name": "Rob",
+            "state": "permit",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "",
+            "notification_service": "",
+            "connection_event": "disconnect",
+            "changed_by": "system"
+        }
+        db = couchdb_config_parser.get_db()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
     def test_invalid_lease_action(self):
         doc = {
             "action": "",
