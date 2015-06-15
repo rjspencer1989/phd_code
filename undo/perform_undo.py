@@ -36,7 +36,7 @@ class UndoProcessor(threading.Thread):
         import_name = 'undo.doc_types.%s' % (doc['collection'])
         class_name = doc['collection'].capitalize()
         mod = __import__(import_name, fromlist=[''])
-        instance = mod.get_attr(class_name)(doc, event['doc_rev'])
+        instance = mod.getattr(class_name)(doc, event['doc_rev'])
         result = instance.undo()
 
     def run(self):
