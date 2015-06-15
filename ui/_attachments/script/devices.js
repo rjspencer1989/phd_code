@@ -1,21 +1,4 @@
 App.Models.Device = Backbone.Model.extend({
-    defaults: {
-        action: "",
-        collection: "devices",
-        device_name: "",
-        host_name: "",
-        ip_address: "",
-        lease_action: "add",
-        mac_address: "",
-        name: "",
-        state: "pending",
-        device_type: "",
-        notification_service: "",
-        timestamp: new Date() / 1000,
-        connection_event: "disconnect",
-        changed_by: 'system'
-    },
-
     url : this.mac_address
 });
 
