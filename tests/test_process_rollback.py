@@ -72,8 +72,7 @@ class TestProcessRollback(unittest.TestCase):
             'doc_id': doc_id,
             'doc_rev': doc_rev,
             'undoable': True,
-            'perform_undo': False,
-            'user': 'travis_ci'
+            'perform_undo': False
         }
 
         res = self.db.save_doc(doc)
