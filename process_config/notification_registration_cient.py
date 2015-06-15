@@ -1,8 +1,10 @@
 import os
 import couchdb_config_parser
 
+
 def get_router_id():
     return os.environ['APP_ENGINE_ROUTER_ID']
+
 
 def edit(doc):
     router = get_router_id()
@@ -25,6 +27,7 @@ def edit(doc):
         finally:
             db.save_doc(doc)
 
+
 def delete(doc):
     router = get_router_id()
     data = urllib.urlencode({'suid': doc['suid']})
@@ -44,6 +47,7 @@ def delete(doc):
             doc['status'] = 'error'
         finally:
             db.save_doc(doc)
+
 
 def registration(doc):
     router = get_router_id()
