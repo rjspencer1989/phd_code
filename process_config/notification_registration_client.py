@@ -3,6 +3,7 @@ import urllib
 import urllib2
 import couchdb_config_parser
 import add_history
+from pprint import pprint
 
 db = couchdb_config_parser.get_db()
 
@@ -35,6 +36,7 @@ def edit(doc):
 
 def delete(doc):
     router = get_router_id()
+    pprint(doc)
     data = urllib.urlencode({'suid': doc['suid']})
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     if len(router) > 0:
