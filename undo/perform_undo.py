@@ -26,6 +26,21 @@ class UndoProcessor(threading.Thread):
         threading.Thread.__init__(self, name=threadName)
         self.shared_object = queue
 
+    def get_doc_to_undo(self, event):
+        print event
+
+    def perform_undo(self, doc):
+        self.get_doc_to_undo(doc)
+
+    def run(self):
+        while(True):
+            change = self.shared_object.get()
+            the_id = change['id']
+            the_rev = change['changes'][0]['rev']
+            current_doc = db.open_doc(the_id, rev=the_rev)
+            self.perform_undo(current_doc)
+            self.shared_object.task_done()
+
 changeQueue = Queue()
 producer = UndoListener("producer", changeQueue)
 consumer = UndoProcessor("consumer", changeQueue)
