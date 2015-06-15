@@ -14,6 +14,7 @@ class Notifications(BaseDoc):
         return result
 
     def undo_new(self):
+        print self.doc
         notification_registration_client.delete(self.doc)
         updated = self.db.get(self.doc['_id'])
         return updated['_rev']
