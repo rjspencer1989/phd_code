@@ -27,10 +27,15 @@ class UndoProcessor(threading.Thread):
         self.shared_object = queue
 
     def get_doc_to_undo(self, event):
-        print event
+        undo_id = event['doc_id']
+        undo_doc = db.get(undo_id, revs_info=True)
+        return undo_doc
 
-    def perform_undo(self, doc):
-        self.get_doc_to_undo(doc)
+    def perform_undo(self, event):
+        doc = self.get_doc_to_undo(event)
+        import_name = 'undo.doc_types.%s' % (doc['collection'])
+        mod = __import__(import_name, fromlist=[''])
+        result = mod.undo(doc)
 
     def run(self):
         while(True):
