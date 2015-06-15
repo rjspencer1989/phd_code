@@ -9,23 +9,6 @@ describe("control panel", function () {
         expect(App.Models.Device).toBeDefined();
     });
 
-    it("model should have a set of defaults", function () {
-        expect(model.get('action')).toEqual('');
-        expect(model.get('collection')).toEqual('devices');
-        expect(model.get('device_name')).toEqual('');
-        expect(model.get('host_name')).toEqual('');
-        expect(model.get('ip_address')).toEqual('');
-        expect(model.get('lease_action')).toEqual('add');
-        expect(model.get('mac_address')).toEqual('');
-        expect(model.get('name')).toEqual('');
-        expect(model.get('state')).toEqual('pending');
-        expect(model.get('device_type')).toEqual('');
-        expect(model.get('notification_service')).toEqual('');
-        expect(model.get('timestamp')).toBeDefined();
-        expect(model.get('changed_by')).toEqual('system');
-        expect(model.get('connection_event')).toEqual('disconnect');
-    });
-
     it("collection should be defined", function () {
         expect(App.Collections.Devices).toBeDefined();
     });
