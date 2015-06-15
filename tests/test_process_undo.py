@@ -17,7 +17,7 @@ class TestPerformUndo(unittest.TestCase):
 
         db = couchdb_config_parser.get_db()
         res = db.save_doc(nd)
-        self.assertEqual([], undo_consumer.get_rev_list(nd, res['rev']))
+        self.assertEqual([], undo_consumer.mod(nd, res['rev']).get_rev_list())
         nd['_deleted'] = True
         db.save_doc(nd, force_update=True)
 
