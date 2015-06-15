@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
-import couchdb_config_parser
+from process_config import couchdb_config_parser
 from couchdbkit import *
 from Queue import Queue
 import threading
 import os
-import add_history
+from process_config import add_history
 db = couchdb_config_parser.get_db()
 db_info = db.info()
 
