@@ -35,6 +35,14 @@ function (newDoc, oldDoc, userCtx){
             throw({forbidden: "not a valid timestamp"});
         }
     }
+
+    function mac_address_regex(field){
+        rg="^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$"
+        if (!newDoc[field].match(new RegExp(rg))) {
+            throw(forbidden: "not a valid mac address");
+        }
+    }
+
     required("collection");
     is_valid_collection();
 
@@ -141,6 +149,9 @@ function (newDoc, oldDoc, userCtx){
         if(newDoc.state !== "pending" && newDoc.state !== "permit" && newDoc.state !== "deny"){
             throw({forbidden: 'state must be pending, permit, or deny'});
         }
+
+        mac_address_regex('mac_address');
+
     } else if(newDoc.collection === "events"){
         required("collection");
         unchanged("collection");
