@@ -18,7 +18,7 @@ class TestPerformUndo(unittest.TestCase):
         db = couchdb_config_parser.get_db()
         res = db.save_doc(nd)
         notification_registration_client.registration(nd)
-        nd = db.get(nd)
+        nd = db.get(nd['_id'])
         event_res = add_history.add_history_item("new notification", "added notification mapping for Rob using Twitter and username rjspencer1989", res['id'], res['rev'], True)
         event = db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
