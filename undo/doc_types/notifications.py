@@ -5,7 +5,7 @@ class Notifications(BaseDoc):
     def undo(self):
         rev_list = self.get_rev_list()
         result = ''
-        if len(rev_list) == 0:
+        if len(rev_list) == 1:
             result = self.undo_new()
         elif self.doc['hidden'] == True:
             result = self.undo_delete()
@@ -14,7 +14,6 @@ class Notifications(BaseDoc):
         return result
 
     def undo_new(self):
-        print self.doc
         notification_registration_client.delete(self.doc)
         updated = self.db.get(self.doc['_id'])
         return updated['_rev']
