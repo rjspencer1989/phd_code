@@ -14,7 +14,10 @@ class Notifications(BaseDoc):
         return result
 
     def undo_new(self):
-        notification_registration_client.delete(self.doc)
+        self.doc['hidden'] = True
+        ret = self.db.save_doc(self.doc)
+        hidden = self.db.get(self.doc['_id'])
+        notification_registration_client.delete(hidden)
         updated = self.db.get(self.doc['_id'])
         return updated['_rev']
 
