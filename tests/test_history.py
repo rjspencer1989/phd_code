@@ -13,7 +13,6 @@ class TestHistory(unittest.TestCase):
         self.assertIn('timestamp', doc)
         self.assertEqual("Change WiFi", doc['title'])
         self.assertEqual("Wifi Updated", doc['description'])
-        self.assertEqual("Rob", doc['user'])
         self.assertEqual("aabbc", doc['doc_id'])
         self.assertEqual("2-33aabbcc", doc['doc_rev'])
         self.assertTrue(doc['undoable'])

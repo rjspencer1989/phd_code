@@ -46,7 +46,7 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         self.assertIsNotNone(self.ret_doc)
         notification_registration_client.consumer.registration(self.ret_doc, os.environ['APP_ENGINE_ROUTER_ID'])
         v2 = self.db.get(self.the_id)
-        notification_registration_client.consumer.delete(added_doc, os.environ['APP_ENGINE_ROUTER_ID'])
+        notification_registration_client.consumer.delete(v2, os.environ['APP_ENGINE_ROUTER_ID'])
         added_doc = self.db.get(self.the_id)
         self.assertEqual(added_doc['suid'], '')
         self.assertEqual(added_doc['status'], 'done')
