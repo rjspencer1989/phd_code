@@ -124,11 +124,11 @@ class TestPerformUndo(unittest.TestCase):
         doc['changed_by'] = 'user'
         res = self.db.save_doc(doc)  # user changes their mind
         event_res = add_history.add_history_item("Permit device", "Permitted  test-device", res['id'], res['rev'], True)
-        event = db.get(event_res['id'])
+        event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
-        updated = db.open_doc(doc['_id'], rev=result)
+        updated = self.db.open_doc(doc['_id'], rev=result)
         self.assertEqual('deny', updated['action'])
         event['_deleted'] = True
         doc['_deleted'] = True
-        db.save_doc(doc, force_update=True)
-        db.save_doc(event, force_update=True)
+        self.db.save_doc(doc, force_update=True)
+        self.db.save_doc(event, force_update=True)
