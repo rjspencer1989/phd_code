@@ -32,5 +32,7 @@ class Notifications(BaseDoc):
         return updated['_rev']
 
     def undo_edit(self):
-        pprint.pprint(self.doc)
-        return self.doc['_rev']
+        rev_list = self.get_rev_list()
+        prev = self.db.get(self.doc['_id'], rev_list[0])
+        pprint.pprint(prev)
+        return prev['_rev']
