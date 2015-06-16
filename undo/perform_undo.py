@@ -38,6 +38,7 @@ class UndoProcessor(threading.Thread):
         mod = __import__(import_name, fromlist=[''])
         instance = getattr(mod, class_name)(doc, event['doc_rev'])
         result = instance.undo()
+        return result
 
     def run(self):
         while(True):
