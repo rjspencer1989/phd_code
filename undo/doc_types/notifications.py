@@ -5,6 +5,7 @@ import pprint
 class Notifications(BaseDoc):
     def undo(self):
         rev_list = self.get_rev_list()
+        pprint.pprint(rev_list)
         result = ''
         if len(rev_list) == 1:
             result = self.undo_new()
