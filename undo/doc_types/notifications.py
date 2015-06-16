@@ -34,5 +34,9 @@ class Notifications(BaseDoc):
     def undo_edit(self):
         rev_list = self.get_rev_list()
         prev = self.db.get(self.doc['_id'], rev=rev_list[0])
-        pprint.pprint(prev)
-        return prev['_rev']
+        self.doc['user'] = prev['user']
+        ret = self.db.save_doc(self.doc)
+        mod = self.db.get(self.doc['_id'], rev=ret['rev'])
+        notification_registration_client.edit(mod)
+        updated = self.db.get(self.doc['_id'])
+        return updated['_rev']
