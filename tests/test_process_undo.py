@@ -7,11 +7,11 @@ import pprint
 
 
 class TestPerformUndo(unittest.TestCase):
-    @ClassMethod
+    @classmethod
     def setUpClass(cls):
         cls.db = couchdb_config_parser.get_db()
 
-    @ClassMethod
+    @classmethod
     def tearDownClass(cls):
         vr = cls.db.view('homework-remote/events')
         vra = vr.all()
