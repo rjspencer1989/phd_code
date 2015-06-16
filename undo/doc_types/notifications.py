@@ -1,5 +1,6 @@
 from process_config import notification_registration_client
 from base_doc import BaseDoc
+from pprint import pprint
 
 class Notifications(BaseDoc):
     def undo(self):
@@ -16,8 +17,8 @@ class Notifications(BaseDoc):
     def undo_new(self):
         self.doc['hidden'] = True
         ret = self.db.save_doc(self.doc)
-        hidden = self.db.get(self.doc['_id'])
-        print hidden
+        hidden = self.db.get(self.doc['_id'], rev=ret['rev'])
+        pprint(hidden)
         notification_registration_client.delete(hidden)
         updated = self.db.get(self.doc['_id'])
         return updated['_rev']
