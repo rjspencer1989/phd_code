@@ -16,6 +16,7 @@ class Notifications(BaseDoc):
         return result
 
     def undo_new(self):
+        print 'new'
         self.doc['hidden'] = True
         ret = self.db.save_doc(self.doc)
         hidden = self.db.get(self.doc['_id'], rev=ret['rev'])
