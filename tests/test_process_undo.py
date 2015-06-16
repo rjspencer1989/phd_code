@@ -19,7 +19,7 @@ class TestPerformUndo(unittest.TestCase):
             current = cls.db.get(row['id'])
             current['_deleted'] = True
             cls.db.save_doc(current, force_update=True)
-            cls.db = None
+        cls.db = None
 
     def test_process_undo_notification_new_doc(self):
         undo_consumer = perform_undo.consumer
