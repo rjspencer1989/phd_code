@@ -3,6 +3,7 @@ from process_config import couchdb_config_parser, add_history, notification_regi
 from undo import perform_undo
 from undo.doc_types import notifications
 import time
+import pprint
 
 
 class TestPerformUndo(unittest.TestCase):
@@ -23,6 +24,7 @@ class TestPerformUndo(unittest.TestCase):
         event = db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
         updated = db.get(nd['_id'], rev=result)
+        pprint.pprint(updated)
         self.assertTrue('hidden' in updated)
         event['_deleted'] = True
         db.save_doc(event, force_update=True)
