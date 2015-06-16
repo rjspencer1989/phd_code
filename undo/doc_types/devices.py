@@ -3,5 +3,6 @@ import pprint
 
 class Devices(BaseDoc):
     def undo(self):
-        pprint.pprint(self.doc)
-        return self.doc['_rev']
+        rev_list = self.get_rev_list()
+        pprint.pprint(rev_list)
+        return None
