@@ -38,8 +38,31 @@ class TestPerformUndo(unittest.TestCase):
         event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
-        pprint.pprint(updated)
         self.assertTrue('hidden' in updated)
+        event['_deleted'] = True
+        self.db.save_doc(event, force_update=True)
+
+    def test_process_undo_notification_delete_doc(self):
+        undo_consumer = perform_undo.consumer
+        nd = {
+            "collection": "notifications",
+            "status": "done",
+            "name": "Rob",
+            "service": "twitter",
+            "user": "rjspencer1989"
+        }
+
+        self.db.save_doc(nd)
+        notification_registration_client.registration(nd)
+        nd = self.db.get(nd['_id'])
+        nd['hidden'] = True
+        res = self.db.save_doc(nd)
+        event_res = add_history.add_history_item("new notification", "added notification mapping for Rob using Twitter and username rjspencer1989", res['id'], res['rev'], True)
+        event = self.db.get(event_res['id'])
+        result = undo_consumer.perform_undo(event)
+        updated = self.db.get(nd['_id'], rev=result)
+        self.assertTrue('hidden' not in updated)
+        self.assertTrue('suid' in updated)
         event['_deleted'] = True
         self.db.save_doc(event, force_update=True)
     #
