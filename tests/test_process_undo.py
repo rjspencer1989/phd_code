@@ -7,6 +7,20 @@ import pprint
 
 
 class TestPerformUndo(unittest.TestCase):
+    @ClassMethod
+    def setUpClass(cls):
+        cls.db = couchdb_config_parser.get_db()
+
+    @ClassMethod
+    def tearDownClass(cls):
+        vr = cls.db.view('homework-remote/events')
+        vra = vr.all()
+        for row in vra:
+            current = cls.db.get(row['id'])
+            current['_deleted'] = True
+            cls.db.save_doc(current, force_update=True)
+            cls.db = None
+
     def test_process_undo_notification_new_doc(self):
         undo_consumer = perform_undo.consumer
         nd = {
@@ -16,18 +30,18 @@ class TestPerformUndo(unittest.TestCase):
             "service": "twitter",
             "user": "rjspencer1989"
         }
-        db = couchdb_config_parser.get_db()
-        res = db.save_doc(nd)
+
+        res = self.db.save_doc(nd)
         notification_registration_client.registration(nd)
-        nd = db.get(nd['_id'])
+        nd = self.db.get(nd['_id'])
         event_res = add_history.add_history_item("new notification", "added notification mapping for Rob using Twitter and username rjspencer1989", res['id'], res['rev'], True)
-        event = db.get(event_res['id'])
+        event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
-        updated = db.get(nd['_id'], rev=result)
+        updated = self.db.get(nd['_id'], rev=result)
         pprint.pprint(updated)
         self.assertTrue('hidden' in updated)
         event['_deleted'] = True
-        db.save_doc(event, force_update=True)
+        self.db.save_doc(event, force_update=True)
     #
     # def test_process_undo_notification_existing_doc(self):
     #     undo_consumer = perform_undo.consumer
