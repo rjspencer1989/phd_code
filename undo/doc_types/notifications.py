@@ -18,6 +18,7 @@ class Notifications(BaseDoc):
         self.doc['hidden'] = True
         ret = self.db.save_doc(self.doc)
         hidden = self.db.get(self.doc['_id'], rev=ret['rev'])
+        print 'hidden ',
         pprint(hidden)
         notification_registration_client.delete(hidden)
         updated = self.db.get(self.doc['_id'])
