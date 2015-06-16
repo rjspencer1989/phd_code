@@ -7,7 +7,7 @@ class Notifications(BaseDoc):
         rev_list = self.get_rev_list()
         pprint.pprint(rev_list)
         result = ''
-        if len(rev_list) == 1:
+        if len(rev_list) == 0:
             result = self.undo_new()
         elif 'hidden' in self.doc:
             result = self.undo_delete()
