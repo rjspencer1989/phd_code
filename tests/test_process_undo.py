@@ -76,8 +76,9 @@ class TestPerformUndo(unittest.TestCase):
             "user": "rjspencer1989"
         }
         res = self.db.save_doc(nd)
+        notification_registration_client.registration(nd)
         nd['user'] = 'robjspencer'
-        res2 = self.db.save_doc(nd)
+        res2 = self.db.save_doc(nd, force_update=True)
         event_res = add_history.add_history_item("edit notification", "Edited notification mapping for Rob using Twitter and username robjspencer", res2['id'], res2['rev'], True)
         event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
