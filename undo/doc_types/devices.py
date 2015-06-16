@@ -7,9 +7,10 @@ class Devices(BaseDoc):
         initial_revs = super(Devices, self).get_rev_list()
         for rev in initial_revs:
             doc = self.db.get(self.doc['_id'], rev=rev)
-            pprint.pprint(doc)
             if doc['changed_by'] == 'user':
-                revs.append(rev)
+                revs.append(doc['_rev'])
+        pprint.pprint(revs)
+        return revs
 
     def undo(self):
         rev_list = self.get_rev_list()
