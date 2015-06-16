@@ -37,6 +37,7 @@ class Notifications(BaseDoc):
         self.doc['user'] = prev['user']
         ret = self.db.save_doc(self.doc)
         mod = self.db.get(self.doc['_id'], rev=ret['rev'])
+        pprint.pprint(mod)
         notification_registration_client.edit(mod)
         updated = self.db.get(self.doc['_id'])
         return updated['_rev']
