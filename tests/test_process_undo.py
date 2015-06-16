@@ -80,7 +80,7 @@ class TestPerformUndo(unittest.TestCase):
         res2 = self.db.save_doc(nd)
         event_res = add_history.add_history_item("edit notification", "Edited notification mapping for Rob using Twitter and username robjspencer", res2['id'], res2['rev'], True)
         event = self.db.get(event_res['id'])
-        result = undo_consumer.undo(event)
+        result = undo_consumer.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
         self.assertEqual(updated['user'], 'rjspencer1989')
         nd['hidden'] = True
