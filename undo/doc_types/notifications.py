@@ -1,11 +1,10 @@
 from process_config import notification_registration_client
 from base_doc import BaseDoc
-import pprint
+
 
 class Notifications(BaseDoc):
     def undo(self):
         rev_list = self.get_rev_list()
-        pprint.pprint(rev_list)
         result = ''
         if len(rev_list) == 0:
             result = self.undo_new()
@@ -39,5 +38,4 @@ class Notifications(BaseDoc):
         mod = self.db.get(self.doc['_id'], rev=ret['rev'])
         notification_registration_client.edit(mod)
         updated = self.db.get(self.doc['_id'])
-        pprint.pprint(updated)
         return updated['_rev']
