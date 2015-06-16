@@ -28,7 +28,7 @@ class Notifications(BaseDoc):
         del self.doc['hidden']
         self.doc['status'] = 'done'
         self.db.save_doc(self.doc, force_update=True)
-        notification_registration_client.register(self.doc)
+        notification_registration_client.registration(self.doc)
         updated = self.db.get(self.doc['_id'])
         return updated['_rev']
 
