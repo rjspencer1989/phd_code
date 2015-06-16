@@ -65,31 +65,30 @@ class TestPerformUndo(unittest.TestCase):
         self.assertTrue('suid' in updated)
         event['_deleted'] = True
         self.db.save_doc(event, force_update=True)
-    #
-    # def test_process_undo_notification_existing_doc(self):
-    #     undo_consumer = perform_undo.consumer
-    #     nd = {
-    #         "collection": "notifications",
-    #         "status": "done",
-    #         "name": "Rob",
-    #         "service": "twitter",
-    #         "user": "rjspencer1989"
-    #     }
-    #     db = couchdb_config_parser.get_db()
-    #     res = db.save_doc(nd)
-    #     nd['user'] = 'robjspencer'
-    #     res2 = db.save_doc(nd)
-    #     event_res = add_history.add_history_item("edit notification", "Edited notification mapping for Rob using Twitter and username robjspencer", res2['id'], res2['rev'], True)
-    #     event = db.get(event_res['id'])
-    #     doc = undo_consumer.get_doc_to_undo(event)
-    #     rev_list = undo_consumer.get_rev_list(doc, res2['rev'])
-    #     result = undo_consumer.undo(doc, rev_list)
-    #     updated = db.get(nd['_id'], rev=result)
-    #     self.assertEqual(updated['user'], 'rjspencer1989')
-    #     nd['hidden'] = True
-    #     db.save_doc(nd, force_update=True)
-    #     event['_deleted'] = True
-    #     db.save_doc(event, force_update=True)
+
+    def test_process_undo_notification_edit_doc(self):
+        undo_consumer = perform_undo.consumer
+        nd = {
+            "collection": "notifications",
+            "status": "done",
+            "name": "Rob",
+            "service": "twitter",
+            "user": "rjspencer1989"
+        }
+        res = self.db.save_doc(nd)
+        nd['user'] = 'robjspencer'
+        res2 = self.db.save_doc(nd)
+        event_res = add_history.add_history_item("edit notification", "Edited notification mapping for Rob using Twitter and username robjspencer", res2['id'], res2['rev'], True)
+        event = self.db.get(event_res['id'])
+        doc = undo_consumer.get_doc_to_undo(event)
+        rev_list = undo_consumer.get_rev_list(doc, res2['rev'])
+        result = undo_consumer.undo(doc, rev_list)
+        updated = self.db.get(nd['_id'], rev=result)
+        self.assertEqual(updated['user'], 'rjspencer1989')
+        nd['hidden'] = True
+        self.db.save_doc(nd, force_update=True)
+        event['_deleted'] = True
+        self.db.save_doc(event, force_update=True)
     #
     # def test_process_undo_device_doc(self):
     #     undo_consumer = perform_undo.consumer
