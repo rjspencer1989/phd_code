@@ -5,9 +5,9 @@ class Devices(BaseDoc):
     def get_rev_list(self):
         revs=[]
         initial_revs = super(Devices, self).get_rev_list()
-        pprint.pprint(initial_revs)
         for rev in initial_revs:
             doc = self.db.get(self.doc['_id'], rev=rev)
+            pprint.pprint(doc)
             if doc['changed_by'] == 'user':
                 revs.append(rev)
 
