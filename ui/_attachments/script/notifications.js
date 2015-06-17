@@ -33,12 +33,13 @@ App.Views.Notification = Backbone.View.extend({
 
     delete: function () {
         'use strict';
+        var self = this;
         this.model.set({hidden: true});
         this.model.set({status: 'pending'});
         this.model.save(null, {
             success: function (model, response, options) {
                 console.log(response);
-                this.remove();
+                self.remove();
             },
             error: function (model, response, options) {
                 console.log(response);
@@ -87,8 +88,7 @@ App.Views.Notifications = Backbone.View.extend({
     initialize: function () {
         'use strict';
         this.listenTo(this.collection, 'reset', this.render);
-        this.listenTo(this.collection, 'change', this.render);
-        this.listenTo(this.collection, 'remove', this.render);
+        this.listenTo(this.collection, 'change', this.change_handler);
         this.listenTo(this.collection, 'add', this.addOne);
         this.collection.fetch({reset: true});
         this.subviews = [];
@@ -108,6 +108,11 @@ App.Views.Notifications = Backbone.View.extend({
         this.$el.find('#service').trigger('change');
         $('.alert').hide();
         return this;
+    },
+    
+    change_handler: function(){
+        'use strict';
+        console.log('change');
     },
 
     getPrompt: function () {
