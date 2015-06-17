@@ -19,8 +19,8 @@ App.Views.Notification = Backbone.View.extend({
 
     events: {
         "click .edit-notification-button" : "edit",
-        "click .save-notification-button" : "close",
-        "click .delete-notification-button" : "clear",
+        "click .save-notification-button" : "save",
+        "click .delete-notification-button" : "delete",
         "click .cancel-notification-button" : "cancel"
     },
 
@@ -31,13 +31,14 @@ App.Views.Notification = Backbone.View.extend({
         return this;
     },
 
-    clear: function () {
+    delete: function () {
         'use strict';
         this.model.set({hidden: true});
         this.model.set({status: 'pending'});
         this.model.save(null, {
             success: function (model, response, options) {
                 console.log(response);
+                this.remove();
             },
             error: function (model, response, options) {
                 console.log(response);
@@ -58,7 +59,7 @@ App.Views.Notification = Backbone.View.extend({
         this.input.parents('td').removeClass('editing');
     },
 
-    close: function () {
+    save: function () {
         'use strict';
         this.input.parents('td').removeClass('editing');
         var value = this.input.val();
