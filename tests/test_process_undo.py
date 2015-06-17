@@ -137,7 +137,7 @@ class TestPerformUndo(unittest.TestCase):
         undo_consumer = perform_undo.consumer
         nd = {
             "collection": "wifi",
-            "status": "done",
+            "status": "pending",
             "ssid": "test",
             "channel": 1,
             "mode": "g",
@@ -146,10 +146,12 @@ class TestPerformUndo(unittest.TestCase):
             "password": "whatever12345",
         }
         res = self.db.save_doc(nd)
+        nd['status'] = 'done'
+        self.db.save_doc(nd, force_update=True)
         nd['ssid'] = 'robjspencer'
         nd['status'] = 'pending'
-        res2 = self.db.save_doc(nd, force_update=True)
-        event_res = add_history.add_history_item("edit wifi", "Edited wifi config", res2['id'], res2['rev'], True)
+        res3 = self.db.save_doc(nd, force_update=True)
+        event_res = add_history.add_history_item("edit wifi", "Edited wifi config", res3['id'], res3['rev'], True)
         event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
