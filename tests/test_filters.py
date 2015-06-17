@@ -7,6 +7,52 @@ from dateutil.tz import tzutc
 
 
 class TestFilters(unittest.TestCase):
+    def test_devices_edit(self):
+        not_inc = {
+            "_id": "aa:bb:cc:dd:ee:ff",
+            "action": "permit",
+            "collection": "devices",
+            "device_name": "test-device",
+            "host_name": "test-device",
+            "ip_address": "10.2.0.61",
+            "lease_action": "add",
+            "mac_address": "aa:bb:cc:dd:ee:ff",
+            "name": "Rob",
+            "state": "pending",
+            "device_type": "laptop",
+            "notification_service": "email",
+            "timestamp": time.time(),
+            "connection_event": "disconnect",
+            "changed_by": "user"
+        }
+
+        inc = {
+            "_id": "ab:bc:cd:de:ef:fa",
+            "action": "",
+            "collection": "devices",
+            "device_name": "test-device2",
+            "host_name": "test-device",
+            "ip_address": "10.2.0.65",
+            "lease_action": "add",
+            "mac_address": "ab:bc:cd:de:ef:fa",
+            "name": "Rob",
+            "state": "permit",
+            "device_type": "laptop",
+            "notification_service": "twitter",
+            "timestamp": time.time(),
+            "connection_event": "disconnect",
+            "changed_by": "user"
+        }
+        db = couchdb_config_parser.get_db()
+        db.save_doc(inc, force_update=True)
+        db.save_doc(not_inc, force_update=True)
+        stream = ChangesStream(db, filter="homework-remote/devices_ui")
+        self.assertTrue((len(list(stream)) == 1) and ('ab:bc:cd:de:ef:fa' == list(stream)[0]['id']))
+        inc['_deleted'] = True
+        not_inc['_deleted'] = True
+        db.save_doc(inc, force_update=True)
+        db.save_doc(not_inc, force_update=True)
+
     def test_devices_pox(self):
         inc = {
             "_id": "aa:bb:cc:dd:ee:ff",
