@@ -94,7 +94,8 @@ class TestFilters(unittest.TestCase):
         db.save_doc(inc)
         db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/devices_pox")
-        self.assertTrue((len(list(stream)) == 1) and ('aa:bb:cc:dd:ee:ff' == list(stream)[0]['id']))
+        self.assertEqual(len(list(stream)), 1)
+        self.assertEqual('aa:bb:cc:dd:ee:ff', list(stream)[0]['id'])
         inc['_deleted'] = True
         db.save_doc(inc, force_update=True)
         not_inc['_deleted'] = True
