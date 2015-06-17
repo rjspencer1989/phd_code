@@ -15,7 +15,9 @@ App.Collections.Events = Backbone.Collection.extend({
     url: 'events',
     model: App.Models.Event,
     db: {
-        view: 'events'
+        view: 'events',
+        changes: true,
+        filter: Backbone.couch_connector.config.ddoc_name + '/history'
     }
 });
 
@@ -42,6 +44,7 @@ App.Views.Events = Backbone.View.extend({
     collection: new App.Collections.Events(),
     initialize: function(){
         this.listenTo(this.collection, 'reset', this.render);
+        this.listenTo(this.collection, 'add', this.addOne);
         this.collection.fetch({reset: true});
         this.subviews = [];
     },
