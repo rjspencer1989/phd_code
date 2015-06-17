@@ -132,3 +132,30 @@ class TestPerformUndo(unittest.TestCase):
         doc['_deleted'] = True
         self.db.save_doc(doc, force_update=True)
         self.db.save_doc(event, force_update=True)
+
+    def test_process_undo_wifi_edit_doc(self):
+        undo_consumer = perform_undo.consumer
+        nd = {
+            "collection": "wifi",
+            "status": "done",
+            "ssid": "test",
+            "channel": 1,
+            "mode": "g",
+            "encryption_type": "wep",
+            "password_type": "txt",
+            "password": "whatever12345",
+        }
+        res = self.db.save_doc(nd)
+        nd['ssid'] = 'robjspencer'
+        nd['status'] = 'pending'
+        res2 = self.db.save_doc(nd, force_update=True)
+        event_res = add_history.add_history_item("edit wifi", "Edited wifi config", res2['id'], res2['rev'], True)
+        event = self.db.get(event_res['id'])
+        result = undo_consumer.perform_undo(event)
+        updated = self.db.get(nd['_id'], rev=result)
+        self.assertEqual(updated['ssid'], 'test')
+        self.assertEqual('pending', updated['status'])
+        nd['_deleted'] = True
+        self.db.save_doc(nd, force_update=True)
+        event['_deleted'] = True
+        self.db.save_doc(event, force_update=True)
