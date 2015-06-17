@@ -5,6 +5,7 @@ from couchdbkit import *
 from Queue import Queue
 import threading
 import os
+import add_history
 
 
 class RollbackListener(threading.Thread):
@@ -52,6 +53,7 @@ class RollbackProcessor(threading.Thread):
             the_rev = change['changes'][0]['rev']
             current_doc = self.db.get(the_id, rev=the_rev)
             self.revert(current_doc['timestamp'])
+            add_history.add_history_item("Rollback", "Roll back to %s" % (timestamp), the_id, the_rev, False)
             doc.status = 'done'
             db.save_doc(current_doc['_id'])
             self.shared_object.task_done()
