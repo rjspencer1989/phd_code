@@ -9,7 +9,7 @@ from dateutil.tz import tzutc
 class TestFilters(unittest.TestCase):
     def test_devices_edit(self):
         not_inc = {
-            "_id": "aa:bb:cc:dd:ee:ff",
+            "_id": "00:11:22:33:44:55",
             "action": "permit",
             "collection": "devices",
             "device_name": "test-device",
@@ -27,7 +27,7 @@ class TestFilters(unittest.TestCase):
         }
 
         inc = {
-            "_id": "ab:bc:cd:de:ef:fa",
+            "_id": "00:11:22:33:44:56",
             "action": "",
             "collection": "devices",
             "device_name": "test-device2",
@@ -47,7 +47,7 @@ class TestFilters(unittest.TestCase):
         db.save_doc(inc, force_update=True)
         db.save_doc(not_inc, force_update=True)
         stream = ChangesStream(db, filter="homework-remote/devices_ui")
-        self.assertTrue((len(list(stream)) == 1) and ('ab:bc:cd:de:ef:fa' == list(stream)[0]['id']))
+        self.assertTrue((len(list(stream)) == 1) and ("00:11:22:33:44:56" == list(stream)[0]['id']))
         inc['_deleted'] = True
         not_inc['_deleted'] = True
         db.save_doc(inc, force_update=True)
