@@ -88,3 +88,11 @@ App.Views.Events = Backbone.View.extend({
         this.remove();
     }
 });
+
+App.Models.Rollback = Backbone.Model.extend({
+    url: this.id,
+    defaults: {
+        collection: 'request_revert',
+        status: 'pending'
+    }
+});
