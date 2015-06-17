@@ -81,7 +81,9 @@ App.Views.Events = Backbone.View.extend({
 
     revert_state: function(){
         var date_selected = this.$('#history_dp').datepicker('getDate').toISOString();
-        console.log(date_selected);
+        newDoc = new App.Models.Rollback();
+        newDoc.set({timestamp: date_selected});
+        newDoc.save();
     },
 
     exit: function(){
