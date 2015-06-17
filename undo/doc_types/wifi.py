@@ -4,7 +4,7 @@ from base_doc import BaseDoc
 class Wifi(BaseDoc):
     def get_rev_list(self):
         revs=[]
-        initial_revs = super(Devices, self).get_rev_list()
+        initial_revs = super(Wifi, self).get_rev_list()
         for rev in initial_revs:
             doc = self.db.get(self.doc['_id'], rev=rev)
             if doc['status'] == 'done':
