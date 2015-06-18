@@ -62,6 +62,7 @@ App.Views.Notification = Backbone.View.extend({
 
     save: function () {
         'use strict';
+        var self = this;
         this.input.parents('td').removeClass('editing');
         var value = this.input.val();
         if (value) {
@@ -70,6 +71,7 @@ App.Views.Notification = Backbone.View.extend({
             this.model.save(null, {
                 success: function (model, response, options) {
                     console.log(response);
+                    self.render();
                 },
                 error: function (model, response, options) {
                     console.log(response);
@@ -109,7 +111,7 @@ App.Views.Notifications = Backbone.View.extend({
         $('.alert').hide();
         return this;
     },
-    
+
     change_handler: function(){
         'use strict';
         console.log('change');
