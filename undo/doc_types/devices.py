@@ -18,5 +18,6 @@ class Devices(BaseDoc):
         self.doc['device_type'] = doc['device_type']
         self.doc['name'] = doc['name']
         self.doc['action'] = doc['action']
+        self.doc['changed_by'] = 'user'
         res = self.db.save_doc(self.doc)
         return res['rev']
