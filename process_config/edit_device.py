@@ -19,7 +19,6 @@ class EditDeviceListener(threading.Thread):
     def run(self):
         changeStream = ChangesStream(db, feed="continuous", heartbeat=True, since=db_info['update_seq'], filter='homework-remote/edit_device')
         for change in changeStream:
-            print change
             self.shared_object.put(change)
 
 
@@ -31,10 +30,10 @@ class EditDeviceProcessor(threading.Thread):
     def run(self):
         while True:
             change = self.shared_object.get()
-            print change
             theId = change['id']
             theRev = change['changes'][0]['rev']
             current_doc = db.get(theId, rev=theRev)
+            print current_doc
             add_history.add_history_item('Edited device details', 'Edited details for %s' % (current_doc['device_name']), current_doc['doc_id'], current_doc['doc_rev'], True)
             self.shared_object.task_done()
 
