@@ -35,7 +35,7 @@ class EditDeviceProcessor(threading.Thread):
             theRev = change['changes'][0]['rev']
             current_doc = db.get(theId, rev=theRev)
             print current_doc
-            add_history.add_history_item('Edited device details', 'Edited details for %s' % (current_doc['device_name']), current_doc['doc_id'], current_doc['doc_rev'], True)
+            add_history.add_history_item('Edited device details', 'Edited details for %s' % (current_doc['device_name']), theId, theRev, True)
             self.shared_object.task_done()
 
 changeQueue = Queue()
