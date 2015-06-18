@@ -30,6 +30,7 @@ class EditDeviceProcessor(threading.Thread):
     def run(self):
         while True:
             change = self.shared_object.get()
+            print change
             theId = change['id']
             theRev = change['changes'][0]['rev']
             current_doc = db.get(theId, rev=theRev)
