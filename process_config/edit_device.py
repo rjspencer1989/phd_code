@@ -40,7 +40,7 @@ class EditDeviceProcessor(threading.Thread):
 
 changeQueue = Queue()
 producer = EditDeviceListener("producer", changeQueue)
-consumer = EditDeviceListener("consumer", changeQueue)
+consumer = EditDeviceProcessor("consumer", changeQueue)
 
 if "ENV_TESTS" not in os.environ:
     producer.start()
