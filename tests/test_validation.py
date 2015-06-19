@@ -275,7 +275,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wpa",
+            "encryption_type": "wep",
             "password": "whatever12345"
         }
         db = couchdb_config_parser.get_db()

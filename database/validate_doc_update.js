@@ -62,8 +62,8 @@ function (newDoc, oldDoc, userCtx){
         }
 
         required("mode");
-        if(newDoc.mode !== "g"){
-            throw({forbidden: "Mode must be g"});
+        if(newDoc.mode !== "g" && newDoc.mode !== "n"){
+            throw({forbidden: "Mode must be g or n"});
         }
 
         required("channel");
