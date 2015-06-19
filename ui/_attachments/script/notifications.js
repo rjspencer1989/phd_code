@@ -21,6 +21,10 @@ App.Views.Notification = Backbone.View.extend({
     tagName: 'tr',
     template: window.JST.notification_item,
 
+    initialize: function(){
+        this.listenTo(this.model, 'change', this.change_handler);
+    },
+
     events: {
         "click .edit-notification-button" : "edit",
         "click .save-notification-button" : "save",
@@ -33,6 +37,12 @@ App.Views.Notification = Backbone.View.extend({
         this.$el.empty().append(this.template(this.model.toJSON()));
         this.input = this.$('.edit');
         return this;
+    },
+
+    change_handler: function(){
+        'use strict';
+        console.log('change');
+        this.render();
     },
 
     delete: function () {
@@ -94,7 +104,6 @@ App.Views.Notifications = Backbone.View.extend({
     initialize: function () {
         'use strict';
         this.listenTo(this.collection, 'reset', this.render);
-        this.listenTo(this.collection, 'change', this.change_handler);
         this.listenTo(this.collection, 'add', this.addOne);
         this.collection.fetch({reset: true});
         this.subviews = [];
@@ -114,11 +123,6 @@ App.Views.Notifications = Backbone.View.extend({
         this.$el.find('#service').trigger('change');
         $('.alert').hide();
         return this;
-    },
-
-    change_handler: function(){
-        'use strict';
-        console.log('change');
     },
 
     getPrompt: function () {
