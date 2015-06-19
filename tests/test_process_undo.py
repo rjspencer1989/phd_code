@@ -141,7 +141,7 @@ class TestPerformUndo(unittest.TestCase):
             "ssid": "test",
             "channel": 1,
             "mode": "g",
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whatever12345",
         }

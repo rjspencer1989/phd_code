@@ -245,7 +245,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whatever12345"
         }
@@ -261,7 +261,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "a",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whatever12345"
         }
@@ -291,7 +291,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whatever12345"
         }
@@ -306,7 +306,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whatever12345"
         }
@@ -321,7 +321,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "abcdefghijklmnopqrstuvwxyz1234567890",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whatever12345"
         }
@@ -336,7 +336,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": -1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whatever12345"
         }
@@ -351,7 +351,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 12,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whatever12345"
         }
@@ -366,7 +366,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "text",
             "password": "whatever12345"
         }
@@ -381,7 +381,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whate"
         }
@@ -397,7 +397,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whatever12345"
         }
@@ -413,7 +413,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whatever"
         }
@@ -428,7 +428,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "hex",
             "password": "1234567890"
         }
@@ -444,7 +444,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "hex",
             "password": "1234567890abcdef0123456789"
         }
@@ -460,7 +460,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "hex",
             "password": "123456789"
         }
@@ -475,7 +475,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "hex",
             "password": "123456789t"
         }
@@ -490,7 +490,7 @@ class TestValidation(unittest.TestCase):
             "ssid": "spencer",
             "mode": "g",
             "channel": 1,
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "hex",
             "password": "12345678q"
         }

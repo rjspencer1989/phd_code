@@ -27,7 +27,7 @@ class TestProcessRollback(unittest.TestCase):
             "status": "done",
             "ssid": "testing",
             "mode": "g",
-            "encryption_type": "wep",
+            "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whatever12345",
             "channel": 1
