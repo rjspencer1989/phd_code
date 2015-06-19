@@ -72,30 +72,14 @@ function (newDoc, oldDoc, userCtx){
         }
 
         required("encryption_type");
-        if(newDoc.encryption_type !== "wep"){
-            throw({forbidden: "Encryption Type must be wep"});
-        }
-
-        required("password_type");
-        if(newDoc.password_type !== "txt" && newDoc.password_type !== "hex"){
-            throw({forbidden: "Password Type must be txt or hex"});
+        if(newDoc.encryption_type !== "wpa"){
+            throw({forbidden: "Encryption Type must be wpa"});
         }
 
         required("password");
-
-        if(newDoc.password_type === "txt"){
-            if(newDoc.password.length !== 5 && newDoc.password.length !== 13){
-                throw({forbidden: "WEP passwords in TXT format must be 5 or 13 characters long"});
-            }
-        } else{
-            if(newDoc.password.length !== 10 && newDoc.password.length !== 26){
-                throw({forbidden: "WEP passwords in HEX format must be 10 or 26 characters long"});
-            }
-            if(newDoc.password.search("^[0-9A-Fa-f]+$") == -1){
-                throw({forbidden: "WEP passwords in HEX format must have only 0-9 and A-F"});
-            }
+        if(newDoc.password.search("^[\x20-\x7e]{8,63}$") == -1){
+            throw({forbidden: "WPA passwords must be 8-63 characters long"});
         }
-
     } else if (newDoc.collection === "notifications") {
         required("name");
         unchanged("name");
