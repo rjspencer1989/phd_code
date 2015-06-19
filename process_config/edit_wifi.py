@@ -96,7 +96,7 @@ class WifiProcessor(threading.Thread):
                 db.save_doc(current_doc)
                 add_history.add_history_item("New WiFi Configuration", "WiFi configuration has been updated and devices will need to be reconnected", the_id, the_rev, True)
                 if self.notify():
-                    cmd = ['/sbin/reboot']
+                    cmd = ['/etc/init.d/hostapd', 'reload']
                     res = subprocess.Popen(cmd)
 changeQueue = Queue()
 producer = WifiListener("producer", changeQueue)
