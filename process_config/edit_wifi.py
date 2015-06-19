@@ -74,7 +74,11 @@ class WifiProcessor(threading.Thread):
         line_list.append('eapol_key_index_workaround=0\n')
         line_list.append('eap_server=0\n')
         line_list.append('own_ip_addr=127.0.0.1\n')
+        line_list.append('wpa=3\n')
         line_list.append('wpa_passphrase=%s\n' % (current_doc['password']))
+        line_list.append('wpa_key_mgmt=WPA-PSK\n')
+        line_list.append('wpa_pairwise=TKIP\n')
+        line_list.append('rsn_pairwise=CCMP\n')
         return line_list
 
     def run(self):
