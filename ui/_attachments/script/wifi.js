@@ -12,7 +12,11 @@ App.Models.Wifi = Backbone.Model.extend({
 
 App.Collections.Wifi = Backbone.Collection.extend({
     model : App.Models.Wifi,
-    url : 'wifi'
+    url : 'wifi',
+    db: {
+        changes: true,
+        filter: Backbone.couch_connector.config.ddoc_name + "/wifi_ui"
+    }
 });
 
 App.Views.Wifi = Backbone.View.extend({
@@ -47,9 +51,11 @@ App.Views.Wifi = Backbone.View.extend({
         var newSSID = $('#ssid_input').val();
         var newChannel = $('#channel_select :selected').val();
         var newPassword = $('#password_input').val();
+        var newMode = $('#mode_select :selected').val();
         var mod = this.collection.at(0);
         if(newSSID !== '') mod.set({ssid: newSSID});
         if(newChannel !== 'blank') mod.set({channel: newChannel});
+        if(newMode !== 'blank') mod.set({mode: newMode});
         if(newPassword !== '') mod.set({password: newPassword});
         mod.set({status: 'pending'});
         mod.save(null, {
