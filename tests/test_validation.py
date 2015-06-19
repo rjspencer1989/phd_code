@@ -246,7 +246,6 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wpa",
-            "password_type": "txt",
             "password": "whatever12345"
         }
         db = couchdb_config_parser.get_db()
@@ -262,7 +261,6 @@ class TestValidation(unittest.TestCase):
             "mode": "a",
             "channel": 1,
             "encryption_type": "wpa",
-            "password_type": "txt",
             "password": "whatever12345"
         }
         db = couchdb_config_parser.get_db()
@@ -277,7 +275,6 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wpa",
-            "password_type": "txt",
             "password": "whatever12345"
         }
         db = couchdb_config_parser.get_db()
@@ -292,7 +289,6 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wpa",
-            "password_type": "txt",
             "password": "whatever12345"
         }
         db = couchdb_config_parser.get_db()
@@ -307,7 +303,6 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wpa",
-            "password_type": "txt",
             "password": "whatever12345"
         }
         db = couchdb_config_parser.get_db()
@@ -322,7 +317,6 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wpa",
-            "password_type": "txt",
             "password": "whatever12345"
         }
         db = couchdb_config_parser.get_db()
@@ -337,7 +331,6 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": -1,
             "encryption_type": "wpa",
-            "password_type": "txt",
             "password": "whatever12345"
         }
         db = couchdb_config_parser.get_db()
@@ -352,14 +345,13 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 12,
             "encryption_type": "wpa",
-            "password_type": "txt",
             "password": "whatever12345"
         }
         db = couchdb_config_parser.get_db()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
-    def test_invalid_password_type(self):
+    def test_password_7_chars(self):
         doc = {
             "collection": "wifi",
             "status": "pending",
@@ -367,14 +359,13 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wpa",
-            "password_type": "text",
-            "password": "whatever12345"
+            "password": "whateve"
         }
         db = couchdb_config_parser.get_db()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
-    def test_txt_password_5_chars(self):
+    def test_txt_password_8_chars(self):
         doc = {
             "collection": "wifi",
             "status": "pending",
@@ -382,62 +373,14 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wpa",
-            "password_type": "txt",
-            "password": "whate"
-        }
-        db = couchdb_config_parser.get_db()
-        res = db.save_doc(doc)
-        doc['_deleted'] = True
-        db.save_doc(doc, force_update=True)
-
-    def test_txt_password_13_chars(self):
-        doc = {
-            "collection": "wifi",
-            "status": "pending",
-            "ssid": "spencer",
-            "mode": "g",
-            "channel": 1,
-            "encryption_type": "wpa",
-            "password_type": "txt",
-            "password": "whatever12345"
-        }
-        db = couchdb_config_parser.get_db()
-        res = db.save_doc(doc)
-        doc['_deleted'] = True
-        db.save_doc(doc, force_update=True)
-
-    def test_txt_password_invalid(self):
-        doc = {
-            "collection": "wifi",
-            "status": "pending",
-            "ssid": "spencer",
-            "mode": "g",
-            "channel": 1,
-            "encryption_type": "wpa",
-            "password_type": "txt",
             "password": "whatever"
         }
         db = couchdb_config_parser.get_db()
-        with self.assertRaises(Exception):
-            db.save_doc(doc)
-
-    def test_hex_password_10_chars(self):
-        doc = {
-            "collection": "wifi",
-            "status": "pending",
-            "ssid": "spencer",
-            "mode": "g",
-            "channel": 1,
-            "encryption_type": "wpa",
-            "password_type": "hex",
-            "password": "1234567890"
-        }
-        db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
         doc['_deleted'] = True
         db.save_doc(doc, force_update=True)
 
-    def test_hex_password_26_chars(self):
+    def test_password_64_chars(self):
         doc = {
             "collection": "wifi",
             "status": "pending",
@@ -445,30 +388,13 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wpa",
-            "password_type": "hex",
-            "password": "1234567890abcdef0123456789"
-        }
-        db = couchdb_config_parser.get_db()
-        res = db.save_doc(doc)
-        doc['_deleted'] = True
-        db.save_doc(doc, force_update=True)
-
-    def test_hex_password_invalid_length(self):
-        doc = {
-            "collection": "wifi",
-            "status": "pending",
-            "ssid": "spencer",
-            "mode": "g",
-            "channel": 1,
-            "encryption_type": "wpa",
-            "password_type": "hex",
-            "password": "123456789"
+            "password": "whateverwhateverwhateverwhateverwhateverwhateverwhateverwhatever"
         }
         db = couchdb_config_parser.get_db()
         with self.assertRaises(Exception):
             db.save_doc(doc)
 
-    def test_hex_password_invalid_hex(self):
+    def test_password_non_ascii_chars(self):
         doc = {
             "collection": "wifi",
             "status": "pending",
@@ -476,23 +402,7 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wpa",
-            "password_type": "hex",
-            "password": "123456789t"
-        }
-        db = couchdb_config_parser.get_db()
-        with self.assertRaises(Exception):
-            db.save_doc(doc)
-
-    def test_hex_password_invalid_hex_and_length(self):
-        doc = {
-            "collection": "wifi",
-            "status": "pending",
-            "ssid": "spencer",
-            "mode": "g",
-            "channel": 1,
-            "encryption_type": "wpa",
-            "password_type": "hex",
-            "password": "12345678q"
+            "password": "whatever±"
         }
         db = couchdb_config_parser.get_db()
         with self.assertRaises(Exception):
