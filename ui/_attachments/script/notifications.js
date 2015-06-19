@@ -10,7 +10,11 @@ App.Models.Notification = Backbone.Model.extend({
 
 App.Collections.Notifications = Backbone.Collection.extend({
     model: App.Models.Notification,
-    url: 'notifications'
+    url: 'notifications',
+    db: {
+        changes: true,
+        filter: Backbone.couch_connector.config.ddoc_name + "/Notifications_ui"
+    }
 });
 
 App.Views.Notification = Backbone.View.extend({
@@ -141,8 +145,6 @@ App.Views.Notifications = Backbone.View.extend({
         newModel.set("service", $('#service').val());
         newModel.set("status", "pending");
         this.collection.create(newModel);
-        $('#add-notification-form').get(0).reset();
-        this.getPrompt();
     },
 
     exit: function(){
