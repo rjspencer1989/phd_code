@@ -14,6 +14,7 @@ class TestWifi(unittest.TestCase):
 
         self.expected_line_list = [
             'interface=wlan0\n',
+            'bridge=br0\n',
             'driver=nl80211\n',
             'logger_syslog=-1\n',
             'logger_syslog_level=2\n',

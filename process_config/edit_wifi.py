@@ -48,6 +48,7 @@ class WifiProcessor(threading.Thread):
     def generate_config(self, current_doc):
         line_list = []
         line_list.append('interface=wlan0\n')
+        line_list.append('bridge=br0\n')
         line_list.append('driver=nl80211\n')
         line_list.append('logger_syslog=-1\n')
         line_list.append('logger_syslog_level=2\n')
@@ -60,13 +61,15 @@ class WifiProcessor(threading.Thread):
         line_list.append('ssid=%s\n' % (current_doc['ssid']))
         line_list.append('hw_mode=g\n')
         line_list.append('channel=%s\n' % current_doc['channel'])
+        if current_doc['mode'] == 'n':
+            line_list.append('ieee80211n=1\n')
         line_list.append('beacon_int=100\n')
         line_list.append('dtim_period=2\n')
         line_list.append('max_num_sta=255\n')
         line_list.append('rts_threshold=2347\n')
         line_list.append('fragm_threshold=2346\n')
         line_list.append('macaddr_acl=0\n')
-        line_list.append('auth_algs=3\n')
+        line_list.append('auth_algs=1\n')
         line_list.append('ignore_broadcast_ssid=0\n')
         line_list.append('eapol_key_index_workaround=0\n')
         line_list.append('eap_server=0\n')
