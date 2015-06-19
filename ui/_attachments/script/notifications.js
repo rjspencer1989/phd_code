@@ -143,7 +143,7 @@ App.Views.Notifications = Backbone.View.extend({
         this.collection.create(newModel, {
             sucess : function (model) {
                 console.log(model.toJSON());
-                $('#add-notification-form').reset();
+                $('#add-notification-form').get(0).reset();
             }
         });
     },
