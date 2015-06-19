@@ -140,11 +140,8 @@ App.Views.Notifications = Backbone.View.extend({
         });
         newModel.set("service", $('#service').val());
         newModel.set("status", "pending");
-        this.collection.create(newModel, {
-            sucess : function () {
-                $('#add-notification-form').get(0).reset();
-            }
-        });
+        this.collection.create(newModel);
+        $('#add-notification-form').get(0).reset();
     },
 
     exit: function(){
