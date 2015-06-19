@@ -395,6 +395,7 @@ class TestValidation(unittest.TestCase):
             db.save_doc(doc)
 
     def test_password_non_ascii_chars(self):
+        enc_pass = "whatever±".decode("utf-8")
         doc = {
             "collection": "wifi",
             "status": "pending",
@@ -402,7 +403,7 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wpa",
-            "password": "whatever±"
+            "password": enc_pass
         }
         db = couchdb_config_parser.get_db()
         with self.assertRaises(Exception):
