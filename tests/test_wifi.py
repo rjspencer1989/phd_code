@@ -4,6 +4,7 @@ from process_config import edit_wifi
 
 class TestWifi(unittest.TestCase):
     def setUp(self):
+        self.maxDiff = None
         self.current_doc = {
             "ssid": "test",
             "encryption_type": "wpa",
