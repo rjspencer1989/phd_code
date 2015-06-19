@@ -55,7 +55,6 @@ class WifiProcessor(threading.Thread):
         line_list.append('logger_stdout=-1\n')
         line_list.append('logger_stdout_level=2\n')
         line_list.append('debug=0\n')
-        line_list.append('dump_file=/tmp/hostapd.dump\n')
         line_list.append('ctrl_interface=/var/run/hostapd\n')
         line_list.append('ctrl_interface_group=0\n')
         line_list.append('ssid=%s\n' % (current_doc['ssid']))

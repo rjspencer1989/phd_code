@@ -22,7 +22,6 @@ class TestWifi(unittest.TestCase):
             'logger_stdout=-1\n',
             'logger_stdout_level=2\n',
             'debug=0\n',
-            'dump_file=/tmp/hostapd.dump\n',
             'ctrl_interface=/var/run/hostapd\n',
             'ctrl_interface_group=0\n',
             'ssid=test\n',
