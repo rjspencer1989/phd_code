@@ -1,3 +1,4 @@
+# coding=utf-8
 import unittest
 from process_config import couchdb_config_parser
 import datetime
@@ -395,7 +396,6 @@ class TestValidation(unittest.TestCase):
             db.save_doc(doc)
 
     def test_password_non_ascii_chars(self):
-        enc_pass = "whatever±".decode("utf-8")
         doc = {
             "collection": "wifi",
             "status": "pending",
@@ -403,7 +403,7 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wpa",
-            "password": enc_pass
+            "password": "whatever±"
         }
         db = couchdb_config_parser.get_db()
         with self.assertRaises(Exception):
