@@ -4,9 +4,8 @@ App.Models.Wifi = Backbone.Model.extend({
         status : 'pending',
         ssid : '',
         password : '',
-        encryption_type: 'wep',
-        password_type: 'txt',
-        mode : 'g',
+        encryption_type: 'wpa',
+        mode : 'n',
         channel : 1
     }
 });
@@ -47,12 +46,10 @@ App.Views.Wifi = Backbone.View.extend({
     saveWifi: function(){
         var newSSID = $('#ssid_input').val();
         var newChannel = $('#channel_select :selected').val();
-        var newPasswordType = $('#password_type_select :selected').val();
         var newPassword = $('#password_input').val();
         var mod = this.collection.at(0);
         if(newSSID !== '') mod.set({ssid: newSSID});
         if(newChannel !== 'blank') mod.set({channel: newChannel});
-        if(newPasswordType !== 'blank') mod.set({password_type: newPasswordType});
         if(newPassword !== '') mod.set({password: newPassword});
         mod.set({status: 'pending'});
         mod.save(null, {
