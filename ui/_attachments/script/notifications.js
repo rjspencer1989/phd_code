@@ -13,7 +13,7 @@ App.Collections.Notifications = Backbone.Collection.extend({
     url: 'notifications',
     db: {
         changes: true,
-        filter: Backbone.couch_connector.config.ddoc_name + "/Notifications_ui"
+        filter: Backbone.couch_connector.config.ddoc_name + "/notifications_ui"
     }
 });
 
