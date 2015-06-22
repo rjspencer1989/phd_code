@@ -57,7 +57,7 @@ class WifiProcessor(threading.Thread):
 
     def generate_config(self, current_doc):
         line_dict = self.get_config()
-        pprint.pprint(line_dict)
+        print line_dict
         if len(line_dict) > 0 and 'bss' not in line_dict:
             line_dict['channel'] = '%s\n' % (current_doc['channel'])
             if current_doc['mode'] == 'n' and 'ieee80211n' not in line_dict:
