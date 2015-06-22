@@ -66,7 +66,7 @@ class WifiProcessor(threading.Thread):
                 del line_list['ieee80211n']
             line_list['bss'] = 'wlan0_1\n'
             line_list['ssid'] = '%s\n' % (current_doc['ssid'])
-            line_list['wpa=3\n']
+            line_list['wpa'] = '3\n'
             line_list['wpa_passphrase'] = '%s\n' % (current_doc['password'])
             line_list['wpa_key_mgmt'] = 'WPA-PSK\n'
             line_list['wpa_pairwise'] = 'TKIP\n'
