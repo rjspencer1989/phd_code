@@ -16,24 +16,24 @@ class TestWifi(unittest.TestCase):
         }
 
         self.expected_line_list = [
-            'interface=wlan0\n',
-            'bridge=br0\n',
-            'driver=nl80211\n',
-            'ssid=test_old\n',
-            'hw_mode=g\n',
-            'channel=1\n',
-            'ieee80211n=1\n',
-            'macaddr_acl=0\n',
             'auth_algs=1\n',
-            'ignore_broadcast_ssid=0\n',
-            'eapol_key_index_workaround=0\n',
+            'bridge=br0\n',
+            'channel=1\n',
+            'driver=nl80211\n',
             'eap_server=0\n',
+            'eapol_key_index_workaround=0\n',
+            'hw_mode=g\n',
+            'ieee80211n=1\n',
+            'ignore_broadcast_ssid=0\n',
+            'interface=wlan0\n',
+            'macaddr_acl=0\n',
             'own_ip_addr=127.0.0.1\n',
+            'rsn_pairwise=CCMP\n',
+            'ssid=test_old\n',
             'wpa=3\n',
-            'wpa_passphrase=whatever\n',
             'wpa_key_mgmt=WPA-PSK\n',
             'wpa_pairwise=TKIP\n',
-            'rsn_pairwise=CCMP\n'
+            'wpa_passphrase=whatever\n'
             # 'bss=wlan0_1\n',
             # 'ssid=test\n',
             # 'wpa=3\n',
@@ -61,11 +61,11 @@ class TestWifi(unittest.TestCase):
                                                   'ignore_broadcast_ssid': '0',
                                                   'eapol_key_index_workaround': '0',
                                                   'eap_server': '0',
-                                                  'own_ip_addr': '0',
+                                                  'own_ip_addr': '127.0.0.1',
                                                   'wpa': '3',
                                                   'wpa_passphrase': 'whatever',
                                                   'wpa_key_mgmt': 'WPA-PSK',
-                                                  'wpa_passphrase': 'TKIP',
+                                                  'wpa_pairwise': 'TKIP',
                                                   'rsn_pairwise': 'CCMP'})
         retVal = cons.generate_config(self.current_doc)
         pprint.pprint(retVal)
