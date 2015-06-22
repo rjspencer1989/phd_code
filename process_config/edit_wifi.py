@@ -9,6 +9,7 @@ import subprocess
 import change_notification
 import os
 import add_history
+import json
 
 db = couchdb_config_parser.get_db()
 db_info = db.info()
@@ -47,23 +48,28 @@ class WifiProcessor(threading.Thread):
 
     def get_config(self):
         with open('/etc/hostapd/hostapd.conf', 'r') as fh:
-            return fh.readlines()
+            line_list =[]
+            lines = fh.readlines()
+            for line in lines:
+                arr = line.split('=')
+                line_list[arr[0]] = line_list[1]
+            return line_list
 
     def generate_config(self, current_doc):
         line_list = self.get_config()
-        if len(line_list) > 0 and 'bss=wlan0_1' not in line_list:
-            line_list.append('channel=%s\n' % current_doc['channel'])
-            if current_doc['mode'] == 'n' and 'ieee80211n=1\n' not in line_list:
-                line_list.append('ieee80211n=1\n')
-            elif current_doc['mode'] == 'g' and 'ieee80211n=1\n' in line_list:
-                line_list.remove('ieee80211n=1\n')
-            line_list.append('bss=wlan0_1\n')
-            line_list.append('ssid=%s\n' % (current_doc['ssid']))
-            line_list.append('wpa=3\n')
-            line_list.append('wpa_passphrase=%s\n' % (current_doc['password']))
-            line_list.append('wpa_key_mgmt=WPA-PSK\n')
-            line_list.append('wpa_pairwise=TKIP\n')
-            line_list.append('rsn_pairwise=CCMP\n')
+        if len(line_list) > 0 and 'bss' not in line_list:
+            line_list['channel'] = '%s\n' % (current_doc['channel'])
+            if current_doc['mode'] == 'n' and 'ieee80211n' not in line_list:
+                line_list['ieee80211n'] = '1\n'
+            elif current_doc['mode'] == 'g' and 'ieee80211n' in line_list:
+                del line_list['ieee80211n']
+            line_list['bss'] = 'wlan0_1\n'
+            line_list['ssid']='%s\n' % (current_doc['ssid'])
+            line_list['wpa=3\n']
+            line_list['wpa_passphrase'] ='%s\n' % (current_doc['password']))
+            line_list['wpa_key_mgmt'] = 'WPA-PSK\n'
+            line_list['wpa_pairwise'] = 'TKIP\n'
+            line_list['rsn_pairwise'] = 'CCMP\n'
         return line_list
 
     def run(self):
