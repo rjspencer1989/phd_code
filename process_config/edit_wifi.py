@@ -45,34 +45,20 @@ class WifiProcessor(threading.Thread):
                     change_notification.sendNotification(to, service, "network settings updated at %s" % (timestr))
         return True
 
+    def get_config(self):
+        with open('/etc/hostapd/hostapd.conf', 'r') as fh:
+            return fh.readlines()
+
     def generate_config(self, current_doc):
-        line_list = []
-        line_list.append('interface=wlan0\n')
-        line_list.append('bridge=br0\n')
-        line_list.append('driver=nl80211\n')
-        line_list.append('logger_syslog=-1\n')
-        line_list.append('logger_syslog_level=2\n')
-        line_list.append('logger_stdout=-1\n')
-        line_list.append('logger_stdout_level=2\n')
-        line_list.append('debug=0\n')
-        line_list.append('ctrl_interface=/var/run/hostapd\n')
-        line_list.append('ctrl_interface_group=0\n')
-        line_list.append('ssid=%s\n' % (current_doc['ssid']))
-        line_list.append('hw_mode=g\n')
+        line_list = self.get_config()
+        if len(line_list) > 0 and 'bss=wlan0_1' not in line_list:
         line_list.append('channel=%s\n' % current_doc['channel'])
-        if current_doc['mode'] == 'n':
+        if current_doc['mode'] == 'n' and 'ieee80211n=1\n' not in line_list:
             line_list.append('ieee80211n=1\n')
-        line_list.append('beacon_int=100\n')
-        line_list.append('dtim_period=2\n')
-        line_list.append('max_num_sta=255\n')
-        line_list.append('rts_threshold=2347\n')
-        line_list.append('fragm_threshold=2346\n')
-        line_list.append('macaddr_acl=0\n')
-        line_list.append('auth_algs=1\n')
-        line_list.append('ignore_broadcast_ssid=0\n')
-        line_list.append('eapol_key_index_workaround=0\n')
-        line_list.append('eap_server=0\n')
-        line_list.append('own_ip_addr=127.0.0.1\n')
+        elif current_doc['mode'] == 'g' and 'ieee80211n=1\n' in line_list:
+            line_list.remove('ieee80211n=1\n')
+        line_list.append('bss=wlan0_1\n')
+        line_list.append('ssid=%s\n' % (current_doc['ssid']))
         line_list.append('wpa=3\n')
         line_list.append('wpa_passphrase=%s\n' % (current_doc['password']))
         line_list.append('wpa_key_mgmt=WPA-PSK\n')
