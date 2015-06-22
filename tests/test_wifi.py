@@ -50,4 +50,4 @@ class TestWifi(unittest.TestCase):
         cons = edit_wifi.consumer
         cons.get_config = MagicMock(return_value={'interface': 'wlan0'})
         retVal = cons.generate_config(self.current_doc)
-        self.assertListEqual(self.expected_line_list, retVal)
+        self.assertDictEqual(self.expected_line_list, retVal)
