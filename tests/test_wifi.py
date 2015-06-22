@@ -58,7 +58,7 @@ class TestWifi(unittest.TestCase):
         self.current_doc = {}
         self.expected_line_list = []
 
-    def test_wifi(self, mock_get_config):
+    def test_wifi(self):
         cons = edit_wifi.consumer
         cons.get_config = MagicMock(return_value=['interface=wlan-\n'])
         retVal = cons.generate_config(self.current_doc)
