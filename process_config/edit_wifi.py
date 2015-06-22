@@ -48,7 +48,7 @@ class WifiProcessor(threading.Thread):
 
     def get_config(self):
         with open('/etc/hostapd/hostapd.conf', 'r') as fh:
-            line_list = []
+            line_list = {}
             lines = fh.readlines()
             for line in lines:
                 arr = line.split('=')
