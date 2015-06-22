@@ -9,7 +9,7 @@ import subprocess
 import change_notification
 import os
 import add_history
-import json
+import pprint
 
 db = couchdb_config_parser.get_db()
 db_info = db.info()
@@ -57,19 +57,20 @@ class WifiProcessor(threading.Thread):
 
     def generate_config(self, current_doc):
         line_dict = self.get_config()
+        pprint.pprint(line_dict)
         if len(line_dict) > 0 and 'bss' not in line_dict:
             line_dict['channel'] = '%s\n' % (current_doc['channel'])
             if current_doc['mode'] == 'n' and 'ieee80211n' not in line_dict:
                 line_dict['ieee80211n'] = '1\n'
             elif current_doc['mode'] == 'g' and 'ieee80211n' in line_dict:
                 del line_dict['ieee80211n']
-            line_dict['bss'] = 'wlan0_1\n'
-            line_dict['ssid'] = '%s\n' % (current_doc['ssid'])
-            line_dict['wpa'] = '3\n'
-            line_dict['wpa_passphrase'] = '%s\n' % (current_doc['password'])
-            line_dict['wpa_key_mgmt'] = 'WPA-PSK\n'
-            line_dict['wpa_pairwise'] = 'TKIP\n'
-            line_dict['rsn_pairwise'] = 'CCMP\n'
+            # line_dict['bss'] = 'wlan0_1\n'
+            # line_dict['ssid'] = '%s\n' % (current_doc['ssid'])
+            # line_dict['wpa'] = '3\n'
+            # line_dict['wpa_passphrase'] = '%s\n' % (current_doc['password'])
+            # line_dict['wpa_key_mgmt'] = 'WPA-PSK\n'
+            # line_dict['wpa_pairwise'] = 'TKIP\n'
+            # line_dict['rsn_pairwise'] = 'CCMP\n'
             line_list = []
             for key, val in line_dict.iteritems():
                 line_list.append('='.join((key, val)))
