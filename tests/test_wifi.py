@@ -1,5 +1,5 @@
 import unittest
-import mock
+from mock import MagicMock
 from process_config import edit_wifi
 
 
@@ -58,7 +58,8 @@ class TestWifi(unittest.TestCase):
         self.current_doc = {}
         self.expected_line_list = []
 
-    @mock.patch.object(edit_wifi.WifiProcessor, 'get_config')
     def test_wifi(self, mock_get_config):
-        retVal = edit_wifi.consumer.generate_config(self.current_doc)
+        cons = edit_wifi.consumer
+        cons.get_config = MagicMock(return_value=['interface=wlan-\n'])
+        retVal = cons.generate_config(self.current_doc)
         self.assertListEqual(self.expected_line_list, retVal)
