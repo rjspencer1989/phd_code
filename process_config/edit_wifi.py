@@ -53,6 +53,7 @@ class WifiProcessor(threading.Thread):
             for line in lines:
                 arr = line.split('=')
                 line_list[arr[0]] = line_list[1]
+            print line_list
             return line_list
 
     def generate_config(self, current_doc):
