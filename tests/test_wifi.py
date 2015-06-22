@@ -1,6 +1,7 @@
 import unittest
 from mock import MagicMock
 from process_config import edit_wifi
+import pprint
 
 
 class TestWifi(unittest.TestCase):
@@ -51,4 +52,5 @@ class TestWifi(unittest.TestCase):
         cons.get_config = MagicMock(return_value={'interface': 'wlan0',
                                                   'bridge': 'br0'})
         retVal = cons.generate_config(self.current_doc)
+        pprint.pprint(retVal)
         self.assertListEqual(self.expected_line_list, retVal)
