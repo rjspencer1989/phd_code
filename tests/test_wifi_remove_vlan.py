@@ -1,5 +1,5 @@
 import unittest
-import remove_vlan
+from process_config import remove_vlan
 from mock import MagicMock
 
 
