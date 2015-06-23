@@ -76,13 +76,13 @@ class WifiProcessor(threading.Thread):
             for key, value in zip(keys, values):
                 line = '{0}={1}\n'.format(key, value)
                 lines.append(line)
-            # line_list['bss'] = 'wlan0_1\n'
-            # line_list['ssid'] = '%s\n' % (current_doc['ssid'])
-            # line_list['wpa'] = '3\n'
-            # line_list['wpa_passphrase'] = '%s\n' % (current_doc['password'])
-            # line_list['wpa_key_mgmt'] = 'WPA-PSK\n'
-            # line_list['wpa_pairwise'] = 'TKIP\n'
-            # line_list['rsn_pairwise'] = 'CCMP\n'
+            lines.append('bss=wlan0_1\n')
+            lines.append('ssid=%s\n' % (current_doc['ssid']))
+            lines.append('wpa=3\n')
+            lines.append('wpa_passphrase=%s\n' % (current_doc['password']))
+            lines.append('wpa_key_mgmt=WPA-PSK\n')
+            lines.append('wpa_pairwise=TKIP\n')
+            lines.append('rsn_pairwse=CCMP')
         return lines
 
     def run(self):

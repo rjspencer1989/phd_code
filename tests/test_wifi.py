@@ -33,14 +33,14 @@ class TestWifi(unittest.TestCase):
             'wpa_passphrase=whatever\n',
             'wpa_key_mgmt=WPA-PSK\n',
             'wpa_pairwise=TKIP\n',
+            'rsn_pairwise=CCMP\n',
+            'bss=wlan0_1\n',
+            'ssid=test\n',
+            'wpa=3\n',
+            'wpa_passphrase=whatever\n',
+            'wpa_key_mgmt=WPA-PSK\n',
+            'wpa_pairwise=TKIP\n',
             'rsn_pairwise=CCMP\n'
-            # 'bss=wlan0_1\n',
-            # 'ssid=test\n',
-            # 'wpa=3\n',
-            # 'wpa_passphrase=whatever\n',
-            # 'wpa_key_mgmt=WPA-PSK\n',
-            # 'wpa_pairwise=TKIP\n',
-            # 'rsn_pairwise=CCMP\n'
         ]
 
     def tearDown(self):
