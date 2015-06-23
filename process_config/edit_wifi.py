@@ -13,9 +13,11 @@ import pprint
 
 db = couchdb_config_parser.get_db()
 
+
 def get_connected_devices():
     vr = db.view('homework-remote/connected_devices')
     return vr.all()
+
 
 def notify(devices):
     if devices is not None and len(devices) > 0:
@@ -26,6 +28,7 @@ def notify(devices):
                 timestr = datetime.now().strftime("%H:%M:%S")
                 change_notification.sendNotification(to, service, "network settings updated at %s" % (timestr))
     return True
+
 
 def get_config():
     with open('/etc/hostapd/hostapd.conf', 'r') as fh:
@@ -38,13 +41,16 @@ def get_config():
             values.append(arr[1].strip())
         return (keys, values)
 
+
 def write_config_file(lines):
     with open('/etc/hostapd/hostapd.conf', 'w') as fh:
         fh.writelines(lines)
 
+
 def reload_hostapd():
     cmd = ['/etc/init.d/hostapd', 'reload']
     res = subprocess.Popen(cmd)
+
 
 def generate_config(current_doc):
     line_list = get_config()
@@ -73,6 +79,7 @@ def generate_config(current_doc):
         lines.append('wpa_pairwise=TKIP\n')
         lines.append('rsn_pairwise=CCMP')
     return lines
+
 
 def process_wifi(doc):
     line_list = self.generate_config(doc)
