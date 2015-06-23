@@ -10,7 +10,7 @@ import change_notification
 import os
 import add_history
 import pprint
-impor edit_wifi
+import edit_wifi
 
 db = couchdb_config_parser.get_db()
 db_info = db.info()
