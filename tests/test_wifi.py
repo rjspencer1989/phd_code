@@ -40,7 +40,7 @@ class TestWifi(unittest.TestCase):
             'wpa_passphrase=whatever\n',
             'wpa_key_mgmt=WPA-PSK\n',
             'wpa_pairwise=TKIP\n',
-            'rsn_pairwise=CCMP\n'
+            'rsn_pairwise=CCMP'
         ]
 
     def tearDown(self):
