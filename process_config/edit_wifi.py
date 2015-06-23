@@ -82,7 +82,7 @@ class WifiProcessor(threading.Thread):
             lines.append('wpa_passphrase=%s\n' % (current_doc['password']))
             lines.append('wpa_key_mgmt=WPA-PSK\n')
             lines.append('wpa_pairwise=TKIP\n')
-            lines.append('rsn_pairwse=CCMP')
+            lines.append('rsn_pairwise=CCMP')
         return lines
 
     def run(self):
