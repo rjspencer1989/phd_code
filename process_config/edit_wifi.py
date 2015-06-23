@@ -54,13 +54,13 @@ class WifiProcessor(threading.Thread):
             for line in lines:
                 arr = line.split('=')
                 keys.append(arr[0])
-                values.append(arr[1])
+                values.append(arr[1].strip())
             return (keys, values)
 
     def generate_config(self, current_doc):
         line_list = self.get_config()
         keys = line_list[0]
-        values = line_list[1].strip()
+        values = line_list[1]
         lines = []
         print keys
         if len(keys) > 0 and 'bss' not in keys:
