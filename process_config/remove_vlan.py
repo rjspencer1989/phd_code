@@ -10,6 +10,7 @@ def get_config():
             values.append(arr[1].strip())
         return (keys, values)
 
+
 def remove_vlan():
     lines = []
     config = get_config()
