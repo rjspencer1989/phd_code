@@ -49,24 +49,9 @@ class TestWifi(unittest.TestCase):
 
     def test_wifi(self):
         cons = edit_wifi.consumer
-        cons.get_config = MagicMock(return_value={'interface': 'wlan0',
-                                                  'bridge': 'br0',
-                                                  'driver': 'nl80211',
-                                                  'ssid': 'test_old',
-                                                  'hw_mode': 'g',
-                                                  'channel': '1',
-                                                  'ieee80211n': '1',
-                                                  'macaddr_acl': '0',
-                                                  'auth_algs': '1',
-                                                  'ignore_broadcast_ssid': '0',
-                                                  'eapol_key_index_workaround': '0',
-                                                  'eap_server': '0',
-                                                  'own_ip_addr': '127.0.0.1',
-                                                  'wpa': '3',
-                                                  'wpa_passphrase': 'whatever',
-                                                  'wpa_key_mgmt': 'WPA-PSK',
-                                                  'wpa_pairwise': 'TKIP',
-                                                  'rsn_pairwise': 'CCMP'})
+        keys = ['interface', 'bridge', 'driver', 'ssid', 'hw_mode', 'channel', 'ieee80211n', 'macaddr_acl', 'auth_algs', 'ignore_broadcast_ssid', 'eapol_key_index_workaround', 'eap_server', 'own_ip_addr', 'wpa', 'wpa_passphrase', 'wpa_key_mgmt', 'wpa_pairwise', 'rsn_pairwise']
+        values = ['wlan0', 'br0', 'nl80211', 'test_old', 'g', '1', '1', '0', '1', '0', '0', '0', '127.0.0.1', '3', 'whatever', 'WPA-PSK', 'TKIP', 'CCMP']
+        cons.get_config = MagicMock(return_value=(keys, values))
         retVal = cons.generate_config(self.current_doc)
         pprint.pprint(retVal)
         self.assertListEqual(self.expected_line_list, retVal)

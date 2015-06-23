@@ -48,33 +48,42 @@ class WifiProcessor(threading.Thread):
 
     def get_config(self):
         with open('/etc/hostapd/hostapd.conf', 'r') as fh:
-            line_list = {}
+            keys = []
+            values = []
             lines = fh.readlines()
             for line in lines:
                 arr = line.split('=')
-                line_list[arr[0]] = line_list[1]
-            return line_list
+                keys.append(arr[0])
+                values.append(arr[1])
+            return (keys, values)
 
     def generate_config(self, current_doc):
-        line_dict = self.get_config()
-        print line_dict
-        if len(line_dict) > 0 and 'bss' not in line_dict:
-            line_dict['channel'] = '%s\n' % (current_doc['channel'])
-            if current_doc['mode'] == 'n' and 'ieee80211n' not in line_dict:
-                line_dict['ieee80211n'] = '1\n'
-            elif current_doc['mode'] == 'g' and 'ieee80211n' in line_dict:
-                del line_dict['ieee80211n']
-            # line_dict['bss'] = 'wlan0_1\n'
-            # line_dict['ssid'] = '%s\n' % (current_doc['ssid'])
-            # line_dict['wpa'] = '3\n'
-            # line_dict['wpa_passphrase'] = '%s\n' % (current_doc['password'])
-            # line_dict['wpa_key_mgmt'] = 'WPA-PSK\n'
-            # line_dict['wpa_pairwise'] = 'TKIP\n'
-            # line_dict['rsn_pairwise'] = 'CCMP\n'
-            line_list = []
-            for key, val in line_dict.iteritems():
-                line_list.append('='.join((key, val)))
-        return line_list
+        line_list = self.get_config()
+        keys = line_list[0]
+        values = line_list[1]
+        lines = []
+        print keys
+        if len(keys) > 0 and 'bss' not in keys:
+            channel_index = keys.index('channel')
+            values[channel_index] = current_doc['channel']
+            if current_doc['mode'] == 'n' and 'ieee80211n' not in keys:
+                keys.append('ieee80211n')
+                values.append('1')
+            elif current_doc['mode'] == 'g' and 'ieee80211n\n' in keys:
+                n_index = keys.index('ieee80211n')
+                keys.pop(n_index)
+                values.pop(n_index)
+            for key, value in zip(keys, values):
+                line = '{0}={1}'.format(key, value)
+                lines.append(line)
+            # line_list['bss'] = 'wlan0_1\n'
+            # line_list['ssid'] = '%s\n' % (current_doc['ssid'])
+            # line_list['wpa'] = '3\n'
+            # line_list['wpa_passphrase'] = '%s\n' % (current_doc['password'])
+            # line_list['wpa_key_mgmt'] = 'WPA-PSK\n'
+            # line_list['wpa_pairwise'] = 'TKIP\n'
+            # line_list['rsn_pairwise'] = 'CCMP\n'
+        return lines
 
     def run(self):
         while(True):
