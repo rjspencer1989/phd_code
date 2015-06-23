@@ -60,7 +60,7 @@ class WifiProcessor(threading.Thread):
     def generate_config(self, current_doc):
         line_list = self.get_config()
         keys = line_list[0]
-        values = line_list[1]
+        values = line_list[1].strip()
         lines = []
         print keys
         if len(keys) > 0 and 'bss' not in keys:
@@ -68,13 +68,13 @@ class WifiProcessor(threading.Thread):
             values[channel_index] = current_doc['channel']
             if current_doc['mode'] == 'n' and 'ieee80211n' not in keys:
                 keys.append('ieee80211n')
-                values.append('1')
-            elif current_doc['mode'] == 'g' and 'ieee80211n\n' in keys:
+                values.append('1\n')
+            elif current_doc['mode'] == 'g' and 'ieee80211n' in keys:
                 n_index = keys.index('ieee80211n')
                 keys.pop(n_index)
                 values.pop(n_index)
             for key, value in zip(keys, values):
-                line = '{0}={1}'.format(key, value)
+                line = '{0}={1}\n'.format(key, value)
                 lines.append(line)
             # line_list['bss'] = 'wlan0_1\n'
             # line_list['ssid'] = '%s\n' % (current_doc['ssid'])
