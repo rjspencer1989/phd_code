@@ -53,5 +53,4 @@ class TestWifi(unittest.TestCase):
         values = ['wlan0', 'br0', 'nl80211', 'test_old', 'g', '1', '1', '0', '1', '0', '0', '0', '127.0.0.1', '3', 'whatever', 'WPA-PSK', 'TKIP', 'CCMP']
         cons.get_config = MagicMock(return_value=(keys, values))
         retVal = cons.generate_config(self.current_doc)
-        pprint.pprint(retVal)
         self.assertListEqual(self.expected_line_list, retVal)

@@ -76,4 +76,4 @@ class TestRemoveVlan(unittest.TestCase):
                   'CCMP']
         mod = remove_vlan
         mod.get_config = MagicMock(return_value=(keys, values))
-        self.assertListEqual(expected, mod.remove_vlan())
+        self.assertListEqual(expected, mod.generate_config())

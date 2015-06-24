@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+def reload_hostapd():
+    cmd = ['/etc/init.d/hostapd', 'reload']
+    res = subprocess.Popen(cmd)
+
+
 def get_config():
     with open('/etc/hostapd/hostapd.conf') as fh:
         keys = []
@@ -11,7 +16,12 @@ def get_config():
         return (keys, values)
 
 
-def remove_vlan():
+def write_config_file(lines):
+    with open('/etc/hostapd/hostapd.conf', 'w') as fh:
+        fh.writelines(lines)
+
+
+def generate_config():
     lines = []
     config = get_config()
     keys = config[0]
@@ -34,3 +44,9 @@ def remove_vlan():
             line = '{0}={1}\n'.format(key, value)
             lines.append(line)
     return lines
+
+
+def remove_vlan():
+    lines = generate_config()
+    write_config_file(lines)
+    reload_hostapd()
