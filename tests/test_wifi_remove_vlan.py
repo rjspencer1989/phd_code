@@ -23,7 +23,7 @@ class TestRemoveVlan(unittest.TestCase):
                     'wpa_passphrase=whatever_next\n',
                     'wpa_key_mgmt=WPA-PSK\n',
                     'wpa_pairwise=TKIP\n',
-                    'rsn_pairwise=CCMP']
+                    'rsn_pairwise=CCMP\n']
         keys = ['interface',
                 'bridge',
                 'driver',
