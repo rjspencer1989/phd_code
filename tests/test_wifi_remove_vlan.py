@@ -8,7 +8,12 @@ class TestRemoveVlan(unittest.TestCase):
         self.maxDiff = None
         expected = ['interface=wlan0\n',
                     'bridge=br0\n',
-                    'driver=nl80211\n']
+                    'driver=nl80211\n',
+                    'ssid=test\n',
+                    'hw_mode=g\n',
+                    'channel=1\n',
+                    'ieee80211n=1\n',
+                    'macaddr_acl=0\n']
         keys = ['interface',
                 'bridge',
                 'driver',
@@ -55,7 +60,7 @@ class TestRemoveVlan(unittest.TestCase):
                   'wlan0_1',
                   'test',
                   '3',
-                  'whatever',
+                  'whatever_next',
                   'WPA-PSK',
                   'TKIP',
                   'CCMP']
