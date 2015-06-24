@@ -42,7 +42,7 @@ App.Views.Wifi = Backbone.View.extend({
     render: function(){
         this.$el.html(this.template(this.collection.at(0).toJSON()));
         $('#main-row').empty().append(this.el);
-        setActiveLink('network-link');
+        setActiveLink('wifi-link');
         $('.alert').hide();
         return this;
     },
