@@ -22,7 +22,8 @@ App.Collections.Events = Backbone.Collection.extend({
 });
 
 App.Views.Event = Backbone.View.extend({
-    className: 'item',
+    tagName: 'dd',
+    className: 'pos-right clearfix',
     template: window.JST.history_item,
     events:{
         'click .undo-button': 'request_undo'
