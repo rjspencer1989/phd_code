@@ -6,6 +6,9 @@ from mock import MagicMock
 class TestRemoveVlan(unittest.TestCase):
     def test_remove_vlan(self):
         self.maxDiff = None
+        expected = ['interface=wlan0\n',
+                    'bridge=br0\n',
+                    'driver=nl80211\n']
         keys = ['interface',
                 'bridge',
                 'driver',
@@ -49,11 +52,13 @@ class TestRemoveVlan(unittest.TestCase):
                   'WPA-PSK',
                   'TKIP',
                   'CCMP',
+                  'wlan0_1',
                   'test',
+                  '3',
                   'whatever',
                   'WPA-PSK',
                   'TKIP',
                   'CCMP']
         mod = remove_vlan
         mod.get_config = MagicMock(return_value=(keys, values))
-        self.assertEqual((['interface'], ['wlan0']), mod.remove_vlan())
+        self.assertListEqual(expected, mod.remove_vlan())
