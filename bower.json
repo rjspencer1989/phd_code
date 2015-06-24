@@ -1,15 +1,16 @@
 {
-    "name": "phd-config-ui",
-    "version": "0.0.1",
-    "dependencies": {
-        "jquery" : "latest",
-        "backbone":"latest",
-        "backbone-couchdb": "latest",
-        "jasmine": "latest",
-        "jasmine-jquery" : "latest",
-        "bootstrap": "latest",
-        "jquery-json" : "latest",
-        "bootstrap-datepicker": "latest"
-    },
-    "private" : true
+  "name": "phd-config-ui",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "latest",
+    "backbone": "latest",
+    "backbone-couchdb": "latest",
+    "jasmine": "latest",
+    "jasmine-jquery": "latest",
+    "bootstrap": "latest",
+    "jquery-json": "latest",
+    "bootstrap-datepicker": "latest",
+    "bootflat": "*"
+  },
+  "private": true
 }
