@@ -59,22 +59,13 @@ App.Views.Events = Backbone.View.extend({
         $('#main-row').empty().append(this.el);
         setActiveLink('history-link');
         this.collection.each(this.addOne, this);
-        $('.carousel').carousel();
         return this;
     },
 
     addOne: function(event, index){
-        var indicator = $(document.createElement('li'));
-        indicator.attr('data-target', '#carousel-history');
-        indicator.attr('data-slide-to', index);
-        $('.carousel-indicators').append(indicator);
         var view = new App.Views.Event({model: event});
         this.subviews.push(view);
-        this.$('.carousel-inner').append(view.render().el);
-        if(index === this.collection.length -1){
-            indicator.addClass('active');
-            view.$el.addClass('active');
-        }
+        this.$('dl').append(view.render().el);
         if(event.get('undoable') === true){
             view.$el.addClass('undoable');
         }
