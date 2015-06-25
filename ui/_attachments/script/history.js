@@ -23,13 +23,22 @@ App.Collections.Events = Backbone.Collection.extend({
 
 App.Views.Event = Backbone.View.extend({
     tagName: 'dd',
-    className: 'pos-right clearfix',
     template: window.JST.history_item,
+    initialize: function(){
+        this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    },
+
     events:{
         'click .undo-button': 'request_undo'
     },
     render: function(){
-        this.$el.empty().append(this.template(this.model.toJSON()));
+        data = {}
+        data.title = this.model.get('title');
+        data.description = this.model.get('description');
+        date = new Date(this.model.get('timestamp'))
+        data.day = date.getDate()
+        data.month = this.months[date.getMonth()]
+        this.$el.empty().append(this.template(this.data);
         return this;
     },
     request_undo: function(){
@@ -63,7 +72,11 @@ App.Views.Events = Backbone.View.extend({
     },
 
     addOne: function(event, index){
-        var view = new App.Views.Event({model: event});
+        var cn = 'pos-left clearfix'
+        if (index % 2 === 0) {
+            cn = 'pos-right clearfix'
+        }
+        var view = new App.Views.Event({model: event, className: cn});
         this.subviews.push(view);
         this.$('dl').append(view.render().el);
         if(event.get('undoable') === true){
