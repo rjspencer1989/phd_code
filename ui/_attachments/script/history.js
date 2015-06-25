@@ -38,7 +38,7 @@ App.Views.Event = Backbone.View.extend({
         date = new Date(this.model.get('timestamp'));
         data.day = date.getDate();
         data.month = this.months[date.getMonth()];
-        this.$el.empty().append(this.template(this.data));
+        this.$el.empty().append(this.template(data));
         return this;
     },
     request_undo: function(){
