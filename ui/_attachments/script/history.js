@@ -55,7 +55,7 @@ App.Views.Events = Backbone.View.extend({
     initialize: function(){
         this.listenTo(this.collection, 'reset', this.render);
         this.listenTo(this.collection, 'add', this.addOne);
-        this.collection.fetch({reset: true});
+        this.collection.fetch({reset: true, descending: true});
         this.subviews = [];
     },
 
