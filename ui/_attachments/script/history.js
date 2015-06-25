@@ -32,7 +32,7 @@ App.Views.Event = Backbone.View.extend({
         'click .undo-button': 'request_undo'
     },
     render: function(){
-        data = {}
+        data = {};
         data.title = this.model.get('title');
         data.description = this.model.get('description');
         date = new Date(this.model.get('timestamp'));
