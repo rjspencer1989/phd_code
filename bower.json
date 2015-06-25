@@ -9,8 +9,7 @@
     "jasmine-jquery": "latest",
     "bootstrap": "latest",
     "jquery-json": "latest",
-    "bootstrap-datepicker": "latest",
-    "bootflat": "*"
+    "bootstrap-datepicker": "latest"
   },
   "private": true
 }

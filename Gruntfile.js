@@ -40,10 +40,6 @@ module.exports = function(grunt){
                 files: {
                     'libs/backbone.js': 'backbone/backbone.js',
                     'libs/backbone-couchdb.js': 'backbone-couchdb/backbone-couchdb.js',
-                    'libs/bootflat/css': 'bootflat/css',
-                    'libs/bootflat/fonts': 'bootflat/fonts',
-                    'libs/bootflat/img': 'bootflat/img',
-                    'libs/bootflat/js': 'bootflat/js',
                     'libs/bootstrap/css/bootstrap.css': 'bootstrap/dist/css/bootstrap.css',
                     'libs/bootstrap/fonts': 'bootstrap/dist/fonts',
                     'libs/bootstrap/js/bootstrap.min.js': 'bootstrap/dist/js/bootstrap.min.js',
