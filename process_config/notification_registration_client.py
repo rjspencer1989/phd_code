@@ -87,7 +87,7 @@ def registration(doc):
                 title = 'Added notification registration'
                 desc = ('Added %s as %s for %s' %
                         (doc['user'], prompts['service'], doc['name']))
-                add_history_item(title, , doc['_id'], doc['_rev'], True)
+                add_history_item(title, desc, doc['_id'], doc['_rev'], True)
         except urllib2.HTTPError, e:
             doc['status'] = 'error'
         except urllib2.URLError, e:
