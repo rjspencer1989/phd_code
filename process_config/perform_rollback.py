@@ -5,7 +5,7 @@ from couchdbkit import *
 from Queue import Queue
 import threading
 import os
-from add_history.add_history_item
+from add_history import add_history_item
 
 
 class RollbackListener(threading.Thread):
