@@ -9,7 +9,8 @@ import couchdb_config_parser
 import add_history
 import notification_registration_client
 
-db = couchdb_config_parser.get_db() db_info = db.info()
+db = couchdb_config_parser.get_db()
+db_info = db.info()
 
 
 class NotificationListener(threading.Thread):
