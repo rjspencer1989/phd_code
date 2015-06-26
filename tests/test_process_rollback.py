@@ -42,22 +42,22 @@ class TestProcessRollback(unittest.TestCase):
         res1 = self.db.save_doc(self.wifi_doc)
         self.test_doc_ids.append(res1['id'])
         dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
-        self.hist1 = self.add_history_item(res1['id'], res1['rev'], dt.isoformat())
+        self.hist1 = self.add_history(res1['id'], res1['rev'], dt.isoformat())
         self.test_doc_ids.append(self.hist1['id'])
         self.wifi_doc['ssid'] = 'testing2'
         res2 = self.db.save_doc(self.wifi_doc)
         dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
-        self.hist2 = self.add_history_item(res2['id'], res2['rev'], dt.isoformat())
+        self.hist2 = self.add_history(res2['id'], res2['rev'], dt.isoformat())
         self.test_doc_ids.append(self.hist2['id'])
         self.wifi_doc['ssid'] = 'testing3'
         res3 = self.db.save_doc(self.wifi_doc)
         dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
-        self.hist3 = self.add_history_item(res3['id'], res3['rev'], dt.isoformat())
+        self.hist3 = self.add_history(res3['id'], res3['rev'], dt.isoformat())
         self.test_doc_ids.append(self.hist3['id'])
         res4 = self.db.save_doc(self.notification_doc)
         self.test_doc_ids.append(res4['id'])
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
-        self.hist4 = self.add_history_item(res4['id'], res4['rev'], dt.isoformat())
+        self.hist4 = self.add_history(res4['id'], res4['rev'], dt.isoformat())
         self.test_doc_ids.append(self.hist4['id'])
         self.revert_timestamp = datetime.datetime(2015, 1, 20).isoformat()
         self.rb = perform_rollback.consumer
@@ -68,7 +68,7 @@ class TestProcessRollback(unittest.TestCase):
             opened['_deleted'] = True
             self.db.save_doc(opened, force_update=True)
 
-    def add_history_item(self, doc_id, doc_rev, timestamp):
+    def add_history(self, doc_id, doc_rev, timestamp):
         doc = {
             'collection': 'events',
             'title': 'rollback test',

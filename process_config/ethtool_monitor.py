@@ -5,6 +5,7 @@ from couchdbkit import *
 from subprocess import *
 import couchdb_config_parser
 import time
+from add_history import add_history_item
 
 db = couchdb_config_parser.get_db()
 interface_list = netifaces.interfaces()
@@ -22,15 +23,24 @@ while True:
             row = rows[0]
             mac_address = row['value']
             device_doc = db.get(mac_address)
+            name = device_doc['device_name']
+            if device_doc['device_name'] == '':
+                name = device_doc['mac_address']
 
             if "\tLink detected: yes" in lines:
                 if device_doc['connection_event'] == 'disconnect':
                     device_doc['connection_event'] = 'connect'
                     device_doc['changed_by'] = 'connected_devices'
-                    db.save_doc(device_doc)
+                    res = db.save_doc(device_doc)
+                    title = 'Device connected'
+                    desc = '%s connected' % (name)
+                    add_history_item(title, desc, res['id'], res['rev'], False)
             else:
                 if device_doc['connection_event'] == 'connect':
                     device_doc['connection_event'] = 'disconnect'
                     device_doc['changed_by'] = 'connected_devices'
-                    db.save_doc(device_doc)
+                    res = db.save_doc(device_doc)
+                    title = 'Device disconnected'
+                    desc = '%s disconnected' % (name)
+                    add_history_item(title, desc, res['id'], res['rev'], False)
     time.sleep(1)

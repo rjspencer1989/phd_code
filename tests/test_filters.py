@@ -143,7 +143,8 @@ class TestFilters(unittest.TestCase):
         db.save_doc(inc, force_update=True)
         db.save_doc(not_inc, force_update=True)
         stream = ChangesStream(db, filter="homework-remote/devices_ui")
-        self.assertTrue((len(list(stream)) == 1) and ('ab:bc:cd:de:ef:fa' == list(stream)[0]['id']))
+        self.assertEqual(1, len(list(stream)))
+        self.assertEqual('ab:bc:cd:de:ef:fa', list(stream)[0]['id'])
         inc['_deleted'] = True
         not_inc['_deleted'] = True
         db.save_doc(inc, force_update=True)
@@ -169,8 +170,10 @@ class TestFilters(unittest.TestCase):
         db = couchdb_config_parser.get_db()
         res = db.save_doc(inc)
         res2 = db.save_doc(not_inc)
-        stream = ChangesStream(db, filter="homework-remote/notification_request")
-        self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
+        stream = ChangesStream(db,
+                               filter="homework-remote/notification_request")
+        self.assertEqual(1, len(list(stream)))
+        self.assertEqual(res['id'], list(stream)[0]['id'])
         inc['hidden'] = True
         not_inc['hidden'] = True
         db.save_doc(inc, force_update=True)
@@ -197,7 +200,8 @@ class TestFilters(unittest.TestCase):
         res = db.save_doc(inc)
         res2 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/notifications")
-        self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
+        self.assertEqual(1, len(list(stream)))
+        self.assertEqual(res['id'], list(stream)[0]['id'])
         inc['hidden'] = True
         not_inc['hidden'] = True
         db.save_doc(inc, force_update=True)
@@ -242,7 +246,8 @@ class TestFilters(unittest.TestCase):
         res2 = db.save_doc(not_inc_not_perform_undo)
         res3 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/undo")
-        self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
+        self.assertEqual(1, len(list(stream)))
+        self.assertEqual(res['id'], list(stream)[0]['id'])
         inc['_deleted'] = True
         not_inc_not_perform_undo['_deleted'] = True
         not_inc['_deleted'] = True
@@ -277,7 +282,8 @@ class TestFilters(unittest.TestCase):
         res = db.save_doc(inc)
         res2 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/wifi")
-        self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
+        self.assertEqual(1, len(list(stream)))
+        self.assertEqual(res['id'], list(stream)[0]['id'])
         inc['hidden'] = True
         not_inc['hidden'] = True
         db.save_doc(inc, force_update=True)
@@ -300,7 +306,8 @@ class TestFilters(unittest.TestCase):
         res = db.save_doc(inc)
         res2 = db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/revert")
-        self.assertTrue((len(list(stream)) == 1) and (res['id'] == list(stream)[0]['id']))
+        self.assertEqual(1, len(list(stream)))
+        self.assertEqual(res['id'], list(stream)[0]['id'])
         inc['_deleted'] = True
         not_inc['_deleted'] = True
         db.save_doc(inc, force_update=True)

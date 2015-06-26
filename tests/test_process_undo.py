@@ -1,5 +1,7 @@
 import unittest
-from process_config import couchdb_config_parser, add_history, notification_registration_client
+from process_config import couchdb_config_parser
+from process_config.add_history import add_history_item
+from process_config import notification_registration_client
 from undo import perform_undo
 from undo.doc_types import notifications
 import time
@@ -34,7 +36,9 @@ class TestPerformUndo(unittest.TestCase):
         res = self.db.save_doc(nd)
         notification_registration_client.registration(nd)
         nd = self.db.get(nd['_id'])
-        event_res = add_history.add_history_item("new notification", "added notification mapping for Rob using Twitter and username rjspencer1989", res['id'], res['rev'], True)
+        title = "new notification"
+        desc = "added rjspencer1989 as twitter username for Rob"
+        event_res = add_history_item(title, desc, res['id'], res['rev'], True)
         event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
@@ -57,7 +61,9 @@ class TestPerformUndo(unittest.TestCase):
         nd = self.db.get(nd['_id'])
         nd['hidden'] = True
         res = self.db.save_doc(nd)
-        event_res = add_history.add_history_item("new notification", "added notification mapping for Rob using Twitter and username rjspencer1989", res['id'], res['rev'], True)
+        title = "New Notification"
+        desc = "Added rjspencer1989 as twitter username for Rob"
+        event_res = add_history_item(title, desc, res['id'], res['rev'], True)
         event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
@@ -79,7 +85,9 @@ class TestPerformUndo(unittest.TestCase):
         notification_registration_client.registration(nd)
         nd['user'] = 'robjspencer'
         res2 = self.db.save_doc(nd, force_update=True)
-        event_res = add_history.add_history_item("edit notification", "Edited notification mapping for Rob using Twitter and username robjspencer", res2['id'], res2['rev'], True)
+        title = "Edit Notification"
+        desc = "Edited twitter username for Rob now identified by robjspencer"
+        event_res = add_history_item(title, desc, nd['_id'], res2['rev'], True)
         event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
@@ -123,7 +131,9 @@ class TestPerformUndo(unittest.TestCase):
         doc['action'] = 'permit'
         doc['changed_by'] = 'user'
         res = self.db.save_doc(doc)  # user changes their mind
-        event_res = add_history.add_history_item("Permit device", "Permitted  test-device", res['id'], res['rev'], True)
+        title = "Permit Device"
+        desc = "Permitted Test Device"
+        event_res = add_history_item(title, desc, res['id'], res['rev'], True)
         event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
         updated = self.db.open_doc(doc['_id'], rev=result)
@@ -151,7 +161,9 @@ class TestPerformUndo(unittest.TestCase):
         nd['ssid'] = 'robjspencer'
         nd['status'] = 'pending'
         res3 = self.db.save_doc(nd, force_update=True)
-        event_res = add_history.add_history_item("edit wifi", "Edited wifi config", res3['id'], res3['rev'], True)
+        title = "edit wifi"
+        desc = "Edited wifi config"
+        event_res = add_history_item(title, desc, nd['_id'], res3['rev'], True)
         event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)

@@ -382,6 +382,7 @@ class TestValidation(unittest.TestCase):
         db.save_doc(doc, force_update=True)
 
     def test_password_64_chars(self):
+        pw = "whateverwhateverwhateverwhateverwhateverwhateverwhateverwhatever"
         doc = {
             "collection": "wifi",
             "status": "pending",
@@ -389,7 +390,7 @@ class TestValidation(unittest.TestCase):
             "mode": "g",
             "channel": 1,
             "encryption_type": "wpa",
-            "password": "whateverwhateverwhateverwhateverwhateverwhateverwhateverwhatever"
+            "password": pw
         }
         db = couchdb_config_parser.get_db()
         with self.assertRaises(Exception):

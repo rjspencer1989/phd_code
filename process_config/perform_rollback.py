@@ -5,7 +5,7 @@ from couchdbkit import *
 from Queue import Queue
 import threading
 import os
-import add_history
+from add_history.add_history_item
 
 
 class RollbackListener(threading.Thread):
@@ -16,7 +16,11 @@ class RollbackListener(threading.Thread):
         self.shared_object = queue
 
     def run(self):
-        change_stream = ChangesStream(db, feed='continuous', heartbeat=True, since=self.db_info['update_seq'], filter='homework-remote/rollback')
+        change_stream = ChangesStream(db,
+                                      feed='continuous',
+                                      heartbeat=True,
+                                      since=self.db_info['update_seq'],
+                                      filter='homework-remote/rollback')
         for change in change_stream:
             self.shared_object.put(change)
 
@@ -27,8 +31,8 @@ class RollbackProcessor(threading.Thread):
         self.shared_object = queue
         self.db = couchdb_config_parser.get_db()
 
-    def get_events_after_timestamp(self, timestamp):
-        vr = self.db.view('homework-remote/undoable_events', startkey=timestamp)
+    def get_events_after_timestamp(self, ts):
+        vr = self.db.view('homework-remote/undoable_events', startkey=ts)
         return vr.all()
 
     def get_docs_to_revert(self, timestamp):
@@ -53,7 +57,8 @@ class RollbackProcessor(threading.Thread):
             the_rev = change['changes'][0]['rev']
             current_doc = self.db.get(the_id, rev=the_rev)
             self.revert(current_doc['timestamp'])
-            add_history.add_history_item("Rollback", "Roll back to %s" % (timestamp), the_id, the_rev, False)
+            add_history_item("Rollback", "Roll back to %s" % (timestamp),
+                             the_id, the_rev, False)
             doc.status = 'done'
             db.save_doc(current_doc['_id'])
             self.shared_object.task_done()

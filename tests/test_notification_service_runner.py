@@ -107,7 +107,11 @@ class TestNotificationServiceRunner(unittest.TestCase):
         }
 
         res = self.db.save_doc(doc)
-        result = self.nsr.send_notification(res['id'], doc['to'], doc['service'], '+447972058628', doc['body'])
+        result = self.nsr.send_notification(res['id'],
+                                            doc['to'],
+                                            doc['service'],
+                                            '+447972058628',
+                                            doc['body'])
         self.assertTrue(result)
         doc['hidden'] = True
         self.db.save_doc(doc, force_update=True)

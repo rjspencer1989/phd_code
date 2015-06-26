@@ -1,6 +1,7 @@
 import unittest
 from couchdbkit import *
-from process_config import couchdb_config_parser, notification_registration_client
+from process_config import couchdb_config_parser
+from process_config import notification_registration_client
 import os
 
 

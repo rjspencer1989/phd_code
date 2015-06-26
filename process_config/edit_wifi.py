@@ -22,11 +22,13 @@ def get_connected_devices():
 def notify(devices):
     if devices is not None and len(devices) > 0:
         for row in devices:
-            if len(row['value']['notification_service']) > 0 and len(row['value']['name']) > 0:
+            if (len(row['value']['notification_service']) > 0 and
+                    len(row['value']['name']) > 0):
                 service = row['value']['notification_service']
                 to = row['value']['name']
                 timestr = datetime.now().strftime("%H:%M:%S")
-                change_notification.sendNotification(to, service, "network settings updated at %s" % (timestr))
+                msg = "network settings updated at %s" % (timestr)
+                change_notification.sendNotification(to, service, msg)
     return True
 
 
@@ -87,6 +89,9 @@ def process_wifi(doc):
     devices = get_connected_devices()
     current_doc['status'] = 'done'
     db.save_doc(current_doc)
-    add_history.add_history_item("New WiFi Configuration", "WiFi configuration has been updated and devices will need to be reconnected", the_id, the_rev, True)
+    title = "New WiFi Configuration"
+    desc = "WiFi configuration has been updated. "
+    desc += "You will need to reconnect your devices"
+    add_history.add_history_item(title, desc, the_id, the_rev, True)
     if notify(devices):
         reload_hostapd()

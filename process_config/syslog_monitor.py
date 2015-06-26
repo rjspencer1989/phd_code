@@ -3,6 +3,7 @@ import time
 import os
 import couchdb_config_parser
 from couchdbkit import *
+from add_history import add_history_item
 
 filename = '/var/log/syslog'
 file = open(filename, 'r')
@@ -27,13 +28,24 @@ while 1:
                 mac_address = chunks[7]
                 action = chunks[10]
                 device_doc = db.get(mac_address)
-                if device_doc['connection_event'] == 'connect' and action == 'disassociated':
+                name = device_doc['device_name']
+                if device_doc['device_name'] == '':
+                    name = device_doc['mac_address']
+                if (device_doc['connection_event'] == 'connect' and
+                        action == 'disassociated'):
                     device_doc['connection_event'] = 'disconnect'
                     device_doc['changed_by'] = 'connected_devices'
-                    db.save_doc(device_doc)
+                    res = db.save_doc(device_doc)
+                    title = 'Device connected'
+                    desc = '%s connected' % (name)
+                    add_history_item(title, desc, res['id'], res['rev'], False)
                     continue
-                elif device_doc['connection_event'] == 'disconnect' and action == 'associated':
+                elif (device_doc['connection_event'] == 'disconnect' and
+                        action == 'associated'):
                     device_doc['connection_event'] = 'connect'
                     device_doc['changed_by'] = 'connected_devices'
-                    db.save_doc(device_doc)
+                    res = db.save_doc(device_doc)
+                    title = 'Device disconnected'
+                    desc = '%s disconnected' % (name)
+                    add_history_item(title, desc, res['id'], res['rev'], False)
                     continue

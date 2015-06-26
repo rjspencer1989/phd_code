@@ -2,9 +2,17 @@ import os
 import urllib
 import urllib2
 import couchdb_config_parser
-import add_history
+from add_history import add_history_item
 
 db = couchdb_config_parser.get_db()
+base = "https://2-dot-homework-notify.appspot.com/notify/2"
+
+prompts = {
+    'growl': 'IP Address',
+    'email': 'Email Address',
+    'phone': 'Phone Number',
+    'twitter': 'Twitter Username'
+}
 
 
 def get_router_id():
@@ -13,18 +21,23 @@ def get_router_id():
 
 def edit(doc):
     router = get_router_id()
-    data = urllib.urlencode({'service': doc['service'], 'userdetails': doc['user'], 'suid': doc['suid']})
-    headers = {"Content-type": "application/x-www-form-urlencoded"}
+    data = urllib.urlencode({'service': doc['service'],
+                             'userdetails': doc['user'],
+                             'suid': doc['suid']})
+    hdr = {"Content-type": "application/x-www-form-urlencoded"}
     if len(router) > 0:
         try:
-            req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/edit" % (router), data, headers)
+            req = urllib2.Request("%s/%s/edit" % (base, router), data, hdr)
             conn = urllib2.urlopen(req)
             code = conn.getcode()
             if code == 200:
                 response = conn.read()
                 doc['suid'] = response
                 doc['status'] = 'done'
-                add_history.add_history_item('Edited notification registration', 'Edited registration for %s for service %s now identified by %s' % (doc['name'], doc['service'], doc['user']), doc['_id'], doc['_rev'], True)
+                title = 'Edited notification registration'
+                desc = ('Edited %s for %s now identified by %s' %
+                        (prompts['service'], doc['name'], doc['user']))
+                add_history_item(title, desc, doc['_id'], doc['_rev'], True)
         except urllib2.HTTPError, e:
             doc['status'] = 'error'
         except urllib2.URLError, e:
@@ -36,14 +49,17 @@ def edit(doc):
 def delete(doc):
     router = get_router_id()
     data = urllib.urlencode({'suid': doc['suid']})
-    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    hdr = {'Content-Type': 'application/x-www-form-urlencoded'}
     if len(router) > 0:
         ret_val = 0
         try:
-            req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/delete" % (router), data, headers)
+            req = urllib2.Request("%s/%s/delete" % (base, router), data, hdr)
             conn = urllib2.urlopen(req)
             code = conn.getcode()
-            add_history.add_history_item('Removed notification registration', 'Removed registration for %s for service %s identified by %s' % (doc['name'], doc['service'], doc['user']), doc['_id'], doc['_rev'], True)
+            title = 'Removed notification registration'
+            desc = ('Removed %s as %s for %s' %
+                    (doc['user'], prompts['service'], doc['name']))
+            add_history_item(title, desc, doc['_id'], doc['_rev'], True)
             doc['suid'] = ''
             doc['status'] = 'done'
         except urllib2.HTTPError, e:
@@ -56,18 +72,22 @@ def delete(doc):
 
 def registration(doc):
     router = get_router_id()
-    data = urllib.urlencode({'service': doc['service'], 'userdetails': doc['user']})
-    headers = {"Content-type": "application/x-www-form-urlencoded"}
+    data = urllib.urlencode({'service': doc['service'],
+                             'userdetails': doc['user']})
+    hdr = {"Content-type": "application/x-www-form-urlencoded"}
     if len(router) > 0:
         try:
-            req = urllib2.Request("https://2-dot-homework-notify.appspot.com/notify/2/%s/register" % (router), data, headers)
+            req = urllib2.Request("%s/%s/register" % (base, router), data, hdr)
             conn = urllib2.urlopen(req)
             code = conn.getcode()
             if code == 200:
                 response = conn.read()
                 doc['suid'] = response
                 doc['status'] = 'done'
-                add_history.add_history_item('Added notification registration', 'Added registration for %s for service %s identified by %s' % (doc['name'], doc['service'], doc['user']), doc['_id'], doc['_rev'], True)
+                title = 'Added notification registration'
+                desc = ('Added %s as %s for %s' %
+                        (doc['user'], prompts['service'], doc['name']))
+                add_history_item(title, , doc['_id'], doc['_rev'], True)
         except urllib2.HTTPError, e:
             doc['status'] = 'error'
         except urllib2.URLError, e:

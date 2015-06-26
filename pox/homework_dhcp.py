@@ -9,7 +9,7 @@ from pyroute2 import IPRoute  # @UnresolvedImport
 import socket
 from process_config import couchdb_config_parser
 
-MAX_ROUTABLE_LEASE = 43200
+MAX_LEASE = 43200
 ROUTABLE_SUBNET = "10.2.0.0"
 ROUTABLE_NETMASK = 16
 BRIDGE_INTERFACE_NAME = "br0"
@@ -29,7 +29,7 @@ class HomeworkDHCP(object):
     def __init__(self):
         core.openflow.addListeners(self)
         self.hostname = None
-        self.requestedIp = ""
+        self.req_ip = ""
         self.ip_mapping = {}
         self.mac_mapping = {}
         self.dhcp_msg_type = 0
@@ -41,12 +41,14 @@ class HomeworkDHCP(object):
 
         vr_all = self.get_data()
         for result in vr_all:
-            value = result['value']
-            dm = DHCPMapping(IPAddr(value['ip_address']), EthAddr(value['mac_address']), 0)
-            if value['lease_action'] == 'add' and value['timestamp'] + MAX_ROUTABLE_LEASE > time.time():
-                self.add_addr(str(self.increment_ip(IPAddr(value['ip_address']), networkOrder=True)))
-            self.mac_mapping[EthAddr(value['mac_address'])] = dm
-            self.ip_mapping[IPAddr(value['ip_address'])] = dm
+            v = result['value']
+            dm = Lease(IPAddr(v['ip_address']), EthAddr(v['mac_address']), 0)
+            if (v['lease_action'] == 'add' and
+                    v['timestamp'] + MAX_LEASE > time.time()):
+                self.add_addr(str(self.increment_ip(IPAddr(v['ip_address']),
+                                                    networkOrder=True)))
+            self.mac_mapping[EthAddr(v['mac_address'])] = dm
+            self.ip_mapping[IPAddr(v['ip_address'])] = dm
 
     def get_data(self, ether=None):
         vr = None
@@ -72,9 +74,11 @@ class HomeworkDHCP(object):
         for k in self.ip_mapping:
             if self.ip_mapping[k].lease_end == 0:
                 continue
-            if self.ip_mapping[k].lease_end <= time.time() + 0.2 * MAX_ROUTABLE_LEASE:
+            if self.ip_mapping[k].lease_end <= time.time() + 0.2 * MAX_LEASE:
                 self.ip_mapping[k].lease_end = 0
-                self.insert_couchdb("del", self.ip_mapping[k].ip, self.ip_mapping[k].mac, None, None)
+                self.insert_couchdb("del",
+                                    self.ip_mapping[k].ip,
+                                    self.ip_mapping[k].mac, None, None)
         core.callDelayed(60, self.clean_leases)
 
     def change_device_state(self, mac, state):
@@ -192,17 +196,18 @@ class HomeworkDHCP(object):
         return ip
 
     def select_ip(self, mac_address, msg_type):
-        lease_end = time.time() + MAX_ROUTABLE_LEASE
+        lease_end = time.time() + MAX_LEASE
         if mac_address in self.mac_mapping:
             state = self.mac_mapping[mac_address]
             ip = state.ip.toUnsigned()
             state.lease_end = lease_end
         else:
-            ip = self.find_free_ip(IPAddr(ROUTABLE_SUBNET, networkOrder=True), ROUTABLE_NETMASK)
+            ip = self.find_free_ip(IPAddr(ROUTABLE_SUBNET, networkOrder=True),
+                                   ROUTABLE_NETMASK)
             if ip is None:
                 return
             ip += 1
-            state = DHCPMapping(IPAddr(ip), mac_address, lease_end)
+            state = Lease(IPAddr(ip), mac_address, lease_end)
             self.ip_mapping[IPAddr(ip)] = state
             self.mac_mapping[mac_address] = state
         return IPAddr(ip)
@@ -214,7 +219,7 @@ class HomeworkDHCP(object):
         if pkt.dhcp.HOST_NAME_OPT in dhcp_packet.options:
             self.hostname = dhcp_packet.options[pkt.dhcp.HOST_NAME_OPT].data
         if pkt.dhcp.REQUEST_IP_OPT in dhcp_packet.options:
-            self.requestedIp = dhcp_packet.options[pkt.dhcp.REQUEST_IP_OPT].addr
+            self.req_ip = dhcp_packet.options[pkt.dhcp.REQUEST_IP_OPT].addr
         if pkt.dhcp.MSG_TYPE_OPT in dhcp_packet.options:
             mt = dhcp_packet.options[pkt.dhcp.MSG_TYPE_OPT]
             self.dhcp_msg_type = mt
@@ -230,11 +235,11 @@ class HomeworkDHCP(object):
             return
 
         reply_msg_type = pkt.dhcp.OFFER_MSG if self.dhcp_msg_type.type == pkt.dhcp.DISCOVER_MSG else pkt.dhcp.ACK_MSG
-        if self.requestedIp != 0 and self.dhcp_msg_type == pkt.dhcp.REQUEST_MSG and self.requestedIp != int(ip):
+        if self.req_ip != 0 and self.dhcp_msg_type == pkt.dhcp.REQUEST_MSG and self.req_ip != int(ip):
             reply_msg_type = pkt.dhcp.nak
-            ip = self.requestedIp
+            ip = self.req_ip
             print "not allowed that address"
-        reply = self.generate_dhcp_reply(dhcp_packet, ip, reply_msg_type, MAX_ROUTABLE_LEASE)
+        reply = self.generate_dhcp_reply(dhcp_packet, ip, reply_msg_type, MAX_LEASE)
         if reply_msg_type == pkt.dhcp.ACK_MSG:
             self.add_addr(str(self.increment_ip(ip)))
             print self.connections[0].ports[event.port].name
@@ -281,7 +286,7 @@ def launch():
     core.registerNew(HomeworkDHCP)
 
 
-class DHCPMapping(object):
+class Lease(object):
     """Represents DHCP Mapping"""
     def __init__(self, ip, mac, lease_end):
         self.ip = ip
