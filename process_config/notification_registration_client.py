@@ -36,7 +36,7 @@ def edit(doc):
                 doc['status'] = 'done'
                 title = 'Edited notification registration'
                 desc = ('Edited %s for %s now identified by %s' %
-                        (prompts['service'], doc['name'], doc['user']))
+                        (prompts[doc['service']], doc['name'], doc['user']))
                 add_history_item(title, desc, doc['_id'], doc['_rev'], True)
         except urllib2.HTTPError, e:
             doc['status'] = 'error'
@@ -58,7 +58,7 @@ def delete(doc):
             code = conn.getcode()
             title = 'Removed notification registration'
             desc = ('Removed %s as %s for %s' %
-                    (doc['user'], prompts['service'], doc['name']))
+                    (doc['user'], prompts[doc['service']], doc['name']))
             add_history_item(title, desc, doc['_id'], doc['_rev'], True)
             doc['suid'] = ''
             doc['status'] = 'done'
@@ -86,7 +86,7 @@ def registration(doc):
                 doc['status'] = 'done'
                 title = 'Added notification registration'
                 desc = ('Added %s as %s for %s' %
-                        (doc['user'], prompts['service'], doc['name']))
+                        (doc['user'], prompts[doc['service']], doc['name']))
                 add_history_item(title, desc, doc['_id'], doc['_rev'], True)
         except urllib2.HTTPError, e:
             doc['status'] = 'error'
