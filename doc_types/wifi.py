@@ -3,3 +3,5 @@ class Wifi(object):
         self.ssid = ssid
         self.password = password
         self.mode = mode
+        self.status = 'pending'
+        self.collection = 'wifi'
