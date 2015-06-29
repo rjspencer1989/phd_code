@@ -20,4 +20,4 @@ window.setActiveLink = function(element){
             .removeClass("active")
         .end()
     .addClass("active");
-}
+};
