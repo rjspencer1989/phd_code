@@ -1,9 +1,10 @@
 @CHARSET "UTF-8";
-html, body, #main-row, #content{
+html, body{
 	height: 100%;
+	background-color: #f1f2f6;
 }
 
-#container{
+.container{
 	padding-top: 60px;
 }
 
@@ -30,7 +31,7 @@ h2 {
 
 .view label{
 	font-weight: normal;
-	word-break: break-word;
+	word-break: normal;
 }
 
 .edit-controls{
@@ -49,4 +50,8 @@ h2 {
 
 .undoable .undo-button{
 	display: block;
+}
+
+.history_view {
+	padding: 5px;
 }
