@@ -59,10 +59,10 @@ h2 {
 	border: 1px solid grey;
 }
 
-.timeline dl dd.pos-left .events::before{
+.timeline dl dd.pos-left .events:before{
 	border-color: transparent transparent transparent grey;
 }
 
-.timeline dl dd.pos-right .events::before{
+.timeline dl dd.pos-right .events:before{
 	border-color: transparent transparent transparent grey;
 }
