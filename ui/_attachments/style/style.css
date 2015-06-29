@@ -56,13 +56,13 @@ h2 {
 }
 
 .timeline dl dd .events{
-	border-color: grey;
+	border: 1px solid grey;
 }
 
-.timeline dl .pos-left .events::before{
+.timeline dl dd.pos-left .events::before{
 	border-color: transparent transparent transparent grey;
 }
 
-.timeline dl .pos-right .events::before{
+.timeline dl dd.pos-right .events::before{
 	border-color: transparent transparent transparent grey;
 }
