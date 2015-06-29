@@ -1,4 +1,4 @@
-App.Models.Wifi = Backbone.Model.extend({
+window.App.Models.Wifi = Backbone.Model.extend({
     defaults: {
         collection: "wifi",
         status: "pending",
@@ -10,8 +10,8 @@ App.Models.Wifi = Backbone.Model.extend({
     }
 });
 
-App.Collections.Wifi = Backbone.Collection.extend({
-    model: App.Models.Wifi,
+window.App.Collections.Wifi = Backbone.Collection.extend({
+    model: window.App.Models.Wifi,
     url: "wifi",
     db: {
         changes: true,
@@ -19,8 +19,8 @@ App.Collections.Wifi = Backbone.Collection.extend({
     }
 });
 
-App.Views.Wifi = Backbone.View.extend({
-    collection: new App.Collections.Wifi(),
+window.App.Views.Wifi = Backbone.View.extend({
+    collection: new window.App.Collections.Wifi(),
     tagName: "div",
     className: "col-md-12",
     template: window.JST.wifi,
@@ -41,7 +41,7 @@ App.Views.Wifi = Backbone.View.extend({
         "use strict";
         this.$el.html(this.template(this.collection.at(0).toJSON()));
         $("#main-row").empty().append(this.el);
-        setActiveLink("wifi-link");
+        window.setActiveLink("wifi-link");
         $(".alert").hide();
         return this;
     },

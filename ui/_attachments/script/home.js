@@ -1,5 +1,5 @@
-App.Views.WifiHome = Backbone.View.extend({
-    collection: new App.Collections.Wifi(),
+window.App.Views.WifiHome = Backbone.View.extend({
+    collection: new window.App.Collections.Wifi(),
     el: "#home-wifi-config",
     template: window.JST.home_wifi,
     initialize: function () {
@@ -18,7 +18,7 @@ App.Views.WifiHome = Backbone.View.extend({
     }
 });
 
-App.Views.DeviceHome = Backbone.View.extend({
+window.App.Views.DeviceHome = Backbone.View.extend({
     tagName: "tr",
     template: window.JST.home_device,
     render: function(){
@@ -28,10 +28,10 @@ App.Views.DeviceHome = Backbone.View.extend({
     }
 });
 
-App.Views.ConnectedDevicesHome = Backbone.View.extend({
+window.App.Views.ConnectedDevicesHome = Backbone.View.extend({
     el: "#home-devices",
     template: window.JST.home_devices,
-    collection: new App.Collections.ConnectedDevices(),
+    collection: new window.App.Collections.ConnectedDevices(),
     initialize: function () {
         "use strict";
         this.listenTo(this.collection, "reset", this.render);
@@ -44,7 +44,7 @@ App.Views.ConnectedDevicesHome = Backbone.View.extend({
 
     addOne: function(device){
         "use strict";
-        var view = new App.Views.DeviceHome({model: device});
+        var view = new window.App.Views.DeviceHome({model: device});
         this.subviews.push(view);
         this.$("tbody").append(view.render().el);
     },
@@ -65,22 +65,22 @@ App.Views.ConnectedDevicesHome = Backbone.View.extend({
     }
 });
 
-App.Views.Home = Backbone.View.extend({
+window.App.Views.Home = Backbone.View.extend({
     tagName: "div",
     className: "col-md-12",
     template: window.JST.home,
     initialize: function () {
         "use strict";
         this.render();
-        this.wifi_view = new App.Views.WifiHome();
-        this.devices_view = new App.Views.ConnectedDevicesHome();
+        this.wifi_view = new window.App.Views.WifiHome();
+        this.devices_view = new window.App.Views.ConnectedDevicesHome();
     },
 
     render: function () {
         "use strict";
         this.$el.empty().append(this.template());
         $("#main-row").html(this.el);
-        setActiveLink("home-link");
+        window.setActiveLink("home-link");
     },
 
     exit: function(){

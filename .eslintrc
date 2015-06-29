@@ -6,9 +6,7 @@
     "globals": {
         "$": false,
         "_": false,
-        "Backbone": false,
-        "App": true,
-        "setActiveLink": false
+        "Backbone": false
     },
 
     "rules": {

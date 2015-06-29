@@ -1,4 +1,4 @@
-App.Routers.Router = Backbone.Router.extend({
+window.App.Routers.Router = Backbone.Router.extend({
     initialize: function () {
         "use strict";
         this.view = null;
@@ -17,7 +17,7 @@ App.Routers.Router = Backbone.Router.extend({
         if (this.view) {
             this.view.exit();
         }
-        this.view = new App.Views.Home();
+        this.view = new window.App.Views.Home();
     },
 
     wifi: function(){
@@ -25,7 +25,7 @@ App.Routers.Router = Backbone.Router.extend({
         if (this.view) {
             this.view.exit();
         }
-        this.view = new App.Views.Wifi();
+        this.view = new window.App.Views.Wifi();
     },
 
     history: function(){
@@ -33,7 +33,7 @@ App.Routers.Router = Backbone.Router.extend({
         if (this.view) {
             this.view.exit();
         }
-        this.view = new App.Views.Events();
+        this.view = new window.App.Views.Events();
     },
 
     notifications: function(){
@@ -41,7 +41,7 @@ App.Routers.Router = Backbone.Router.extend({
         if (this.view) {
             this.view.exit();
         }
-        this.view = new App.Views.Notifications();
+        this.view = new window.App.Views.Notifications();
     },
 
     controlPanel: function(){
@@ -49,6 +49,6 @@ App.Routers.Router = Backbone.Router.extend({
         if (this.view) {
             this.view.exit();
         }
-        this.view = new App.Views.ControlPanelView();
+        this.view = new window.App.Views.ControlPanelView();
     }
 });

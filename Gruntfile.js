@@ -3,13 +3,10 @@ module.exports = function(grunt){
         jshint: {
             options:{
                 globals : {
-                    "App": true,
                     "Backbone": true,
                     "$": true,
-                    "console": true,
                     "_": true,
-                    "JST": true,
-                    "setActiveLink": true
+                    "JST": true
                 }
             },
             files: ['Gruntfile.js', 'ui/_attachments/script/*.js', 'ui/_attachments/spec/javascripts/*.js']
@@ -20,8 +17,8 @@ module.exports = function(grunt){
                 options: {
                     processName: function(filepath){
                         name = filepath.split("/").pop();
-                        pos = name.indexOf(".html");
-                        key = (pos > -1) ? name.substring(0, pos) : name;
+                        var pos = name.indexOf(".html");
+                        var key = (pos > -1) ? name.substring(0, pos) : name;
                         return key;
                     }
                 },

@@ -1,26 +1,26 @@
-App.Models.Device = Backbone.Model.extend({
+window.App.Models.Device = Backbone.Model.extend({
     url: this.mac_address
 });
 
-App.Collections.Devices = Backbone.Collection.extend({
+window.App.Collections.Devices = Backbone.Collection.extend({
     url: "devices",
     db: {
         view: "control",
         changes: true,
         filter: Backbone.couch_connector.config.ddoc_name + "/devices_ui"
     },
-    model: App.Models.Device
+    model: window.App.Models.Device
 });
 
-App.Collections.ConnectedDevices = Backbone.Collection.extend({
+window.App.Collections.ConnectedDevices = Backbone.Collection.extend({
     url: "devices",
     db: {
         view: "connected_devices"
     },
-    model: App.Models.Device
+    model: window.App.Models.Device
 });
 
-App.Views.Device = Backbone.View.extend({
+window.App.Views.Device = Backbone.View.extend({
     tagName: "tr",
     initialize: function(options){
         "use strict";
@@ -121,8 +121,8 @@ App.Views.Device = Backbone.View.extend({
     }
 });
 
-App.Views.ControlPanelView = Backbone.View.extend({
-    collection: new App.Collections.Devices(),
+window.App.Views.ControlPanelView = Backbone.View.extend({
+    collection: new window.App.Collections.Devices(),
     tagName: "div",
     className: "col-md-12",
     template: window.JST.control_panel,
@@ -139,7 +139,7 @@ App.Views.ControlPanelView = Backbone.View.extend({
     addOne: function(device){
         "use strict";
         var sel = device.get("state");
-        var view = new App.Views.Device({model: device, template: "device_" + sel});
+        var view = new window.App.Views.Device({model: device, template: "device_" + sel});
         this.subviews.push(view);
         this.$("." + sel).append(view.render().el);
         if(sel === "pending"){
@@ -151,7 +151,7 @@ App.Views.ControlPanelView = Backbone.View.extend({
         "use strict";
         this.$el.html(this.template());
         $("#main-row").empty().append(this.el);
-        setActiveLink("devices-link");
+        window.setActiveLink("devices-link");
         $(".alert").hide();
         this.collection.each(this.addOne, this);
         return this;

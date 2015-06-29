@@ -1,8 +1,4 @@
-/* global setActiveLink */
-/// <reference path="../../../typings/jquery/jquery.d.ts"/>
-/* global App */
-/// <reference path="../../../typings/backbone/backbone.d.ts"/>
-App.Models.Event = Backbone.Model.extend({
+window.App.Models.Event = Backbone.Model.extend({
     defaults: {
         title: "",
         description: "",
@@ -15,9 +11,9 @@ App.Models.Event = Backbone.Model.extend({
     }
 });
 
-App.Collections.Events = Backbone.Collection.extend({
+window.App.Collections.Events = Backbone.Collection.extend({
     url: "events",
-    model: App.Models.Event,
+    model: window.App.Models.Event,
     db: {
         view: "events",
         changes: true,
@@ -25,7 +21,7 @@ App.Collections.Events = Backbone.Collection.extend({
     }
 });
 
-App.Views.Event = Backbone.View.extend({
+window.App.Views.Event = Backbone.View.extend({
     tagName: "dd",
     template: window.JST.history_item,
     initialize: function(){
@@ -61,11 +57,11 @@ App.Views.Event = Backbone.View.extend({
     }
 });
 
-App.Views.Events = Backbone.View.extend({
+window.App.Views.Events = Backbone.View.extend({
     tagName: "div",
     className: "col-md-12",
     template: window.JST.history,
-    collection: new App.Collections.Events(),
+    collection: new window.App.Collections.Events(),
     initialize: function(){
         "use strict";
         this.listenTo(this.collection, "reset", this.render);
@@ -82,7 +78,7 @@ App.Views.Events = Backbone.View.extend({
         "use strict";
         this.$el.html(this.template());
         $("#main-row").empty().append(this.el);
-        setActiveLink("history-link");
+        window.setActiveLink("history-link");
         this.collection.each(this.addOne, this);
         return this;
     },
@@ -93,7 +89,7 @@ App.Views.Events = Backbone.View.extend({
         if (index % 2 === 0) {
             cn = "pos-right clearfix";
         }
-        var view = new App.Views.Event({model: event, className: cn});
+        var view = new window.App.Views.Event({model: event, className: cn});
         this.subviews.push(view);
         this.$("dl").append(view.render().el);
         if(event.get("undoable") === true){
@@ -104,7 +100,7 @@ App.Views.Events = Backbone.View.extend({
     revert_state: function(){
         "use strict";
         var date_selected = this.$("#history_dp").datepicker("getDate").toISOString();
-        var newDoc = new App.Models.Rollback();
+        var newDoc = new window.App.Models.Rollback();
         newDoc.set({timestamp: date_selected});
         newDoc.save();
     },
@@ -118,7 +114,7 @@ App.Views.Events = Backbone.View.extend({
     }
 });
 
-App.Models.Rollback = Backbone.Model.extend({
+window.App.Models.Rollback = Backbone.Model.extend({
     url: this.id,
     defaults: {
         collection: "request_revert",
