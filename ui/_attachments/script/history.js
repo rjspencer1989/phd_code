@@ -38,6 +38,7 @@ App.Views.Event = Backbone.View.extend({
         date = new Date(this.model.get('timestamp'));
         data.day = date.getDate();
         data.month = this.months[date.getMonth()];
+        data.year = date.getFullYear();
         data.hour = date.getHours();
         data.hour = ("0" + data.hour).slice(-2);
         data.minute = date.getMinutes();
