@@ -1,45 +1,51 @@
 App.Routers.Router = Backbone.Router.extend({
     initialize: function () {
+        "use strict";
         this.view = null;
     },
 
-    routes : {
-        '' : 'home',
-        'wifi' : 'wifi',
-        'history': 'history',
-        'notifications' : 'notifications',
-        'control' : 'controlPanel'
+    routes: {
+        "": "home",
+        "wifi": "wifi",
+        "history": "history",
+        "notifications": "notifications",
+        "control": "controlPanel"
     },
 
-    home : function(){
+    home: function(){
+        "use strict";
         if (this.view) {
             this.view.exit();
         }
         this.view = new App.Views.Home();
     },
 
-    wifi : function(){
+    wifi: function(){
+        "use strict";
         if (this.view) {
             this.view.exit();
         }
         this.view = new App.Views.Wifi();
     },
 
-    history : function(){
+    history: function(){
+        "use strict";
         if (this.view) {
             this.view.exit();
         }
         this.view = new App.Views.Events();
     },
 
-    notifications : function(){
+    notifications: function(){
+        "use strict";
         if (this.view) {
             this.view.exit();
         }
         this.view = new App.Views.Notifications();
     },
 
-    controlPanel : function(){
+    controlPanel: function(){
+        "use strict";
         if (this.view) {
             this.view.exit();
         }

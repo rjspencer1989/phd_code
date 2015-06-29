@@ -1,0 +1,17 @@
+{
+    "env": {
+        "browser": true
+    },
+
+    "globals": {
+        "$": false,
+        "_": false,
+        "Backbone": false,
+        "App": true,
+        "setActiveLink": false
+    },
+
+    "rules": {
+        "camelcase": [0, {"properties": "never"}]
+    }
+}
