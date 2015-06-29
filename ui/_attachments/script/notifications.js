@@ -8,6 +8,15 @@ App.Models.Notification = Backbone.Model.extend({
     }
 });
 
+App.Models.MainUser = Backbone.Model.extend({
+    defaults: {
+        collection: 'main_user',
+        name: '',
+        service: '',
+    },
+    url: 'main_user'
+});
+
 App.Collections.Notifications = Backbone.Collection.extend({
     model: App.Models.Notification,
     url: 'notifications',

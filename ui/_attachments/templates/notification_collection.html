@@ -1,4 +1,5 @@
 <div class="alert alert-danger"><strong>Save Error: </strong></div>
+<h2>Notification - Service mappings</h2>
 <table class="table table-bordered table-striped" id="notification-registration-table">
     <thead>
         <tr>
@@ -13,13 +14,32 @@
     </tbody>
 </table>
 <form id="add-notification-form" action="#/notifications">
+    <label for="name" class="sr-only">Name</label>
     <input type="text" name="name" value="" id="name" placeholder="Name"/>
+    <label for="service" class="sr-only">Service</label>
+    <input type="text/submit/hidden/button" name="service" id="service" value="" />
     <select name="service" id="service">
         <option value="email" data-prompt="Email Address">Email</option>
         <option value="growl" data-prompt="Device IP Address">Growl</option>
         <option value="phone" data-prompt="Phone Number">Text Message</option>
         <option value="twitter" data-prompt="Twitter Username">Twitter</option>
     </select>
+    <label for="user" class="sr-only">User</label>
     <input type="text" name="user" value="" id="user"/>
     <button class="btn btn-primary" id="add-notification-button" type="button">Add</button>
+</form>
+
+<h2>Main user</h2>
+<p>Enter a main user and service to receive network alerts.</p>
+<form id="set-main-user" action="">
+    <label for="main-name">main-name</label>
+    <input type="text" name="main-name" id="main-name" placeholder="Name" />
+    <label for="main-service" class="sr-only">Service</label>
+    <select name="main-service" id="main-service">
+        <option value="email">Email</option>
+        <option value="growl">Growl</option>
+        <option value="phone">Text Message</option>
+        <option value="twitter">Twitter</option>
+    </select>
+    <button type="button" class="btn btn-primary" id="set-main-user-button">Set</button>
 </form>
