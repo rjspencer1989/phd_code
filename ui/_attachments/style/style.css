@@ -64,5 +64,5 @@ h2 {
 }
 
 .timeline dl dd.pos-right .events:before{
-	border-color: transparent white transparent transparent;
+	border-color: transparent grey transparent transparent;
 }
