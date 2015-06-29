@@ -1,3 +1,7 @@
+/* global setActiveLink */
+/// <reference path="../../../typings/jquery/jquery.d.ts"/>
+/* global App */
+/// <reference path="../../../typings/backbone/backbone.d.ts"/>
 App.Models.Event = Backbone.Model.extend({
     defaults: {
         title: "",
