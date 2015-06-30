@@ -100,6 +100,15 @@ window.App.Views.Notification = Backbone.View.extend({
     }
 });
 
+window.App.Views.MainUser = Backbone.View.extend({
+    className: "main_user_el",
+    template: window.JST.main_user,
+    render: function(){
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+
 window.App.Views.Notifications = Backbone.View.extend({
     collection: new window.App.Collections.Notifications(),
     tagName: "div",
@@ -111,6 +120,8 @@ window.App.Views.Notifications = Backbone.View.extend({
         this.listenTo(this.collection, "add", this.addOne);
         this.collection.fetch({reset: true});
         this.subviews = [];
+        this.main_user_model = new window.App.Models.MainUser();
+        this.main_user_model.fetch();
     },
 
     events: {
@@ -126,6 +137,9 @@ window.App.Views.Notifications = Backbone.View.extend({
         this.collection.each(this.addOne, this);
         this.$el.find("#service").trigger("change");
         $(".alert").hide();
+        main_user_view = new window.App.Views.MainUser({model: this.main_user_model});
+        this.subviews.push(main_user_view);
+        $("#main-user-div").html(main_user_view.render().el);
         return this;
     },
 
