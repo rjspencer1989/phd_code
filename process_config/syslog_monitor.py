@@ -4,6 +4,7 @@ import os
 import couchdb_config_parser
 from couchdbkit import *
 from add_history import add_history_item
+from change_notification import sendNotification
 
 filename = '/var/log/syslog'
 file = open(filename, 'r')
@@ -36,16 +37,22 @@ while 1:
                     device_doc['connection_event'] = 'disconnect'
                     device_doc['changed_by'] = 'connected_devices'
                     res = db.save_doc(device_doc)
-                    title = 'Device connected'
-                    desc = '%s connected' % (name)
+                    title = 'Device disconnected'
+                    desc = '%s disconnected' % (name)
                     add_history_item(title, desc, res['id'], res['rev'], False)
                     continue
                 elif (device_doc['connection_event'] == 'disconnect' and
                         action == 'associated'):
                     device_doc['connection_event'] = 'connect'
                     device_doc['changed_by'] = 'connected_devices'
+                    if device_doc['state'] == 'pending':
+                        main_doc = db.get('main_user')
+                        user = main_doc['name']
+                        service = main_doc['service']
+                        msg = "%s is requesting access to your network" % (name)
+                        sendNotification(user, service, msg)
                     res = db.save_doc(device_doc)
-                    title = 'Device disconnected'
-                    desc = '%s disconnected' % (name)
+                    title = 'Device connected'
+                    desc = '%s connected' % (name)
                     add_history_item(title, desc, res['id'], res['rev'], False)
                     continue
