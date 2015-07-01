@@ -12,7 +12,8 @@ window.App.Models.MainUser = Backbone.Model.extend({
     defaults: {
         collection: "main_user",
         name: "",
-        service: ""
+        service: "",
+        _id: "main_user"
     },
     url: "main_user"
 });
@@ -137,7 +138,7 @@ window.App.Views.Notifications = Backbone.View.extend({
         this.collection.each(this.addOne, this);
         this.$el.find("#service").trigger("change");
         $(".alert").hide();
-        main_user_view = new window.App.Views.MainUser({model: this.main_user_model});
+        var main_user_view = new window.App.Views.MainUser({model: this.main_user_model});
         this.subviews.push(main_user_view);
         $("#main-user-div").html(main_user_view.render().el);
         return this;
