@@ -106,7 +106,7 @@ window.App.Views.MainUser = Backbone.View.extend({
     template: window.JST.main_user,
     render: function(){
         this.$el.html(this.template(this.model.toJSON()));
-        selection = this.$el.find("#main-service option[value=" + this.model.get("service") + "]");
+        selection = this.$el.find("#main-service option[value=\'" + this.model.get("service") + "\']");
         selection.attr('selected', true);
         return this;
     }
