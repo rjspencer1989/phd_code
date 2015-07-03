@@ -2,6 +2,7 @@ from couchdbkit import *
 import ConfigParser
 from os.path import expanduser
 
+
 def get_db():
     config = ConfigParser.ConfigParser({"ADMIN": "",
                                         "ADMIN_PASSWORD": "",
