@@ -1,6 +1,6 @@
 from couchdbkit import *
 import ConfigParser
-
+from os.path import expanduser
 
 def get_db():
     config = ConfigParser.ConfigParser({"ADMIN": "",
@@ -8,7 +8,7 @@ def get_db():
                                         "PORT": "5984",
                                         "DB": "config",
                                         "SERVER_NAME": "localhost"})
-    path = "/home/homeuser/couchdb.conf"
+    path = "%s/couchdb.conf" % (expanduser('~'))
     config.read(path)
     user = config.get('DEFAULT', 'ADMIN')
     password = config.get('DEFAULT', 'ADMIN_PASSWORD')
