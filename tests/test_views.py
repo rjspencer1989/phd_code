@@ -286,7 +286,7 @@ class TestViews(unittest.TestCase):
             "connection_event": "disconnect",
             "changed_by": "system"
         }
-        
+
         doc3 = {
             "action": "",
             "device_name": "test_dev",
