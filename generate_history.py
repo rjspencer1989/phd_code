@@ -11,7 +11,7 @@ ssid = "homework-%d" % (int(random.getrandbits(25)))
 password = ''.join(random.sample(string.printable, 10))
 channel = random.choice(range(1,12))
 initial_wifi = wifi.Wifi(ssid, password, 'n', channel)
-res = db.save_doc(initial_wifi.__dict__)
+res = db.save_doc(initial_wifi.get_doc())
 print res
 
 device1 = devices.Devices("aa:bb:cc:dd:ee:ff", "10.2.0.1", "device1", "user1", "add", "laptop", "permit", "email", "wlan0")
