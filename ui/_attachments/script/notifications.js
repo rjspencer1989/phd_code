@@ -110,14 +110,14 @@ window.App.Views.MainUser = Backbone.View.extend({
     render: function(){
         "use strict";
         this.$el.html(this.template(this.model.toJSON()));
-        selection = this.$el.find("#main-service option[value=\'" + this.model.get("service") + "\']");
+        var selection = this.$el.find("#main-service option[value=\'" + this.model.get("service") + "\']");
         selection.attr('selected', true);
         return this;
     },
     set_main_user: function(){
         "use strict";
         var name = $("#main-name").val();
-        var service = $("main-service :selected").val();
+        var service = $("#main-service :selected").val();
         this.model.set("name", name);
         this.model.set("service", service);
         this.model.save();
