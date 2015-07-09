@@ -2,7 +2,7 @@ import time
 
 
 class Devices(object):
-    def __init__(self, mac_address, ip_address, device_name, user, lease_action, device_type, state, notification_service, port):
+    def __init__(self, mac_address, ip_address, host_name, device_name, user, lease_action, device_type, state, notification_service, port):
         self._id = mac_address
         self.mac_address = mac_address
         self.ip_address = ip_address
@@ -12,8 +12,8 @@ class Devices(object):
         self.device_type = device_type
         self.action = ""
         self.state = state
-        self.collection = 'devices'
-        self.host_name = device_name
+        self.collection = "device"
+        self.host_name = host_name
         self.notification_service = notification_service
         self.timestamp = time.time()
         self.port = port
