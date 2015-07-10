@@ -20,15 +20,15 @@ res = db.save_doc(initial_wifi.get_doc())
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=15, tzinfo=tzutc())
 add_history.add_history_item("set up wifi", "initial wifi config", res["id"], res["rev"], False, dt.isoformat())
 
-mrldesx2 = devices.Devices("a0:f4:50:f3:48:50", "10.2.0.1", "android-a1", "", "", "add", "", "pending", "", "wlan0")
+mrldesx2 = devices.Devices("a0:f4:50:f3:48:50", "10.2.0.5", "android-a1", "", "", "add", "", "pending", "", "wlan0")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 print res
 
-rjsxperia1 = devices.Devices("a0:e4:53:55:00:cc", "10.2.0.5", "android-a2", "", "", "add", "", "pending", "", "wlan0")
+rjsxperia1 = devices.Devices("a0:e4:53:55:00:cc", "10.2.0.33", "android-a2", "", "", "add", "", "pending", "", "wlan0")
 res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
 print res
 
-mrltablet6 = devices.Devices("e0:b9:a5:8c:45:cd", "10.2.0.9", "android-a3", "", "", "add", "", "pending", "", "wlan0")
+mrltablet6 = devices.Devices("e0:b9:a5:8c:45:cd", "10.2.0.29", "android-a3", "", "", "add", "", "pending", "", "wlan0")
 res = db.save_doc(mrltablet6.get_doc(), force_update=True)
 print res
 

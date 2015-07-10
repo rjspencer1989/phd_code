@@ -40,3 +40,6 @@ class Devices(object):
             "changed_by": self.changed_by
         }
         return doc
+
+    def set_field(self, field, value):
+        self[field] = value
