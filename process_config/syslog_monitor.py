@@ -28,6 +28,8 @@ while 1:
                 chunks = line.split()
                 mac_address = chunks[7]
                 action = chunks[10]
+                if not db.doc_exist(mac_address):
+                    continue
                 device_doc = db.get(mac_address)
                 name = device_doc['device_name']
                 if device_doc['device_name'] == '':

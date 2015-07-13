@@ -23,6 +23,8 @@ while True:
         if len(list(rows)) > 0:
             row = rows[0]
             mac_address = row['value']
+            if not db.doc_exist(mac_address):
+                continue
             device_doc = db.get(mac_address)
             name = device_doc['device_name']
             if device_doc['device_name'] == '':
