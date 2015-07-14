@@ -66,3 +66,7 @@ h2 {
 .timeline dl dd.pos-right .events:before{
 	border-color: transparent #ddd transparent transparent;
 }
+
+.dropdown-menu{
+    background-color: #ffffff;
+}

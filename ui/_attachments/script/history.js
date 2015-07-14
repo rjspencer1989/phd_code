@@ -78,6 +78,11 @@ window.App.Views.Events = Backbone.View.extend({
         "use strict";
         this.$el.html(this.template());
         $("#main-row").empty().append(this.el);
+        this.$("#history_dp").datepicker({
+            todayBtn: "linked",
+            calendarWeeks: true,
+            todayHighlight: true
+        });
         window.setActiveLink("history-link");
         this.collection.each(this.addOne, this);
         return this;
