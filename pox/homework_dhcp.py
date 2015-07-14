@@ -91,6 +91,7 @@ class HomeworkDHCP(object):
             self.selected_db.save_doc(current_doc, force=True)
 
     def insert_couchdb(self, lease_action, ip, mac, hostname, port):
+        known_devices = self.get_data()
         vr_all = self.get_data(mac)
         if len(vr_all) == 1:
             current_doc = vr_all[0]['value']
@@ -115,7 +116,10 @@ class HomeworkDHCP(object):
             current_doc['name'] = ''
             current_doc['state'] = 'pending'
             current_doc['device_type'] = ""
-            current_doc['action'] = ''
+            if len(known_devices) == 0:
+                current_doc['action'] = 'permit'
+            else:
+                current_doc['action'] = ''
             current_doc['notification_service'] = ""
             current_doc['timestamp'] = time.time()
             current_doc['connection_event'] = 'connect'
