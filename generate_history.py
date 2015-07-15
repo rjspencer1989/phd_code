@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from process_config import couchdb_config_parser, add_history
+from process_config import *
 from doc_types import devices, main_user, notifications, wifi
 import random
 import string
