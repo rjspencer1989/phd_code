@@ -20,7 +20,7 @@ class RollbackListener(threading.Thread):
                                       feed='continuous',
                                       heartbeat=True,
                                       since=self.db_info['update_seq'],
-                                      filter='homework-remote/rollback')
+                                      filter='homework-remote/revert')
         for change in change_stream:
             self.shared_object.put(change)
 
