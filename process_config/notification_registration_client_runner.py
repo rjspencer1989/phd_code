@@ -32,6 +32,7 @@ class NotificationProcessor(threading.Thread):
     def run(self):
         while(True):
             change = self.shared_object.get()
+            print change
             theId = change['id']
             theRev = change['changes'][0]['rev']
             currentDoc = db.open_doc(theId, rev=theRev)
