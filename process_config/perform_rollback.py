@@ -16,7 +16,7 @@ class RollbackListener(threading.Thread):
         self.shared_object = queue
 
     def run(self):
-        change_stream = ChangesStream(db,
+        change_stream = ChangesStream(self.db,
                                       feed='continuous',
                                       heartbeat=True,
                                       since=self.db_info['update_seq'],

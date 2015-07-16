@@ -12,7 +12,7 @@ class Devices(object):
         self.device_type = device_type
         self.action = ""
         self.state = state
-        self.collection = "device"
+        self.collection = "devices"
         self.host_name = host_name
         self.notification_service = notification_service
         self.timestamp = time.time()
