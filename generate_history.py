@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from process_config import *
-from doc_types import devices, main_user, notifications, wifi
+from doc_types import *
 import random
 import string
 import datetime

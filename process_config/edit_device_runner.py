@@ -4,8 +4,8 @@ from couchdbkit import *
 from Queue import Queue
 import threading
 import couchdb_config_parser
-from add_history import add_history_item
 import os
+import edit_device
 
 db = couchdb_config_parser.get_db()
 db_info = db.info()
@@ -35,10 +35,7 @@ class EditDeviceProcessor(threading.Thread):
                 theId = change['id']
                 theRev = change['changes'][0]['rev']
                 current_doc = db.get(theId, rev=theRev)
-                print current_doc
-                title = 'Edited device details'
-                desc = 'Edited details for %s' % (current_doc['device_name'])
-                add_history_item(title, desc, theId, theRev, True)
+                edit_device.edit_device(current_doc)
             self.shared_object.task_done()
 
 changeQueue = Queue()
