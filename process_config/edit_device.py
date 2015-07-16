@@ -17,11 +17,7 @@ class EditDeviceListener(threading.Thread):
         self.shared_object = queue
 
     def run(self):
-        changeStream = ChangesStream(db,
-                                     feed="continuous",
-                                     heartbeat=True,
-                                     since=db_info['update_seq'],
-                                     filter='homework-remote/edit_device')
+        changeStream = ChangesStream(db, feed="continuous", heartbeat=True, since=db_info['update_seq'], filter='homework-remote/edit_device')
         for change in changeStream:
             print "change: " + str(change)
             self.shared_object.put(change)
