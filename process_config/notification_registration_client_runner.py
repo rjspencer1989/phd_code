@@ -4,6 +4,7 @@ import os
 
 from couchdbkit import *
 from Queue import Queue
+from pprint import pprint
 import threading
 import couchdb_config_parser
 import add_history
@@ -11,6 +12,7 @@ import notification_registration_client
 
 db = couchdb_config_parser.get_db()
 db_info = db.info()
+pprint(db_info)
 
 
 class NotificationListener(threading.Thread):
