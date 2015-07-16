@@ -42,3 +42,4 @@ print res
 
 john_twitter = notifications.Notifications("John", "twitter", "rjspencer1989")
 res = db.save_doc(john_twitter.get_doc(), force_update=True)
+print res

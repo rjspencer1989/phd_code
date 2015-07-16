@@ -22,7 +22,6 @@ while 1:
         file.seek(where)
     else:
         hostapd_index = line.find('hostapd')
-
         if hostapd_index > -1:
             if line.find('associated') > -1:
                 chunks = line.split()
