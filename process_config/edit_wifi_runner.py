@@ -40,10 +40,11 @@ class WifiProcessor(threading.Thread):
     def run(self):
         while(True):
             change = self.shared_object.get()
-            the_id = change['id']
-            the_rev = change['changes'][0]['rev']
-            current_doc = db.open_doc(the_id, rev=the_rev)
-            edit_wifi.process_wifi(current_doc)
+            if 'id' in change:
+                the_id = change['id']
+                the_rev = change['changes'][0]['rev']
+                current_doc = db.open_doc(the_id, rev=the_rev)
+                edit_wifi.process_wifi(current_doc)
             self.shared_object.task_done()
 
 changeQueue = Queue()

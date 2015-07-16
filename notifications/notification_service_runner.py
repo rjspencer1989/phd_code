@@ -67,10 +67,11 @@ class NotificationRequestProcessor(threading.Thread):
     def run(self):
         while True:
             change = self.sharedObject.get()
-            the_id = change['id']
-            the_rev = change['changes'][0]['rev']
-            doc = db.open_doc(the_id, rev=the_rev)
-            self.process_notification(doc)
+            if 'id' in change:
+                the_id = change['id']
+                the_rev = change['changes'][0]['rev']
+                doc = db.open_doc(the_id, rev=the_rev)
+                self.process_notification(doc)
             self.sharedObject.task_done()
 
 notification_queue = Queue()

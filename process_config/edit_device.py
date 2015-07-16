@@ -31,13 +31,14 @@ class EditDeviceProcessor(threading.Thread):
     def run(self):
         while True:
             change = self.shared_object.get()
-            theId = change['id']
-            theRev = change['changes'][0]['rev']
-            current_doc = db.get(theId, rev=theRev)
-            print current_doc
-            title = 'Edited device details'
-            desc = 'Edited details for %s' % (current_doc['device_name'])
-            add_history_item(title, desc, theId, theRev, True)
+            if 'id' in change:
+                theId = change['id']
+                theRev = change['changes'][0]['rev']
+                current_doc = db.get(theId, rev=theRev)
+                print current_doc
+                title = 'Edited device details'
+                desc = 'Edited details for %s' % (current_doc['device_name'])
+                add_history_item(title, desc, theId, theRev, True)
             self.shared_object.task_done()
 
 changeQueue = Queue()
