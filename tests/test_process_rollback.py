@@ -60,7 +60,7 @@ class TestProcessRollback(unittest.TestCase):
         self.hist4 = self.add_history(res4['id'], res4['rev'], dt.isoformat())
         self.test_doc_ids.append(self.hist4['id'])
         self.revert_timestamp = datetime.datetime(2015, 1, 20).isoformat()
-        self.rb = perform_rollback.consumer
+        self.rb = perform_rollback.Rollback(self.db, {})
 
     def tearDown(self):
         for doc in self.test_doc_ids:
