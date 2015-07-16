@@ -23,7 +23,7 @@ class EditDeviceListener(threading.Thread):
                                      since=db_info['update_seq'],
                                      filter='homework-remote/edit_device')
         for change in changeStream:
-            print "change: " + change
+            print "change: " + str(change)
             self.shared_object.put(change)
 
 
