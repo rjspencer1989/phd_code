@@ -30,7 +30,7 @@ class Rollback(object):
             the_id = self.change['id']
             the_rev = self.change['changes'][0]['rev']
             current_doc = self.db.get(the_id, rev=the_rev)
-            
+
             roller.revert(current_doc['timestamp'])
             add_history_item("Rollback", "Roll back to %s" % (timestamp),
                              the_id, the_rev, False)

@@ -7,6 +7,7 @@ import threading
 import os
 from perform_rollback import Rollback
 
+
 class RollbackListener(threading.Thread):
     def __init__(self, threadName, queue):
         threading.Thread.__init__(self, name=threadName)
@@ -25,6 +26,7 @@ class RollbackProcessor(threading.Thread):
         threading.Thread.__init__(self, name=threadName)
         self.shared_object = queue
         self.db = couchdb_config_parser.get_db()
+
     def run(self):
         while True:
             change = self.shared_object.get()
