@@ -49,14 +49,15 @@ class RollbackProcessor(threading.Thread):
     def run(self):
         while True:
             change = self.shared_object.get()
-            the_id = change['id']
-            the_rev = change['changes'][0]['rev']
-            current_doc = self.db.get(the_id, rev=the_rev)
-            self.revert(current_doc['timestamp'])
-            add_history_item("Rollback", "Roll back to %s" % (timestamp),
-                             the_id, the_rev, False)
-            doc.status = 'done'
-            db.save_doc(current_doc['_id'])
+            if 'id' in change:
+                the_id = change['id']
+                the_rev = change['changes'][0]['rev']
+                current_doc = self.db.get(the_id, rev=the_rev)
+                self.revert(current_doc['timestamp'])
+                add_history_item("Rollback", "Roll back to %s" % (timestamp),
+                                 the_id, the_rev, False)
+                doc.status = 'done'
+                db.save_doc(current_doc['_id'])
             self.shared_object.task_done()
 change_queue = Queue()
 producer = RollbackListener('producer', change_queue)
