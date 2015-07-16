@@ -4,7 +4,7 @@ class Notifications(object):
         self.service = service
         self.user = user
         self.collection = "notifications"
-        self.status = "done"
+        self.status = "pending"
 
     def get_doc(self):
         doc = {
