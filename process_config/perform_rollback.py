@@ -1,0 +1,38 @@
+from add_history import add_history_item
+
+
+class Rollback(object):
+    def __init__(self, db, change):
+        self.db = db
+        self.change = change
+
+    def get_events_after_timestamp(self, ts):
+        vr = self.db.view('homework-remote/undoable_events', startkey=ts)
+        return vr.all()
+
+    def get_docs_to_revert(self, timestamp):
+        events = self.get_events_after_timestamp(timestamp)
+        doc_list = {}
+        for event_val in events:
+            event = event_val['value']
+            if event['doc_id'] not in doc_list:
+                doc_list[event['doc_id']] = event
+        return doc_list
+
+    def revert(self, timestamp):
+        doc_list = self.get_docs_to_revert(timestamp)
+        for key, doc in doc_list.iteritems():
+            doc['perform_undo'] = True
+            self.db.save_doc(doc)
+
+    def rollback(self):
+        if 'id' in self.change:
+            the_id = self.change['id']
+            the_rev = self.change['changes'][0]['rev']
+            current_doc = self.db.get(the_id, rev=the_rev)
+            
+            roller.revert(current_doc['timestamp'])
+            add_history_item("Rollback", "Roll back to %s" % (timestamp),
+                             the_id, the_rev, False)
+            current_doc.status = 'done'
+            db.save_doc(current_doc['_id'])
