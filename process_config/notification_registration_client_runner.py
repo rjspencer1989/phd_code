@@ -35,15 +35,16 @@ class NotificationProcessor(threading.Thread):
         while(True):
             change = self.shared_object.get()
             print change
-            theId = change['id']
-            theRev = change['changes'][0]['rev']
-            currentDoc = db.open_doc(theId, rev=theRev)
-            if theRev.startswith('1-'):
-                notification_registration_client.registration(currentDoc)
-            elif 'hidden' in currentDoc:
-                notification_registration_client.delete(currentDoc)
-            else:
-                notification_registration_client.edit(currentDoc)
+            if 'id' in change:
+                theId = change['id']
+                theRev = change['changes'][0]['rev']
+                currentDoc = db.open_doc(theId, rev=theRev)
+                if theRev.startswith('1-'):
+                    notification_registration_client.registration(currentDoc)
+                elif 'hidden' in currentDoc:
+                    notification_registration_client.delete(currentDoc)
+                else:
+                    notification_registration_client.edit(currentDoc)
             self.shared_object.task_done()
 
 changeQueue = Queue()
