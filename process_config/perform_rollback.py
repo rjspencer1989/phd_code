@@ -16,11 +16,7 @@ class RollbackListener(threading.Thread):
         self.shared_object = queue
 
     def run(self):
-        change_stream = ChangesStream(self.db,
-                                      feed='continuous',
-                                      heartbeat=True,
-                                      since=self.db_info['update_seq'],
-                                      filter='homework-remote/revert')
+        change_stream = ChangesStream(self.db, feed='continuous', heartbeat=True, since=self.db_info['update_seq'], filter='homework-remote/revert')
         for change in change_stream:
             self.shared_object.put(change)
 
