@@ -104,6 +104,7 @@ class HomeworkDHCP(object):
             else:
                 current_doc['connection_event'] = 'disconnect'
             current_doc['port'] = port
+            current_doc['changed_by'] = 'system'
         elif len(vr_all) == 0:
             current_doc = {}
             current_doc['_id'] = str(mac)
@@ -118,8 +119,10 @@ class HomeworkDHCP(object):
             current_doc['device_type'] = ""
             if len(known_devices) == 0:
                 current_doc['action'] = 'permit'
+                current_doc['changed_by'] = 'user'
             else:
                 current_doc['action'] = ''
+                current_doc['changed_by'] = 'system'
             current_doc['notification_service'] = ""
             current_doc['timestamp'] = time.time()
             current_doc['connection_event'] = 'connect'
@@ -127,7 +130,6 @@ class HomeworkDHCP(object):
         else:
             print "MAC Address has more than one lease. stopping"
             return
-        current_doc['changed_by'] = 'system'
         self.selected_db.save_doc(current_doc)
 
     def is_valid_mapping(self, ip, mac):
