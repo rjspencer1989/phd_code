@@ -7,7 +7,7 @@ import time
 from couchdbkit import Server
 from pyroute2 import IPRoute  # @UnresolvedImport
 import socket
-from process_config import couchdb_config_parser
+from process_config import couchdb_config_parser, change_notification
 
 MAX_LEASE = 43200
 ROUTABLE_SUBNET = "10.2.0.0"
@@ -127,6 +127,12 @@ class HomeworkDHCP(object):
             current_doc['timestamp'] = time.time()
             current_doc['connection_event'] = 'connect'
             current_doc['port'] = port
+            if self.selected_db.doc_exist('main_user'):
+                main_doc = self.selected_db.get('main_user')
+                user = main_doc['name']
+                service = main_doc['service']
+                msg = "%s is requesting access to your network" % (name)
+                change_notification.sendNotification(user, service, msg)
         else:
             print "MAC Address has more than one lease. stopping"
             return

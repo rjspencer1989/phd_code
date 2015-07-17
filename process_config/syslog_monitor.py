@@ -46,12 +46,6 @@ while 1:
                         action == 'associated'):
                     device_doc['connection_event'] = 'connect'
                     device_doc['changed_by'] = 'connected_devices'
-                    if device_doc['state'] == 'pending':
-                        main_doc = db.get('main_user')
-                        user = main_doc['name']
-                        service = main_doc['service']
-                        msg = "%s is requesting access to your network" % (name)
-                        sendNotification(user, service, msg)
                     res = db.save_doc(device_doc)
                     title = 'Device connected'
                     desc = '%s connected' % (name)
