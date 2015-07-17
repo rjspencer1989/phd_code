@@ -96,7 +96,7 @@ class TestNotificationServiceRunner(unittest.TestCase):
         doc['hidden'] = True
         self.db.save_doc(doc, force_update=True)
 
-    @unittest.skip("stop the spam")
+    # @unittest.skip("stop the spam")
     def test_send_notification(self):
         doc = {
             "body": "test",
@@ -116,7 +116,7 @@ class TestNotificationServiceRunner(unittest.TestCase):
         doc['hidden'] = True
         self.db.save_doc(doc, force_update=True)
 
-    @unittest.skip("stop the spam")
+    # @unittest.skip("stop the spam")
     def test_process_notification(self):
         doc = {
             "body": "test",
