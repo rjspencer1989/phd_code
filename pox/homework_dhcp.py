@@ -130,6 +130,7 @@ class HomeworkDHCP(object):
             if self.selected_db.doc_exist('main_user'):
                 main_doc = self.selected_db.get('main_user')
                 user = main_doc['name']
+                name = str(mac)
                 service = main_doc['service']
                 msg = "%s is requesting access to your network" % (name)
                 change_notification.sendNotification(user, service, msg)
