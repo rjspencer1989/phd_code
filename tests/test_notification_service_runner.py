@@ -27,7 +27,7 @@ class TestNotificationServiceRunner(unittest.TestCase):
             "collection": "notifications",
             "name": "Harry",
             "service": "phone",
-            "user": "+447954166182",
+            "user": "+447972058628",
             "status": "done"
         }
 
