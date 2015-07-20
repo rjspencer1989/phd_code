@@ -70,3 +70,7 @@ h2 {
 .dropdown-menu{
     background-color: #ffffff;
 }
+
+.events-body{
+    padding-bottom: 5px;
+}
