@@ -24,6 +24,10 @@ mrldesx2 = devices.Devices("a0:f4:50:f3:48:50", "10.2.0.5", "android-a1", "", ""
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 print res
 
+mrldesx2.set_field("action", "permit")
+res = db.save_doc(mrldesx2.get_doc(), force_update=True)
+print res
+
 rjsxperia1 = devices.Devices("a0:e4:53:55:00:cc", "10.2.0.33", "android-a2", "", "", "add", "", "pending", "", "wlan0")
 res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
 print res
