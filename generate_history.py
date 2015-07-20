@@ -25,6 +25,7 @@ res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 print res
 
 mrldesx2.set_field("action", "permit")
+mrldesx2.set_field("changed_by", "user")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 print res
 
