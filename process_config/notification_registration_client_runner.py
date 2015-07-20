@@ -23,6 +23,7 @@ class NotificationListener(threading.Thread):
     def run(self):
         changeStream = ChangesStream(db, feed="continuous", heartbeat=True, since=db_info['update_seq'], filter="homework-remote/notifications")
         for change in changeStream:
+            print change
             self.shared_object.put(change)
 
 
