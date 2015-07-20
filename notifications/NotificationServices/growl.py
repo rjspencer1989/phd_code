@@ -6,7 +6,7 @@ def sendNotification(notificationId, to, body):
     growl = gntp.notifier.GrowlNotifier(
         applicationName="homework-notify",
         notifications=["Router Notification"],
-        defaultNotifications=["Router Notifications"],
+        defaultNotifications=["Router Notification"],
         hostname=to
     )
 
