@@ -20,6 +20,6 @@ def get_db():
     if len(user) == 0:
         addr = 'http://%s:%s' % (server_name, port)
     s = Server(addr)
-    db = s.get_db(db_name)
+    db = s.get_or_create_db(db_name)
     db.info()
     return db
