@@ -88,7 +88,7 @@ class HomeworkDHCP(object):
             current_doc['state'] = state
             current_doc['action'] = ''
             current_doc['changed_by'] = 'system'
-            self.selected_db.save_doc(current_doc, force=True)
+            self.selected_db.save_doc(current_doc, force_update=True)
 
     def insert_couchdb(self, lease_action, ip, mac, hostname, port):
         known_devices = self.get_data()
