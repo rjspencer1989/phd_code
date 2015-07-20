@@ -42,4 +42,4 @@ class Devices(object):
         return doc
 
     def set_field(self, field, value):
-        self[field] = value
+        setattr(self, field, value)
