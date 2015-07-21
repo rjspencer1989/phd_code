@@ -98,6 +98,6 @@ def process_wifi(doc):
     title = "New WiFi Configuration"
     desc = "WiFi configuration has been updated. "
     desc += "You will need to reconnect your devices"
-    add_history.add_history_item(title, desc, the_id, the_rev, True)
+    add_history.add_history_item(title, desc, doc['_id'], doc['_rev'], True)
     if notify(devices):
         reload_hostapd()
