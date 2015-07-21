@@ -60,19 +60,24 @@ def generate_config(current_doc):
     values = line_list[1]
     lines = []
     print keys
-    if len(keys) > 0 and 'bss' not in keys:
+    if len(keys) > 0:
         channel_index = keys.index('channel')
-        values[channel_index] = current_doc['channel']
-        if current_doc['mode'] == 'n' and 'ieee80211n' not in keys:
-            keys.append('ieee80211n')
-            values.append('1\n')
-        elif current_doc['mode'] == 'g' and 'ieee80211n' in keys:
-            n_index = keys.index('ieee80211n')
-            keys.pop(n_index)
-            values.pop(n_index)
-        for key, value in zip(keys, values):
-            line = '{0}={1}\n'.format(key, value)
-            lines.append(line)
+            values[channel_index] = current_doc['channel']
+            if current_doc['mode'] == 'n' and 'ieee80211n' not in keys:
+                keys.append('ieee80211n')
+                values.append('1\n')
+            elif current_doc['mode'] == 'g' and 'ieee80211n' in keys:
+                n_index = keys.index('ieee80211n')
+                keys.pop(n_index)
+                values.pop(n_index)
+            for key, value in zip(keys, values):
+                line = '{0}={1}\n'.format(key, value)
+                lines.append(line)
+
+        if 'bss' in keys:
+            bss_index = keys.index('bss')
+            keys = keys[0:bss_index]
+            values = values[0:bss_index]
         lines.append('bss=wlan0_1\n')
         lines.append('ssid=%s\n' % (current_doc['ssid']))
         lines.append('wpa=3\n')
