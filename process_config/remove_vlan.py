@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import subprocess
+import os
 
 
 def reload_hostapd():
@@ -53,3 +54,7 @@ def remove_vlan():
     lines = generate_config()
     write_config_file(lines)
     reload_hostapd()
+
+if 'ENV_TESTS' not in os.environ:
+    remove_vlan()
+    
