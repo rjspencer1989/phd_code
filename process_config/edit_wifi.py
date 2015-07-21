@@ -71,14 +71,14 @@ def generate_config(current_doc):
             n_index = keys.index('ieee80211n')
             keys.pop(n_index)
             values.pop(n_index)
-        for key, value in zip(keys, values):
-            line = '{0}={1}\n'.format(key, value)
-            lines.append(line)
 
         if 'bss' in keys:
             bss_index = keys.index('bss')
             keys = keys[0:bss_index]
             values = values[0:bss_index]
+        for key, value in zip(keys, values):
+            line = '{0}={1}\n'.format(key, value)
+            lines.append(line)
         lines.append('bss=wlan0_1\n')
         lines.append('ssid=%s\n' % (current_doc['ssid']))
         lines.append('wpa=3\n')
