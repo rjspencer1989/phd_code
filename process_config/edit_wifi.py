@@ -38,6 +38,7 @@ def get_config():
         values = []
         lines = fh.readlines()
         for line in lines:
+            print line
             arr = line.split('=')
             keys.append(arr[0])
             values.append(arr[1].strip())
