@@ -87,8 +87,8 @@ def process_wifi(doc):
     line_list = generate_config(doc)
     write_config_file(line_list)
     devices = get_connected_devices()
-    current_doc['status'] = 'done'
-    db.save_doc(current_doc)
+    doc['status'] = 'done'
+    db.save_doc(doc)
     title = "New WiFi Configuration"
     desc = "WiFi configuration has been updated. "
     desc += "You will need to reconnect your devices"
