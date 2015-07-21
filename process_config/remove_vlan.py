@@ -50,3 +50,5 @@ def remove_vlan():
     lines = generate_config()
     write_config_file(lines)
     reload_hostapd()
+
+remove_vlan()
