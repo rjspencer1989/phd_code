@@ -57,4 +57,3 @@ def remove_vlan():
 
 if 'ENV_TESTS' not in os.environ:
     remove_vlan()
-    
