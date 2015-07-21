@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import subprocess
+
+
 def reload_hostapd():
     cmd = ['/etc/init.d/hostapd', 'reload']
     res = subprocess.Popen(cmd)
