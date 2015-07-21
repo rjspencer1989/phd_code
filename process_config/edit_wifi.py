@@ -84,7 +84,7 @@ def generate_config(current_doc):
 
 
 def process_wifi(doc):
-    line_list = self.generate_config(doc)
+    line_list = generate_config(doc)
     write_config_file(line_list)
     devices = get_connected_devices()
     current_doc['status'] = 'done'
