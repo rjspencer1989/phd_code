@@ -137,7 +137,7 @@ class HomeworkDHCP(object):
         else:
             print "MAC Address has more than one lease. stopping"
             return
-        self.selected_db.save_doc(current_doc)
+        self.selected_db.save_doc(current_doc, force_update=True)
 
     def is_valid_mapping(self, ip, mac):
         if ip not in self.ip_mapping:
