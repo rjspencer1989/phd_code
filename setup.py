@@ -39,6 +39,7 @@ lines = ['auth_algs=1\n',
          'hw_mode=g\n',
          'ieee80211n=1\n',
          'ignore_broadcast_ssid=0\n',
+         'interface=wlan0\n',
          'macaddr_acl=0\n',
          'own_ip_addr=127.0.0.1\n',
          'rsn_pairwise=CCMP\n',
@@ -50,4 +51,4 @@ lines = ['auth_algs=1\n',
  
 with open('/etc/hostapd/hostapd.conf', 'w') as fh:
     fh.writelines(lines)
-subprocess.call(['/etc/init.d/hostapd', 'reload'])
+subprocess.call(['/sbin/reboot'])
