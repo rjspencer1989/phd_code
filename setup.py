@@ -19,7 +19,7 @@ wifi = {
     'collection': 'wifi',
     'status': 'done',
     'ssid': ssid,
-    'encyryption_type': 'wpa',
+    'encryption_type': 'wpa',
     'password': password,
     'mode': 'n',
     'channel': channel
