@@ -47,6 +47,6 @@ lines = ['auth_algs=1\n',
          'wpa_pairwise=TKIP\n',
          'wpa_passphrase=%s\n' % (password)]
  
- with open('/etc/hostapd/hostapd.conf', 'w') as fh:
-     fh.writelines(lines)
+with open('/etc/hostapd/hostapd.conf', 'w') as fh:
+    fh.writelines(lines)
 subprocess.call('service hostapd reload')
