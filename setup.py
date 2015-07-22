@@ -12,7 +12,7 @@ db = couchdb_config_parser.get_db()
 db.flush()
 
 ssid = "homework-%d" % (int(random.getrandbits(25)))
-password = ''.join(random.sample(string.printable, 10))
+password = ''.join(random.sample(string.ascii_letters+string.digits+string.punctuation, 10))
 print password
 channel = random.choice(range(1,12))
 
