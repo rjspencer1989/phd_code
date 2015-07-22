@@ -50,4 +50,4 @@ lines = ['auth_algs=1\n',
  
 with open('/etc/hostapd/hostapd.conf', 'w') as fh:
     fh.writelines(lines)
-subprocess.call('service hostapd reload')
+subprocess.call(['/etc/init.d/hostapd', 'reload'])
