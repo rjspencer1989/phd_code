@@ -13,6 +13,7 @@ db.flush()
 
 ssid = "homework-%d" % (int(random.getrandbits(25)))
 password = ''.join(random.sample(string.printable, 10))
+print password
 channel = random.choice(range(1,12))
 
 wifi = {
