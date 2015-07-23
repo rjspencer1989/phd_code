@@ -20,6 +20,10 @@ def get_config():
         return (keys, values)
 
 
+def remove_vlan_from_switch():
+    cmd = ['/usr/local/bin/ovs-vsctl', '--if-exists', 'del-port', 'br0', 'wlan0_1']
+
+
 def write_config_file(lines):
     with open('/etc/hostapd/hostapd.conf', 'w') as fh:
         fh.writelines(lines)

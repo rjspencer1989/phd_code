@@ -55,6 +55,11 @@ def reload_hostapd():
     res = subprocess.Popen(cmd)
 
 
+def add_vlan_to_bridge():
+    cmd = ['/usr/local/bin/ovs-vsctl', '--may-exist', 'add-port', 'br0', 'wlan0_1']
+    subprocess.call(cmd)
+
+
 def generate_config(current_doc):
     line_list = get_config()
     keys = line_list[0]
@@ -101,3 +106,4 @@ def process_wifi(doc):
     add_history.add_history_item(title, desc, doc['_id'], doc['_rev'], True)
     if notify(devices):
         reload_hostapd()
+        add_vlan_to_bridge()
