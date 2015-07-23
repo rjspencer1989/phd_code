@@ -56,7 +56,9 @@ def reload_hostapd():
 
 
 def add_vlan_to_bridge():
-    cmd = ['/usr/local/bin/ovs-vsctl', '--may-exist', 'add-port', 'br0', 'wlan0_1']
+    cmd = ['/usr/local/bin/ovs-vsctl', '--if-exists', 'del-port', 'br0', 'wlan0_1']
+    subprocess.call(cmd)
+    cmd = ['/usr/local/bin/ovs-vsctl', 'add-port', 'br0', 'wlan0_1']
     subprocess.call(cmd)
 
 
