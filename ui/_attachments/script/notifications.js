@@ -136,7 +136,7 @@ window.App.Views.Notifications = Backbone.View.extend({
         this.collection.fetch({reset: true});
         this.subviews = [];
         this.main_user_model = new window.App.Models.MainUser();
-        this.main_user_model.fetch();
+        this.main_user_model.fetch({reset: true});
     },
 
     events: {
