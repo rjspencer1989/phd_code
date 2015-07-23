@@ -154,7 +154,7 @@ window.App.Views.Notifications = Backbone.View.extend({
         $(".alert").hide();
         var main_user_view = new window.App.Views.MainUser({model: this.main_user_model});
         this.subviews.push(main_user_view);
-        $("#main-user-div").html(main_user_view.render().el);
+        $("#main-user-div").empty().append(main_user_view.render().el);
         return this;
     },
 
