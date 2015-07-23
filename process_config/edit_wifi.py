@@ -51,7 +51,7 @@ def write_config_file(lines):
 
 
 def reload_hostapd():
-    cmd = ['/etc/init.d/hostapd', 'reload']
+    cmd = ['/etc/init.d/hostapd', 'restart']
     res = subprocess.Popen(cmd)
 
 
