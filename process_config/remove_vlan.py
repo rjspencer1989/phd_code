@@ -59,6 +59,7 @@ def remove_vlan():
     lines = generate_config()
     write_config_file(lines)
     reload_hostapd()
+    remove_vlan_from_switch()
 
 if 'ENV_TESTS' not in os.environ:
     remove_vlan()
