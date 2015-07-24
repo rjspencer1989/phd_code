@@ -1,5 +1,5 @@
 window.App.Views.WifiHome = Backbone.View.extend({
-    collection: new window.App.Collections.Wifi(),
+    collection: new window.App.Collections.WifiHome(),
     el: "#home-wifi-config",
     template: window.JST.home_wifi,
     initialize: function () {

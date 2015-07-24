@@ -19,6 +19,11 @@ window.App.Collections.Wifi = Backbone.Collection.extend({
     }
 });
 
+window.App.Collections.WifiHome = Backbone.Collection.extend({
+    model: window.App.Models.Wifi,
+    url: "wifi"
+});
+
 window.App.Views.Wifi = Backbone.View.extend({
     collection: new window.App.Collections.Wifi(),
     tagName: "div",
@@ -75,6 +80,7 @@ window.App.Views.Wifi = Backbone.View.extend({
 
     exit: function(){
         "use strict";
+        this.collection = {};
         this.remove();
     }
 });
