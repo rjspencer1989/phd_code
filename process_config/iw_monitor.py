@@ -20,5 +20,5 @@ vr = db.view('homework-remote/dhcp')
 for item in vr.all():
     keys.append(item['key'])
 
-disconnected = list({x for x in keys if x not in connected_macs})
+disconnected = [x for x in keys if x not in connected_macs]
 pprint.pprint(disconnected)
