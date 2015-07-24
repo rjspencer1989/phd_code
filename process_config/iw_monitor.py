@@ -20,11 +20,11 @@ def update_device_list():
             fields = line.split(' ')
             mac_addr = fields[1]
             connected_macs.append(mac_addr)
-    
+
     vr = db.view('homework-remote/wlan0')
     for item in vr.all():
         keys.append(item['key'])
-    
+
     disconnected = [x for x in keys if x not in connected_macs]
     for device in connected_macs:
         if not db.doc_exist(device):
@@ -35,7 +35,7 @@ def update_device_list():
             doc['connection_event'] = 'connect'
             doc['changed_by'] = 'connected_devices'
             db.save_doc(doc, force_update=True)
-    
+
     print "disconnected:\n"
     for device in disconnected:
         if not db.doc_exist(device):
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     scheduler.add_job(update_device_list, 'interval', seconds=5)
     scheduler.start()
     print 'press ctrl+c to exit'
-    
+
     try:
         while True:
             time.sleep(1)

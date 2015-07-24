@@ -3,20 +3,29 @@
 from couchdbkit import *
 from Queue import Queue
 import threading
-from datetime import datetime
+import datetime
 import couchdb_config_parser
 import subprocess
 import change_notification
 import os
 import add_history
 import pprint
+from crontab import CronTab
 
 db = couchdb_config_parser.get_db()
+cron = CronTab(user='homeuser')
 
 
 def get_connected_devices():
     vr = db.view('homework-remote/connected_devices')
     return vr.all()
+
+
+def get_cron_string():
+    cur_time = datetime.datetime.now()
+    tomorrow = cur_time + datetime.timedelta(days=1)
+    date_str = tomorrow.strftime("%M %H %d %m %a %Y")
+    return date_str
 
 
 def notify(devices):
@@ -26,7 +35,7 @@ def notify(devices):
                     len(row['value']['name']) > 0):
                 service = row['value']['notification_service']
                 to = row['value']['name']
-                timestr = datetime.now().strftime("%H:%M:%S")
+                timestr = datetime.datetime.now().strftime("%H:%M:%S")
                 msg = "network settings updated at %s" % (timestr)
                 change_notification.sendNotification(to, service, msg)
     return True
@@ -109,3 +118,6 @@ def process_wifi(doc):
     if notify(devices):
         reload_hostapd()
         add_vlan_to_bridge()
+        job = cron.new(command='/home/homeuser/phd_code/process_config/remove_vlan.py', comment='remove_vlan')
+        job.setall(get_cron_string())
+        cron.write_to_user(user='homeuser')
