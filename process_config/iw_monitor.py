@@ -22,7 +22,7 @@ for item in vr.all():
 
 disconnected = [x for x in keys if x not in connected_macs]
 for device in connected_macs:
-    if not db.doc_exists(device):
+    if not db.doc_exist(device):
         continue
     doc = db.get(device)
     print "[%s - %s]" % (doc['_id'], doc['connection_state'])
