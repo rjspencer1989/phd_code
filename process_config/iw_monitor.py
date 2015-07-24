@@ -26,6 +26,10 @@ for device in connected_macs:
         continue
     doc = db.get(device)
     print "[%s - %s]\n" % (doc['_id'], doc['connection_event'])
+    if doc['connection_event'] != 'connect':
+        doc['connection_event'] = 'connect'
+        doc['changed_by'] = 'connected_devices'
+        db.save_doc(doc, force_update=True)
 
 print "disconnected:\n"
 for device in disconnected:
@@ -33,3 +37,7 @@ for device in disconnected:
         continue
     doc = db.get(device)
     print "[%s - %s]\n" % (doc['_id'], doc['connection_event'])
+    if doc['connection_event'] != 'disconnect':
+        doc['connection_event'] = 'disconnect'
+        doc['changed_by'] = 'connected_devices'
+        db.save_doc(doc, force_update=True)
