@@ -193,7 +193,7 @@ window.App.Views.Notifications = Backbone.View.extend({
             item = this.subviews[index];
             item.remove();
         }
-        this.collection.db.changes = false;
+        this.collection = {};
         this.remove();
     }
 });
