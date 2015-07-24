@@ -13,7 +13,6 @@ import pprint
 from crontab import CronTab
 
 db = couchdb_config_parser.get_db()
-cron = CronTab(user='homeuser')
 
 
 def get_connected_devices():
@@ -118,6 +117,8 @@ def process_wifi(doc):
     if notify(devices):
         reload_hostapd()
         add_vlan_to_bridge()
-        job = cron.new(command='/home/homeuser/phd_code/process_config/remove_vlan.py', comment='remove_vlan')
-        job.setall(get_cron_string())
-        cron.write_to_user(user='homeuser')
+        if 'ENV_TEST' not in os.environ:
+            cron = CronTab(user='homeuser')
+            job = cron.new(command='/home/homeuser/phd_code/process_config/remove_vlan.py', comment='remove_vlan')
+            job.setall(get_cron_string())
+            cron.write_to_user(user='homeuser')
