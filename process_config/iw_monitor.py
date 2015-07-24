@@ -49,7 +49,7 @@ def update_device_list():
 
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
-    scheduler.add_job(tick, 'interval', seconds=5)
+    scheduler.add_job(update_device_list, 'interval', seconds=5)
     scheduler.start()
     print 'press ctrl+c to exit'
     
