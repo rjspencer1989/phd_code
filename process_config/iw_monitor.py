@@ -25,4 +25,11 @@ for device in connected_macs:
     if not db.doc_exist(device):
         continue
     doc = db.get(device)
-    print "[%s - %s]" % (doc['_id'], doc['connection_event'])
+    print "[%s - %s]\n" % (doc['_id'], doc['connection_event'])
+
+print "disconnected:\n"
+for device in disconnected:
+    if not db.doc_exist(device):
+        continue
+    doc = db.get(device)
+    print "[%s - %s]\n" % (doc['_id'], doc['connection_event'])
