@@ -16,7 +16,7 @@ for line in lines:
         mac_addr = fields[1]
         connected_macs.append(mac_addr)
 
-vr = db.view('homework-remote/dhcp')
+vr = db.view('homework-remote/wlan0')
 for item in vr.all():
     keys.append(item['key'])
 
