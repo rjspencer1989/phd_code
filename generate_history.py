@@ -61,6 +61,9 @@ res = db.save_doc(camera.get_doc(), force_update=True)
 iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.25", "iPhone", "wlan0")
 res = db.save_doc(iphone.get_doc(), force_update=True)
 
+bad_ipod = devices.Device("c8:b5:b7:5d:f4:ab", "10.2.0.29", "iPod", "wlan0")
+res = db.save_doc(bad_ipod.get_doc(), force_update=True)
+
 john_email = notifications.Notification("John", "email", "rob@robspencer.me.uk")
 res = db.save_doc(john_email.get_doc(), force_update=True)
 
