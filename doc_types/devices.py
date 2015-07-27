@@ -1,7 +1,7 @@
 import time
 
 
-class Devices(object):
+class Device(object):
     def __init__(self, mac_address, ip_address, host_name, device_name, user, lease_action, device_type, state, notification_service, port):
         self._id = mac_address
         self.mac_address = mac_address
