@@ -23,6 +23,8 @@ add_history.add_history_item("set up wifi", "initial wifi config", res["id"], re
 aspire = devices.Device("d0:27:88:80:d9:ef", "10.2.0.1", "aspire", "eth1", state="permit", device_name="aspire", device_type="desktop", notification_service="email", user="John")
 res = db.save_doc(aspire.get_doc(), force_update=True)
 print res
+dt = datetime.datetime(2014, 01, 12, hour=10, minute=20, tzinfo=tzutc())
+add_history.add_history_item("Device Permitted", "Device aspire was permitted to access your network", res["id"], res["rev"], False, dt.isoformat())
 
 main_user.set_field("name", "John")
 main_user.set_field("service", "phone")
