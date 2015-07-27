@@ -33,7 +33,7 @@ res=db.save_doc(main_user.get_doc(), force_update=True)
 john_phone = notifications.Notification("John", "phone", "+447972058628")
 res = db.save_doc(john_phone.get_doc(), force_update=True)
 print res
-dt = datetime.datetime(2014, 01, 12, hour=10, minute=27, tzinfo=tzutc())
+dt = datetime.datetime(2014, 01, 12, hour=10, minute=17, tzinfo=tzutc())
 add_history.add_history_item("New Notification Registration", "Added +447972058628 as phone number for John", res["id"], res["rev"], True, dt.isoformat())
 
 mrldesx2 = devices.Device("a0:f4:50:f3:48:50", "10.2.0.5", "android-aa474646cd34eeaa", "wlan0")
