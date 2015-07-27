@@ -40,6 +40,14 @@ callison = devices.Device("00:13:77:e1:d2:41", "10.2.0.17", "CALLISON", "eth2")
 res = db.save_doc(callison.get_doc(), force_update=True)
 print res
 
+camera = devices.Device("20:13:e0:d7:a1:36", "10.2.0.21", "DHCP-Thread", "wlan0")
+res = db.save_doc(camera.get_doc(), force_update=True)
+print res
+
+iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.25", "iPhone", "wlan0")
+res = db.save_doc(iphone.get_doc(), force_update=True)
+print res
+
 john_email = notifications.Notifications("John", "email", "rob@robspencer.me.uk")
 res = db.save_doc(john_email.get_doc(), force_update=True)
 print res
@@ -49,5 +57,17 @@ res = db.save_doc(john_phone.get_doc(), force_update=True)
 print res
 
 john_twitter = notifications.Notifications("John", "twitter", "rjspencer1989")
+res = db.save_doc(john_twitter.get_doc(), force_update=True)
+print res
+
+mary_email = notifications.Notifications("Mary", "email", "rob@robspencer.me.uk")
+res = db.save_doc(mary_email.get_doc(), force_update=True)
+print res
+
+mary_phone = notifications.Notifications("Mary", "phone", "+447972058628")
+res = db.save_doc(john_phone.get_doc(), force_update=True)
+print res
+
+mary_twitter = notifications.Notifications("mary", "twitter", "rjspencer1989")
 res = db.save_doc(john_twitter.get_doc(), force_update=True)
 print res
