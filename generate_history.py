@@ -26,6 +26,7 @@ print res
 
 main_user.set_field("name", "John")
 main_user.set_field("service", "phone")
+res=db.save_doc(main_user.get_doc(), force_update=True)
 
 john_phone = notifications.Notification("John", "phone", "+447972058628")
 res = db.save_doc(john_phone.get_doc(), force_update=True)
