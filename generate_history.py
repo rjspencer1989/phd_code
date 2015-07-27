@@ -24,6 +24,13 @@ aspire = devices.Device("d0:27:88:80:d9:ef", "10.2.0.1", "aspire", "eth1")
 res = db.save_doc(aspire.get_doc(), force_update=True)
 print res
 
+main_user.set_field("name", "John")
+main_user.set_field("service", "phone")
+
+john_phone = notifications.Notification("John", "phone", "+447972058628")
+res = db.save_doc(john_phone.get_doc(), force_update=True)
+print res
+
 mrldesx2 = devices.Device("a0:f4:50:f3:48:50", "10.2.0.5", "android-aa474646cd34eeaa", "wlan0")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 print res
@@ -50,10 +57,6 @@ print res
 
 john_email = notifications.Notification("John", "email", "rob@robspencer.me.uk")
 res = db.save_doc(john_email.get_doc(), force_update=True)
-print res
-
-john_phone = notifications.Notification("John", "phone", "+447972058628")
-res = db.save_doc(john_phone.get_doc(), force_update=True)
 print res
 
 john_twitter = notifications.Notification("John", "twitter", "rjspencer1989")
