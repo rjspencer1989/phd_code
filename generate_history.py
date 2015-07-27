@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from process_config import *
+from process_config import couchdb_config_parser, add_history
 from doc_types import *
 import random
 import string
