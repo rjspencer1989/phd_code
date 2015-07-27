@@ -8,7 +8,6 @@ from dateutil.tz import tzutc
 
 db = couchdb_config_parser.get_db()
 db.flush()
-random.seed(2)
 main_user = main_user.MainUser("", "")
 res = db.save_doc(main_user.get_doc(), force_update=True)
 print res
