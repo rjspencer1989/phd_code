@@ -20,7 +20,7 @@ res = db.save_doc(initial_wifi.get_doc())
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=15, tzinfo=tzutc())
 add_history.add_history_item("set up wifi", "initial wifi config", res["id"], res["rev"], False, dt.isoformat())
 
-aspire = devices.Device("d0:27:88:80:d9:ef", "10.2.0.1", "aspire", "eth1")
+aspire = devices.Device("d0:27:88:80:d9:ef", "10.2.0.1", "aspire", "eth1", state="permit", device_name="aspire", device_type="desktop", notification_service="email", user="john")
 res = db.save_doc(aspire.get_doc(), force_update=True)
 print res
 
