@@ -48,26 +48,26 @@ iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.25", "iPhone", "wlan0")
 res = db.save_doc(iphone.get_doc(), force_update=True)
 print res
 
-john_email = notifications.Notifications("John", "email", "rob@robspencer.me.uk")
+john_email = notifications.Notification("John", "email", "rob@robspencer.me.uk")
 res = db.save_doc(john_email.get_doc(), force_update=True)
 print res
 
-john_phone = notifications.Notifications("John", "phone", "+447972058628")
+john_phone = notifications.Notification("John", "phone", "+447972058628")
 res = db.save_doc(john_phone.get_doc(), force_update=True)
 print res
 
-john_twitter = notifications.Notifications("John", "twitter", "rjspencer1989")
+john_twitter = notifications.Notification("John", "twitter", "rjspencer1989")
 res = db.save_doc(john_twitter.get_doc(), force_update=True)
 print res
 
-mary_email = notifications.Notifications("Mary", "email", "rob@robspencer.me.uk")
+mary_email = notifications.Notification("Mary", "email", "rob@robspencer.me.uk")
 res = db.save_doc(mary_email.get_doc(), force_update=True)
 print res
 
-mary_phone = notifications.Notifications("Mary", "phone", "+447972058628")
+mary_phone = notifications.Notification("Mary", "phone", "+447972058628")
 res = db.save_doc(john_phone.get_doc(), force_update=True)
 print res
 
-mary_twitter = notifications.Notifications("mary", "twitter", "rjspencer1989")
+mary_twitter = notifications.Notification("mary", "twitter", "rjspencer1989")
 res = db.save_doc(john_twitter.get_doc(), force_update=True)
 print res

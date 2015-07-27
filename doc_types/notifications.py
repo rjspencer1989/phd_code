@@ -1,4 +1,4 @@
-class Notifications(object):
+class Notification(object):
     def __init__(self, name, service, user):
         self.name = name
         self.service = service
