@@ -19,10 +19,18 @@ res = db.save_doc(initial_wifi.get_doc())
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=15, tzinfo=tzutc())
 add_history.add_history_item("set up wifi", "initial wifi config", res["id"], res["rev"], False, dt.isoformat())
 
-aspire = devices.Device("d0:27:88:80:d9:ef", "10.2.0.1", "aspire", "eth1", state="permit", device_name="aspire", device_type="desktop", notification_service="email", user="John")
+aspire = devices.Device("d0:27:88:80:d9:ef", "10.2.0.1", "aspire", "eth1", state="permit")
 res = db.save_doc(aspire.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=20, tzinfo=tzutc())
-add_history.add_history_item("Device Permitted", "Device aspire was permitted to access your network", res["id"], res["rev"], False, dt.isoformat())
+add_history.add_history_item("Device Permitted", "Device was permitted to access your network", res["id"], res["rev"], False, dt.isoformat())
+
+aspire.set_field("device_name", "aspire")
+aspire.set_field("notification_service", "phone")
+aspire.set_field("name", "John")
+aspire.set_field("device_type", "desktop")
+res = db.save_doc(aspire.get_doc(), force_update=True)
+dt = datetime.datetime(2014, 01, 12, hour=10, minute=21, tzinfo=tzutc())
+add_history.add_history_item("Device Edited", "Device  Aspire was edited", res["id"], res["rev"], True, dt.isoformat())
 
 main_user.set_field("name", "John")
 main_user.set_field("service", "phone")
@@ -30,10 +38,15 @@ res=db.save_doc(main_user.get_doc(), force_update=True)
 
 john_phone = notifications.Notification("John", "phone", "+447972058628")
 res = db.save_doc(john_phone.get_doc(), force_update=True)
-dt = datetime.datetime(2014, 01, 12, hour=10, minute=21, tzinfo=tzutc())
+dt = datetime.datetime(2014, 01, 12, hour=10, minute=22, tzinfo=tzutc())
 add_history.add_history_item("New Notification Registration", "Added +447972058628 as phone number for John", res["id"], res["rev"], True, dt.isoformat())
 
-mrldesx2 = devices.Device("a0:f4:50:f3:48:50", "10.2.0.5", "android-aa474646cd34eeaa", "wlan0")
+callison = devices.Device("00:13:77:e1:d2:41", "10.2.0.5", "CALLISON", "eth2")
+res = db.save_doc(callison.get_doc(), force_update=True)
+dt = datetime.datetime(2014, 01, 12, hour=10, minute=30, tzinfo=tzutc())
+add_history.add_history_item("New Device", "Device 00:13:77:e1:d2:41 is requesting access to your network", res["id"], res["rev"], False, dt.isoformat())
+
+mrldesx2 = devices.Device("a0:f4:50:f3:48:50", "10.2.0.17", "android-aa474646cd34eeaa", "wlan0")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 
 rjsxperia1 = devices.Device("a0:e4:53:55:00:cc", "10.2.0.9", "android-5f251018c8685b52", "wlan0")
@@ -41,9 +54,6 @@ res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
 
 mrltablet6 = devices.Device("e0:b9:a5:8c:45:cd", "10.2.0.13", "android_8a0b6f3a084dc84a", "wlan0")
 res = db.save_doc(mrltablet6.get_doc(), force_update=True)
-
-callison = devices.Device("00:13:77:e1:d2:41", "10.2.0.17", "CALLISON", "eth2")
-res = db.save_doc(callison.get_doc(), force_update=True)
 
 camera = devices.Device("20:13:e0:d7:a1:36", "10.2.0.21", "DHCP-Thread", "wlan0")
 res = db.save_doc(camera.get_doc(), force_update=True)
