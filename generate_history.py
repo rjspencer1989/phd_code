@@ -10,7 +10,6 @@ db = couchdb_config_parser.get_db()
 db.flush()
 main_user = main_user.MainUser("", "")
 res = db.save_doc(main_user.get_doc(), force_update=True)
-print res
 
 ssid = "homework-%d" % (int(random.getrandbits(25)))
 password = ''.join(random.sample(string.ascii_lowercase + string.digits, 10))
