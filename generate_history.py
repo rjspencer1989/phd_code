@@ -13,7 +13,7 @@ main_user = main_user.MainUser("", "")
 res = db.save_doc(main_user.get_doc(), force_update=True)
 print res
 ssid = "homework-%d" % (int(random.getrandbits(25)))
-password = ''.join(random.sample(string.printable, 10))
+password = ''.join(random.sample(string.ascii_lowercase + string.digits, 10))
 channel = random.choice(range(1,12))
 initial_wifi = wifi.Wifi(ssid, password, 'n', channel)
 res = db.save_doc(initial_wifi.get_doc())
