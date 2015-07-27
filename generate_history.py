@@ -68,9 +68,9 @@ res = db.save_doc(mary_email.get_doc(), force_update=True)
 print res
 
 mary_phone = notifications.Notification("Mary", "phone", "+447972058628")
-res = db.save_doc(john_phone.get_doc(), force_update=True)
+res = db.save_doc(mary_phone.get_doc(), force_update=True)
 print res
 
-mary_twitter = notifications.Notification("mary", "twitter", "rjspencer1989")
-res = db.save_doc(john_twitter.get_doc(), force_update=True)
+mary_twitter = notifications.Notification("Mary", "twitter", "rjspencer1989")
+res = db.save_doc(mary_twitter.get_doc(), force_update=True)
 print res
