@@ -44,9 +44,9 @@ window.App.Views.Device = Backbone.View.extend({
             txt = "Yes";
         }
         this.$(".is_connected").html(txt);
-        var router_ip = window.location.hostname
-        var end = parseInt(router_ip.substr(0, router_ip.lastIndexOf('.') + 1), 10)
-        var client_ip = '10.2.0.' + (end - 1).toString()
+        var router_ip = window.location.hostname;
+        var end = parseInt(router_ip.substr(0, router_ip.lastIndexOf('.') + 1), 10);
+        var client_ip = '10.2.0.' + (end - 1).toString();
         if(this.model.get('ip_address') === client_ip){
             this.$('.deny-button').attr('disabled', true);
         }
