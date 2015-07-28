@@ -84,7 +84,8 @@ window.App.Views.Events = Backbone.View.extend({
             format: "dd-mm-yyyy",
             endDate: "0d",
             container: ".jump_date",
-            orientation: "top"
+            orientation: "top",
+            autoHide: true
         }).on('show', function(e){
             $(this).parent().find('.datepicker').css('z-index', 250);
         });
