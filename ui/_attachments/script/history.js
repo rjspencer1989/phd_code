@@ -79,11 +79,11 @@ window.App.Views.Events = Backbone.View.extend({
         this.$el.html(this.template());
         $("#main-row").empty().append(this.el);
         this.$(".input-group.date").datepicker({
-            todayBtn: "linked",
+            todayBtn: true,
             todayHighlight: true,
             format: "dd-mm-yyyy",
             endDate: "0d",
-            container: "#picker_container"
+            container: ".jump_date"
         });
         window.setActiveLink("history-link");
         this.collection.each(this.addOne, this);
