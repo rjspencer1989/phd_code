@@ -84,7 +84,7 @@ window.App.Views.Events = Backbone.View.extend({
             format: "dd-mm-yyyy",
             endDate: "0d",
             container: ".jump_date",
-            orientation: "bottom"
+            orientation: "top"
         });
         window.setActiveLink("history-link");
         this.collection.each(this.addOne, this);
