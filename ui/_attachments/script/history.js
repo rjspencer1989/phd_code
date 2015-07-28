@@ -86,7 +86,7 @@ window.App.Views.Events = Backbone.View.extend({
             container: ".jump_date",
             orientation: "top"
         }).on('show', function(e){
-            console.log(this);
+            console.log($(this).parent());
         });
         window.setActiveLink("history-link");
         this.collection.each(this.addOne, this);
