@@ -82,7 +82,8 @@ window.App.Views.Events = Backbone.View.extend({
             todayBtn: "linked",
             todayHighlight: true,
             format: "dd-mm-yyyy",
-            endDate: "0d"
+            endDate: "0d",
+            container: "picker_container"
         });
         window.setActiveLink("history-link");
         this.collection.each(this.addOne, this);
