@@ -69,20 +69,20 @@ res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 dt= datetime.datetime(2014, 01, 12, hour=11, minute=1, tzinfo=tzutc())
 add_history.add_history_item("Device Permitted", "mrldesx2 is permitted to access your network", res["id"], res["rev"], False, dt.isoformat())
 
-rjsxperia1 = devices.Device("a0:e4:53:55:00:cc", "10.2.0.17", "android-5f251018c8685b52", "wlan0")
-res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
-
-mrltablet6 = devices.Device("e0:b9:a5:8c:45:cd", "10.2.0.13", "android_8a0b6f3a084dc84a", "wlan0")
-res = db.save_doc(mrltablet6.get_doc(), force_update=True)
-
-camera = devices.Device("20:13:e0:d7:a1:36", "10.2.0.21", "DHCP-Thread", "wlan0")
-res = db.save_doc(camera.get_doc(), force_update=True)
-
-iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.25", "iPhone", "wlan0")
+iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.13", "iPhone", "wlan0")
 res = db.save_doc(iphone.get_doc(), force_update=True)
 
-bad_ipod = devices.Device("c8:b5:b7:5d:f4:ab", "10.2.0.29", "iPod", "wlan0")
+camera = devices.Device("20:13:e0:d7:a1:36", "10.2.0.17", "DHCP-Thread", "wlan0")
+res = db.save_doc(camera.get_doc(), force_update=True)
+
+mrltablet6 = devices.Device("e0:b9:a5:8c:45:cd", "10.2.0.21", "android_8a0b6f3a084dc84a", "wlan0")
+res = db.save_doc(mrltablet6.get_doc(), force_update=True)
+
+bad_ipod = devices.Device("c8:b5:b7:5d:f4:ab", "10.2.0.25", "iPod", "wlan0")
 res = db.save_doc(bad_ipod.get_doc(), force_update=True)
+
+rjsxperia1 = devices.Device("a0:e4:53:55:00:cc", "10.2.0.29", "android-5f251018c8685b52", "wlan0")
+res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
 
 john_email = notifications.Notification("John", "email", "rob@robspencer.me.uk")
 res = db.save_doc(john_email.get_doc(), force_update=True)
