@@ -60,6 +60,15 @@ res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=50, tzinfo=tzutc())
 add_history.add_history_item("New device", "a0:f4:50:f3:48:50 is requesting access to your network", res["id"], res["rev"], False, dt.isoformat())
 
+mrldesx2.set_field("device_name", "mrldesx2")
+mrldesx2.set_field("notification_service", "twitter")
+mrldesx2.set_field("name", "John")
+mrldesx2.set_field("device_type", "phone")
+mrldesx2.set_field("state", "permit")
+res = db.save_doc(mrldesx2.get_doc(), force_update=True)
+dt= datetime.datetime(2014, 01, 12, hour=11, minute=1, tzinfo=tzutc())
+add_history.add_history_item("Device Permitted", "mrldesx2 is permitted to access your network", res["id"], res["rev"], False, dt.isoformat())
+
 rjsxperia1 = devices.Device("a0:e4:53:55:00:cc", "10.2.0.17", "android-5f251018c8685b52", "wlan0")
 res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
 
