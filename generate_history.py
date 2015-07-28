@@ -43,8 +43,6 @@ add_history.add_history_item("New Notification Registration", "Added +4479720586
 
 callison = devices.Device("00:13:77:e1:d2:41", "10.2.0.5", "CALLISON", "eth2")
 res = db.save_doc(callison.get_doc(), force_update=True)
-dt = datetime.datetime(2014, 01, 12, hour=10, minute=30, tzinfo=tzutc())
-add_history.add_history_item("New Device", "Device 00:13:77:e1:d2:41 is requesting access to your network", res["id"], res["rev"], False, dt.isoformat())
 
 callison.set_field("device_name", "callison")
 callison.set_field("notification_service", "email")
@@ -57,8 +55,6 @@ add_history.add_history_item("Device permitted", "callison was permitted to acce
 
 mrldesx2 = devices.Device("a0:f4:50:f3:48:50", "10.2.0.9", "android-aa474646cd34eeaa", "wlan0")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
-dt = datetime.datetime(2014, 01, 12, hour=10, minute=50, tzinfo=tzutc())
-add_history.add_history_item("New device", "a0:f4:50:f3:48:50 is requesting access to your network", res["id"], res["rev"], False, dt.isoformat())
 
 mrldesx2.set_field("device_name", "mrldesx2")
 mrldesx2.set_field("notification_service", "twitter")
@@ -71,8 +67,6 @@ add_history.add_history_item("Device Permitted", "mrldesx2 is permitted to acces
 
 iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.13", "iPhone", "wlan0")
 res = db.save_doc(iphone.get_doc(), force_update=True)
-dt = datetime.datetime(2014, 01, 12, hour=19, minute=35, tzinfo=tzutc())
-add_history.add_history_item("New Device", "40:d3:2d:e3:92:d2 is requesting access to your network", res["id"], res["rev"], False, dt.isoformat())
 
 camera = devices.Device("20:13:e0:d7:a1:36", "10.2.0.17", "DHCP-Thread", "wlan0")
 res = db.save_doc(camera.get_doc(), force_update=True)
