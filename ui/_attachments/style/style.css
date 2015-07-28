@@ -71,6 +71,6 @@ h2 {
     padding-bottom: 5px;
 }
 
-.jump_date{
+.jump_date .datepicker{
     z-index: 500;
 }
