@@ -70,3 +70,7 @@ h2 {
 .events-body{
     padding-bottom: 5px;
 }
+
+.datepicker{
+    z-index: 500;
+}
