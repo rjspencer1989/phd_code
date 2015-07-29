@@ -104,6 +104,12 @@ add_history.add_history_item("Device Permitted", "mrltablet6 was permitted to ac
 bad_ipod = devices.Device("c8:b5:b7:5d:f4:ab", "10.2.0.25", "iPod", "wlan0")
 res = db.save_doc(bad_ipod.get_doc(), force_update=True)
 
+bad_ipod.set_field("device_name", "bad ipod")
+bad_ipod.set_field("state", "deny")
+res = db.save_doc(bad_ipod.get_doc(), force_update=True)
+dt = datetime.datetime(2015, 01, 29, hour=19, minute=12, tzinfo=tzutc())
+add_history.add_history_item("Device Denied", "bad ipod was denied from accessing your network", res["id"], res["rev"], False, dt.isoformat())
+
 rjsxperia1 = devices.Device("a0:e4:53:55:00:cc", "10.2.0.29", "android-5f251018c8685b52", "wlan0")
 res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
 
