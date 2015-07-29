@@ -92,6 +92,15 @@ add_history.add_history_item("Device Permitted", "Camera was permitted to access
 mrltablet6 = devices.Device("e0:b9:a5:8c:45:cd", "10.2.0.21", "android_8a0b6f3a084dc84a", "wlan0")
 res = db.save_doc(mrltablet6.get_doc(), force_update=True)
 
+mrltablet6.set_field("device_name", "mrltablet6")
+mrltablet6.set_field("notification_service", "twitter")
+mrltablet6.set_field("name", "Mary")
+mrltablet6.set_field("device_type", "tablet")
+mrltablet6.set_field("state", "permit")
+res = db.save_doc(mrltablet6.get_doc(), force_update=True)
+dt = datetime.datetime(2014, 12, 27, hour=13, minute=0, tzinfo=tzutc())
+add_history.add_history_item("Device Permitted", "mrltablet6 was permitted to access your network", res["id"], res["rev"], False, dt.isoformat())
+
 bad_ipod = devices.Device("c8:b5:b7:5d:f4:ab", "10.2.0.25", "iPod", "wlan0")
 res = db.save_doc(bad_ipod.get_doc(), force_update=True)
 
