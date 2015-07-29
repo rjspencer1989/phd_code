@@ -80,6 +80,15 @@ add_history.add_history_item("Device Permitted", "iphone is permitted to access 
 camera = devices.Device("20:13:e0:d7:a1:36", "10.2.0.17", "DHCP-Thread", "wlan0")
 res = db.save_doc(camera.get_doc(), force_update=True)
 
+camera.set_field("device_name", "Camera")
+camera.set_field("notification_service", "email")
+camera.set_field("name", "everyone")
+camera.set_field("device_type", "other")
+camera.set_field("state", "permit")
+res = db.save_doc(camera.get_doc(), force_update=True)
+dt = datetime.datetime(2014, 07, 25, hour=18, minute=25, tzinfo=tzutc())
+add_history.add_history_item("Device Permitted", "Camera was permitted to access your network", res["id"], res["rev"], False, dt.isoformat())
+
 mrltablet6 = devices.Device("e0:b9:a5:8c:45:cd", "10.2.0.21", "android_8a0b6f3a084dc84a", "wlan0")
 res = db.save_doc(mrltablet6.get_doc(), force_update=True)
 
