@@ -68,6 +68,15 @@ add_history.add_history_item("Device Permitted", "mrldesx2 is permitted to acces
 iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.13", "iPhone", "wlan0")
 res = db.save_doc(iphone.get_doc(), force_update=True)
 
+iphone.set_field("device_name", "iphone")
+iphone.set_field("notification_service", "phone")
+iphone.set_field("name", "Mary")
+iphone.set_field("device_type", "phone")
+iphone.set_field("state", "permit")
+res = db.save_doc(iphone.get_doc(), force_update=True)
+dt = datetime.datetime(2014, 01, 12, hour=19, minute=35, tzinfo=tzutc())
+add_history.add_history_item("Device Permitted", "iphone is permitted to access your network", res["id"], res["rev"], False, dt.isoformat())
+
 camera = devices.Device("20:13:e0:d7:a1:36", "10.2.0.17", "DHCP-Thread", "wlan0")
 res = db.save_doc(camera.get_doc(), force_update=True)
 
