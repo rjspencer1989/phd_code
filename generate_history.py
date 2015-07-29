@@ -113,6 +113,15 @@ add_history.add_history_item("Device Denied", "bad ipod was denied from accessin
 rjsxperia1 = devices.Device("a0:e4:53:55:00:cc", "10.2.0.29", "android-5f251018c8685b52", "wlan0")
 res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
 
+rjsxperia1.set_field("device_name", "rjsxperia1")
+rjsxperia1.set_field("notification_service", "phone")
+rjsxperia1.set_field("name", "John")
+rjsxperia1.set_field("device_type", "phone")
+rjsxperia1.set_field("state", "permit")
+res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
+dt = datetime.datetime(2015, 07, 20, hour=19, minute=30, tzinfo=tzutc())
+add_history.add_history_item("Device Permitted", "rjsxperia1 was permitted to access your network", res["id"], res["rev"], False, dt.isoformat())
+
 john_email = notifications.Notification("John", "email", "rob@robspencer.me.uk")
 res = db.save_doc(john_email.get_doc(), force_update=True)
 
