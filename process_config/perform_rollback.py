@@ -1,5 +1,7 @@
 from add_history import add_history_item
 import datetime
+from dateutil.tz import tzlocal
+import dateutil.parser
 
 
 class Rollback(object):
@@ -33,8 +35,9 @@ class Rollback(object):
             current_doc = self.db.get(the_id, rev=the_rev)
 
             self.revert(current_doc['timestamp'])
-            dt = datetime.datetime.utcfromtimestamp(current_doc['timestamp'])
-            add_history_item("Rollback", "Roll back to %s" % (dt.isoformat()),
+            dt = dateutil.parser.parse(current_doc['timestamp'])
+            dt = dt.astimezone(tzlocal())
+            add_history_item("Rollback", "Roll back to %s" % (dt.isoformat(' ')),
                              the_id, the_rev, False)
             current_doc['status'] = 'done'
             self.db.save_doc(current_doc, force_update=True)
