@@ -1,19 +1,20 @@
 <div class="jump_date">
     <h3>Revert to previous date</h3>
-    <div class="form-group">
+    <div class="row">
         <div class="input-group date" class="col-md-10">
-        <input type="text" name="history_dp" id="history_dp" class="form-control">
-        <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-        </span>
+            <input type="text" name="history_dp" id="history_dp" class="form-control">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+        <button type="button" class="btn btn-primary revert-button col-md-2" type="button">Revert</button>
+        <div id="picker_container"></div>
     </div>
     
-    <button type="button" class="btn btn-primary revert-button col-md-2" type="button">Revert</button>
-    </div>
     
-    <div id="picker_container"></div>
 </div>
-
-<div class="history_view timeline">
-    <dl></dl>
+<div class="row">
+    <div class="history_view timeline col-md-12">
+        <dl></dl>
+    </div>
 </div>
