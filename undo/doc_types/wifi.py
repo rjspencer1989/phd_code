@@ -13,6 +13,7 @@ class Wifi(BaseDoc):
 
     def undo(self):
         rev_list = self.get_rev_list()
+        print rev_list
         doc = self.db.get(self.doc['_id'], rev=rev_list[0])
         doc['status'] = 'pending'
         res = self.db.save_doc(doc, force_update=True)
