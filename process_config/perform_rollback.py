@@ -34,5 +34,5 @@ class Rollback(object):
             self.revert(current_doc['timestamp'])
             add_history_item("Rollback", "Roll back to %s" % (current_doc['timestamp']),
                              the_id, the_rev, False)
-            current_doc.status = 'done'
-            db.save_doc(current_doc['_id'])
+            current_doc['status'] = 'done'
+            db.save_doc(current_doc, force_update=True)
