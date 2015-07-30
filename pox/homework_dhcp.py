@@ -132,7 +132,7 @@ class HomeworkDHCP(object):
                 user = main_doc['name']
                 name = str(mac)
                 service = main_doc['service']
-                msg = "%s (%s) is requesting access to your network" % (name, host_name)
+                msg = "%s (%s) is requesting access to your network" % (name, hostname)
                 change_notification.sendNotification(user, service, msg)
         else:
             print "MAC Address has more than one lease. stopping"
