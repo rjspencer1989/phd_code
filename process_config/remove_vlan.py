@@ -61,9 +61,9 @@ def remove_vlan():
     write_config_file(lines)
     reload_hostapd()
     remove_vlan_from_switch()
-    cron = CronTab()
+    cron = CronTab(user=True)
     cron.remove_all(comment='remove_vlan')
-    cron.write()
+    cron.write(user=True)
 
 if 'ENV_TESTS' not in os.environ:
     remove_vlan()

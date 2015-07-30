@@ -118,7 +118,7 @@ def process_wifi(doc):
         reload_hostapd()
         add_vlan_to_bridge()
         if 'ENV_TEST' not in os.environ:
-            cron = CronTab()
+            cron = CronTab(user=True)
             job = cron.new(command='/home/homeuser/phd_code/process_config/remove_vlan.py', comment='remove_vlan')
             job.setall(get_cron_string())
-            cron.write()
+            cron.write_to_user(user=True)
