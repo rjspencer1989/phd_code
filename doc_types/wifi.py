@@ -19,3 +19,6 @@ class Wifi(object):
             "collection": self.collection
         }
         return doc
+
+    def set_field(self, field, value):
+        setattr(self, field, value)

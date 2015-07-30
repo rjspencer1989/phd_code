@@ -15,3 +15,6 @@ class Notification(object):
             "status": self.status
         }
         return doc
+
+    def set_field(self, field, value):
+        setattr(self, field, value)
