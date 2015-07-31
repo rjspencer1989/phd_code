@@ -20,6 +20,10 @@ class Wifi(object):
             "collection": self.collection,
             "with_bss": self.with_bss
         }
+        
+        if len(self._id) > 0:
+            doc["_id"] = self._id
+            doc["_rev"] = self._rev
         return doc
 
     def set_field(self, field, value):
