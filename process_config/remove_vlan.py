@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import subprocess
 import os
-from crontab import CronTab
 
 
 def reload_hostapd():
@@ -61,9 +60,3 @@ def remove_vlan():
     write_config_file(lines)
     reload_hostapd()
     remove_vlan_from_switch()
-    cron = CronTab(user=True)
-    cron.remove_all(comment='remove_vlan')
-    cron.write(user=True)
-
-if 'ENV_TESTS' not in os.environ:
-    remove_vlan()
