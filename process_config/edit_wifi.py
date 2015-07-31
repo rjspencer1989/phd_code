@@ -70,7 +70,7 @@ def add_vlan_to_bridge():
     subprocess.call(cmd)
 
 
-def generate_config(current_doc):
+def generate_config(current_doc, with_bss=True):
     line_list = get_config()
     keys = line_list[0]
     values = line_list[1]
