@@ -21,7 +21,7 @@ class Wifi(object):
             "with_bss": self.with_bss
         }
         
-        if len(self._id) > 0:
+        if '_id' in self:
             doc["_id"] = self._id
             doc["_rev"] = self._rev
         return doc
