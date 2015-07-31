@@ -7,6 +7,7 @@ class Wifi(object):
         self.status = 'pending'
         self.collection = 'wifi'
         self.encryption_type = 'wpa'
+        self.with_bss = False
 
     def get_doc(self):
         doc = {
@@ -16,7 +17,8 @@ class Wifi(object):
             "channel": self.channel,
             "status": self.status,
             "encryption_type": self.encryption_type,
-            "collection": self.collection
+            "collection": self.collection,
+            "with_bss": self.with_bss
         }
         return doc
 
