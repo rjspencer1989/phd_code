@@ -23,12 +23,10 @@ class WifiListener(threading.Thread):
         self.since = db_info['update_seq']
 
     def run(self):
-        while True:
-            changeStream = ChangesStream(db, feed="longpoll", since=self.since, filter="homework-remote/wifi")
-            for change in changeStream:
-                self.since = change['seq']
-                self.shared_object.put(change)
-                pprint.pprint(change)
+        changeStream = ChangesStream(db, feed="continuous", since=self.since, filter="homework-remote/wifi")
+        for change in changeStream:
+            self.shared_object.put(change)
+            pprint.pprint(change)
 
 
 class WifiProcessor(threading.Thread):
