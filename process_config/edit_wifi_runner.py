@@ -29,6 +29,7 @@ class WifiListener(threading.Thread):
                                      filter="homework-remote/wifi")
         for change in changeStream:
             self.shared_object.put(change)
+            pprint.pprint(change)
 
 
 class WifiProcessor(threading.Thread):
