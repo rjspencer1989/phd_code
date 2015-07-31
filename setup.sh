@@ -1,5 +1,5 @@
 #!/bin/bash
-
+service homework-pox stop
 service homework-notifications stop
 service homework-notification-registration stop
 service homework-wifi-processor stop
