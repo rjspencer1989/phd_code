@@ -90,16 +90,25 @@ def generate_config(current_doc, with_bss=True):
             bss_index = keys.index('bss')
             keys = keys[0:bss_index]
             values = values[0:bss_index]
-        for key, value in zip(keys, values):
-            line = '{0}={1}\n'.format(key, value)
-            lines.append(line)
-        lines.append('bss=wlan0_1\n')
-        lines.append('ssid=%s\n' % (current_doc['ssid']))
-        lines.append('wpa=3\n')
-        lines.append('wpa_passphrase=%s\n' % (current_doc['password']))
-        lines.append('wpa_key_mgmt=WPA-PSK\n')
-        lines.append('wpa_pairwise=TKIP\n')
-        lines.append('rsn_pairwise=CCMP')
+        if with_bss == True:
+            for key, value in zip(keys, values):
+                line = '{0}={1}\n'.format(key, value)
+                lines.append(line)
+            lines.append('bss=wlan0_1\n')
+            lines.append('ssid=%s\n' % (current_doc['ssid']))
+            lines.append('wpa=3\n')
+            lines.append('wpa_passphrase=%s\n' % (current_doc['password']))
+            lines.append('wpa_key_mgmt=WPA-PSK\n')
+            lines.append('wpa_pairwise=TKIP\n')
+            lines.append('rsn_pairwise=CCMP')
+        else:
+            ssid_index = keys.index('ssid')
+            values[ssid_index] = current_doc['ssid']
+            passphrase_index = keys.index('wpa_passphrase')
+            values[passphrase_index] = current_doc['password']
+            for key, value in zip(keys, values):
+                line = '{0}={1}\n'.format(key, value)
+                lines.append(line)
     return lines
 
 
