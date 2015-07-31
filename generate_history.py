@@ -5,6 +5,7 @@ import random
 import string
 import datetime
 from dateutil.tz import tzutc
+import subprocess
 
 db = couchdb_config_parser.get_db()
 main_user = main_user.MainUser("", "")
@@ -158,3 +159,6 @@ mary_twitter = notifications.Notification("Mary", "twitter", "rjspencer1989")
 res = db.save_doc(mary_twitter.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 12, 27, hour=13, minute=01, tzinfo=tzutc())
 add_history.add_history_item("New Notification Registration", "Added rjspencer1989 as twitter username for Mary", res["id"], res["rev"], True, dt.isoformat())
+
+cmd = ['/usr/sbin/service', 'homework-pox', 'start']
+res = subprocess.Popen(cmd)
