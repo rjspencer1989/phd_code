@@ -90,7 +90,7 @@ def generate_config(current_doc, with_bss=True):
             bss_index = keys.index('bss')
             keys = keys[0:bss_index]
             values = values[0:bss_index]
-        if with_bss == True:
+        if with_bss is True:
             for key, value in zip(keys, values):
                 line = '{0}={1}\n'.format(key, value)
                 lines.append(line)
