@@ -19,13 +19,6 @@ def get_connected_devices():
     return vr.all()
 
 
-def get_cron_string():
-    cur_time = datetime.datetime.now()
-    tomorrow = cur_time + datetime.timedelta(days=1)
-    date_str = tomorrow.strftime("%M %H %d %m %a %Y")
-    return date_str
-
-
 def notify(devices):
     if devices is not None and len(devices) > 0:
         for row in devices:
