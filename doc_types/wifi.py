@@ -21,7 +21,7 @@ class Wifi(object):
             "with_bss": self.with_bss
         }
         
-        if '_id' in self:
+        if hasattr(self, '_id'):
             doc["_id"] = self._id
             doc["_rev"] = self._rev
         return doc
