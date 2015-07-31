@@ -16,6 +16,7 @@ password = ''.join(random.sample(string.ascii_lowercase + string.digits, 10))
 channel = random.choice(range(1,12))
 wifi = wifi.Wifi(ssid, password, 'n', channel)
 res = db.save_doc(wifi.get_doc())
+print res
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=15, tzinfo=tzutc())
 add_history.add_history_item("set up wifi", "initial wifi config", res["id"], res["rev"], False, dt.isoformat())
 
@@ -116,6 +117,7 @@ add_history.add_history_item("Device Denied", "bad ipod was denied from accessin
 wifi.set_field("ssid", "john_and_mary")
 wifi.set_field("password", "whatever")
 res = db.save_doc(wifi.get_doc(), force_update=True)
+print res
 dt = datetime.datetime(2015, 01, 30, hour=19, minute=0, tzinfo=tzutc())
 add_history.add_history_item("Wifi settings updated", "Wifi configuration has been updated and you need to reconnect your devices", res["id"], res["rev"], True, dt.isoformat())
 
