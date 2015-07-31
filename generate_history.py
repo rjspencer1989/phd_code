@@ -16,6 +16,8 @@ password = ''.join(random.sample(string.ascii_lowercase + string.digits, 10))
 channel = random.choice(range(1,12))
 wifi = wifi.Wifi(ssid, password, 'n', channel)
 res = db.save_doc(wifi.get_doc())
+wifi.set_field('_id', res['id'])
+wifi.set_field('_rev', res['rev'])
 print res
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=15, tzinfo=tzutc())
 add_history.add_history_item("set up wifi", "initial wifi config", res["id"], res["rev"], False, dt.isoformat())
