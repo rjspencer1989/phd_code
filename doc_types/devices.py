@@ -17,7 +17,7 @@ class Device(object):
         self.notification_service = notification_service
         self.timestamp = time.time()
         self.port = port
-        self.connection_event = "connect"
+        self.connection_event = "disconnect"
         self.changed_by = "system"
         
     def get_doc(self):
