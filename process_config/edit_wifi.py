@@ -113,7 +113,10 @@ def generate_config(current_doc, with_bss=True):
 
 
 def process_wifi(doc):
-    line_list = generate_config(doc)
+    if 'with_bss' in doc and doc['with_bss'] == True:
+        line_list = generate_config(doc)
+    else:
+        line_list = generate_config(doc, False)
     write_config_file(line_list)
     devices = get_connected_devices()
     doc['status'] = 'done'
