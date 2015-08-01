@@ -10,6 +10,8 @@ import change_notification
 import os
 import add_history
 import pprint
+import remove_vlan
+from apscheduler.schedulers.background import BackgroundScheduler
 
 db = couchdb_config_parser.get_db()
 
@@ -122,3 +124,8 @@ def process_wifi(doc):
     if notify(devices):
         reload_hostapd()
         add_vlan_to_bridge()
+        scheduler = BackgroundScheduler()
+        cur_time = datetime.datetime.now()
+        dt = cur_time + datetime.timedelta(days=1)
+        scheduler.add_job(remove_vlan.remove_vlan(), 'date', run_date=dt)
+        scheduler.start()
