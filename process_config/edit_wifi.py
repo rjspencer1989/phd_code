@@ -112,6 +112,7 @@ def process_wifi(doc):
         line_list = generate_config(doc, False)
     write_config_file(line_list)
     devices = get_connected_devices()
+    doc['with_bss'] = True
     doc['status'] = 'done'
     db.save_doc(doc)
     title = "New WiFi Configuration"

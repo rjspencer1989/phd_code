@@ -118,6 +118,7 @@ add_history.add_history_item("Device Denied", "bad ipod was denied from accessin
 
 wifi.set_field("ssid", "john_and_mary")
 wifi.set_field("password", "whatever")
+wifi.set_field("with_bss", False)
 res = db.save_doc(wifi.get_doc(), force_update=True)
 print res
 dt = datetime.datetime(2015, 01, 30, hour=19, minute=0, tzinfo=tzutc())
