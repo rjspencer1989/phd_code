@@ -108,10 +108,12 @@ def generate_config(current_doc, with_bss=True):
 
 
 def process_wifi(doc):
+    bss = True
     if 'with_bss' in doc and doc['with_bss'] == True:
         line_list = generate_config(doc)
     else:
         line_list = generate_config(doc, False)
+        bss = False
     write_config_file(line_list)
     devices = get_connected_devices()
     doc['with_bss'] = True
@@ -124,8 +126,9 @@ def process_wifi(doc):
     if notify(devices):
         reload_hostapd()
         add_vlan_to_bridge()
-        scheduler = BackgroundScheduler()
-        cur_time = datetime.datetime.now()
-        dt = cur_time + datetime.timedelta(days=1)
-        scheduler.add_job(remove_vlan.remove_vlan(), 'date', run_date=dt)
-        scheduler.start()
+        if bss is True:
+            scheduler = BackgroundScheduler()
+            cur_time = datetime.datetime.now()
+            dt = cur_time + datetime.timedelta(days=1)
+            scheduler.add_job(remove_vlan.remove_vlan(), 'date', run_date=dt)
+            scheduler.start()
