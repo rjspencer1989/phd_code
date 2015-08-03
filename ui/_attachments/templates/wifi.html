@@ -1,57 +1,59 @@
 <div class="alert alert-danger"><strong>Save Error </strong></div>
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Value</th>
-            <th>Edit</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Network Name (SSID)</td>
-            <td><%- ssid %></td>
-            <td><input type="text" id="ssid_input" name="ssid"/></td>
-        </tr>
-        <tr>
-            <td>Security type</td>
-            <td><%- encryption_type %></td>
-            <td>
-                This cannot be changed
-            </td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><%- password %></td>
-            <td><input type="text" id="password_input" name="password"/></td>
-        </tr>
-        <tr>
-            <td>Mode</td>
-            <td><%- mode %></td>
-            <td><select name="mode" id="mode_select">
-                <option value="blank">Please Select</option>
-                <option value="n">N</option>
-                <option value="g">G</option>
-            </select></td>
-        </tr>
-        <tr>
-            <td>Channel</td>
-            <td><%- channel %></td>
-            <td><select name="channel" id="channel_select">
-                <option value="blank">Please Select</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-            </select></td>
-        </tr>
-    </tbody>
-</table>
-<button class="btn btn-primary" id="save-wifi-button" type="button">Save</button>
+<form action="#/wifi" id="save-wifi-form">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Network Name (SSID)</td>
+                <td><%- ssid %></td>
+                <td><input type="text" id="ssid_input" name="ssid"/></td>
+            </tr>
+            <tr>
+                <td>Security type</td>
+                <td><%- encryption_type %></td>
+                <td>
+                    This cannot be changed
+                </td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><%- password %></td>
+                <td><input type="text" id="password_input" name="password"/></td>
+            </tr>
+            <tr>
+                <td>Mode</td>
+                <td><%- mode %></td>
+                <td><select name="mode" id="mode_select">
+                    <option value="blank">Please Select</option>
+                    <option value="n">N</option>
+                    <option value="g">G</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Channel</td>
+                <td><%- channel %></td>
+                <td><select name="channel" id="channel_select">
+                    <option value="blank">Please Select</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                </select></td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" id="save-wifi-button" type="submit">Save</button>
+</form>

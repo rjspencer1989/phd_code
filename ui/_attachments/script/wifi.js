@@ -39,7 +39,7 @@ window.App.Views.Wifi = Backbone.View.extend({
     },
 
     events: {
-        "click #save-wifi-button": "saveWifi"
+        "submit #save-wifi-form": "saveWifi"
     },
 
     render: function(){
@@ -51,8 +51,9 @@ window.App.Views.Wifi = Backbone.View.extend({
         return this;
     },
 
-    saveWifi: function(){
+    saveWifi: function(e){
         "use strict";
+        e.preventDefault();
         var newSSID = $("#ssid_input").val();
         var newChannel = $("#channel_select :selected").val();
         var newPassword = $("#password_input").val();
