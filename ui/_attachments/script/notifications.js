@@ -105,7 +105,7 @@ window.App.Views.MainUser = Backbone.View.extend({
     className: "main_user_el",
     template: window.JST.main_user,
     events: {
-        "click #set-main-user-button": "set_main_user"
+        "submit #set-main-user": "set_main_user"
     },
     render: function(){
         "use strict";
@@ -114,8 +114,9 @@ window.App.Views.MainUser = Backbone.View.extend({
         selection.attr('selected', true);
         return this;
     },
-    set_main_user: function(){
+    set_main_user: function(e){
         "use strict";
+        e.preventDefault();
         var name = $("#main-name").val();
         var service = $("#main-service :selected").val();
         this.model.set("name", name);
