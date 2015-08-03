@@ -31,10 +31,9 @@ class EditUserProcessor(threading.Thread):
     def run(self):
         while True:
             change = self.shared_object.get()
-            if 'id' in change:
-                theId = change['id']
+            if 'id' in change and change['id'] == 'main_user':
                 theRev = change['changes'][0]['rev']
-                current_doc = db.get(theId, rev=theRev)
+                current_doc = db.get('main_user', rev=theRev)
                 edit_main_user.edit_user(current_doc)
             self.shared_object.task_done()
 
@@ -42,6 +41,5 @@ changeQueue = Queue()
 producer = EditUserListener("producer", changeQueue)
 consumer = EditUserProcessor("consumer", changeQueue)
 
-if "ENV_TESTS" not in os.environ:
-    producer.start()
-    consumer.start()
+producer.start()
+consumer.start()
