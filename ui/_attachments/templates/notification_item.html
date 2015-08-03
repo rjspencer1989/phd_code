@@ -5,9 +5,11 @@
         <label><%- user %></label>
     </div>
     <div class="edit-controls">
-        <input type="text" class="edit" value="<%- user %>"/>
-        <button class="btn btn-primary save-notification-button" type="button">Save</button>
-        <button class="btn btn-default cancel-notification-button" type="button">Cancel</button>
+        <form action="#/notifications" class="edit-notification-form">
+            <input type="text" class="edit" value="<%- user %>"/>
+            <button class="btn btn-primary save-notification-button" type="submit">Save</button>
+            <button class="btn btn-default cancel-notification-button" type="button">Cancel</button>
+        </form>
     </div>
 </td>
 <td>

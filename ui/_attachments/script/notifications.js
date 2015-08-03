@@ -38,7 +38,7 @@ window.App.Views.Notification = Backbone.View.extend({
 
     events: {
         "click .edit-notification-button": "edit",
-        "click .save-notification-button": "save",
+        "submit .edit-notification-form": "save",
         "click .delete-notification-button": "delete",
         "click .cancel-notification-button": "cancel"
     },
@@ -81,8 +81,9 @@ window.App.Views.Notification = Backbone.View.extend({
         this.input.parents("td").removeClass("editing");
     },
 
-    save: function () {
+    save: function (e) {
         "use strict";
+        e.preventDefault();
         var self = this;
         this.input.parents("td").removeClass("editing");
         var value = this.input.val();
