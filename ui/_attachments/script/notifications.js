@@ -141,7 +141,7 @@ window.App.Views.Notifications = Backbone.View.extend({
 
     events: {
         "change #service": "getPrompt",
-        "click #add-notification-button": "addNotification"
+        "submit #add-notification-form": "addNotification"
     },
 
     render: function () {
