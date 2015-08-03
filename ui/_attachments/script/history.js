@@ -73,6 +73,11 @@ window.App.Views.Events = Backbone.View.extend({
     events: {
         "click .revert-button": "revert_state"
     },
+    
+    add_event: function(){
+        "use strict";
+        this.collection.fetch({reset: true, descending: true});
+    },
 
     render: function(){
         "use strict";
