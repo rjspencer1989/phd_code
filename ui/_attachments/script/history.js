@@ -76,6 +76,7 @@ window.App.Views.Events = Backbone.View.extend({
     
     add_event: function(){
         "use strict";
+        console.log(this);
         this.collection.fetch({reset: true, descending: true});
     },
 
