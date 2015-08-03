@@ -71,6 +71,11 @@ window.App.Views.Wifi = Backbone.View.extend({
             mod.set({password: newPassword});
         }
         mod.set({status: "pending"});
+
+        if (newSSID === "" && newPassword === "") {
+            mod.set({with_bss: false});
+        }
+
         mod.save(null, {
             error: function(model, response){
                 $(".alert").append(response.reason).show();
