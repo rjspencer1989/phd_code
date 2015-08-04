@@ -4,7 +4,7 @@ class Wifi(object):
         self.password = password
         self.mode = mode
         self.channel = channel
-        self.status = 'pending'
+        self.status = 'done'
         self.collection = 'wifi'
         self.encryption_type = 'wpa'
         self.with_bss = False
