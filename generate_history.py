@@ -145,20 +145,17 @@ dt = datetime.datetime(2014, 01, 12, hour=11, minute=02, tzinfo=tzutc())
 john_twitter = notifications.Notification("John", "twitter", "rjspencer1989", timestamp=dt.isoformat())
 res = db.save_doc(john_twitter.get_doc(), force_update=True)
 
-mary_email = notifications.Notification("Mary", "email", "rob@robspencer.me.uk")
-res = db.save_doc(mary_email.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=32, tzinfo=tzutc())
-add_history.add_history_item("New Notification Registration", "Added rob@robspencer.me.uk as email address for Mary", res["id"], res["rev"], True, dt.isoformat())
+mary_email = notifications.Notification("Mary", "email", "rob@robspencer.me.uk"timestamp=dt.isoformat())
+res = db.save_doc(mary_email.get_doc(), force_update=True)
 
-mary_phone = notifications.Notification("Mary", "phone", "+447972058628")
-res = db.save_doc(mary_phone.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=19, minute=36, tzinfo=tzutc())
-add_history.add_history_item("New Notification Registration", "Added +447972058628 as phone number for Mary", res["id"], res["rev"], True, dt.isoformat())
+mary_phone = notifications.Notification("Mary", "phone", "+447972058628", timestamp=dt.isoformat())
+res = db.save_doc(mary_phone.get_doc(), force_update=True)
 
-mary_twitter = notifications.Notification("Mary", "twitter", "rjspencer1989")
-res = db.save_doc(mary_twitter.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 12, 27, hour=13, minute=01, tzinfo=tzutc())
-add_history.add_history_item("New Notification Registration", "Added rjspencer1989 as twitter username for Mary", res["id"], res["rev"], True, dt.isoformat())
+mary_twitter = notifications.Notification("Mary", "twitter", "rjspencer1989", timestamp=dt.isoformat())
+res = db.save_doc(mary_twitter.get_doc(), force_update=True)
 
 cmd = ['/usr/sbin/service', 'homework-pox', 'start']
 res = subprocess.Popen(cmd)
