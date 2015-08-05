@@ -4,7 +4,7 @@ class Notification(object):
         self.service = service
         self.user = user
         self.collection = "notifications"
-        self.status = "pending",
+        self.status = "pending"
         self.event_timestamp = timestamp
 
     def get_doc(self):
