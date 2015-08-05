@@ -122,7 +122,8 @@ def process_wifi(doc):
     title = "New WiFi Configuration"
     desc = "WiFi configuration has been updated. "
     desc += "You will need to reconnect your devices"
-    add_history.add_history_item(title, desc, doc['_id'], doc['_rev'], True)
+    undoable = False if doc['_rev'].startswith('1-') else True
+    add_history.add_history_item(title, desc, doc['_id'], doc['_rev'], undoable, ts=doc['event_timestamp'])
     if notify(devices):
         reload_hostapd()
         add_vlan_to_bridge()
