@@ -20,7 +20,7 @@ wifi = wifi.Wifi(ssid, password, 'n', channel, timestamp=None)
 res = db.save_doc(wifi.get_doc())
 wifi.set_field('_id', res['id'])
 wifi.set_field('_rev', res['rev'])
-add_history.add_history_item('Initial Wifi configuration', 'Wifi network created', res['id'], res['rev'], False)
+add_history.add_history_item('Initial Wifi configuration', 'Wifi network created', res['id'], res['rev'], False, dt.isoformat())
 print res
 
 aspire = devices.Device("d0:27:88:80:d9:ef", "10.2.0.1", "aspire", "eth1", state="permit")
