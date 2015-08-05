@@ -1,5 +1,5 @@
 class Wifi(object):
-    def __init__(self, ssid, password, mode, channel):
+    def __init__(self, ssid, password, mode, channel, timestamp=None):
         self.ssid = ssid
         self.password = password
         self.mode = mode
@@ -7,7 +7,8 @@ class Wifi(object):
         self.status = 'done'
         self.collection = 'wifi'
         self.encryption_type = 'wpa'
-        self.with_bss = False
+        self.with_bss = False,
+        self.event_timestamp = timestamp
 
     def get_doc(self):
         doc = {
@@ -18,7 +19,8 @@ class Wifi(object):
             "status": self.status,
             "encryption_type": self.encryption_type,
             "collection": self.collection,
-            "with_bss": self.with_bss
+            "with_bss": self.with_bss,
+            "event_timestamp": self.event_timestamp
         }
         
         if hasattr(self, '_id'):

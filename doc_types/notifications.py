@@ -1,10 +1,11 @@
 class Notification(object):
-    def __init__(self, name, service, user):
+    def __init__(self, name, service, user, timestamp = None):
         self.name = name
         self.service = service
         self.user = user
         self.collection = "notifications"
-        self.status = "pending"
+        self.status = "pending",
+        self.event_timestamp = timestamp
 
     def get_doc(self):
         doc = {
@@ -12,7 +13,8 @@ class Notification(object):
             "service": self.service,
             "user": self.user,
             "collection": self.collection,
-            "status": self.status
+            "status": self.status,
+            "event_timestamp": self.event_timestamp
         }
         return doc
 

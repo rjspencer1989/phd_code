@@ -2,7 +2,7 @@ import time
 
 
 class Device(object):
-    def __init__(self, mac_address, ip_address, host_name, port, lease_action="add", device_name="", user="", device_type="", state="pending", notification_service=""):
+    def __init__(self, mac_address, ip_address, host_name, port, lease_action="add", device_name="", user="", device_type="", state="pending", notification_service="", timestamp=None):
         self._id = mac_address
         self.mac_address = mac_address
         self.ip_address = ip_address
@@ -19,6 +19,7 @@ class Device(object):
         self.port = port
         self.connection_event = "disconnect"
         self.changed_by = "system"
+        self.event_timestamp = timestamp
         
     def get_doc(self):
         doc = {
@@ -38,6 +39,7 @@ class Device(object):
             "port": self.port,
             "connection_event": self.connection_event,
             "changed_by": self.changed_by
+            "event_timestamp": self.event_timestamp
         }
         return doc
 
