@@ -38,7 +38,7 @@ class Device(object):
             "timestamp": self.timestamp,
             "port": self.port,
             "connection_event": self.connection_event,
-            "changed_by": self.changed_by
+            "changed_by": self.changed_by,
             "event_timestamp": self.event_timestamp
         }
         return doc
