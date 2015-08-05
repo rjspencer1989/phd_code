@@ -33,6 +33,8 @@ class EditUserProcessor(threading.Thread):
             change = self.shared_object.get()
             if 'id' in change and change['id'] == 'main_user':
                 theRev = change['changes'][0]['rev']
+                if theRev.startswith('1-'):
+                    continue
                 current_doc = db.get('main_user', rev=theRev)
                 edit_main_user.edit_user(current_doc)
             self.shared_object.task_done()
