@@ -1,10 +1,12 @@
 from base_doc import BaseDoc
+import pprint
 
 
 class Wifi(BaseDoc):
     def get_rev_list(self):
         revs=[]
         initial_revs = super(Wifi, self).get_rev_list()
+        pprint initial_revs
         for rev in initial_revs:
             doc = self.db.get(self.doc['_id'], rev=rev)
             if doc['status'] == 'done':
