@@ -6,6 +6,7 @@ import string
 import datetime
 from dateutil.tz import tzutc
 import subprocess
+import pprint
 
 db = couchdb_config_parser.get_db()
 main_user = main_user.MainUser("", "")
@@ -42,6 +43,7 @@ dt = datetime.datetime(2014, 01, 12, hour=10, minute=21, tzinfo=tzutc())
 add_history.add_history_item("Added main user", "Added John as main user for receiving network notifications", res["id"], res["rev"], True, dt.isoformat())
 
 john_phone = notifications.Notification("John", "phone", "+447972058628")
+pprint.pprint(john_phone.get_doc())
 res = db.save_doc(john_phone.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=22, tzinfo=tzutc())
 add_history.add_history_item("New Notification Registration", "Added +447972058628 as phone number for John", res["id"], res["rev"], True, dt.isoformat())
