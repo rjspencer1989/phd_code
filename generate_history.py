@@ -42,11 +42,10 @@ dt = datetime.datetime(2014, 01, 12, hour=10, minute=21, tzinfo=tzutc())
 main_user.set_field("event_timestamp", dt.isoformat())
 res=db.save_doc(main_user.get_doc(), force_update=True)
 
-john_phone = notifications.Notification("John", "phone", "+447972058628")
+dt = datetime.datetime(2014, 01, 12, hour=10, minute=22, tzinfo=tzutc())
+john_phone = notifications.Notification("John", "phone", "+447972058628", timestamp=dt.isoformat())
 pprint.pprint(john_phone.get_doc())
 res = db.save_doc(john_phone.get_doc(), force_update=True)
-dt = datetime.datetime(2014, 01, 12, hour=10, minute=22, tzinfo=tzutc())
-add_history.add_history_item("New Notification Registration", "Added +447972058628 as phone number for John", res["id"], res["rev"], True, dt.isoformat())
 
 callison = devices.Device("00:13:77:e1:d2:41", "10.2.0.5", "CALLISON", "eth2")
 res = db.save_doc(callison.get_doc(), force_update=True)
