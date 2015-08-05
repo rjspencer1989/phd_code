@@ -37,7 +37,7 @@ def edit(doc):
                 title = 'Edited notification registration'
                 desc = ('Edited %s for %s now identified by %s' %
                         (prompts[doc['service']], doc['name'], doc['user']))
-                add_history_item(title, desc, doc['_id'], doc['_rev'], True)
+                add_history_item(title, desc, doc['_id'], doc['_rev'], True, ts=doc['event_timestamp'])
         except urllib2.HTTPError, e:
             doc['status'] = 'error'
         except urllib2.URLError, e:
@@ -59,7 +59,7 @@ def delete(doc):
             title = 'Removed notification registration'
             desc = ('Removed %s as %s for %s' %
                     (doc['user'], prompts[doc['service']], doc['name']))
-            add_history_item(title, desc, doc['_id'], doc['_rev'], True)
+            add_history_item(title, desc, doc['_id'], doc['_rev'], True, ts=doc['event_timestamp'])
             doc['suid'] = ''
             doc['status'] = 'done'
         except urllib2.HTTPError, e:
@@ -87,7 +87,7 @@ def registration(doc):
                 title = 'Added notification registration'
                 desc = ('Added %s as %s for %s' %
                         (doc['user'], prompts[doc['service']], doc['name']))
-                add_history_item(title, desc, doc['_id'], doc['_rev'], True)
+                add_history_item(title, desc, doc['_id'], doc['_rev'], True, ts=doc['event_timestamp'])
         except urllib2.HTTPError, e:
             doc['status'] = 'error'
         except urllib2.URLError, e:
