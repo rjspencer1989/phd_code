@@ -49,5 +49,5 @@ class TestNotificationRegistrationClient(unittest.TestCase):
         v2 = self.db.get(self.the_id)
         notification_registration_client.delete(v2)
         added_doc = self.db.get(self.the_id)
-        self.assertEqual(added_doc['suid'], '')
+        self.assertNotIn('suid', added_doc)
         self.assertEqual(added_doc['status'], 'done')
