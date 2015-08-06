@@ -13,7 +13,8 @@ window.App.Models.MainUser = Backbone.Model.extend({
         collection: "main_user",
         name: "",
         service: "",
-        _id: "main_user"
+        _id: "main_user",
+        status: "pending"
     },
     url: "main_user"
 });
@@ -122,6 +123,7 @@ window.App.Views.MainUser = Backbone.View.extend({
         var service = $("#main-service :selected").val();
         this.model.set("name", name);
         this.model.set("service", service);
+        this.model.set("status", "pending");
         this.model.save();
     }
 });

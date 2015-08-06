@@ -3,8 +3,9 @@ class MainUser(object):
         self._id = "main_user"
         self.collection = "main_user"
         self.name = name
-        self.service = service,
+        self.service = service
         self.event_timestamp = timestamp
+        self.status = "done"
 
     def get_doc(self):
         doc = {
@@ -12,7 +13,8 @@ class MainUser(object):
             "name": self.name,
             "service": self.service,
             "collection": self.collection,
-            "event_timestamp": self.event_timestamp
+            "event_timestamp": self.event_timestamp,
+            "status": self.status
         }
         return doc
 
