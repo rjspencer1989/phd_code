@@ -134,6 +134,6 @@ def process_wifi(doc):
         if bss is True:
             scheduler = BackgroundScheduler()
             cur_time = datetime.datetime.now()
-            dt = cur_time + datetime.timedelta(minutes=2)
+            dt = cur_time + datetime.timedelta(days=1)
             scheduler.add_job(remove_vlan.remove_vlan, 'date', run_date=dt)
             scheduler.start()
