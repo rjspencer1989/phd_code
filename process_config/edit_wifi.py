@@ -125,7 +125,7 @@ def process_wifi(doc):
     desc = "WiFi configuration has been updated. "
     desc += "You will need to reconnect your devices"
     undoable = False if doc['_rev'].startswith('1-') else True
-    ts = current_doc['event_timestamp'] if 'event_timestamp' in current_doc else None
+    ts = doc['event_timestamp'] if 'event_timestamp' in doc else None
     add_history.add_history_item(title, desc, doc['_id'], doc['_rev'], undoable, ts=ts)
     if notify(devices):
         reload_hostapd()
@@ -133,6 +133,6 @@ def process_wifi(doc):
         if bss is True:
             scheduler = BackgroundScheduler()
             cur_time = datetime.datetime.now()
-            dt = cur_time + datetime.timedelta(days=1)
+            dt = cur_time + datetime.timedelta(minutes=2)
             scheduler.add_job(remove_vlan.remove_vlan, 'date', run_date=dt)
             scheduler.start()
