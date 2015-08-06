@@ -66,7 +66,7 @@ def delete(doc):
             add_history_item(title, desc, doc['_id'], doc['_rev'], True, ts=ts)
             if 'event_timestamp' in doc:
                 del doc['event_timestamp']
-            doc['suid'] = ''
+            del doc['suid']
             doc['status'] = 'done'
         except urllib2.HTTPError, e:
             doc['status'] = 'error'
