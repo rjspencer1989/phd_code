@@ -38,6 +38,7 @@ res = db.save_doc(aspire.get_doc(), force_update=True)
 
 main_user.set_field("name", "John")
 main_user.set_field("service", "phone")
+main_user.set_field("status", "pending")
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=21, tzinfo=tzutc())
 main_user.set_field("event_timestamp", dt.isoformat())
 res=db.save_doc(main_user.get_doc(), force_update=True)
