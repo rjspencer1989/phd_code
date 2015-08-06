@@ -37,7 +37,7 @@ def edit(doc):
                 title = 'Edited notification registration'
                 desc = ('Edited %s for %s now identified by %s' %
                         (prompts[doc['service']], doc['name'], doc['user']))
-                        ts = current_doc['event_timestamp'] if 'event_timestamp' in current_doc else None
+                ts = current_doc['event_timestamp'] if 'event_timestamp' in current_doc else None
                 add_history_item(title, desc, doc['_id'], doc['_rev'], True, ts=ts)
                 if 'event_timestamp' in doc:
                     del doc['event_timestamp']
