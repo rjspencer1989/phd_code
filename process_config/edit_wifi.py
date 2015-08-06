@@ -118,6 +118,8 @@ def process_wifi(doc):
     devices = get_connected_devices()
     doc['with_bss'] = True
     doc['status'] = 'done'
+    if event_timestamp in doc:
+        del doc['event_timestamp']
     db.save_doc(doc)
     title = "New WiFi Configuration"
     desc = "WiFi configuration has been updated. "

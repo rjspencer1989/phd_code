@@ -34,6 +34,8 @@ def edit(doc):
                 response = conn.read()
                 doc['suid'] = response
                 doc['status'] = 'done'
+                if 'event_timestamp' in doc:
+                    del doc['event_timestamp']
                 title = 'Edited notification registration'
                 desc = ('Edited %s for %s now identified by %s' %
                         (prompts[doc['service']], doc['name'], doc['user']))
@@ -60,6 +62,8 @@ def delete(doc):
             desc = ('Removed %s as %s for %s' %
                     (doc['user'], prompts[doc['service']], doc['name']))
             add_history_item(title, desc, doc['_id'], doc['_rev'], True, ts=doc['event_timestamp'])
+            if 'event_timestamp' in doc:
+                del doc['event_timestamp']
             doc['suid'] = ''
             doc['status'] = 'done'
         except urllib2.HTTPError, e:
@@ -84,6 +88,8 @@ def registration(doc):
                 response = conn.read()
                 doc['suid'] = response
                 doc['status'] = 'done'
+                if 'event_timestamp' in doc:
+                    del doc['event_timestamp']
                 title = 'Added notification registration'
                 desc = ('Added %s as %s for %s' %
                         (doc['user'], prompts[doc['service']], doc['name']))
