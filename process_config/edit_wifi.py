@@ -118,14 +118,15 @@ def process_wifi(doc):
     devices = get_connected_devices()
     doc['with_bss'] = True
     doc['status'] = 'done'
+    ts = None
     if 'event_timestamp' in doc:
+        ts = doc['event_timestamp']
         del doc['event_timestamp']
     db.save_doc(doc)
     title = "New WiFi Configuration"
     desc = "WiFi configuration has been updated. "
     desc += "You will need to reconnect your devices"
     undoable = False if doc['_rev'].startswith('1-') else True
-    ts = doc['event_timestamp'] if 'event_timestamp' in doc else None
     add_history.add_history_item(title, desc, doc['_id'], doc['_rev'], undoable, ts=ts)
     if notify(devices):
         reload_hostapd()
