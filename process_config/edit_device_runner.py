@@ -34,8 +34,6 @@ class EditDeviceProcessor(threading.Thread):
             if 'id' in change:
                 theId = change['id']
                 theRev = change['changes'][0]['rev']
-                if theRev.startswith('1-'):
-                    continue
                 current_doc = db.get(theId, rev=theRev)
                 edit_device.edit_device(current_doc)
             self.shared_object.task_done()
