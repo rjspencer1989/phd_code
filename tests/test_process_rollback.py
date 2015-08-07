@@ -68,19 +68,22 @@ class TestProcessRollback(unittest.TestCase):
             opened['_deleted'] = True
             self.db.save_doc(opened, force_update=True)
 
-    def add_history(self, doc_id, doc_rev, timestamp):
-        doc = {
-            'collection': 'events',
-            'title': 'rollback test',
-            'description': 'rollback description',
-            'timestamp': timestamp,
-            'doc_id': doc_id,
-            'doc_rev': doc_rev,
-            'undoable': True,
-            'perform_undo': False
-        }
-
-        res = self.db.save_doc(doc)
+    def add_history_item(title, description, docId, docRev, doc_collection, action, undoable, ts=None):
+        doc = {}
+        doc['collection'] = 'events'
+        doc['title'] = title
+        doc['description'] = description
+        doc['doc_collection'] = doc_collection
+        doc['action'] = action
+        if ts is None:
+            doc['timestamp'] = datetime.datetime.now(tzutc()).isoformat()
+        else:
+            doc['timestamp'] = ts
+        doc['doc_id'] = docId
+        doc['doc_rev'] = docRev
+        doc['undoable'] = undoable
+        doc['perform_undo'] = False
+        res = db.save_doc(doc)
         return res
 
     def test_process_rollback_get_events(self):
