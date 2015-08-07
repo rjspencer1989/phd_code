@@ -7,7 +7,7 @@ class TestHistory(unittest.TestCase):
         result = add_history.add_history_item("Change WiFi",
                                               "Wifi Updated",
                                               "aabbc",
-                                              "2-33aabbcc", True)
+                                              "2-33aabbcc", "wifi", "edit", True)
         self.assertIsNotNone(result)
         db = couchdb_config_parser.get_db()
         doc = db.get(result['id'])
