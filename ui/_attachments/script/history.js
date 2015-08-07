@@ -7,7 +7,9 @@ window.App.Models.Event = Backbone.Model.extend({
         doc_id: "",
         doc_rev: "",
         undoable: false,
-        perform_undo: false
+        perform_undo: false,
+        doc_collection: "",
+        action : "edit"
     }
 });
 
