@@ -87,7 +87,7 @@ class TestPerformUndo(unittest.TestCase):
         res2 = self.db.save_doc(nd, force_update=True)
         title = "Edit Notification"
         desc = "Edited twitter username for Rob now identified by robjspencer"
-        event_res = add_history_item(title, desc, nd['_id'], res2['rev'], True)
+        event_res = add_history_item(title, desc, nd['_id'], res2['rev'], 'notifications', 'edit', True)
         event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
