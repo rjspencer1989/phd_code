@@ -216,7 +216,7 @@ class TestFilters(unittest.TestCase):
             "description": "test",
             "doc_id": "aabbcc",
             "doc_rev": "1-aabbcc",
-            "doc_collection" = "notifications"
+            "doc_collection": "notifications"
             "timestamp": datetime.datetime.now(tzutc()).isoformat()
         }
 
@@ -228,7 +228,7 @@ class TestFilters(unittest.TestCase):
             "description": "test",
             "doc_id": "aabbcc",
             "doc_rev": "2-aabbcc",
-            "doc_collection" = "notifications"
+            "doc_collection": "notifications"
             "timestamp": datetime.datetime.now(tzutc()).isoformat()
         }
 
@@ -240,7 +240,7 @@ class TestFilters(unittest.TestCase):
             "description": "test",
             "doc_id": "aabbcc",
             "doc_rev": "4-aabbcc",
-            "doc_collection" = "notifications"
+            "doc_collection": "notifications"
             "timestamp": datetime.datetime.now(tzutc()).isoformat()
         }
 
