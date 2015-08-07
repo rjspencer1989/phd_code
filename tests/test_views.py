@@ -332,7 +332,9 @@ class TestViews(unittest.TestCase):
             "doc_id": "aabbcc",
             "doc_rev": "1-aabbcc",
             "undoable": True,
-            "perform_undo": False
+            "perform_undo": False,
+            "doc_collection": "notifications",
+            "action": "add"
         }
 
         doc2 = {
