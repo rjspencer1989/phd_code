@@ -4,11 +4,13 @@ from dateutil.tz import tzutc
 db = couchdb_config_parser.get_db()
 
 
-def add_history_item(title, description, docId, docRev, undoable, ts=None):
+def add_history_item(title, description, docId, docRev, doc_collection, action, undoable, ts=None):
     doc = {}
     doc['collection'] = 'events'
     doc['title'] = title
     doc['description'] = description
+    doc['doc_collection'] = doc_collection
+    doc['action'] = action
     if ts is None:
         doc['timestamp'] = datetime.datetime.now(tzutc()).isoformat()
     else:
