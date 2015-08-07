@@ -38,7 +38,7 @@ def edit(doc):
                 desc = ('Edited %s for %s now identified by %s' %
                         (prompts[doc['service']], doc['name'], doc['user']))
                 ts = doc['event_timestamp'] if 'event_timestamp' in doc else None
-                add_history_item(title, desc, doc['_id'], doc['_rev'], True, ts=ts)
+                add_history_item(title, desc, doc['_id'], doc['_rev'], 'notifications', 'edit', True, ts=ts)
                 if 'event_timestamp' in doc:
                     del doc['event_timestamp']
         except urllib2.HTTPError, e:
@@ -63,7 +63,7 @@ def delete(doc):
             desc = ('Removed %s as %s for %s' %
                     (doc['user'], prompts[doc['service']], doc['name']))
             ts = doc['event_timestamp'] if 'event_timestamp' in doc else None
-            add_history_item(title, desc, doc['_id'], doc['_rev'], True, ts=ts)
+            add_history_item(title, desc, doc['_id'], doc['_rev'], 'notifications', 'delete', True, ts=ts)
             if 'event_timestamp' in doc:
                 del doc['event_timestamp']
             del doc['suid']
@@ -94,7 +94,7 @@ def registration(doc):
                 desc = ('Added %s as %s for %s' %
                         (doc['user'], prompts[doc['service']], doc['name']))
                 ts = doc['event_timestamp'] if 'event_timestamp' in doc else None
-                add_history_item(title, desc, doc['_id'], doc['_rev'], True, ts=ts)
+                add_history_item(title, desc, doc['_id'], doc['_rev'], 'notifications', 'add', True, ts=ts)
                 if 'event_timestamp' in doc:
                     del doc['event_timestamp']
         except urllib2.HTTPError, e:
