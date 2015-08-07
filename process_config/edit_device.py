@@ -10,7 +10,7 @@ def edit_device(current_doc):
     title = 'Edited device details'
     desc = 'Edited details for %s' % (current_doc['device_name'])
     ts = current_doc['event_timestamp'] if 'event_timestamp' in current_doc else None
-    add_history_item(title, desc, theId, theRev, 'devices', 'edit',  True, ts=ts)
+    add_history_item(title, desc, theId, theRev, 'devices', 'edit', True, ts=ts)
     if 'event_timestamp' in current_doc:
         del current_doc['event_timestamp']
         db.save_doc(current_doc, force_update=True)
