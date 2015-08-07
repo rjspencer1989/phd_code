@@ -38,7 +38,7 @@ class TestPerformUndo(unittest.TestCase):
         nd = self.db.get(nd['_id'])
         title = "new notification"
         desc = "added rjspencer1989 as twitter username for Rob"
-        event_res = add_history_item(title, desc, res['id'], res['rev'], True)
+        event_res = add_history_item(title, desc, res['id'], res['rev'], 'notifications', 'add', True)
         event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
@@ -61,9 +61,9 @@ class TestPerformUndo(unittest.TestCase):
         nd = self.db.get(nd['_id'])
         nd['hidden'] = True
         res = self.db.save_doc(nd)
-        title = "New Notification"
-        desc = "Added rjspencer1989 as twitter username for Rob"
-        event_res = add_history_item(title, desc, res['id'], res['rev'], True)
+        title = "Deleted Notification"
+        desc = "Removed rjspencer1989 as twitter username for Rob"
+        event_res = add_history_item(title, desc, res['id'], res['rev'], 'notifications', 'delete', True)
         event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
@@ -163,7 +163,7 @@ class TestPerformUndo(unittest.TestCase):
         res3 = self.db.save_doc(nd, force_update=True)
         title = "edit wifi"
         desc = "Edited wifi config"
-        event_res = add_history_item(title, desc, nd['_id'], res3['rev'], True)
+        event_res = add_history_item(title, desc, nd['_id'], res3['rev'], 'notifications', 'edit', True)
         event = self.db.get(event_res['id'])
         result = undo_consumer.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
