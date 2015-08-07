@@ -70,7 +70,7 @@ class TestProcessRollback(unittest.TestCase):
             opened['_deleted'] = True
             self.db.save_doc(opened, force_update=True)
 
-    def add_history_item(title, description, docId, docRev, doc_collection, action, undoable, ts=None):
+    def add_history_item(self, title, description, docId, docRev, doc_collection, action, undoable, ts=None):
         doc = {}
         doc['collection'] = 'events'
         doc['title'] = title
