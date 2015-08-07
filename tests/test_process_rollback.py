@@ -85,7 +85,7 @@ class TestProcessRollback(unittest.TestCase):
         doc['doc_rev'] = docRev
         doc['undoable'] = undoable
         doc['perform_undo'] = False
-        res = db.save_doc(doc)
+        res = self.db.save_doc(doc)
         return res
 
     def test_process_rollback_get_events(self):
