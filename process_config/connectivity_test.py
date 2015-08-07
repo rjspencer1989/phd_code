@@ -10,4 +10,4 @@ try:
 except urllib2.URLError as e:
     print e.reason
     status = False
-    add_history_item('Internet connection error', str(e.reason), '', '', False)
+    add_history_item('Internet connection error', str(e.reason), '', '', '', '', False)

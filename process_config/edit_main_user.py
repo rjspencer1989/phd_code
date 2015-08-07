@@ -10,7 +10,7 @@ def edit_user(current_doc):
     title = 'Edited main user'
     desc = 'Main user is %s, receiving notifications via %s' % (current_doc['name'], current_doc['service'])
     ts = current_doc['event_timestamp'] if 'event_timestamp' in current_doc else None
-    add_history_item(title, desc, current_doc['_id'], current_doc['_rev'], True, ts=ts)
+    add_history_item(title, desc, current_doc['_id'], current_doc['_rev'], 'main_user', 'edit', True, ts=ts)
     if 'event_timestamp' in current_doc:
         del current_doc['event_timestamp']
         current_doc['status'] = 'done'
