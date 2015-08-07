@@ -2,10 +2,11 @@ from process_config import couchdb_config_parser
 
 
 class BaseDoc(object):
-    def __init__(self, doc, current_rev):
+    def __init__(self, doc, current_rev, action):
         self.doc = doc
         self.current_rev = current_rev
         self.db = couchdb_config_parser.get_db()
+        self.action = action
 
     def get_rev_list(self):
         revs_info = self.doc['_revs_info']

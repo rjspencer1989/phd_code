@@ -6,9 +6,9 @@ class Notifications(BaseDoc):
     def undo(self):
         rev_list = self.get_rev_list()
         result = ''
-        if self.doc['action'] == 'add':
+        if self.action == 'add':
             result = self.undo_new()
-        elif self.doc['action'] == 'delete':
+        elif self.action == 'delete':
             result = self.undo_delete()
         else:
             result = self.undo_edit()
