@@ -95,7 +95,9 @@ class TestValidation(unittest.TestCase):
             "doc_id": "aabbcc",
             "doc_rev": "1-aabbcc",
             "undoable": True,
-            "perform_undo": False
+            "perform_undo": False,
+            "doc_collection": "devices",
+            "action": "edit"
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
@@ -111,7 +113,9 @@ class TestValidation(unittest.TestCase):
             "doc_id": "aabbcc",
             "doc_rev": "1-aabbcc",
             "undoable": False,
-            "perform_undo": False
+            "perform_undo": False,
+            "doc_collection": "devices",
+            "action": "edit"
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
@@ -127,7 +131,41 @@ class TestValidation(unittest.TestCase):
             "doc_id": "aabbcc",
             "doc_rev": "1-aabbcc",
             "undoable": False,
-            "perform_undo": True
+            "perform_undo": True,
+            "doc_collection": "devices",
+            "action": "edit"
+        }
+        db = couchdb_config_parser.get_db()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_event_no_doc_collection(self):
+        doc = {
+            "timestamp": datetime.datetime.now(tzutc()).isoformat(),
+            "collection": "events",
+            "title": "testing",
+            "description": "testing, testing, 1,2,3",
+            "doc_id": "aabbcc",
+            "doc_rev": "1-aabbcc",
+            "undoable": False,
+            "perform_undo": True,
+            "action": "edit"
+        }
+        db = couchdb_config_parser.get_db()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_event_no_action(self):
+        doc = {
+            "timestamp": datetime.datetime.now(tzutc()).isoformat(),
+            "collection": "events",
+            "title": "testing",
+            "description": "testing, testing, 1,2,3",
+            "doc_id": "aabbcc",
+            "doc_rev": "1-aabbcc",
+            "undoable": False,
+            "perform_undo": True,
+            "doc_collection": "devices"
         }
         db = couchdb_config_parser.get_db()
         with self.assertRaises(Exception):
