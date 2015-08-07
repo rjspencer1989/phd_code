@@ -107,7 +107,9 @@ class TestViews(unittest.TestCase):
             "doc_id": "aabbcc",
             "doc_rev": "1-aabbcc",
             "undoable": True,
-            "perform_undo": False
+            "perform_undo": False,
+            "doc_collection": "devices",
+            "action": "edit"
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
@@ -342,7 +344,9 @@ class TestViews(unittest.TestCase):
             "doc_id": "aabbccdd",
             "doc_rev": "1-aabbcc",
             "undoable": False,
-            "perform_undo": False
+            "perform_undo": False,
+            "doc_collection": "notifications",
+            "action": "add"
         }
 
         db = couchdb_config_parser.get_db()
