@@ -148,6 +148,8 @@ function (newDoc, oldDoc, userCtx){
         required("doc_rev");
         required("undoable");
         required("perform_undo");
+        required("doc_collection");
+        required("action");
         if(newDoc.undoable === false && newDoc.perform_undo === true){
             throw({forbidden: 'You can\'t undo an event that isn\'t undoable'});
         }
