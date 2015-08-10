@@ -47,7 +47,7 @@ class TestPerformUndo(unittest.TestCase):
         self.db.save_doc(event, force_update=True)
 
     def test_process_undo_notification_delete_doc(self):
-        undo_consumer = perform_undo.consumer
+        undo_consumer = perform_undo.perform_undo
         nd = {
             "collection": "notifications",
             "status": "done",
@@ -73,7 +73,7 @@ class TestPerformUndo(unittest.TestCase):
         self.db.save_doc(event, force_update=True)
 
     def test_process_undo_notification_edit_doc(self):
-        undo_consumer = perform_undo.consumer
+        undo_consumer = perform_undo.perform_undo
         nd = {
             "collection": "notifications",
             "status": "done",
@@ -98,7 +98,7 @@ class TestPerformUndo(unittest.TestCase):
         self.db.save_doc(event, force_update=True)
 
     def test_process_undo_device_doc(self):
-        undo_consumer = perform_undo.consumer
+        undo_consumer = perform_undo.perform_undo
         doc = {
             "_id": "11:aa:33:bb:cc:ff",
             "action": "",
@@ -144,7 +144,7 @@ class TestPerformUndo(unittest.TestCase):
         self.db.save_doc(event, force_update=True)
 
     def test_process_undo_wifi_edit_doc(self):
-        undo_consumer = perform_undo.consumer
+        undo_consumer = perform_undo.perform_undo
         nd = {
             "collection": "wifi",
             "status": "pending",
