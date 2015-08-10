@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from process_config import add_history
+from process_config import add_history, couchdb_config_parser
 db = couchdb_config_parser.get_db()
 
 def get_doc_to_undo(event):
