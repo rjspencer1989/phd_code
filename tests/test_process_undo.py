@@ -24,7 +24,6 @@ class TestPerformUndo(unittest.TestCase):
         cls.db = None
 
     def test_process_undo_notification_new_doc(self):
-        undo_consumer = perform_undo.consumer
         nd = {
             "collection": "notifications",
             "status": "done",
@@ -40,14 +39,13 @@ class TestPerformUndo(unittest.TestCase):
         desc = "added rjspencer1989 as twitter username for Rob"
         event_res = add_history_item(title, desc, res['id'], res['rev'], 'notifications', 'add', True)
         event = self.db.get(event_res['id'])
-        result = undo_consumer.perform_undo(event)
+        result = perform_undo.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
         self.assertTrue('hidden' in updated)
         event['_deleted'] = True
         self.db.save_doc(event, force_update=True)
 
     def test_process_undo_notification_delete_doc(self):
-        undo_consumer = perform_undo.perform_undo
         nd = {
             "collection": "notifications",
             "status": "done",
@@ -65,7 +63,7 @@ class TestPerformUndo(unittest.TestCase):
         desc = "Removed rjspencer1989 as twitter username for Rob"
         event_res = add_history_item(title, desc, res['id'], res['rev'], 'notifications', 'delete', True)
         event = self.db.get(event_res['id'])
-        result = undo_consumer.perform_undo(event)
+        result = perform_undo.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
         self.assertTrue('hidden' not in updated)
         self.assertTrue('suid' in updated)
@@ -73,7 +71,6 @@ class TestPerformUndo(unittest.TestCase):
         self.db.save_doc(event, force_update=True)
 
     def test_process_undo_notification_edit_doc(self):
-        undo_consumer = perform_undo.perform_undo
         nd = {
             "collection": "notifications",
             "status": "done",
@@ -89,7 +86,7 @@ class TestPerformUndo(unittest.TestCase):
         desc = "Edited twitter username for Rob now identified by robjspencer"
         event_res = add_history_item(title, desc, nd['_id'], res2['rev'], 'notifications', 'edit', True)
         event = self.db.get(event_res['id'])
-        result = undo_consumer.perform_undo(event)
+        result = perform_undo.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
         self.assertEqual(updated['user'], 'rjspencer1989')
         nd['hidden'] = True
@@ -98,7 +95,6 @@ class TestPerformUndo(unittest.TestCase):
         self.db.save_doc(event, force_update=True)
 
     def test_process_undo_device_doc(self):
-        undo_consumer = perform_undo.perform_undo
         doc = {
             "_id": "11:aa:33:bb:cc:ff",
             "action": "",
@@ -135,7 +131,7 @@ class TestPerformUndo(unittest.TestCase):
         desc = "Permitted Test Device"
         event_res = add_history_item(title, desc, res['id'], res['rev'], 'devices', 'edit', True)
         event = self.db.get(event_res['id'])
-        result = undo_consumer.perform_undo(event)
+        result = perform_undo.perform_undo(event)
         updated = self.db.open_doc(doc['_id'], rev=result)
         self.assertEqual('deny', updated['action'])
         event['_deleted'] = True
@@ -144,7 +140,6 @@ class TestPerformUndo(unittest.TestCase):
         self.db.save_doc(event, force_update=True)
 
     def test_process_undo_wifi_edit_doc(self):
-        undo_consumer = perform_undo.perform_undo
         nd = {
             "collection": "wifi",
             "status": "pending",
@@ -165,7 +160,7 @@ class TestPerformUndo(unittest.TestCase):
         desc = "Edited wifi config"
         event_res = add_history_item(title, desc, nd['_id'], res3['rev'], 'wifi', 'edit', True)
         event = self.db.get(event_res['id'])
-        result = undo_consumer.perform_undo(event)
+        result = perform_undo.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
         self.assertEqual(updated['ssid'], 'test')
         self.assertEqual('pending', updated['status'])
