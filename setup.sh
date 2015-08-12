@@ -21,4 +21,3 @@ service homework-device-edit-processor start
 service homework-ethtool-monitor start
 service homework-iw-monitor start
 service homework-user-edit start
-
