@@ -8,3 +8,4 @@ templates.js
 notifications/~notifications.out
 ui/_attachments/libs
 typings/*
+notifications/appengine.conf
