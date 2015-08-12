@@ -15,8 +15,8 @@ if response.getcode() == 200:
     directory = os.path.dirname("/etc/homework/")
     if not os.path.exists(directory):
         os.makedirs(directory)
-    f = open('/etc/homework/notification.conf', 'w')
-    f.write("%s" % (responseBody))
+    f = open('/etc/homework/notifications.conf', 'w')
+    f.write("APP_ENGINE_ROUTER_ID=%s" % (responseBody))
     f.close()
     addURL = "https://2-dot-homework-notify.appspot.com/notify/2/%s/add/" % (responseBody)
     addRequestData = urllib.urlencode({"name": routerName})
