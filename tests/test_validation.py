@@ -512,9 +512,135 @@ class TestValidation(unittest.TestCase):
         doc = {
             "collection": "request_revert",
             "timestamp": '2015-14-27T15:19:06.690Z',
-            "status": "waiting"
+            "status": "pending"
         }
 
+        db = couchdb_config_parser.get_db()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_device_set_name_when_pending(self):
+        doc = {
+            "action": "",
+            "device_name": "",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address": "68:a8:6d:3b:05:e4",
+            "name": "Rob",
+            "state": "pending",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "",
+            "notification_service": "",
+            "connection_event": "connect",
+            "changed_by": "user"
+        }
+        db = couchdb_config_parser.get_db()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_device_set_device_name_when_pending(self):
+        doc = {
+            "action": "",
+            "device_name": "psxrjs-mbp",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address": "68:a8:6d:3b:05:e4",
+            "name": "",
+            "state": "pending",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "",
+            "notification_service": "",
+            "connection_event": "connect",
+            "changed_by": "user"
+        }
+        db = couchdb_config_parser.get_db()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_device_set_device_type_when_pending(self):
+        doc = {
+            "action": "",
+            "device_name": "",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address": "68:a8:6d:3b:05:e4",
+            "name": "",
+            "state": "pending",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "laptop",
+            "notification_service": "",
+            "connection_event": "connect",
+            "changed_by": "user"
+        }
+        db = couchdb_config_parser.get_db()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_device_set_notification_service_when_pending(self):
+        doc = {
+            "action": "",
+            "device_name": "",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address": "68:a8:6d:3b:05:e4",
+            "name": "",
+            "state": "pending",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "",
+            "notification_service": "email",
+            "connection_event": "connect",
+            "changed_by": "user"
+        }
+        db = couchdb_config_parser.get_db()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_device_set_name_and_device_name_when_pending(self):
+        doc = {
+            "action": "",
+            "device_name": "psxrjs-mbp",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address": "68:a8:6d:3b:05:e4",
+            "name": "Rob",
+            "state": "pending",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "",
+            "notification_service": "",
+            "connection_event": "connect",
+            "changed_by": "user"
+        }
+        db = couchdb_config_parser.get_db()
+        with self.assertRaises(Exception):
+            db.save_doc(doc)
+
+    def test_device_set_metadata_when_pending(self):
+        doc = {
+            "action": "",
+            "device_name": "psxrjs-mbp",
+            "host_name": "psxrjs-mbp",
+            "ip_address": "10.2.0.1",
+            "mac_address": "68:a8:6d:3b:05:e4",
+            "name": "Rob",
+            "state": "pending",
+            "timestamp": time.time(),
+            "collection": "devices",
+            "lease_action": "add",
+            "device_type": "laptop",
+            "notification_service": "email",
+            "connection_event": "connect",
+            "changed_by": "user"
+        }
         db = couchdb_config_parser.get_db()
         with self.assertRaises(Exception):
             db.save_doc(doc)
