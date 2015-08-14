@@ -137,6 +137,10 @@ function (newDoc, oldDoc, userCtx){
         empty_string('mac_address');
         empty_string('ip_address');
         mac_address_regex('mac_address');
+        
+        if(newDoc.action === "" && (newDoc.name.length > 0 || newDoc.device_name.length > 0 || newDoc.device_type.length > 0 || newDoc.notification_service.length > 0) && newDoc.changed_by === "user" && newDoc.state === "pending"){
+            throw({forbidden: "Device details cannot be changed when a device is pending, without also permitting or denying the device"});
+        }
 
     } else if(newDoc.collection === "events"){
         required("collection");
