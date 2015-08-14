@@ -1,5 +1,6 @@
 from base_doc import BaseDoc
 import pprint
+from process_config import add_history
 
 class Devices(BaseDoc):
     def get_rev_list(self):
@@ -13,6 +14,7 @@ class Devices(BaseDoc):
 
     def undo(self):
         rev_list = self.get_rev_list()
+        res = ""
         if len(rev_list) > 0:
             doc = self.db.get(self.doc['_id'], rev=rev_list[0])
             self.doc['device_name'] = doc['device_name']
@@ -22,5 +24,7 @@ class Devices(BaseDoc):
             self.doc['changed_by'] = 'user'
         else:
             self.doc['_deleted'] = True
-        res = self.db.save_doc(self.doc)
+            res = self.db.save_doc(self.doc)
+            add_history.add_history_item("Device removed", "%s has been removed" % self.doc['device_name'], self.doc['_id'], res['rev'], doc_collection=self.doc['collection'], action='delete', undoable=False)
+        
         return res['rev']
