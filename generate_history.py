@@ -158,5 +158,5 @@ dt = datetime.datetime(2014, 12, 27, hour=13, minute=01, tzinfo=tzutc())
 mary_twitter = notifications.Notification("Mary", "twitter", "rjspencer1989", timestamp=dt.isoformat())
 res = db.save_doc(mary_twitter.get_doc(), force_update=True)
 
-cmd = ['/usr/sbin/service', 'homework-pox', 'start']
+cmd = ['/sbin/start', 'homework-pox']
 res = subprocess.Popen(cmd)
