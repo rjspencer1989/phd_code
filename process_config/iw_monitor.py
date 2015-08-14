@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import subprocess
+import netifaces
 from couchdbkit import *
 from process_config import couchdb_config_parser
 import pprint
@@ -14,13 +15,16 @@ db = couchdb_config_parser.get_db()
 def update_device_list():
     connected_macs = []
     keys = []
-    result = subprocess.check_output(['iw', 'dev', 'wlan0', 'station', 'dump'])
-    lines = result.split('\n')
-    for line in lines:
-        if line.startswith('Station'):
-            fields = line.split(' ')
-            mac_addr = fields[1]
-            connected_macs.append(mac_addr)
+    interface_list = netifaces.interfaces()
+    wlan_list = filter(lambda x: 'wlan' in x, interface_list)
+    for iface in wlan_list:
+        result = subprocess.check_output(['iw', 'dev', iface, 'station', 'dump'])
+        lines = result.split('\n')
+        for line in lines:
+            if line.startswith('Station'):
+                fields = line.split(' ')
+                mac_addr = fields[1]
+                connected_macs.append(mac_addr)
 
     vr = db.view('homework-remote/wlan0')
     for item in vr.all():
