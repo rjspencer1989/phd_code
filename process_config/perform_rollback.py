@@ -38,6 +38,6 @@ class Rollback(object):
             dt = dateutil.parser.parse(current_doc['timestamp'])
             dt = dt.astimezone(tzlocal())
             add_history_item("Rollback", "Roll back to %s" % (dt.isoformat(' ')),
-                             the_id, the_rev, 'request_revert', undoale=True)
+                             the_id, the_rev, 'request_revert', undoable=True)
             current_doc['status'] = 'done'
             self.db.save_doc(current_doc, force_update=True)
