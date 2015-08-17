@@ -111,4 +111,3 @@ class TestUndoRollback(unittest.TestCase):
     def test_get_reverted_events(self):
         result = self.undo_revert.get_reverted_events()
         pprint.pprint(result)
-        
