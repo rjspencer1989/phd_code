@@ -40,4 +40,6 @@ class Rollback(object):
             add_history_item("Rollback", "Roll back to %s" % (dt.isoformat(' ')),
                              the_id, the_rev, 'request_revert', undoable=True)
             current_doc['status'] = 'done'
-            self.db.save_doc(current_doc, force_update=True)
+            res = self.db.save_doc(current_doc, force_update=True)
+            print res
+            return res
