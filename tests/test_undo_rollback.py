@@ -45,6 +45,11 @@ class TestUndoRollback(unittest.TestCase):
             "user": "+447972058628",
             "status": "done"
         }
+        self.revert_doc = {
+            "collection": "request_revert",
+            "timestamp": datetime.datetime(2015, 1, 20).isoformat(),
+            "status": "pending"
+        }
         res1 = self.db.save_doc(self.wifi_doc)
         self.test_doc_ids.append(res1['id'])
         dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
@@ -65,9 +70,11 @@ class TestUndoRollback(unittest.TestCase):
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
         self.hist4 = self.add_history_item(self.title, self.description, res4['id'], res4['rev'], 'notifications', 'add', True, ts=dt.isoformat())
         self.test_doc_ids.append(self.hist4['id'])
-        self.revert_timestamp = datetime.datetime(2015, 1, 20).isoformat()
-        self.rb = perform_rollback.Rollback(self.db, {})
-        self.rb.revert(self.revert_timestamp)
+        self.revert_res = self.db.save_doc(self.revert_doc)
+        self.revert_doc = self.db.get(self.revert_res['id'])
+        self.test_doc_ids.append(self.revert_res['id'])
+        self.rb = perform_rollback.Rollback(self.db, self.revert_doc)
+        self.rb.revert(self.revert_doc['timestamp'])
 
     def tearDown(self):
         for doc in self.test_doc_ids:
