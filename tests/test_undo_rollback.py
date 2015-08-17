@@ -67,7 +67,7 @@ class TestUndoRollback(unittest.TestCase):
         self.test_doc_ids.append(self.hist4['id'])
         self.revert_timestamp = datetime.datetime(2015, 1, 20).isoformat()
         self.rb = perform_rollback.Rollback(self.db, {})
-        self.rb.revert(self.rb.revert_timestamp)
+        self.rb.revert(self.revert_timestamp)
 
     def tearDown(self):
         for doc in self.test_doc_ids:
