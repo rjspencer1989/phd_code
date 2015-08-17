@@ -14,3 +14,6 @@ class Request_revert(BaseDoc):
         rev_list = self.get_rev_list()
         ts = self.doc['timestamp']
         events = self.get_events(ts).all()
+
+    def get_reverted_events(self):
+        return None
