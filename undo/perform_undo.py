@@ -13,6 +13,6 @@ def perform_undo(event):
     import_name = 'undo.doc_types.%s' % (doc['collection'])
     class_name = doc['collection'].capitalize()
     mod = __import__(import_name, fromlist=[''])
-    instance = getattr(mod, class_name)(doc, event['doc_rev'], event['action'])
+    instance = getattr(mod, class_name)(doc, event)
     result = instance.undo()
     return result
