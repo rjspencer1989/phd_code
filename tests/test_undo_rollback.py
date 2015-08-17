@@ -104,6 +104,11 @@ class TestUndoRollback(unittest.TestCase):
 
     def test_get_events(self):
         result = self.undo_revert.get_events(self.revert_doc['timestamp'])
+        vra = result.all()
+        pprint.pprint(vra)
+        self.assertEqual(3, vr.count)
+
+    def test_get_reverted_events(self):
+        result = self.undo_revert.get_reverted_events()
         pprint.pprint(result)
-        result_list = list(result)
-        self.assertEqual(3, len(result_list))
+        
