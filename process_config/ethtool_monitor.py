@@ -18,7 +18,6 @@ while True:
         lines = result.splitlines()
         vr = db.view('homework-remote/ports', key=iface)
         rows = vr.all()
-        print rows
         if len(list(rows)) > 0:
             row = rows[0]
             mac_address = row['value']

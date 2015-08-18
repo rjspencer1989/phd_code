@@ -5,7 +5,6 @@ from process_config import notification_registration_client
 from undo import perform_undo
 from undo.doc_types import notifications
 import time
-import pprint
 
 
 class TestPerformUndo(unittest.TestCase):

@@ -94,8 +94,6 @@ class TestFilters(unittest.TestCase):
         db.save_doc(inc)
         db.save_doc(not_inc)
         stream = ChangesStream(db, filter="homework-remote/devices_pox")
-        for change in stream:
-            print change
         self.assertEqual(len(list(stream)), 1)
         self.assertEqual('aa:bb:cc:dd:ee:ff', list(stream)[0]['id'])
         inc['_deleted'] = True

@@ -4,7 +4,6 @@ import os
 
 from couchdbkit import *
 from Queue import Queue
-from pprint import pprint
 import threading
 import couchdb_config_parser
 import add_history
@@ -12,7 +11,6 @@ import notification_registration_client
 
 db = couchdb_config_parser.get_db()
 db_info = db.info()
-pprint(db_info)
 
 
 class NotificationListener(threading.Thread):
@@ -23,7 +21,6 @@ class NotificationListener(threading.Thread):
     def run(self):
         changeStream = ChangesStream(db, feed="continuous", heartbeat=True, since=db_info['update_seq'], filter="homework-remote/notifications")
         for change in changeStream:
-            print change
             self.shared_object.put(change)
 
 
@@ -35,7 +32,6 @@ class NotificationProcessor(threading.Thread):
     def run(self):
         while(True):
             change = self.shared_object.get()
-            print change
             if 'id' in change:
                 theId = change['id']
                 theRev = change['changes'][0]['rev']

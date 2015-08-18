@@ -9,7 +9,6 @@ import subprocess
 import change_notification
 import os
 import add_history
-import pprint
 import remove_vlan
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -40,7 +39,6 @@ def get_config():
         values = []
         lines = fh.readlines()
         for line in lines:
-            print line
             arr = line.split('=')
             keys.append(arr[0])
             values.append(arr[1].strip())
@@ -69,7 +67,6 @@ def generate_config(current_doc, with_bss=True):
     keys = line_list[0]
     values = line_list[1]
     lines = []
-    print keys
     if len(keys) > 0:
         channel_index = keys.index('channel')
         values[channel_index] = current_doc['channel']

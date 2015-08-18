@@ -1,7 +1,6 @@
 import unittest
 from mock import MagicMock
 from process_config import edit_wifi
-import pprint
 
 
 class TestWifi(unittest.TestCase):

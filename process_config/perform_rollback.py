@@ -3,7 +3,6 @@ import undo
 import datetime
 from dateutil.tz import tzlocal
 import dateutil.parser
-import pprint
 
 
 class Rollback(object):
@@ -47,5 +46,4 @@ class Rollback(object):
                              the_id, the_rev, 'request_revert', undoable=True)
             current_doc['status'] = 'done'
             res = self.db.save_doc(current_doc, force_update=True)
-            print res
             return res

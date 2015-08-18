@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 
 from process_config import add_history, couchdb_config_parser
-import pprint
 db = couchdb_config_parser.get_db()
 
 def get_doc_to_undo(event):
     undo_id = event['doc_id']
-    print undo_id
     undo_doc = db.get(undo_id, revs_info=True)
     return undo_doc
 

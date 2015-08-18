@@ -9,7 +9,6 @@ import subprocess
 import change_notification
 import os
 import add_history
-import pprint
 import edit_wifi
 
 db = couchdb_config_parser.get_db()
@@ -26,7 +25,6 @@ class WifiListener(threading.Thread):
         changeStream = ChangesStream(db, feed="continuous", heartbeat=True, since=self.since, filter="homework-remote/wifi")
         for change in changeStream:
             self.shared_object.put(change)
-            pprint.pprint(change)
 
 
 class WifiProcessor(threading.Thread):

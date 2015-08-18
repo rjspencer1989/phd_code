@@ -39,7 +39,6 @@ class HomeworkMain(EventMixin):
     def check_device_status(self):
         remote_stream = ChangesStream(self.selected_db, heartbeat=True, since=self.last_seq, filter='homework-remote/devices_pox')
         for change in remote_stream:
-            print change
             self.last_seq = change['seq']
             the_id = change['id']
             the_rev = change['changes'][0]['rev']

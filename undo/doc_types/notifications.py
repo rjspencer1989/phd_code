@@ -1,6 +1,5 @@
 from process_config import notification_registration_client
 from base_doc import BaseDoc
-import pprint
 
 
 class Notifications(BaseDoc):

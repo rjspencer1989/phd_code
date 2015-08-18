@@ -1,5 +1,4 @@
 from base_doc import BaseDoc
-import pprint
 from process_config import add_history
 
 class Devices(BaseDoc):

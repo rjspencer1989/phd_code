@@ -6,7 +6,6 @@ import string
 import datetime
 from dateutil.tz import tzutc
 import subprocess
-import pprint
 
 db = couchdb_config_parser.get_db()
 main_user = main_user.MainUser("", "")
@@ -21,7 +20,6 @@ res = db.save_doc(wifi.get_doc())
 wifi.set_field('_id', res['id'])
 wifi.set_field('_rev', res['rev'])
 add_history.add_history_item('Initial Wifi configuration', 'Wifi network created', res['id'], res['rev'], 'wifi', undoable=False, ts=dt.isoformat())
-print res
 
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=20, tzinfo=tzutc())
 aspire = devices.Device("d0:27:88:80:d9:ef", "10.2.0.1", "aspire", "eth1", state="permit", timestamp=dt.isoformat())
@@ -45,7 +43,6 @@ res=db.save_doc(main_user.get_doc(), force_update=True)
 
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=22, tzinfo=tzutc())
 john_phone = notifications.Notification("John", "phone", "+447972058628", timestamp=dt.isoformat())
-pprint.pprint(john_phone.get_doc())
 res = db.save_doc(john_phone.get_doc(), force_update=True)
 
 callison = devices.Device("00:13:77:e1:d2:41", "10.2.0.5", "CALLISON", "eth2")
@@ -124,7 +121,6 @@ wifi.set_field("status", "pending")
 dt = datetime.datetime(2015, 01, 30, hour=19, minute=0, tzinfo=tzutc())
 wifi.set_field("event_timestamp", dt.isoformat())
 res = db.save_doc(wifi.get_doc(), force_update=True)
-print res
 
 rjsxperia1 = devices.Device("a0:e4:53:55:00:cc", "10.2.0.29", "android-5f251018c8685b52", "wlan0")
 res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
