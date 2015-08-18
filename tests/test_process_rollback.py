@@ -72,24 +72,6 @@ class TestProcessRollback(unittest.TestCase):
                 cls.db.save_doc(current_doc, force_update=True)
         cls.db = None
 
-    def add_history_item(self, title, description, docId, docRev, doc_collection, action='edit', undoable=True, ts=None):
-        doc = {}
-        doc['collection'] = 'events'
-        doc['title'] = title
-        doc['description'] = description
-        doc['doc_collection'] = doc_collection
-        doc['action'] = action
-        if ts is None:
-            doc['timestamp'] = datetime.datetime.now(tzutc()).isoformat()
-        else:
-            doc['timestamp'] = ts
-        doc['doc_id'] = docId
-        doc['doc_rev'] = docRev
-        doc['undoable'] = undoable
-        doc['perform_undo'] = False
-        res = self.db.save_doc(doc)
-        return res
-
     def test_process_rollback_get_events(self):
         result = self.rb.get_events_after_timestamp(self.revert_timestamp)
         pprint.pprint(result)
