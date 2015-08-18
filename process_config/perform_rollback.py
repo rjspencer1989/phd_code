@@ -28,7 +28,6 @@ class Rollback(object):
         result = True
         doc_list = self.get_docs_to_revert(timestamp)
         for key, doc in doc_list.iteritems():
-            pprint.pprint(doc)
             undo.perform_undo.perform_undo(doc)
             res = self.db.save_doc(doc)
             if 'ok' not in res:

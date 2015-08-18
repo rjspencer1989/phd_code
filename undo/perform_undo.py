@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from process_config import add_history, couchdb_config_parser
+import pprint
 db = couchdb_config_parser.get_db()
 
 def get_doc_to_undo(event):
@@ -10,6 +11,7 @@ def get_doc_to_undo(event):
 
 def perform_undo(event):
     doc = get_doc_to_undo(event)
+    pprint.pprint(doc)
     import_name = 'undo.doc_types.%s' % (doc['collection'])
     class_name = doc['collection'].capitalize()
     mod = __import__(import_name, fromlist=[''])
