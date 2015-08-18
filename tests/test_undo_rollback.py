@@ -12,13 +12,6 @@ class TestUndoRollback(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.db = couchdb_config_parser.get_db()
-        current_events = cls.db.view('homework-remote/events')
-        if current_events.count() > 0:
-            current_events_all = current_events.all()
-            for row in current_events_all:
-                current_doc = cls.db.get(row['id'])
-                current_doc['_deleted'] = True
-                cls.db.save_doc(current_doc, force_update=True)
 
         cls.test_doc_ids = []
         cls.title = "test rollback"
@@ -86,6 +79,13 @@ class TestUndoRollback(unittest.TestCase):
             opened = cls.db.get(doc)
             opened['_deleted'] = True
             cls.db.save_doc(opened, force_update=True)
+        current_events = cls.db.view('homework-remote/events')
+        if current_events.count() > 0:
+            current_events_all = current_events.all()
+            for row in current_events_all:
+                current_doc = cls.db.get(row['id'])
+                current_doc['_deleted'] = True
+                cls.db.save_doc(current_doc, force_update=True)
         cls.db = None
 
     def test_get_events(self):
