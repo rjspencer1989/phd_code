@@ -1,5 +1,5 @@
 import unittest
-from process_config import couchdb_config_parser, perform_rollback
+from process_config import couchdb_config_parser, perform_rollback, notification_registration_client
 from process_config.add_history import add_history_item
 from undo import perform_undo
 from undo.doc_types import request_revert
@@ -66,6 +66,8 @@ class TestUndoRollback(unittest.TestCase):
         self.hist3 = self.add_history_item(self.title, self.description, res3['id'], res3['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
         self.test_doc_ids.append(self.hist3['id'])
         res4 = self.db.save_doc(self.notification_doc)
+        self.notification_doc = self.db.get(res4['id'])
+        notification_registration_client.register(self.notification_doc)
         self.test_doc_ids.append(res4['id'])
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
         self.hist4 = self.add_history_item(self.title, self.description, res4['id'], res4['rev'], 'notifications', 'add', True, ts=dt.isoformat())
