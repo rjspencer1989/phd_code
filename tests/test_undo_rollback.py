@@ -67,7 +67,7 @@ class TestUndoRollback(unittest.TestCase):
         self.test_doc_ids.append(self.hist3['id'])
         res4 = self.db.save_doc(self.notification_doc)
         self.notification_doc = self.db.get(res4['id'])
-        notification_registration_client.register(self.notification_doc)
+        notification_registration_client.registration(self.notification_doc)
         self.test_doc_ids.append(res4['id'])
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
         self.hist4 = self.add_history_item(self.title, self.description, res4['id'], res4['rev'], 'notifications', 'add', True, ts=dt.isoformat())
