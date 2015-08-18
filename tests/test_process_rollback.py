@@ -1,5 +1,5 @@
 import unittest
-from process_config import couchdb_config_parser, perform_rollback, add_history
+from process_config import couchdb_config_parser, perform_rollback, add_history, notification_registration_client
 import datetime
 import mock
 from dateutil.tz import tzutc
@@ -59,8 +59,11 @@ class TestProcessRollback(unittest.TestCase):
         self.test_doc_ids.append(self.hist3['id'])
         res4 = self.db.save_doc(self.notification_doc)
         self.test_doc_ids.append(res4['id'])
+        self.notification_doc = self.db.get(res4['id'])
+        notification_registration_client.registration(self.notification_doc)
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
-        self.hist4 = self.add_history_item(self.title, self.description, res4['id'], res4['rev'], 'notifications', 'add', True, ts=dt.isoformat())
+        self.notification_doc = self.db.get(res4['id'])
+        self.hist4 = self.add_history_item(self.title, self.description, res4['id'], self.notification_doc['_rev'], 'notifications', 'add', True, ts=dt.isoformat())
         self.test_doc_ids.append(self.hist4['id'])
         self.revert_timestamp = datetime.datetime(2015, 1, 20).isoformat()
         self.rb = perform_rollback.Rollback(self.db, {})
