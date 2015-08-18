@@ -64,7 +64,6 @@ class TestUndoRollback(unittest.TestCase):
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
         cls.hist4 = add_history_item(cls.title, cls.description, cls.notification_doc['_id'], cls.notification_doc['_rev'], 'notifications', 'add', True, ts=dt.isoformat())
         cls.test_doc_ids.append(cls.hist4['id'])
-        pprint.pprint(cls.notification_doc)
         cls.rb = perform_rollback.Rollback(cls.db, cls.revert_doc)
         cls.rb.revert(cls.revert_doc['timestamp'])
         rd = cls.db.get(cls.revert_doc['_id'], revs_info=True)
