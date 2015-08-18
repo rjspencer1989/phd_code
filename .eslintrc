@@ -3,12 +3,6 @@
         "browser": true
     },
 
-    "globals": {
-        "$": false,
-        "_": false,
-        "Backbone": false
-    },
-
     "rules": {
         "camelcase": [0, {"properties": "never"}]
     }
