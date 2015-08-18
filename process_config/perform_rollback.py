@@ -1,4 +1,5 @@
 from add_history import add_history_item
+import undo
 import datetime
 from dateutil.tz import tzlocal
 import dateutil.parser
@@ -23,10 +24,14 @@ class Rollback(object):
         return doc_list
 
     def revert(self, timestamp):
+        result = True
         doc_list = self.get_docs_to_revert(timestamp)
         for key, doc in doc_list.iteritems():
-            doc['perform_undo'] = True
-            self.db.save_doc(doc)
+            undo.perform_undo(doc)
+            res = self.db.save_doc(doc)
+            if 'ok' not in res:
+                result = False
+        return result
 
     def rollback(self):
         if 'id' in self.change:
