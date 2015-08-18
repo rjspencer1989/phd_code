@@ -82,10 +82,10 @@ class TestUndoRollback(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        for doc in self.test_doc_ids:
-            opened = self.db.get(doc)
+        for doc in cls.test_doc_ids:
+            opened = cls.db.get(doc)
             opened['_deleted'] = True
-            self.db.save_doc(opened, force_update=True)
+            cls.db.save_doc(opened, force_update=True)
         cls.db = None
 
     def add_history_item(self, title, description, docId, docRev, doc_collection, action='edit', undoable=True, ts=None):

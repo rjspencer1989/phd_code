@@ -17,15 +17,10 @@ class TestProcessRollback(unittest.TestCase):
                 current_doc['_deleted'] = True
                 cls.db.save_doc(current_doc, force_update=True)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.db = None
-
-    def setUp(self):
-        self.test_doc_ids = []
-        self.title = "test rollback"
-        self.description = "test rollback description"
-        self.wifi_doc = {
+        cls.test_doc_ids = []
+        cls.title = "test rollback"
+        cls.description = "test rollback description"
+        cls.wifi_doc = {
             "collection": "wifi",
             "status": "done",
             "ssid": "testing",
@@ -35,44 +30,46 @@ class TestProcessRollback(unittest.TestCase):
             "password": "whatever12345",
             "channel": 1
         }
-        self.notification_doc = {
+        cls.notification_doc = {
             "collection": "notifications",
             "name": "Rob",
             "service": "phone",
             "user": "+447972058628",
             "status": "done"
         }
-        res1 = self.db.save_doc(self.wifi_doc)
-        self.test_doc_ids.append(res1['id'])
+        res1 = cls.db.save_doc(cls.wifi_doc)
+        cls.test_doc_ids.append(res1['id'])
         dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
-        self.hist1 = self.add_history_item(self.title, self.description, res1['id'], res1['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
-        self.test_doc_ids.append(self.hist1['id'])
-        self.wifi_doc['ssid'] = 'testing2'
-        res2 = self.db.save_doc(self.wifi_doc)
+        cls.hist1 = cls.add_history_item(cls.title, cls.description, res1['id'], res1['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
+        cls.test_doc_ids.append(cls.hist1['id'])
+        cls.wifi_doc['ssid'] = 'testing2'
+        res2 = cls.db.save_doc(cls.wifi_doc)
         dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
-        self.hist2 = self.add_history_item(self.title, self.description, res2['id'], res2['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
-        self.test_doc_ids.append(self.hist2['id'])
-        self.wifi_doc['ssid'] = 'testing3'
-        res3 = self.db.save_doc(self.wifi_doc)
+        cls.hist2 = cls.add_history_item(cls.title, cls.description, res2['id'], res2['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
+        cls.test_doc_ids.append(cls.hist2['id'])
+        cls.wifi_doc['ssid'] = 'testing3'
+        res3 = cls.db.save_doc(cls.wifi_doc)
         dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
-        self.hist3 = self.add_history_item(self.title, self.description, res3['id'], res3['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
-        self.test_doc_ids.append(self.hist3['id'])
-        res4 = self.db.save_doc(self.notification_doc)
-        self.test_doc_ids.append(res4['id'])
-        self.notification_doc = self.db.get(res4['id'])
-        notification_registration_client.registration(self.notification_doc)
+        cls.hist3 = cls.add_history_item(cls.title, cls.description, res3['id'], res3['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
+        cls.test_doc_ids.append(cls.hist3['id'])
+        res4 = cls.db.save_doc(cls.notification_doc)
+        cls.test_doc_ids.append(res4['id'])
+        cls.notification_doc = cls.db.get(res4['id'])
+        notification_registration_client.registration(cls.notification_doc)
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
-        self.notification_doc = self.db.get(res4['id'])
-        self.hist4 = self.add_history_item(self.title, self.description, res4['id'], self.notification_doc['_rev'], 'notifications', 'add', True, ts=dt.isoformat())
-        self.test_doc_ids.append(self.hist4['id'])
-        self.revert_timestamp = datetime.datetime(2015, 1, 20).isoformat()
-        self.rb = perform_rollback.Rollback(self.db, {})
+        cls.notification_doc = cls.db.get(res4['id'])
+        cls.hist4 = cls.add_history_item(cls.title, cls.description, res4['id'], cls.notification_doc['_rev'], 'notifications', 'add', True, ts=dt.isoformat())
+        cls.test_doc_ids.append(cls.hist4['id'])
+        cls.revert_timestamp = datetime.datetime(2015, 1, 20).isoformat()
+        cls.rb = perform_rollback.Rollback(cls.db, {})
 
-    def tearDown(self):
-        for doc in self.test_doc_ids:
-            opened = self.db.get(doc)
+    @classmethod
+    def tearDownClass(cls):
+        for doc in cls.test_doc_ids:
+            opened = cls.db.get(doc)
             opened['_deleted'] = True
-            self.db.save_doc(opened, force_update=True)
+            cls.db.save_doc(opened, force_update=True)
+        cls.db = None
 
     def add_history_item(self, title, description, docId, docRev, doc_collection, action='edit', undoable=True, ts=None):
         doc = {}
