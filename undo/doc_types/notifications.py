@@ -1,9 +1,11 @@
 from process_config import notification_registration_client
 from base_doc import BaseDoc
+import pprint
 
 
 class Notifications(BaseDoc):
     def undo(self):
+        pprint.pprint(self.doc)
         rev_list = self.get_rev_list()
         result = ''
         if self.action == 'add':
