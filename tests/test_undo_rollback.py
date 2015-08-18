@@ -20,11 +20,6 @@ class TestUndoRollback(unittest.TestCase):
                 current_doc['_deleted'] = True
                 cls.db.save_doc(current_doc, force_update=True)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.db = None
-
-    def setUp(self):
         self.test_doc_ids = []
         self.title = "test rollback"
         self.description = "test rollback description"
@@ -85,11 +80,13 @@ class TestUndoRollback(unittest.TestCase):
         self.test_doc_ids.append(self.rd_hist['id'])
         self.undo_revert = request_revert.Request_revert(rd, self.db.get(self.rd_hist['id']))
 
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(cls):
         for doc in self.test_doc_ids:
             opened = self.db.get(doc)
             opened['_deleted'] = True
             self.db.save_doc(opened, force_update=True)
+        cls.db = None
 
     def add_history_item(self, title, description, docId, docRev, doc_collection, action='edit', undoable=True, ts=None):
         doc = {}
