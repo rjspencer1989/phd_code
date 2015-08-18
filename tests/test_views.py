@@ -4,6 +4,7 @@ from couchdbkit import *
 import datetime
 import time
 from dateutil.tz import *
+import pprint
 
 
 class TestViews(unittest.TestCase):
@@ -67,6 +68,7 @@ class TestViews(unittest.TestCase):
         res = db.save_doc(doc)
         vr = db.view("homework-remote/events")
         vra = vr.all()
+        pprint.pprint(vra)
         self.assertEqual(vr.count(), 1)
         self.assertEqual(vra[0]['id'], res['id'])
         doc['_deleted'] = True
