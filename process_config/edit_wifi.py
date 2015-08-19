@@ -111,7 +111,6 @@ def process_wifi(doc):
     else:
         line_list = generate_config(doc, False)
         bss = False
-    write_config_file(line_list)
     devices = get_connected_devices()
     doc['with_bss'] = True
     doc['status'] = 'done'
@@ -125,12 +124,14 @@ def process_wifi(doc):
     desc += "You will need to reconnect your devices"
     undoable = False if doc['_rev'].startswith('1-') else True
     add_history.add_history_item(title, desc, doc['_id'], doc['_rev'], 'wifi', 'edit', undoable, ts=ts)
-    if notify(devices):
-        reload_hostapd()
-        add_vlan_to_bridge()
-        if bss is True:
-            scheduler = BackgroundScheduler()
-            cur_time = datetime.datetime.now()
-            dt = cur_time + datetime.timedelta(days=1)
-            scheduler.add_job(remove_vlan.remove_vlan, 'date', run_date=dt)
-            scheduler.start()
+    if 'ENV_TESTS' not in os.environ:
+        write_config_file(line_list)
+        if notify(devices):
+            reload_hostapd()
+            add_vlan_to_bridge()
+            if bss is True:
+                scheduler = BackgroundScheduler()
+                cur_time = datetime.datetime.now()
+                dt = cur_time + datetime.timedelta(days=1)
+                scheduler.add_job(remove_vlan.remove_vlan, 'date', run_date=dt)
+                scheduler.start()

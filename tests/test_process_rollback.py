@@ -1,5 +1,5 @@
 import unittest
-from process_config import couchdb_config_parser, perform_rollback, add_history, notification_registration_client
+from process_config import couchdb_config_parser, perform_rollback, add_history, notification_registration_client, edit_wifi
 import datetime
 import mock
 from dateutil.tz import tzutc
@@ -22,7 +22,8 @@ class TestProcessRollback(unittest.TestCase):
             "encryption_type": "wpa",
             "password_type": "txt",
             "password": "whatever12345",
-            "channel": 1
+            "channel": 1,
+            "with_bss": false
         }
         cls.notification_doc = {
             "collection": "notifications",
@@ -31,9 +32,13 @@ class TestProcessRollback(unittest.TestCase):
             "user": "+447972058628",
             "status": "done"
         }
-        res1 = cls.db.save_doc(cls.wifi_doc)
-        cls.test_doc_ids.append(res1['id'])
         dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
+        cls.wifi_doc['event_timestamp'] = dt.isoformat()
+        res1 = cls.db.save_doc(cls.wifi_doc)
+        cls.wifi_doc = cls.db.get(res1['id'])
+        edit_wifi.process_wifi(cls.wifi_doc)
+        cls.test_doc_ids.append(res1['id'])
+        cls.wifi_doc = cls.db.get(res1['id'])
         cls.wifi_doc['ssid'] = 'testing2'
         res2 = cls.db.save_doc(cls.wifi_doc)
         dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
