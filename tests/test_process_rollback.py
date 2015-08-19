@@ -32,6 +32,11 @@ class TestProcessRollback(unittest.TestCase):
             "user": "+447972058628",
             "status": "done"
         }
+        cls.revert_doc = {
+            "collection": "request_revert",
+            "timestamp": datetime.datetime(2015, 1, 20).isoformat(),
+            "status": "pending"
+        }
         dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
         cls.wifi_doc['event_timestamp'] = dt.isoformat()
         res1 = cls.db.save_doc(cls.wifi_doc)
@@ -52,8 +57,7 @@ class TestProcessRollback(unittest.TestCase):
         notification_registration_client.registration(cls.notification_doc)
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
         cls.notification_doc = cls.db.get(res4['id'])
-        cls.revert_timestamp = datetime.datetime(2015, 1, 20).isoformat()
-        cls.rb = perform_rollback.Rollback(cls.db, {})
+        cls.rb = perform_rollback.Rollback(cls.db, cls.revert_doc)
 
     @classmethod
     def tearDownClass(cls):
