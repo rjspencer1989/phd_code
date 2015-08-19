@@ -3,6 +3,7 @@ import undo
 import datetime
 from dateutil.tz import tzlocal
 import dateutil.parser
+import pprint
 
 
 class Rollback(object):
@@ -12,6 +13,7 @@ class Rollback(object):
 
     def get_events_after_timestamp(self, ts):
         vr = self.db.view('homework-remote/undoable_events', startkey=ts)
+        pprint.pprint(vr.all())
         return vr.all()
 
     def get_docs_to_revert(self, timestamp):
