@@ -43,10 +43,10 @@ class TestProcessRollback(unittest.TestCase):
             "status": "pending"
         }
         dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
-        self.wifi_doc['event_timestamp'] = dt.isoformat()
         res1 = self.db.save_doc(self.wifi_doc)
+        self.hist1 = add_history.add_history_item('wifi', 'wifi', res1['id'], res1['rev'], 'wifi', ts=dt.isoformat())
+        self.test_doc_ids.append(self.hist1['id'])
         self.wifi_doc = self.db.get(res1['id'])
-        edit_wifi.process_wifi(self.wifi_doc)
         self.test_doc_ids.append(res1['id'])
         self.wifi_doc = self.db.get(res1['id'])
         self.wifi_doc['ssid'] = 'testing2'
