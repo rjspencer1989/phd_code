@@ -1,7 +1,7 @@
 from add_history import add_history_item
 import undo
 import datetime
-from dateutil.tz import tzlocal, tzutc
+from dateutil.tz import tzlocal
 import dateutil.parser
 
 
@@ -11,8 +11,7 @@ class Rollback(object):
         self.change = change
 
     def get_events_after_timestamp(self, ts):
-        end = datetime.datetime.now(tz=tzutc())
-        vr = self.db.view('homework-remote/undoable_events', startkey=ts, endkey=end.isoformat())
+        vr = self.db.view('homework-remote/undoable_events', startkey=ts)
         return vr.all()
 
     def get_docs_to_revert(self, timestamp):
