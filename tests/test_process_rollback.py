@@ -11,10 +11,15 @@ class TestProcessRollback(unittest.TestCase):
     def setUpClass(cls):
         cls.db = couchdb_config_parser.get_db()
 
-        cls.test_doc_ids = []
-        cls.title = "test rollback"
-        cls.description = "test rollback description"
-        cls.wifi_doc = {
+    @classmethod
+    def tearDownClass(cls):
+        cls.db = None
+
+    def setUp(self):
+        self.test_doc_ids = []
+        self.title = "test rollback"
+        self.description = "test rollback description"
+        self.wifi_doc = {
             "collection": "wifi",
             "status": "done",
             "ssid": "testing",
@@ -25,54 +30,52 @@ class TestProcessRollback(unittest.TestCase):
             "channel": 1,
             "with_bss": False
         }
-        cls.notification_doc = {
+        self.notification_doc = {
             "collection": "notifications",
             "name": "Rob",
             "service": "phone",
             "user": "+447972058628",
             "status": "done"
         }
-        cls.revert_doc = {
+        self.revert_doc = {
             "collection": "request_revert",
             "timestamp": datetime.datetime(2015, 1, 20).isoformat(),
             "status": "pending"
         }
         dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
-        cls.wifi_doc['event_timestamp'] = dt.isoformat()
-        res1 = cls.db.save_doc(cls.wifi_doc)
-        cls.wifi_doc = cls.db.get(res1['id'])
-        edit_wifi.process_wifi(cls.wifi_doc)
-        cls.test_doc_ids.append(res1['id'])
-        cls.wifi_doc = cls.db.get(res1['id'])
-        cls.wifi_doc['ssid'] = 'testing2'
-        res2 = cls.db.save_doc(cls.wifi_doc)
+        self.wifi_doc['event_timestamp'] = dt.isoformat()
+        res1 = self.db.save_doc(self.wifi_doc)
+        self.wifi_doc = self.db.get(res1['id'])
+        edit_wifi.process_wifi(self.wifi_doc)
+        self.test_doc_ids.append(res1['id'])
+        self.wifi_doc = self.db.get(res1['id'])
+        self.wifi_doc['ssid'] = 'testing2'
+        res2 = self.db.save_doc(self.wifi_doc)
         dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
-        cls.wifi_doc['ssid'] = 'testing3'
-        res3 = cls.db.save_doc(cls.wifi_doc)
+        self.wifi_doc['ssid'] = 'testing3'
+        res3 = self.db.save_doc(self.wifi_doc)
         dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
-        cls.notification_doc['event_timestamp'] = dt.isoformat()
-        res4 = cls.db.save_doc(cls.notification_doc)
-        cls.test_doc_ids.append(res4['id'])
-        cls.notification_doc = cls.db.get(res4['id'])
-        notification_registration_client.registration(cls.notification_doc)
+        self.notification_doc['event_timestamp'] = dt.isoformat()
+        res4 = self.db.save_doc(self.notification_doc)
+        self.test_doc_ids.append(res4['id'])
+        self.notification_doc = self.db.get(res4['id'])
+        notification_registration_client.registration(self.notification_doc)
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
-        cls.notification_doc = cls.db.get(res4['id'])
-        cls.rb = perform_rollback.Rollback(cls.db, cls.revert_doc)
+        self.notification_doc = self.db.get(res4['id'])
+        self.rb = perform_rollback.Rollback(self.db, self.revert_doc)
 
-    @classmethod
-    def tearDownClass(cls):
-        for doc in cls.test_doc_ids:
-            opened = cls.db.get(doc)
+    def tearDown(self):
+        for doc in self.test_doc_ids:
+            opened = self.db.get(doc)
             opened['_deleted'] = True
-            cls.db.save_doc(opened, force_update=True)
-        current_events = cls.db.view('homework-remote/events')
+            self.db.save_doc(opened, force_update=True)
+        current_events = self.db.view('homework-remote/events')
         if current_events.count() > 0:
             current_events_all = current_events.all()
             for row in current_events_all:
-                current_doc = cls.db.get(row['id'])
+                current_doc = self.db.get(row['id'])
                 current_doc['_deleted'] = True
-                cls.db.save_doc(current_doc, force_update=True)
-        cls.db = None
+                self.db.save_doc(current_doc, force_update=True)
 
     def test_process_rollback_get_events(self):
         print self.revert_doc['timestamp']
