@@ -42,24 +42,29 @@ class TestProcessRollback(unittest.TestCase):
             "timestamp": datetime.datetime(2015, 1, 20).isoformat(),
             "status": "pending"
         }
-        dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
         res1 = self.db.save_doc(self.wifi_doc)
-        self.hist1 = add_history.add_history_item('wifi', 'wifi', res1['id'], res1['rev'], 'wifi', ts=dt.isoformat())
-        self.test_doc_ids.append(self.hist1['id'])
-        self.wifi_doc = self.db.get(res1['id'])
         self.test_doc_ids.append(res1['id'])
-        self.wifi_doc = self.db.get(res1['id'])
+        dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
+        self.hist1 = self.add_history_item(self.title, self.description, res1['id'], res1['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
+        self.test_doc_ids.append(self.hist1['id'])
         self.wifi_doc['ssid'] = 'testing2'
         res2 = self.db.save_doc(self.wifi_doc)
         dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
+        self.hist2 = self.add_history_item(self.title, self.description, res2['id'], res2['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
+        self.test_doc_ids.append(self.hist2['id'])
         self.wifi_doc['ssid'] = 'testing3'
         res3 = self.db.save_doc(self.wifi_doc)
         dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
+        self.hist3 = self.add_history_item(self.title, self.description, res3['id'], res3['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
+        self.test_doc_ids.append(self.hist3['id'])
         res4 = self.db.save_doc(self.notification_doc)
-        self.hist4 = add_history.add_history_item('notification', 'notification', res4['id'], res4['rev'], 'notifications', 'add', True, dt.isoformat())
         self.test_doc_ids.append(res4['id'])
         self.notification_doc = self.db.get(res4['id'])
+        notification_registration_client.registration(self.notification_doc)
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
+        self.notification_doc = self.db.get(res4['id'])
+        self.hist4 = self.add_history_item(self.title, self.description, res4['id'], self.notification_doc['_rev'], 'notifications', 'add', True, ts=dt.isoformat())
+        self.test_doc_ids.append(self.hist4['id'])
         self.rb = perform_rollback.Rollback(self.db, self.revert_doc)
 
     def tearDown(self):
