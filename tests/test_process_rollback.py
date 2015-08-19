@@ -1,5 +1,5 @@
 import unittest
-from process_config import couchdb_config_parser, perform_rollback, add_history, notification_registration_client, edit_wifi
+from process_config import couchdb_config_parser, perform_rollback, add_history
 import datetime
 import mock
 from dateutil.tz import tzutc
