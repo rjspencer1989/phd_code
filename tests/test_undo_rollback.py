@@ -1,5 +1,5 @@
 import unittest
-from process_config import couchdb_config_parser, perform_rollback, notification_registration_client
+from process_config import couchdb_config_parser, perform_rollback
 from process_config.add_history import add_history_item
 from undo import perform_undo
 from undo.doc_types import request_revert
@@ -19,59 +19,6 @@ class TestUndoRollback(unittest.TestCase):
                 current_doc = cls.db.get(row['id'])
                 current_doc['_deleted'] = True
                 cls.db.save_doc(current_doc, force_update=True)
-        cls.test_doc_ids = []
-        cls.title = "test rollback"
-        cls.description = "test rollback description"
-        cls.wifi_doc = {
-            "collection": "wifi",
-            "status": "done",
-            "ssid": "testing",
-            "mode": "g",
-            "encryption_type": "wpa",
-            "password_type": "txt",
-            "password": "whatever12345",
-            "channel": 1
-        }
-        cls.notification_doc = {
-            "collection": "notifications",
-            "name": "Rob",
-            "service": "phone",
-            "user": "+447972058628",
-            "status": "done"
-        }
-        cls.revert_doc = {
-            "collection": "request_revert",
-            "timestamp": datetime.datetime(2015, 1, 20).isoformat(),
-            "status": "pending"
-        }
-        dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
-        cls.wifi_doc['event_timestamp'] = dt.isoformat()
-        res1 = cls.db.save_doc(cls.wifi_doc)
-        cls.test_doc_ids.append(res1['id'])
-        cls.wifi_doc['ssid'] = 'testing2'
-        dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
-        cls.wifi_doc['event_timestamp'] = dt.isoformat()
-        res2 = cls.db.save_doc(cls.wifi_doc)
-        cls.wifi_doc['ssid'] = 'testing3'
-        res3 = cls.db.save_doc(cls.wifi_doc)
-        dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
-        cls.notification_doc['event_timestamp'] = dt.isoformat()
-        res4 = cls.db.save_doc(cls.notification_doc)
-        cls.notification_doc = cls.db.get(res4['id'])
-        notification_registration_client.registration(cls.notification_doc)
-        cls.test_doc_ids.append(res4['id'])
-        cls.revert_res = cls.db.save_doc(cls.revert_doc)
-        cls.revert_doc = cls.db.get(cls.revert_res['id'])
-        cls.test_doc_ids.append(cls.revert_res['id'])
-        cls.notification_doc = cls.db.get(cls.notification_doc['_id'])
-        dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
-        cls.rb = perform_rollback.Rollback(cls.db, cls.revert_doc)
-        cls.rb.revert(cls.revert_doc['timestamp'])
-        rd = cls.db.get(cls.revert_doc['_id'], revs_info=True)
-        dt = datetime.datetime(2015, 7, 23, hour=15, minute=0)
-        cls.rd_hist = add_history_item("unrev", "unrev", rd['_id'], rd['_rev'], 'request_revert', ts=dt.isoformat())
-        cls.test_doc_ids.append(cls.rd_hist['id'])
-        cls.undo_revert = request_revert.Request_revert(rd, cls.db.get(cls.rd_hist['id']))
 
     @classmethod
     def tearDownClass(cls):
@@ -87,6 +34,63 @@ class TestUndoRollback(unittest.TestCase):
                 current_doc['_deleted'] = True
                 cls.db.save_doc(current_doc, force_update=True)
         cls.db = None
+
+def setUp(self):
+        self.test_doc_ids = []
+        self.title = "test rollback"
+        self.description = "test rollback description"
+        self.wifi_doc = {
+            "collection": "wifi",
+            "status": "done",
+            "ssid": "testing",
+            "mode": "g",
+            "encryption_type": "wpa",
+            "password_type": "txt",
+            "password": "whatever12345",
+            "channel": 1,
+            "with_bss": False
+        }
+        self.notification_doc = {
+            "collection": "notifications",
+            "name": "Rob",
+            "service": "phone",
+            "user": "+447972058628",
+            "status": "done"
+        }
+        self.revert_doc = {
+            "collection": "request_revert",
+            "timestamp": datetime.datetime(2015, 1, 20).isoformat(),
+            "status": "pending"
+        }
+        res1 = self.db.save_doc(self.wifi_doc)
+        self.test_doc_ids.append(res1['id'])
+        dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
+        self.hist1 = add_history.add_history_item(self.title, self.description, res1['id'], res1['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
+        self.test_doc_ids.append(self.hist1['id'])
+        self.wifi_doc['ssid'] = 'testing2'
+        res2 = self.db.save_doc(self.wifi_doc)
+        dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
+        self.hist2 = add_history.add_history_item(self.title, self.description, res2['id'], res2['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
+        self.test_doc_ids.append(self.hist2['id'])
+        self.wifi_doc['ssid'] = 'testing3'
+        res3 = self.db.save_doc(self.wifi_doc)
+        dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
+        self.hist3 = add_history.add_history_item(self.title, self.description, res3['id'], res3['rev'], 'wifi', 'edit', True, ts=dt.isoformat())
+        self.test_doc_ids.append(self.hist3['id'])
+        res4 = self.db.save_doc(self.notification_doc)
+        self.test_doc_ids.append(res4['id'])
+        self.notification_doc = self.db.get(res4['id'])
+        dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
+        self.notification_doc = self.db.get(res4['id'])
+        self.hist4 = add_history.add_history_item(self.title, self.description, res4['id'], self.notification_doc['_rev'], 'notifications', 'add', True, ts=dt.isoformat())
+        self.test_doc_ids.append(self.hist4['id'])
+        self.rb = perform_rollback.Rollback(self.db, self.revert_doc)
+
+    def tearDown(self):
+        for doc in self.test_doc_ids:
+            opened = self.db.get(doc)
+            opened['_deleted'] = True
+            self.db.save_doc(opened, force_update=True)
 
     def test_get_events(self):
         result = self.undo_revert.get_events(self.revert_doc['timestamp'])
