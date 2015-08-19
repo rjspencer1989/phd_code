@@ -11,7 +11,7 @@ class Rollback(object):
         self.change = change
 
     def get_events_after_timestamp(self, ts):
-        end = datetime.datetime.now(tzinfo=tzutc())
+        end = datetime.datetime.now(tz=tzutc())
         vr = self.db.view('homework-remote/undoable_events', startkey=ts, endkey=end.isoformat())
         return vr.all()
 
