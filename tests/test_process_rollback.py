@@ -80,9 +80,7 @@ class TestProcessRollback(unittest.TestCase):
                 self.db.save_doc(current_doc, force_update=True)
 
     def test_process_rollback_get_events(self):
-        print self.revert_doc['timestamp']
         result = self.rb.get_events_after_timestamp(self.revert_doc['timestamp'])
-        pprint.pprint(result)
         result_list = list(result)
         self.assertEqual(3, len(result_list))
 
