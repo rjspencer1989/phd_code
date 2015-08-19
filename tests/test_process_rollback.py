@@ -60,7 +60,6 @@ class TestProcessRollback(unittest.TestCase):
         res4 = self.db.save_doc(self.notification_doc)
         self.test_doc_ids.append(res4['id'])
         self.notification_doc = self.db.get(res4['id'])
-        notification_registration_client.registration(self.notification_doc)
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
         self.notification_doc = self.db.get(res4['id'])
         self.hist4 = add_history.add_history_item(self.title, self.description, res4['id'], self.notification_doc['_rev'], 'notifications', 'add', True, ts=dt.isoformat())
