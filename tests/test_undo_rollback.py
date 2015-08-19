@@ -38,12 +38,14 @@ class TestUndoRollback(unittest.TestCase):
             "timestamp": datetime.datetime(2015, 1, 20).isoformat(),
             "status": "pending"
         }
+        dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
+        cls.wifi_doc['event_timestamp'] = dt.isoformat()
         res1 = cls.db.save_doc(cls.wifi_doc)
         cls.test_doc_ids.append(res1['id'])
-        dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
         cls.wifi_doc['ssid'] = 'testing2'
-        res2 = cls.db.save_doc(cls.wifi_doc)
         dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
+        cls.wifi_doc['event_timestamp'] = dt.isoformat()
+        res2 = cls.db.save_doc(cls.wifi_doc)
         cls.wifi_doc['ssid'] = 'testing3'
         res3 = cls.db.save_doc(cls.wifi_doc)
         dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
