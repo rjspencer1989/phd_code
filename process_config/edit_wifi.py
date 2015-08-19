@@ -105,13 +105,12 @@ def generate_config(current_doc, with_bss=True):
 
 
 def process_wifi(doc):
-    if 'ENV_TESTS' not in os.environ:
-        bss = True
-        if 'with_bss' in doc and doc['with_bss'] == True:
-            line_list = generate_config(doc)
-        else:
-            line_list = generate_config(doc, False)
-            bss = False
+    bss = True
+    if 'with_bss' in doc and doc['with_bss'] == True:
+        line_list = generate_config(doc)
+    else:
+        line_list = generate_config(doc, False)
+        bss = False
     devices = get_connected_devices()
     doc['with_bss'] = True
     doc['status'] = 'done'
