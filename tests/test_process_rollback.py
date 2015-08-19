@@ -10,9 +10,23 @@ class TestProcessRollback(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.db = couchdb_config_parser.get_db()
+        current_events = cls.db.view('homework-remote/events')
+        if current_events.count() > 0:
+            current_events_all = current_events.all()
+            for row in current_events_all:
+                current_doc = cls.db.get(row['id'])
+                current_doc['_deleted'] = True
+                cls.db.save_doc(current_doc, force_update=True)
 
     @classmethod
     def tearDownClass(cls):
+        current_events = cls.db.view('homework-remote/events')
+        if current_events.count() > 0:
+            current_events_all = current_events.all()
+            for row in current_events_all:
+                current_doc = cls.db.get(row['id'])
+                current_doc['_deleted'] = True
+                cls.db.save_doc(current_doc, force_update=True)
         cls.db = None
 
     def setUp(self):
@@ -71,13 +85,6 @@ class TestProcessRollback(unittest.TestCase):
             opened = self.db.get(doc)
             opened['_deleted'] = True
             self.db.save_doc(opened, force_update=True)
-        current_events = self.db.view('homework-remote/events')
-        if current_events.count() > 0:
-            current_events_all = current_events.all()
-            for row in current_events_all:
-                current_doc = self.db.get(row['id'])
-                current_doc['_deleted'] = True
-                self.db.save_doc(current_doc, force_update=True)
 
     def test_process_rollback_get_events(self):
         result = self.rb.get_events_after_timestamp(self.revert_doc['timestamp'])
