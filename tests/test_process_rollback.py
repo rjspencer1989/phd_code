@@ -23,7 +23,7 @@ class TestProcessRollback(unittest.TestCase):
             "password_type": "txt",
             "password": "whatever12345",
             "channel": 1,
-            "with_bss": false
+            "with_bss": False
         }
         cls.notification_doc = {
             "collection": "notifications",
