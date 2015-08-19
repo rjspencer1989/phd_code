@@ -31,7 +31,8 @@ class TestUndoRollback(unittest.TestCase):
                 cls.db.save_doc(current_doc, force_update=True)
         cls.db = None
 
-def setUp(self):
+
+    def setUp(self):
         self.test_doc_ids = []
         self.title = "test rollback"
         self.description = "test rollback description"
