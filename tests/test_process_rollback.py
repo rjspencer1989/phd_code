@@ -75,18 +75,18 @@ class TestProcessRollback(unittest.TestCase):
         cls.db = None
 
     def test_process_rollback_get_events(self):
-        result = self.rb.get_events_after_timestamp(self.revert_timestamp)
+        result = self.rb.get_events_after_timestamp(self.revert_doc['timestamp'])
         pprint.pprint(result)
         result_list = list(result)
         self.assertEqual(3, len(result_list))
 
     def test_process_rollback_get_docs_to_revert(self):
-        result = self.rb.get_docs_to_revert(self.revert_timestamp)
+        result = self.rb.get_docs_to_revert(self.revert_doc['timestamp'])
         pprint.pprint(result)
         self.assertEqual(2, len(result))
         k = result.keys()
         self.assertNotEqual(k[0], k[1])
 
     def test_rollback(self):
-        result = self.rb.revert(self.revert_timestamp)
+        result = self.rb.revert(self.revert_doc['timestamp'])
         self.assertTrue(result)
