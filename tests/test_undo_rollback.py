@@ -49,6 +49,7 @@ class TestUndoRollback(unittest.TestCase):
         cls.wifi_doc['ssid'] = 'testing3'
         res3 = cls.db.save_doc(cls.wifi_doc)
         dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
+        cls.notification_doc['event_timestamp'] = dt.isoformat()
         res4 = cls.db.save_doc(cls.notification_doc)
         cls.notification_doc = cls.db.get(res4['id'])
         notification_registration_client.registration(cls.notification_doc)
