@@ -22,10 +22,6 @@ class TestUndoRollback(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        for doc in cls.test_doc_ids:
-            opened = cls.db.get(doc)
-            opened['_deleted'] = True
-            cls.db.save_doc(opened, force_update=True)
         current_events = cls.db.view('homework-remote/events')
         if current_events.count() > 0:
             current_events_all = current_events.all()
