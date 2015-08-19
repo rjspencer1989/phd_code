@@ -81,6 +81,11 @@ class TestUndoRollback(unittest.TestCase):
         self.hist4 = add_history_item(self.title, self.description, res4['id'], self.notification_doc['_rev'], 'notifications', 'add', True, ts=dt.isoformat())
         self.test_doc_ids.append(self.hist4['id'])
         self.rb = perform_rollback.Rollback(self.db, self.revert_doc)
+        rd = self.db.get(self.revert_doc['_id'], revs_info=True)
+        dt = datetime.datetime(2015, 7, 23, hour=15, minute=0)
+        self.rd_hist = add_history_item("unrev", "unrev", rd['_id'], rd['_rev'], 'request_revert', ts=dt.isoformat())
+        self.test_doc_ids.append(self.rd_hist['id'])
+        self.undo_revert = request_revert.Request_revert(rd, self.db.get(self.rd_hist['id']))
 
     def tearDown(self):
         for doc in self.test_doc_ids:
