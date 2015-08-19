@@ -58,6 +58,9 @@ class TestUndoRollback(unittest.TestCase):
             "timestamp": datetime.datetime(2015, 1, 20).isoformat(),
             "status": "pending"
         }
+        res_rev_doc = self.db.save_doc(self.revert_doc)
+        self.test_doc_ids.append(res_rev_doc['id'])
+        self.revert_doc = self.db.get(res_rev_doc['id'])
         res1 = self.db.save_doc(self.wifi_doc)
         self.test_doc_ids.append(res1['id'])
         dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
