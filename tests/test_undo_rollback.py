@@ -89,7 +89,6 @@ class TestUndoRollback(unittest.TestCase):
         self.rd_hist = add_history_item("unrev", "unrev", rd['_id'], rd['_rev'], 'request_revert', ts=dt.isoformat())
         self.test_doc_ids.append(self.rd_hist['id'])
         self.undo_revert = request_revert.Request_revert(rd, self.db.get(self.rd_hist['id']))
-        self.
 
     def tearDown(self):
         for doc in self.test_doc_ids:
