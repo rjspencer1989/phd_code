@@ -55,7 +55,7 @@ class TestUndoRollback(unittest.TestCase):
         }
         self.revert_doc = {
             "collection": "request_revert",
-            "timestamp": datetime.datetime(2015, 1, 20).isoformat(),
+            "timestamp": datetime.datetime(2015, 1, 20, hour=10, minute=25).isoformat(),
             "status": "pending"
         }
         res_rev_doc = self.db.save_doc(self.revert_doc)
@@ -89,6 +89,7 @@ class TestUndoRollback(unittest.TestCase):
         self.rd_hist = add_history_item("unrev", "unrev", rd['_id'], rd['_rev'], 'request_revert', ts=dt.isoformat())
         self.test_doc_ids.append(self.rd_hist['id'])
         self.undo_revert = request_revert.Request_revert(rd, self.db.get(self.rd_hist['id']))
+        self.
 
     def tearDown(self):
         for doc in self.test_doc_ids:
