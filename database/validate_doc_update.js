@@ -158,8 +158,12 @@ function (newDoc, oldDoc, userCtx){
             throw({forbidden: 'You can\'t undo an event that isn\'t undoable'});
         }
         date_regex('timestamp');
-        if(newDoc.undoable !== true || newDoc.undoable !== false || newDoc.undoable !== 'pending'){
-            throw({forbidden: 'Undoable should be true, false or prompt'});
+        if(newDoc.undoable !== true){
+            if(newDoc.undoable !== false){
+                if(newDoc.undoable !== 'prompt'){
+                    throw({forbidden: 'Undoable should be true, false or prompt'});
+                }
+            }
         } 
     } else if(newDoc.collection === "request_notification"){
         required("collection");
