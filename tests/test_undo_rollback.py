@@ -89,10 +89,6 @@ class TestUndoRollback(unittest.TestCase):
         self.rd_hist = add_history_item("unrev", "unrev", rd['_id'], rd['_rev'], 'request_revert', ts=dt.isoformat())
         self.test_doc_ids.append(self.rd_hist['id'])
         self.undo_revert = request_revert.Request_revert(rd, self.db.get(self.rd_hist['id']))
-        self.notification_doc['hidden'] = True
-        res5 = self.db.save_doc(self.notification_doc, force_update=True)
-        self.hist5 = add_history_item(self.title, self.description, res5['id'], res5['rev'], 'notifications', 'delete', True, None)
-        self.test_doc_ids.append(self.hist5['id'])
 
     def tearDown(self):
         for doc in self.test_doc_ids:
@@ -107,5 +103,9 @@ class TestUndoRollback(unittest.TestCase):
         self.assertEqual(4, result.count())
 
     def test_get_reverted_events(self):
+        self.notification_doc['hidden'] = True
+        res5 = self.db.save_doc(self.notification_doc, force_update=True)
+        self.hist5 = add_history_item(self.title, self.description, res5['id'], res5['rev'], 'notifications', 'delete', True, None)
+        self.test_doc_ids.append(self.hist5['id'])
         result = self.undo_revert.get_reverted_events()
         pprint.pprint(result)
