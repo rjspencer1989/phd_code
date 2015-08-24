@@ -32,7 +32,8 @@ window.App.Views.Event = Backbone.View.extend({
     },
 
     events: {
-        "click .undo-button": "request_undo"
+        "click .undo-button": "request_undo",
+        "click .revert-button": "revert_state"
     },
     render: function(){
         "use strict";
@@ -56,6 +57,12 @@ window.App.Views.Event = Backbone.View.extend({
         "use strict";
         this.model.set({perform_undo: true});
         this.model.save();
+    },
+    revert_state: function(){
+        "use strict";
+        var newDoc = new window.App.Models.Rollback();
+        newDoc.set({timestamp: this.model.get("timestamp")});
+        newDoc.save();
     }
 });
 
@@ -71,10 +78,6 @@ window.App.Views.Events = Backbone.View.extend({
         this.collection.fetch({reset: true, descending: true});
         this.subviews = [];
     },
-
-    events: {
-        "click .revert-button": "revert_state"
-    },
     
     add_event: function(){
         "use strict";
@@ -86,7 +89,6 @@ window.App.Views.Events = Backbone.View.extend({
         "use strict";
         this.$el.html(this.template());
         $("#main-row").empty().append(this.el);
-
         window.setActiveLink("history-link");
         this.collection.each(this.addOne, this);
         return this;
@@ -104,14 +106,6 @@ window.App.Views.Events = Backbone.View.extend({
         if(event.get("undoable") === true){
             view.$el.addClass("undoable");
         }
-    },
-
-    revert_state: function(){
-        "use strict";
-        var date_selected = this.$("#history_dp").datepicker("getDate").toISOString();
-        var newDoc = new window.App.Models.Rollback();
-        newDoc.set({timestamp: date_selected});
-        newDoc.save();
     },
 
     exit: function(){
