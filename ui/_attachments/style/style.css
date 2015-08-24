@@ -47,6 +47,14 @@ h2 {
 	display: none;
 }
 
+.revert-button{
+    display:none;
+}
+
+.undoable .revert-button{
+    display:block;
+}
+
 .undoable .undo-button{
 	display: block;
 }

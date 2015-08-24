@@ -86,17 +86,7 @@ window.App.Views.Events = Backbone.View.extend({
         "use strict";
         this.$el.html(this.template());
         $("#main-row").empty().append(this.el);
-        this.$(".input-group.date").datepicker({
-            todayBtn: true,
-            todayHighlight: true,
-            format: "dd-mm-yyyy",
-            endDate: "0d",
-            container: ".jump_date",
-            orientation: "top",
-            autoclose: true
-        }).on('show', function(e){
-            $('.datepicker').css('z-index', 250);
-        });
+
         window.setActiveLink("history-link");
         this.collection.each(this.addOne, this);
         return this;
