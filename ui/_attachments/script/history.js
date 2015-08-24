@@ -55,8 +55,10 @@ window.App.Views.Event = Backbone.View.extend({
     },
     request_undo: function(){
         "use strict";
-        this.model.set({perform_undo: true});
-        this.model.save();
+        if(window.confirm("This is a new device. Undoing this change will make your router forget about the device. Do you wish to continue?")){
+            this.model.set({perform_undo: true});
+            this.model.save();   
+        }
     },
     revert_state: function(){
         "use strict";

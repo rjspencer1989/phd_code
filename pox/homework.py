@@ -47,7 +47,10 @@ class HomeworkMain(EventMixin):
                                                doc['action'])
             add_history_item(strings['title'], strings['desc'],
                              the_id, the_rev,
-                             False if doc['state'] == 'pending' else True, ts=doc['event_timestamp'])
+                             'devices', 'edit',
+                             undoable=False if doc['state'] == 'pending' else True,
+                             prompt=True if doc['prompt'] == True else False,
+                             ts=doc['event_timestamp'])
             device = {'mac': EthAddr(doc['mac_address']),
                       'action': doc['action']}
             devices = [device]
