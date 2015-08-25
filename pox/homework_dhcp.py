@@ -210,6 +210,11 @@ class HomeworkDHCP(object):
 
     def select_ip(self, mac_address, msg_type):
         lease_end = time.time() + MAX_LEASE
+        d = self.get_data(mac_address)
+        if len(list(d)) > 0:
+            doc = d[0]['value']
+            if doc['state'] == 'deny':
+                return None
         if mac_address in self.mac_mapping:
             state = self.mac_mapping[mac_address]
             ip = state.ip.toUnsigned()
@@ -218,7 +223,7 @@ class HomeworkDHCP(object):
             ip = self.find_free_ip(IPAddr(ROUTABLE_SUBNET, networkOrder=True),
                                    ROUTABLE_NETMASK)
             if ip is None:
-                return
+                return None
             ip += 1
             state = Lease(IPAddr(ip), mac_address, lease_end)
             self.ip_mapping[IPAddr(ip)] = state
@@ -241,13 +246,14 @@ class HomeworkDHCP(object):
             elif mt == pkt.dhcp.DECLINE_MSG:
                 return
         ip = self.select_ip(dhcp_packet.chaddr, mt)
-
         if mt == pkt.dhcp.RELEASE_MSG:
             # find mapping and delete it
             self.insert_couchdb("del", ip, dhcp_packet.chaddr, None, None)
             return
 
         reply_msg_type = pkt.dhcp.OFFER_MSG if self.dhcp_msg_type.type == pkt.dhcp.DISCOVER_MSG else pkt.dhcp.ACK_MSG
+        if ip is None:
+            reply_msg_type = pkt.dhcp.NAK_MSG
         if self.req_ip != 0 and self.dhcp_msg_type == pkt.dhcp.REQUEST_MSG and self.req_ip != int(ip):
             reply_msg_type = pkt.dhcp.NAK_MSG
             ip = self.req_ip
@@ -257,6 +263,7 @@ class HomeworkDHCP(object):
             self.add_addr(str(self.increment_ip(ip)))
             print self.connections[0].ports[event.port].name
             self.insert_couchdb("add", ip, dhcp_packet.chaddr, self.hostname, self.connections[0].ports[event.port].name)
+                
 
         eth = pkt.ethernet(src=ip_for_event(event), dst=event.parsed.src)
         eth.type = pkt.ethernet.IP_TYPE
