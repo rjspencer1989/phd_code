@@ -249,7 +249,7 @@ class HomeworkDHCP(object):
 
         reply_msg_type = pkt.dhcp.OFFER_MSG if self.dhcp_msg_type.type == pkt.dhcp.DISCOVER_MSG else pkt.dhcp.ACK_MSG
         if self.req_ip != 0 and self.dhcp_msg_type == pkt.dhcp.REQUEST_MSG and self.req_ip != int(ip):
-            reply_msg_type = pkt.dhcp.nak
+            reply_msg_type = pkt.dhcp.NAK_MSG
             ip = self.req_ip
             print "not allowed that address"
         reply = self.generate_dhcp_reply(dhcp_packet, ip, reply_msg_type, MAX_LEASE)
