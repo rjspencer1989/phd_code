@@ -263,7 +263,6 @@ class HomeworkDHCP(object):
             self.add_addr(str(self.increment_ip(ip)))
             print self.connections[0].ports[event.port].name
             self.insert_couchdb("add", ip, dhcp_packet.chaddr, self.hostname, self.connections[0].ports[event.port].name)
-                
 
         eth = pkt.ethernet(src=ip_for_event(event), dst=event.parsed.src)
         eth.type = pkt.ethernet.IP_TYPE
