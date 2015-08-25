@@ -3,7 +3,7 @@ import urllib2
 from add_history import add_history_item
 
 status = False
-req = urllib2.Request('https://2-dot-homework-notify.appspot.com/notify/2/')
+req = urllib2.Request('http://rjspencer1989.koding.io')
 try:
     response = urllib2.urlopen(req)
     status = True
