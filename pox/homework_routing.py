@@ -225,6 +225,7 @@ class HomeworkRouting(object):
                 return
             lines.append(mac_str)
             hsd.writelines(lines)
+        self.reload_hostapd()
 
     def remove_from_hostapd_blacklist(self, mac):
         mac_str = "%s\n" % (mac)
@@ -234,6 +235,11 @@ class HomeworkRouting(object):
                 return
             lines.remove(mac_str)
             hsd.writelines(lines)
+        self.reload_hostapd()
+
+    def reload_hostapd():
+        cmd = ['/etc/init.d/hostapd', 'restart']
+        res = subprocess.Popen(cmd)
 
     def send_flow_modification(self, event, command, actions, timeout=of.OFP_FLOW_PERMANENT, priority=of.OFP_DEFAULT_PRIORITY):
         msg = of.ofp_flow_mod()
