@@ -190,6 +190,7 @@ class HomeworkRouting(object):
         if ether in self.mac_permit:
             self.mac_permit.remove(ether)
         self.mac_whitelist.add(ether)
+        self.add_to_hostapd_blacklist(ether)
         self.get_DHCP_mapping().change_device_state(ether, 'deny')
         self.revoke_mac_access(ether)
 
@@ -197,6 +198,7 @@ class HomeworkRouting(object):
         print "permit %s" % (str(ether))
         if ether in self.mac_whitelist:
             self.mac_whitelist.remove(ether)
+        self.remove_from_hostapd_blacklist(ether)
         self.mac_permit.add(ether)
         self.get_DHCP_mapping().change_device_state(ether, 'permit')
 
