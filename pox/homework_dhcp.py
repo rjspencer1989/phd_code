@@ -210,11 +210,6 @@ class HomeworkDHCP(object):
 
     def select_ip(self, mac_address, msg_type):
         lease_end = time.time() + MAX_LEASE
-        d = self.get_data(mac_address)
-        if len(list(d)) > 0:
-            doc = d[0]['value']
-            if doc['state'] == 'deny':
-                return None
         if mac_address in self.mac_mapping:
             state = self.mac_mapping[mac_address]
             ip = state.ip.toUnsigned()
@@ -252,8 +247,10 @@ class HomeworkDHCP(object):
             return
 
         reply_msg_type = pkt.dhcp.OFFER_MSG if self.dhcp_msg_type.type == pkt.dhcp.DISCOVER_MSG else pkt.dhcp.ACK_MSG
-        if ip is None:
-            reply_msg_type = pkt.dhcp.NAK_MSG
+        d = self.get_data(dhcp_packet.chaddr)
+        if len(list(d)) > 0:
+            if d[0]['value']['state'] == 'deny':
+                reply_msg_type = pkt.dhcp.NAK_MSG
         if self.req_ip != 0 and self.dhcp_msg_type == pkt.dhcp.REQUEST_MSG and self.req_ip != int(ip):
             reply_msg_type = pkt.dhcp.NAK_MSG
             ip = self.req_ip
