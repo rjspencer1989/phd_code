@@ -238,7 +238,7 @@ class HomeworkRouting(object):
         self.reload_hostapd()
 
     def reload_hostapd():
-        cmd = ['/etc/init.d/hostapd', 'restart']
+        cmd = ['/etc/init.d/hostapd', 'reload']
         res = subprocess.Popen(cmd)
 
     def send_flow_modification(self, event, command, actions, timeout=of.OFP_FLOW_PERMANENT, priority=of.OFP_DEFAULT_PRIORITY):
