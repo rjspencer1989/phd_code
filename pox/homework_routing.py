@@ -215,6 +215,15 @@ class HomeworkRouting(object):
         for connection in core.openflow.connections:
             connection.send(msg)
 
+    def add_to_hostapd_blacklist(self, mac):
+        mac_str = "%s\n" % (mac)
+        with open('/etc/hostapd.deny', 'r+') as hsd:
+            lines = hsd.readlines()
+            if mac_str in lines:
+                return
+            lines.append(mac_str)
+            hsd.writelines(lines)
+
     def send_flow_modification(self, event, command, actions, timeout=of.OFP_FLOW_PERMANENT, priority=of.OFP_DEFAULT_PRIORITY):
         msg = of.ofp_flow_mod()
         match = of.ofp_match()
