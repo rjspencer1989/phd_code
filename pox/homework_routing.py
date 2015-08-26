@@ -224,6 +224,15 @@ class HomeworkRouting(object):
             lines.append(mac_str)
             hsd.writelines(lines)
 
+    def remove_from_hostapd_blacklist(self, mac):
+        mac_str = "%s\n" % (mac)
+        with open('/etc/hostapd.deny', 'r+') as hsd:
+            lines = hsd.readlines()
+            if mac_str not in lines:
+                return
+            lines.remove(mac_str)
+            hsd.writelines(lines)
+
     def send_flow_modification(self, event, command, actions, timeout=of.OFP_FLOW_PERMANENT, priority=of.OFP_DEFAULT_PRIORITY):
         msg = of.ofp_flow_mod()
         match = of.ofp_match()
