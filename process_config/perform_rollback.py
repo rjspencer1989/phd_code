@@ -22,7 +22,6 @@ class Rollback(object):
             event = event_val['value']
             if event['doc_id'] not in doc_list:
                 doc_list[event['doc_id']] = event
-        pprint.pprint(doc_list)
         return doc_list
 
     def revert(self, timestamp):
