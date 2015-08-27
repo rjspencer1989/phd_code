@@ -1,9 +1,0 @@
-{
-    "env": {
-        "browser": true
-    },
-
-    "rules": {
-        "camelcase": [0, {"properties": "never"}]
-    }
-}
