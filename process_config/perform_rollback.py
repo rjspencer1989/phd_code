@@ -13,7 +13,6 @@ class Rollback(object):
 
     def get_events_after_timestamp(self, ts):
         vr = self.db.view('homework-remote/undoable_events', startkey=ts)
-        pprint.pprint(vr.all())
         return vr.all()
 
     def get_docs_to_revert(self, timestamp):
@@ -23,6 +22,7 @@ class Rollback(object):
             event = event_val['value']
             if event['doc_id'] not in doc_list:
                 doc_list[event['doc_id']] = event
+        pprint.pprint(doc_list)
         return doc_list
 
     def revert(self, timestamp):
