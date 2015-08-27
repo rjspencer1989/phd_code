@@ -1,1 +1,1 @@
-__all__ = ["devices", "main_user", "notifications", "wifi"]
+__all__ = ["connection_state", "devices", "main_user", "notifications", "wifi"]
