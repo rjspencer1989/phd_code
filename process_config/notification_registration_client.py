@@ -16,7 +16,7 @@ prompts = {
 
 
 def get_router_id():
-    return os.environ['APP_ENGINE_ROUTER_ID']
+    return os.get_env('APP_ENGINE_ROUTER_ID')
 
 
 def edit(doc):
