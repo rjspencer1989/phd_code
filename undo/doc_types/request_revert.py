@@ -17,6 +17,5 @@ class Request_revert(BaseDoc):
 
     def get_reverted_events(self):
         original_events = self.get_events(self.doc['timestamp']).all()
-        pprint.pprint(self.evt)
         new_events = self.db.view('homework-remote/undoable_events', startkey=self.evt['timestamp']).all()
         return new_events
