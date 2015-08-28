@@ -1,7 +1,7 @@
 class ConnectionState(object):
     def __init__(self):
         self._id = "connection_state"
-        self.collection = "conection_state"
+        self.collection = "connection_state"
         self.state = "connected"
 
     def get_doc(self):
