@@ -231,7 +231,7 @@ class TestFilters(unittest.TestCase):
                 "doc_id": "aabbcc",
                 "doc_rev": "2-aabbcc",
                 "doc_collection": "notifications",
-                "action": "add" 
+                "action": "add"
             ],
             "timestamp": datetime.datetime.now(tzutc()).isoformat()
         }
