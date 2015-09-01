@@ -3,6 +3,7 @@ from mock import MagicMock
 from process_config import couchdb_config_parser
 from process_config.add_history import add_history_item
 from process_config import notification_registration_client
+from process_config import edit_wifi
 from undo import perform_undo
 from undo.doc_types import notifications
 import time
