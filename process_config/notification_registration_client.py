@@ -42,7 +42,8 @@ def edit(doc, from_undo=False):
                     desc = ('Undo edit of %s for %s. %s is now identified by %s' %
                             (prompts[doc['service']], doc['name'], doc['name'], doc['user']))
                 ts = doc['event_timestamp'] if 'event_timestamp' in doc else None
-                add_history_item(title, desc, doc['_id'], doc['_rev'], 'notifications', 'edit', True, ts=ts)
+                doc_arr = [{'doc_id': doc['_id'], 'doc_rev': doc['_rev'], 'doc_collection': 'notifications', 'action': 'edit'}]
+                add_history_item(title, desc, doc_arr, True, ts=ts)
                 if 'event_timestamp' in doc:
                     del doc['event_timestamp']
         except urllib2.HTTPError, e:
@@ -69,7 +70,8 @@ def delete(doc, from_undo=False):
             if from_undo is True:
                 title = 'Undo adding notification registration'
             ts = doc['event_timestamp'] if 'event_timestamp' in doc else None
-            add_history_item(title, desc, doc['_id'], doc['_rev'], 'notifications', 'delete', True, ts=ts)
+            doc_arr = [{'doc_id': doc['_id'], 'doc_rev': doc['_rev'], 'doc_collection': 'notifications', 'action': 'delete'}]
+            add_history_item(title, desc, doc_arr, True, ts=ts)
             if 'event_timestamp' in doc:
                 del doc['event_timestamp']
             del doc['suid']
@@ -102,7 +104,8 @@ def registration(doc, from_undo=True):
                 if from_undo is True:
                     title = 'Undo removal of notification registration'
                 ts = doc['event_timestamp'] if 'event_timestamp' in doc else None
-                add_history_item(title, desc, doc['_id'], doc['_rev'], 'notifications', 'add', True, ts=ts)
+                doc_arr = [{'doc_id': doc['_id'], 'doc_rev': doc['_rev'], 'doc_collection': 'notifications', 'action': 'add'}]
+                add_history_item(title, desc, doc_arr, True, ts=ts)
                 if 'event_timestamp' in doc:
                     del doc['event_timestamp']
         except urllib2.HTTPError, e:

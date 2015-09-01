@@ -1,6 +1,5 @@
 import unittest
 from process_config import add_history, couchdb_config_parser
-import pprint
 
 
 class TestHistory(unittest.TestCase):
@@ -10,7 +9,6 @@ class TestHistory(unittest.TestCase):
         self.assertIsNotNone(result)
         db = couchdb_config_parser.get_db()
         doc = db.get(result['id'])
-        pprint.pprint(doc)
         self.assertIsNotNone(doc)
         self.assertEqual(doc['collection'], 'events')
         self.assertIn('timestamp', doc)
