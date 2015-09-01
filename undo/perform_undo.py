@@ -4,9 +4,10 @@ from process_config import add_history, couchdb_config_parser
 db = couchdb_config_parser.get_db()
 
 def get_doc_to_undo(event):
-    undo_id = event['doc_id']
-    undo_doc = db.get(undo_id, revs_info=True)
-    return undo_doc
+    if len(event[docs]) == 1:
+        undo_id = event['doc_id']
+        undo_doc = db.get(undo_id, revs_info=True)
+        return undo_doc
 
 def perform_undo(event):
     doc = get_doc_to_undo(event)
