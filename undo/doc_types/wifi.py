@@ -1,4 +1,5 @@
 from base_doc import BaseDoc
+from process_config import edit_wifi
 
 
 class Wifi(BaseDoc):
@@ -14,6 +15,7 @@ class Wifi(BaseDoc):
     def undo(self):
         rev_list = self.get_rev_list()
         doc = self.db.get(self.doc['_id'], rev=rev_list[0])
-        doc['status'] = 'pending'
         res = self.db.save_doc(doc, force_update=True)
+        doc = self.db.get(self.doc)
+        edit_wifi.process_wifi(doc, from_undo=True)
         return res['rev']
