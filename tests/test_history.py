@@ -14,8 +14,8 @@ class TestHistory(unittest.TestCase):
         self.assertIn('timestamp', doc)
         self.assertEqual("Change WiFi", doc['title'])
         self.assertEqual("Wifi Updated", doc['description'])
-        self.assertEqual("aabbc", doc['doc_id'])
-        self.assertEqual("2-33aabbcc", doc['doc_rev'])
+        self.assertEqual("aabbc", doc['docs'][0]['doc_id'])
+        self.assertEqual("2-33aabbcc", doc['docs'][0]['doc_rev'])
         self.assertTrue(doc['undoable'])
         self.assertFalse(doc['perform_undo'])
         doc['_deleted'] = True
