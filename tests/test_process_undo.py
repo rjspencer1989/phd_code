@@ -1,4 +1,5 @@
 import unittest
+from mock import MagicMock
 from process_config import couchdb_config_parser
 from process_config.add_history import add_history_item
 from process_config import notification_registration_client
@@ -149,6 +150,44 @@ class TestPerformUndo(unittest.TestCase):
             "password_type": "txt",
             "password": "whatever12345",
         }
+        cons = edit_wifi
+        keys = ['interface',
+                'bridge',
+                'driver',
+                'ssid',
+                'hw_mode',
+                'channel',
+                'ieee80211n',
+                'macaddr_acl',
+                'auth_algs',
+                'ignore_broadcast_ssid',
+                'eapol_key_index_workaround',
+                'eap_server',
+                'own_ip_addr',
+                'wpa',
+                'wpa_passphrase',
+                'wpa_key_mgmt',
+                'wpa_pairwise',
+                'rsn_pairwise']
+        values = ['wlan0',
+                  'br0',
+                  'nl80211',
+                  'test_old',
+                  'g',
+                  '1',
+                  '1',
+                  '0',
+                  '1',
+                  '0',
+                  '0',
+                  '0',
+                  '127.0.0.1',
+                  '3',
+                  'whatever',
+                  'WPA-PSK',
+                  'TKIP',
+                  'CCMP']
+        cons.get_config = MagicMock(return_value=(keys, values))
         res = self.db.save_doc(nd)
         nd['status'] = 'done'
         self.db.save_doc(nd, force_update=True)
@@ -162,7 +201,6 @@ class TestPerformUndo(unittest.TestCase):
         result = perform_undo.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
         self.assertEqual(updated['ssid'], 'test')
-        self.assertEqual('pending', updated['status'])
         nd['_deleted'] = True
         self.db.save_doc(nd, force_update=True)
         event['_deleted'] = True
