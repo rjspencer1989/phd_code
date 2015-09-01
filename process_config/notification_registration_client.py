@@ -40,7 +40,7 @@ def edit(doc, from_undo=False):
                 if from_undo is True:
                     title = 'Undo edit of notification registration'
                     desc = ('Undo edit of %s for %s. %s is now identified by %s' %
-                        (prompts[doc['service']], doc['name'], doc['name'], doc['user']))
+                            (prompts[doc['service']], doc['name'], doc['name'], doc['user']))
                 ts = doc['event_timestamp'] if 'event_timestamp' in doc else None
                 add_history_item(title, desc, doc['_id'], doc['_rev'], 'notifications', 'edit', True, ts=ts)
                 if 'event_timestamp' in doc:
