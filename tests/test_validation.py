@@ -92,12 +92,14 @@ class TestValidation(unittest.TestCase):
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
-            "doc_id": "aabbcc",
-            "doc_rev": "1-aabbcc",
+            "docs": [{
+                "doc_id": "aabbcc",
+                "doc_rev": "1-aabbcc",
+                "doc_collection": "devices",
+                "action": "edit"
+            }],
             "undoable": True,
-            "perform_undo": False,
-            "doc_collection": "devices",
-            "action": "edit"
+            "perform_undo": False
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
@@ -110,12 +112,14 @@ class TestValidation(unittest.TestCase):
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
-            "doc_id": "aabbcc",
-            "doc_rev": "1-aabbcc",
+            "docs": [{
+                "doc_id": "aabbcc",
+                "doc_rev": "1-aabbcc",
+                "doc_collection": "devices",
+                "action": "edit"
+            }],
             "undoable": False,
-            "perform_undo": False,
-            "doc_collection": "devices",
-            "action": "edit"
+            "perform_undo": False
         }
         db = couchdb_config_parser.get_db()
         res = db.save_doc(doc)
