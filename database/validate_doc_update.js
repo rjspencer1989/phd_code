@@ -7,7 +7,7 @@ function (newDoc, oldDoc, userCtx){
     function required_array_object(arr, field, message){
         message = message || "Array must have objects with a " + field + " field."
         for(var item in arr){
-            if(!field in item){
+            if(!(field in item)){
                 throw({forbidden: message});
             }
         }
