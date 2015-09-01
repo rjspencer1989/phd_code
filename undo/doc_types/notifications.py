@@ -18,7 +18,7 @@ class Notifications(BaseDoc):
         self.doc['hidden'] = True
         ret = self.db.save_doc(self.doc)
         hidden = self.db.get(self.doc['_id'], rev=ret['rev'])
-        notification_registration_client.delete(hidden)
+        notification_registration_client.delete(hidden, from_undo=True)
         updated = self.db.get(self.doc['_id'])
         return updated['_rev']
 
@@ -26,7 +26,7 @@ class Notifications(BaseDoc):
         del self.doc['hidden']
         self.doc['status'] = 'done'
         self.db.save_doc(self.doc, force_update=True)
-        notification_registration_client.registration(self.doc)
+        notification_registration_client.registration(self.doc, from_undo=True)
         updated = self.db.get(self.doc['_id'])
         return updated['_rev']
 
@@ -36,6 +36,6 @@ class Notifications(BaseDoc):
         self.doc['user'] = prev['user']
         ret = self.db.save_doc(self.doc)
         mod = self.db.get(self.doc['_id'], rev=ret['rev'])
-        notification_registration_client.edit(mod)
+        notification_registration_client.edit(mod, from_undo=True)
         updated = self.db.get(self.doc['_id'])
         return updated['_rev']
