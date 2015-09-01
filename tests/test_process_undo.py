@@ -130,7 +130,8 @@ class TestPerformUndo(unittest.TestCase):
         res = self.db.save_doc(doc)  # user changes their mind
         title = "Permit Device"
         desc = "Permitted Test Device"
-        event_res = add_history_item(title, desc, res['id'], res['rev'], 'devices', 'edit', True)
+        doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
+        event_res = add_history_item(title, desc, doc_arr, True)
         event = self.db.get(event_res['id'])
         result = perform_undo.perform_undo(event)
         updated = self.db.open_doc(doc['_id'], rev=result)
@@ -197,7 +198,8 @@ class TestPerformUndo(unittest.TestCase):
         res3 = self.db.save_doc(nd, force_update=True)
         title = "edit wifi"
         desc = "Edited wifi config"
-        event_res = add_history_item(title, desc, nd['_id'], res3['rev'], 'wifi', 'edit', True)
+        doc_arr = [{'doc_id': nd['_id'], 'doc_rev': res3['rev'], 'doc_collection': 'wifi', 'action': 'edit'}]
+        event_res = add_history_item(title, desc, doc_arr, True)
         event = self.db.get(event_res['id'])
         result = perform_undo.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
