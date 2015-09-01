@@ -20,8 +20,9 @@ class Rollback(object):
         doc_list = {}
         for event_val in events:
             event = event_val['value']
-            if event['doc_id'] not in doc_list:
-                doc_list[event['doc_id']] = event
+            for ed_doc in event['docs']:
+                if ed_doc['doc_id'] not in doc_list:
+                    doc_list[ed_doc['doc_id']] = event
         return doc_list
 
     def revert(self, timestamp):
