@@ -5,7 +5,7 @@ function (newDoc, oldDoc, userCtx){
     }
 
     function required_array_object(arr, field, message){
-        message = message || "Array must have objects with a" + field + " field."
+        message = message || "Array must have objects with a " + field + " field."
         for(var item in arr){
             if(!item.hasOwnProperty(field)){
                 throw({forbidden: message});
