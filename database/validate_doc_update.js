@@ -4,6 +4,15 @@ function (newDoc, oldDoc, userCtx){
         if (!newDoc.hasOwnProperty(field)) throw({forbidden : message});
     }
 
+    function required_array_object(arr, field, message){
+        message = message || "Array must have objects with a" + field + " field."
+        for(var item in arr){
+            if(!item.hasOwnProperty(field)){
+                throw({forbidden: message});
+            }
+        }
+    }
+
     function unchanged(field) {
         if (oldDoc && toJSON(oldDoc[field]) !== toJSON(newDoc[field])){
             throw({forbidden : "Field can't be changed: " + field});
@@ -148,12 +157,15 @@ function (newDoc, oldDoc, userCtx){
         required("title");
         required("description");
         required("timestamp");
-        required("doc_id");
-        required("doc_rev");
         required("undoable");
         required("perform_undo");
-        required("doc_collection");
-        required("action");
+        required("docs");
+        
+        required_array_object("docs", "doc_id");
+        required_array_object("docs", "doc_rev");
+        required_array_object("docs", "action");
+        required_array_object("docs", "doc_collection");
+        
         if(newDoc.undoable === false && newDoc.perform_undo === true){
             throw({forbidden: 'You can\'t undo an event that isn\'t undoable'});
         }
