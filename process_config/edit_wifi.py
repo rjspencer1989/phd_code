@@ -125,7 +125,8 @@ def process_wifi(doc, from_undo=False):
     if from_undo is True:
         title = "Undo change to WiFi Configuration"
     undoable = False if doc['_rev'].startswith('1-') else True
-    add_history.add_history_item(title, desc, doc['_id'], doc['_rev'], 'wifi', 'edit', undoable, ts=ts)
+    doc_arr = [{'doc_id': doc['_id'], 'doc_rev': doc['_rev'], 'doc_collection': 'wifi', 'action': 'edit'}]
+    add_history.add_history_item(title, desc, doc_arr, undoable=undoable, ts=ts)
     if 'ENV_TESTS' not in os.environ:
         write_config_file(line_list)
         if notify(devices):
