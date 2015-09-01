@@ -113,7 +113,7 @@ class TestUndoRollback(unittest.TestCase):
     def test_get_reverted_events(self):
         self.notification_doc['hidden'] = True
         res5 = self.db.save_doc(self.notification_doc, force_update=True)
-        self.hist5 = add_history_item(self.title, self.description, res5['id'], res5['rev'], 'notifications', 'delete', True, None)
+        self.hist5 = add_history.add_history_item(self.title, self.description, res5['id'], res5['rev'], 'notifications', 'delete', True, None)
         self.test_doc_ids.append(self.hist5['id'])
         result = self.undo_revert.get_reverted_events()
         pprint.pprint(result)
