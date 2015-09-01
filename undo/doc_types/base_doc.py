@@ -5,7 +5,8 @@ class BaseDoc(object):
     def __init__(self, doc, event):
         self.doc = doc
         self.evt = event
-        self.current_rev = event['doc_rev']
+        if len(event['docs']) == 1:
+            self.current_rev = event['docs'][0]['doc_rev']
         self.db = couchdb_config_parser.get_db()
         self.action = event['action']
 
