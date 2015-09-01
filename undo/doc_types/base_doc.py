@@ -7,8 +7,8 @@ class BaseDoc(object):
         self.evt = event
         if len(event['docs']) == 1:
             self.current_rev = event['docs'][0]['doc_rev']
+            self.action = event['docs'][0]['action']
         self.db = couchdb_config_parser.get_db()
-        self.action = event['action']
 
     def get_rev_list(self):
         revs_info = self.doc['_revs_info']
