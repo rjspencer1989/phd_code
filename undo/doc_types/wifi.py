@@ -17,5 +17,5 @@ class Wifi(BaseDoc):
         doc = self.db.get(self.doc['_id'], rev=rev_list[0])
         res = self.db.save_doc(doc, force_update=True)
         doc = self.db.get(self.doc)
-        edit_wifi.process_wifi(doc, from_undo=True)
+        edit_wifi.process_wifi(doc['_id'], from_undo=True)
         return res['rev']
