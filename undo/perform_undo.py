@@ -5,7 +5,7 @@ db = couchdb_config_parser.get_db()
 
 def get_doc_to_undo(event):
     if len(event['docs']) == 1:
-        undo_id = event['doc_id']
+        undo_id = event['docs'][0]['doc_id']
         undo_doc = db.get(undo_id, revs_info=True)
         return undo_doc
 
