@@ -297,7 +297,7 @@ class TestViews(unittest.TestCase):
             "description": "testing, testing, 1,2,3",
             "undoable": False,
             "perform_undo": False,
-            docs: [{
+            "docs": [{
                 "doc_id": "aabbccdd",
                 "doc_rev": "1-aabbcc",
                 "doc_collection": "notifications",
