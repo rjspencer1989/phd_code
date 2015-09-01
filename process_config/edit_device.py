@@ -6,9 +6,12 @@ import couchdb_config_parser
 db = couchdb_config_parser.get_db()
 
 
-def edit_device(current_doc):
+def edit_device(current_doc, from_undo=False):
     title = 'Edited device details'
     desc = 'Edited details for %s' % (current_doc['device_name'])
+    if from_undo is True:
+        title = 'Undo %s' % (title)
+        desc = 'Undo %s' % (desc)
     ts = current_doc['event_timestamp'] if 'event_timestamp' in current_doc else None
     add_history_item(title, desc, theId, theRev, 'devices', 'edit', True, ts=ts)
     if 'event_timestamp' in current_doc:

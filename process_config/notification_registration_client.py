@@ -19,7 +19,7 @@ def get_router_id():
     return os.environ['APP_ENGINE_ROUTER_ID']
 
 
-def edit(doc):
+def edit(doc, from_undo=False):
     router = get_router_id()
     data = urllib.urlencode({'service': doc['service'],
                              'userdetails': doc['user'],
@@ -37,6 +37,10 @@ def edit(doc):
                 title = 'Edited notification registration'
                 desc = ('Edited %s for %s now identified by %s' %
                         (prompts[doc['service']], doc['name'], doc['user']))
+                if from_undo is True:
+                    title = 'Undo edit of notification registration'
+                    desc = ('Undo edit of %s for %s. %s is now identified by %s' %
+                        (prompts[doc['service']], doc['name'], doc['name'], doc['user']))
                 ts = doc['event_timestamp'] if 'event_timestamp' in doc else None
                 add_history_item(title, desc, doc['_id'], doc['_rev'], 'notifications', 'edit', True, ts=ts)
                 if 'event_timestamp' in doc:
@@ -49,7 +53,7 @@ def edit(doc):
             db.save_doc(doc)
 
 
-def delete(doc):
+def delete(doc, from_undo=False):
     router = get_router_id()
     data = urllib.urlencode({'suid': doc['suid']})
     hdr = {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -62,6 +66,8 @@ def delete(doc):
             title = 'Removed notification registration'
             desc = ('Removed %s as %s for %s' %
                     (doc['user'], prompts[doc['service']], doc['name']))
+            if from_undo is True:
+                title = 'Undo adding notification registration'
             ts = doc['event_timestamp'] if 'event_timestamp' in doc else None
             add_history_item(title, desc, doc['_id'], doc['_rev'], 'notifications', 'delete', True, ts=ts)
             if 'event_timestamp' in doc:
@@ -76,7 +82,7 @@ def delete(doc):
             db.save_doc(doc)
 
 
-def registration(doc):
+def registration(doc, from_undo=True):
     router = get_router_id()
     data = urllib.urlencode({'service': doc['service'],
                              'userdetails': doc['user']})
@@ -93,6 +99,8 @@ def registration(doc):
                 title = 'Added notification registration'
                 desc = ('Added %s as %s for %s' %
                         (doc['user'], prompts[doc['service']], doc['name']))
+                if from_undo is True:
+                    title = 'Undo removal of notification registration'
                 ts = doc['event_timestamp'] if 'event_timestamp' in doc else None
                 add_history_item(title, desc, doc['_id'], doc['_rev'], 'notifications', 'add', True, ts=ts)
                 if 'event_timestamp' in doc:

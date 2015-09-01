@@ -104,7 +104,7 @@ def generate_config(current_doc, with_bss=True):
     return lines
 
 
-def process_wifi(doc):
+def process_wifi(doc, from_undo=False):
     bss = True
     if 'with_bss' in doc and doc['with_bss'] == True:
         line_list = generate_config(doc)
@@ -122,6 +122,8 @@ def process_wifi(doc):
     title = "New WiFi Configuration"
     desc = "WiFi configuration has been updated. "
     desc += "You will need to reconnect your devices"
+    if from_undo is True:
+        title = "Undo change to WiFi Configuration"
     undoable = False if doc['_rev'].startswith('1-') else True
     add_history.add_history_item(title, desc, doc['_id'], doc['_rev'], 'wifi', 'edit', undoable, ts=ts)
     if 'ENV_TESTS' not in os.environ:
