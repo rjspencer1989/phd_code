@@ -212,12 +212,12 @@ class TestFilters(unittest.TestCase):
             "undoable": True,
             "title": "test",
             "description": "test",
-            "docs": [
+            "docs": [{
                 "doc_id": "aabbcc",
                 "doc_rev": "1-aabbcc",
                 "doc_collection": "notifications",
                 "action": "add"
-            ],
+            }],
             "timestamp": datetime.datetime.now(tzutc()).isoformat()
         }
 
@@ -227,12 +227,12 @@ class TestFilters(unittest.TestCase):
             "undoable": True,
             "title": "test",
             "description": "test",
-            "docs": [
+            "docs": [{
                 "doc_id": "aabbcc",
                 "doc_rev": "2-aabbcc",
                 "doc_collection": "notifications",
                 "action": "add"
-            ],
+            }],
             "timestamp": datetime.datetime.now(tzutc()).isoformat()
         }
 
@@ -242,12 +242,12 @@ class TestFilters(unittest.TestCase):
             "undoable": False,
             "title": "test",
             "description": "test",
-            "docs": [
+            "docs": [{
                 "doc_id": "aabbcc",
                 "doc_rev": "4-aabbcc",
                 "doc_collection": "notifications",
                 "action": "add"
-            ],
+            }],
             "timestamp": datetime.datetime.now(tzutc()).isoformat()
         }
 
