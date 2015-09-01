@@ -6,7 +6,7 @@ function (newDoc, oldDoc, userCtx){
 
     function required_array_object(arr, field, message){
         message = message || arr + " must have objects with a " + field + " field.";
-        arr.forEach(function(item){
+        newDoc[arr].forEach(function(item){
             if(!item.hasOwnProperty(field)){
                 throw({forbidden: message});
             }
