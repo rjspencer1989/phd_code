@@ -62,7 +62,8 @@ class TestPerformUndo(unittest.TestCase):
         res = self.db.save_doc(nd)
         title = "Deleted Notification"
         desc = "Removed rjspencer1989 as twitter username for Rob"
-        event_res = add_history_item(title, desc, res['id'], res['rev'], 'notifications', 'delete', True)
+        doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'notifications', 'action': 'delete'}]
+        event_res = add_history_item(title, desc, doc_arr, undoable=True)
         event = self.db.get(event_res['id'])
         result = perform_undo.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
