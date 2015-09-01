@@ -1,6 +1,6 @@
 import unittest
 from process_config import couchdb_config_parser, perform_rollback
-from process_config.add_history import add_history_item
+from process_config import add_history
 from undo import perform_undo
 from undo.doc_types import request_revert
 import time
