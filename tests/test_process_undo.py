@@ -38,7 +38,8 @@ class TestPerformUndo(unittest.TestCase):
         nd = self.db.get(nd['_id'])
         title = "new notification"
         desc = "added rjspencer1989 as twitter username for Rob"
-        event_res = add_history_item(title, desc, res['id'], res['rev'], 'notifications', 'add', True)
+        doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'notifications', 'action': 'add'}]
+        event_res = add_history_item(title, desc, doc_arr, undoable=True)
         event = self.db.get(event_res['id'])
         result = perform_undo.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
@@ -86,7 +87,8 @@ class TestPerformUndo(unittest.TestCase):
         res2 = self.db.save_doc(nd, force_update=True)
         title = "Edit Notification"
         desc = "Edited twitter username for Rob now identified by robjspencer"
-        event_res = add_history_item(title, desc, nd['_id'], res2['rev'], 'notifications', 'edit', True)
+        doc_arr = [{'doc_id': res2['id'], 'doc_rev': res2['rev'], 'doc_collection': 'notifications', 'action': 'edit'}]
+        event_res = add_history_item(title, desc, doc_arr, True)
         event = self.db.get(event_res['id'])
         result = perform_undo.perform_undo(event)
         updated = self.db.get(nd['_id'], rev=result)
