@@ -280,13 +280,14 @@ class TestViews(unittest.TestCase):
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
-            "user": "Rob",
-            "doc_id": "aabbcc",
-            "doc_rev": "1-aabbcc",
             "undoable": True,
             "perform_undo": False,
-            "doc_collection": "notifications",
-            "action": "add"
+            "docs": [{
+                "doc_id": "aabbcc",
+                "doc_rev": "1-aabbcc",
+                "doc_collection": "notifications",
+                "action": "add"
+            }]
         }
 
         doc2 = {
@@ -294,13 +295,14 @@ class TestViews(unittest.TestCase):
             "collection": "events",
             "title": "testing",
             "description": "testing, testing, 1,2,3",
-            "user": "Rob",
-            "doc_id": "aabbccdd",
-            "doc_rev": "1-aabbcc",
             "undoable": False,
             "perform_undo": False,
-            "doc_collection": "notifications",
-            "action": "add"
+            docs: [{
+               "doc_id": "aabbccdd",
+                "doc_rev": "1-aabbcc",
+                "doc_collection": "notifications",
+                "action": "add" 
+            }]
         }
 
         db = couchdb_config_parser.get_db()
