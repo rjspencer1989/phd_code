@@ -6,7 +6,7 @@ import pprint
 class TestHistory(unittest.TestCase):
     def test_history(self):
         doc_arr = [{'doc_id': "aabbc", 'doc_rev': "2-33aabbcc", 'doc_collection': 'wifi', 'action': 'edit'}]
-        result = add_history.add_history_item("Change WiFi" "change wifi", doc_arr, True)
+        result = add_history.add_history_item("Change WiFi", "change wifi", doc_arr, True)
         self.assertIsNotNone(result)
         db = couchdb_config_parser.get_db()
         doc = db.get(result['id'])
