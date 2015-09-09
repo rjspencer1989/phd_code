@@ -28,7 +28,8 @@ add_history.add_history_item('Initial Wifi configuration', 'Wifi network created
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=20, tzinfo=tzutc())
 aspire = devices.Device("d0:27:88:80:d9:ef", "10.2.0.1", "aspire", "eth1", state="permit", timestamp=dt.isoformat())
 res = db.save_doc(aspire.get_doc(), force_update=True)
-add_history.add_history_item("Device Permitted", "Device d0:27:88:80:d9:ef (aspire) was permitted to access your network", res["id"], res["rev"], 'devices', undoable=True, prompt=True, ts=dt.isoformat())
+doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
+add_history.add_history_item("Device Permitted", "Device d0:27:88:80:d9:ef (aspire) was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 aspire.set_field("device_name", "aspire")
 aspire.set_field("notification_service", "phone")
