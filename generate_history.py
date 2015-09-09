@@ -22,7 +22,8 @@ wifi = wifi.Wifi(ssid, password, 'n', channel, timestamp=None)
 res = db.save_doc(wifi.get_doc(), force_update=True)
 wifi.set_field('_id', res['id'])
 wifi.set_field('_rev', res['rev'])
-add_history.add_history_item('Initial Wifi configuration', 'Wifi network created', res['id'], res['rev'], 'wifi', undoable=False, ts=dt.isoformat())
+doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'wifi', 'action': 'edit'}]
+add_history.add_history_item('Initial Wifi configuration', 'Wifi network created', doc_arr, undoable=False, ts=dt.isoformat())
 
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=20, tzinfo=tzutc())
 aspire = devices.Device("d0:27:88:80:d9:ef", "10.2.0.1", "aspire", "eth1", state="permit", timestamp=dt.isoformat())
