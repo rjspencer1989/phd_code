@@ -112,7 +112,8 @@ mrltablet6.set_field("device_type", "tablet")
 mrltablet6.set_field("state", "permit")
 res = db.save_doc(mrltablet6.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 12, 27, hour=13, minute=0, tzinfo=tzutc())
-add_history.add_history_item("Device Permitted", "mrltablet6 was permitted to access your network", res["id"], res["rev"], 'devices', undoable=True, prompt=True, ts=dt.isoformat())
+doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
+add_history.add_history_item("Device Permitted", "mrltablet6 was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 bad_ipod = devices.Device("c8:b5:b7:5d:f4:ab", "10.2.0.25", "iPod", "wlan0")
 res = db.save_doc(bad_ipod.get_doc(), force_update=True)
