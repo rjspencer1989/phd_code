@@ -122,7 +122,8 @@ bad_ipod.set_field("device_name", "bad ipod")
 bad_ipod.set_field("state", "deny")
 res = db.save_doc(bad_ipod.get_doc(), force_update=True)
 dt = datetime.datetime(2015, 01, 29, hour=19, minute=12, tzinfo=tzutc())
-add_history.add_history_item("Device Denied", "bad ipod was denied from accessing your network", res["id"], res["rev"], 'devices', undoable=True, prompt=True, ts=dt.isoformat())
+doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
+add_history.add_history_item("Device Denied", "bad ipod was denied from accessing your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 wifi.set_field("ssid", "john_and_mary")
 wifi.set_field("password", "whatever")
