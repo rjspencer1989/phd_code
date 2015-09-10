@@ -99,7 +99,8 @@ camera.set_field("device_type", "other")
 camera.set_field("state", "permit")
 res = db.save_doc(camera.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 07, 25, hour=18, minute=25, tzinfo=tzutc())
-add_history.add_history_item("Device Permitted", "Camera was permitted to access your network", res["id"], res["rev"], 'devices', undoable=True, prompt=True, ts=dt.isoformat())
+doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
+add_history.add_history_item("Device Permitted", "Camera was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 mrltablet6 = devices.Device("e0:b9:a5:8c:45:cd", "10.2.0.21", "android_8a0b6f3a084dc84a", "wlan0")
 res = db.save_doc(mrltablet6.get_doc(), force_update=True)
