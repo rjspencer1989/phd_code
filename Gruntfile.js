@@ -40,8 +40,6 @@ module.exports = function(grunt){
                     'libs/bootstrap/css/bootstrap.css': 'bootstrap/dist/css/bootstrap.css',
                     'libs/bootstrap/fonts': 'bootstrap/dist/fonts',
                     'libs/bootstrap/js/bootstrap.min.js': 'bootstrap/dist/js/bootstrap.min.js',
-                    'libs/bootstrap-datepicker/css/bootstrap-datepicker3.css': 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css',
-                    'libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js': 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
                     'libs/jasmine/jasmine.js': 'jasmine/lib/jasmine-core/jasmine.js',
                     'libs/jasmine/jasmine-html.js': 'jasmine/lib/jasmine-core/jasmine-html.js',
                     'libs/jasmine/boot.js': 'jasmine/lib/jasmine-core/boot.js',
