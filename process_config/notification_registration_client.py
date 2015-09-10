@@ -84,7 +84,7 @@ def delete(doc, from_undo=False):
             db.save_doc(doc)
 
 
-def registration(doc, from_undo=True):
+def registration(doc, from_undo=False):
     router = get_router_id()
     data = urllib.urlencode({'service': doc['service'],
                              'userdetails': doc['user']})
