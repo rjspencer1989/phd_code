@@ -144,7 +144,7 @@ rjsxperia1.set_field("state", "permit")
 res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
 dt = datetime.datetime(2015, 07, 20, hour=19, minute=30, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Permitted", "rjsxperia1 was permitted to access your network", rjsxperia1, undoable=True, ts=dt.isoformat())
+add_history.add_history_item("Device Permitted", "rjsxperia1 was permitted to access your network", doc_arr, undoable=True, ts=dt.isoformat())
 
 dt = datetime.datetime(2014, 07, 25, hour=18, minute=30, tzinfo=tzutc())
 john_email = notifications.Notification("John", "email", "rob@robspencer.me.uk", timestamp=dt.isoformat())
