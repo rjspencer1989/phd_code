@@ -1,5 +1,5 @@
 from add_history import add_history_item
-import undo.perform_undo
+from undo import perform_undo
 import datetime
 from dateutil.tz import tzlocal
 import dateutil.parser
