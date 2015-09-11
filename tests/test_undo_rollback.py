@@ -107,7 +107,6 @@ class TestUndoRollback(unittest.TestCase):
     def test_get_events(self):
         result = self.undo_revert.get_events(self.revert_doc['timestamp'])
         vra = result.all()
-        pprint.pprint(vra)
         self.assertEqual(4, result.count())
 
     def test_get_reverted_events(self):
@@ -117,4 +116,3 @@ class TestUndoRollback(unittest.TestCase):
         self.hist5 = add_history.add_history_item(self.title, self.description, doc_arr, undoable=True)
         self.test_doc_ids.append(self.hist5['id'])
         result = self.undo_revert.get_reverted_events()
-        pprint.pprint(result)
