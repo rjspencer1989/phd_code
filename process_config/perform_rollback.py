@@ -17,12 +17,14 @@ class Rollback(object):
 
     def get_docs_to_revert(self, timestamp):
         events = self.get_events_after_timestamp(timestamp)
+        pprint.pprint(events)
         doc_list = {}
         for event_val in events:
             event = event_val['value']
             for ed_doc in event['docs']:
                 if ed_doc['doc_id'] not in doc_list:
                     doc_list[ed_doc['doc_id']] = event
+        pprint.pprint(doc_list)
         return doc_list
 
     def revert(self, timestamp):
