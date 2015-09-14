@@ -122,6 +122,7 @@ class TestProcessRollback(unittest.TestCase):
 
     def test_process_rollback_get_events(self):
         result = self.rb.get_events_after_timestamp(self.revert_doc['timestamp'])
+        pprint.pprint(result)
         result_list = list(result)
         self.assertEqual(3, len(result_list))
 
