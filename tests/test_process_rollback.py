@@ -168,4 +168,4 @@ class TestProcessRollback(unittest.TestCase):
         cons.get_config = MagicMock(return_value=(keys, values))
         result = self.rb.revert(self.revert_doc['timestamp'])
         pprint.pprint(result)
-        self.assertTrue(result)
+        self.assertEqual(2, len(result))
