@@ -107,11 +107,9 @@ class TestProcessRollback(unittest.TestCase):
         res4 = self.db.save_doc(self.notification_doc)
         self.test_doc_ids.append(res4['id'])
         self.notification_doc = self.db.get(res4['id'])
-        pprint.pprint(self.notification_doc)
         notification_registration_client.registration(self.notification_doc)
         time.sleep(1)
         self.notification_doc = self.db.get(self.notification_doc['_id'])
-        pprint.pprint(self.notification_doc)
         self.rb = perform_rollback.Rollback(self.db, self.revert_doc)
 
     def tearDown(self):
