@@ -1,6 +1,7 @@
 import unittest
-from process_config import couchdb_config_parser, perform_rollback, add_history, edit_wifi
+from process_config import couchdb_config_parser, perform_rollback, add_history, edit_wifi, notification_registration_client
 import datetime
+import time
 from mock import MagicMock
 from dateutil.tz import tzutc
 import pprint
@@ -104,9 +105,12 @@ class TestProcessRollback(unittest.TestCase):
         res4 = self.db.save_doc(self.notification_doc)
         self.test_doc_ids.append(res4['id'])
         self.notification_doc = self.db.get(res4['id'])
+        notification_registration_client.registration(self.notification_doc)
+        time.sleep(1)
+        self.notification_doc = self.db.get(self.notification_doc['_id'])
         pprint.pprint(self.notification_doc)
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
-        doc_arr = [{'doc_id': res4['id'], 'doc_rev': res4['rev'], 'doc_collection': 'notifications', 'action': 'add'}]
+        doc_arr = [{'doc_id': self.notification_doc['_id'], 'doc_rev': self.notification_doc['_rev'], 'doc_collection': 'notifications', 'action': 'add'}]
         self.notification_doc = self.db.get(res4['id'])
         self.hist4 = add_history.add_history_item(self.title, self.description, doc_arr, True, ts=dt.isoformat())
         self.test_doc_ids.append(self.hist4['id'])
