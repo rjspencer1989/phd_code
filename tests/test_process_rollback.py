@@ -102,6 +102,8 @@ class TestProcessRollback(unittest.TestCase):
         doc_arr = [{'doc_id': res3['id'], 'doc_rev': res3['rev'], 'doc_collection': 'wifi', 'action': 'edit'}]
         self.hist3 = add_history.add_history_item(self.title, self.description, doc_arr, True, ts=dt.isoformat())
         self.test_doc_ids.append(self.hist3['id'])
+        dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
+        self.notification_doc['event_timestamp'] = dt.isoformat()
         res4 = self.db.save_doc(self.notification_doc)
         self.test_doc_ids.append(res4['id'])
         self.notification_doc = self.db.get(res4['id'])
@@ -109,11 +111,6 @@ class TestProcessRollback(unittest.TestCase):
         time.sleep(1)
         self.notification_doc = self.db.get(self.notification_doc['_id'])
         pprint.pprint(self.notification_doc)
-        dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
-        doc_arr = [{'doc_id': self.notification_doc['_id'], 'doc_rev': self.notification_doc['_rev'], 'doc_collection': 'notifications', 'action': 'add'}]
-        self.notification_doc = self.db.get(res4['id'])
-        self.hist4 = add_history.add_history_item(self.title, self.description, doc_arr, True, ts=dt.isoformat())
-        self.test_doc_ids.append(self.hist4['id'])
         self.rb = perform_rollback.Rollback(self.db, self.revert_doc)
 
     def tearDown(self):
