@@ -26,13 +26,17 @@ class Rollback(object):
         return doc_list
 
     def revert(self, timestamp):
-        result = True
+        doc_arr = []
         doc_list = self.get_docs_to_revert(timestamp)
         for key, doc in doc_list.iteritems():
             r = perform_undo.perform_undo(doc)
-            if not isinstance(r, str) and len(r) == 0:
-                result = False
-        return result
+            item = {}
+            item['doc_id'] = doc['_id']
+            item['doc_rev'] = r
+            item['doc_collection'] = doc['collection']
+            item['action'] = 'edit'
+            doc_arr.append(item)
+        return doc_arr
 
     def rollback(self):
         if 'id' in self.change:
@@ -40,11 +44,11 @@ class Rollback(object):
             the_rev = self.change['changes'][0]['rev']
             current_doc = self.db.get(the_id, rev=the_rev)
 
-            self.revert(current_doc['timestamp'])
+            r = self.revert(current_doc['timestamp'])
             dt = dateutil.parser.parse(current_doc['timestamp'])
             dt = dt.astimezone(tzlocal())
             add_history_item("Rollback", "Roll back to %s" % (dt.isoformat(' ')),
-                             the_id, the_rev, 'request_revert', undoable=True)
+                             r, undoable=True)
             current_doc['status'] = 'done'
             res = self.db.save_doc(current_doc, force_update=True)
             return res
