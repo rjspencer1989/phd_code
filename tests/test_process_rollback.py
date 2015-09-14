@@ -3,6 +3,7 @@ from process_config import couchdb_config_parser, perform_rollback, add_history,
 import datetime
 from mock import MagicMock
 from dateutil.tz import tzutc
+import pprint
 
 
 class TestProcessRollback(unittest.TestCase):
@@ -103,6 +104,7 @@ class TestProcessRollback(unittest.TestCase):
         res4 = self.db.save_doc(self.notification_doc)
         self.test_doc_ids.append(res4['id'])
         self.notification_doc = self.db.get(res4['id'])
+        pprint.pprint(self.notification_doc)
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
         doc_arr = [{'doc_id': res4['id'], 'doc_rev': res4['rev'], 'doc_collection': 'notifications', 'action': 'add'}]
         self.notification_doc = self.db.get(res4['id'])
