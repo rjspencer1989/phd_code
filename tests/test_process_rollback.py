@@ -167,4 +167,5 @@ class TestProcessRollback(unittest.TestCase):
                   'CCMP']
         cons.get_config = MagicMock(return_value=(keys, values))
         result = self.rb.revert(self.revert_doc['timestamp'])
+        pprint.pprint(result)
         self.assertTrue(result)
