@@ -32,7 +32,7 @@ class Rollback(object):
             r = perform_undo.perform_undo(doc)
             if not isinstance(r, str) and len(r) == 0:
                 result = False
-        return result 
+        return result
 
     def rollback(self):
         if 'id' in self.change:
