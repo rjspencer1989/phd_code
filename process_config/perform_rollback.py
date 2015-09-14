@@ -28,6 +28,7 @@ class Rollback(object):
     def revert(self, timestamp):
         result = True
         doc_list = self.get_docs_to_revert(timestamp)
+        pprint.pprint(doc_list)
         for key, doc in doc_list.iteritems():
             r = perform_undo.perform_undo(doc)
             if not isinstance(r, str) and len(r) == 0:
