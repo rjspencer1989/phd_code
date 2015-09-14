@@ -82,19 +82,16 @@ class TestProcessRollback(unittest.TestCase):
         dt = datetime.datetime(2015, 1, 5, hour=10, minute=5)
         doc_arr = [{'doc_id': res1['id'], 'doc_rev': res1['rev'], 'doc_collection': 'wifi', 'action': 'edit'}]
         self.hist1 = add_history.add_history_item(self.title, self.description, doc_arr, True, ts=dt.isoformat())
-        self.test_doc_ids.append(self.hist1['id'])
         self.wifi_doc['ssid'] = 'testing2'
         res2 = self.db.save_doc(self.wifi_doc)
         dt = datetime.datetime(2015, 2, 5, hour=10, minute=5)
         doc_arr = [{'doc_id': res2['id'], 'doc_rev': res2['rev'], 'doc_collection': 'wifi', 'action': 'edit'}]
         self.hist2 = add_history.add_history_item(self.title, self.description, doc_arr, True, ts=dt.isoformat())
-        self.test_doc_ids.append(self.hist2['id'])
         self.wifi_doc['ssid'] = 'testing3'
         res3 = self.db.save_doc(self.wifi_doc)
         dt = datetime.datetime(2015, 2, 23, hour=15, minute=0)
         doc_arr = [{'doc_id': res3['id'], 'doc_rev': res3['rev'], 'doc_collection': 'wifi', 'action': 'edit'}]
         self.hist3 = add_history.add_history_item(self.title, self.description, doc_arr, True, ts=dt.isoformat())
-        self.test_doc_ids.append(self.hist3['id'])
         dt = datetime.datetime(2015, 2, 12, hour=14, minute=34)
         self.notification_doc['event_timestamp'] = dt.isoformat()
         res4 = self.db.save_doc(self.notification_doc)
