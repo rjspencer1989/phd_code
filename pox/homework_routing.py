@@ -237,7 +237,7 @@ class HomeworkRouting(object):
             hsd.writelines(lines)
         self.reload_hostapd()
 
-    def reload_hostapd():
+    def reload_hostapd(self):
         cmd = ['/etc/init.d/hostapd', 'reload']
         res = subprocess.Popen(cmd)
 
