@@ -220,23 +220,21 @@ class HomeworkRouting(object):
 
     def add_to_hostapd_blacklist(self, mac):
         mac_str = "%s\n" % (mac)
-        print "-%s-" % (mac_str)
         with open('/etc/hostapd.deny', 'r+') as hsd:
             lines = hsd.readlines()
-            if mac_str in lines:
-                return
-            lines.append(mac_str)
-            hsd.writelines(lines)
+            if mac_str not in lines:
+                fh.write(mac_str)
         self.reload_hostapd()
 
     def remove_from_hostapd_blacklist(self, mac):
         mac_str = "%s\n" % (mac)
         with open('/etc/hostapd.deny', 'r+') as hsd:
             lines = hsd.readlines()
-            if mac_str not in lines:
-                return
-            lines.remove(mac_str)
-            hsd.writelines(lines)
+            if mac_str in lines:
+                lines.remove(mac_str)
+                hsd.seek(0)
+                hsd.writelines(lines)
+                hsd.truncate()
         self.reload_hostapd()
 
     def reload_hostapd(self):
