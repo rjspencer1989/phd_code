@@ -220,6 +220,7 @@ class HomeworkRouting(object):
 
     def add_to_hostapd_blacklist(self, mac):
         mac_str = "%s\n" % (mac)
+        print "-%s-" % (mac_str)
         with open('/etc/hostapd.deny', 'r+') as hsd:
             lines = hsd.readlines()
             if mac_str in lines:
