@@ -51,7 +51,7 @@ class HomeworkMain(EventMixin):
                              docs=doc_arr,
                              undoable=False if doc['state'] == 'pending' else True,
                              prompt=prompt,
-                             ts=doc['event_timestamp'])
+                             ts=doc['event_timestamp'] if 'event_timestamp' in doc else None)
             device = {'mac': EthAddr(doc['mac_address']),
                       'action': doc['action']}
             devices = [device]
