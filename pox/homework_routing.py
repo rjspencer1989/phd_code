@@ -4,6 +4,7 @@ import pox.openflow.libopenflow_01 as of
 from pox.lib.packet import ipv4
 from pox.lib.addresses import IPAddr, EthAddr
 from pyroute2 import IPDB
+import subprocess
 
 MAX_ROUTABLE_LEASE = 2400
 MAX_NON_ROUTABLE_LEASE = 30
