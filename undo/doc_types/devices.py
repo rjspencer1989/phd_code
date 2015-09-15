@@ -25,5 +25,6 @@ class Devices(BaseDoc):
         else:
             self.doc['_deleted'] = True
             res = self.db.save_doc(self.doc, force_update=True)
-            add_history.add_history_item("Device removed", "%s has been removed" % self.doc['device_name'], self.doc['_id'], res['rev'], doc_collection=self.doc['collection'], action='delete', undoable=False)
+            doc_arr = [{'doc_id': self.doc['_id'], 'doc_rev': res['rev'], 'doc_collection': self.doc['collection'], 'action': 'delete'}]
+            add_history.add_history_item("Device removed", "%s has been removed" % self.doc['device_name'], doc_arr, undoable=False)
         return res['rev']
