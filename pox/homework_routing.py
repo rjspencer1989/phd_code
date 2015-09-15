@@ -223,7 +223,7 @@ class HomeworkRouting(object):
         with open('/etc/hostapd.deny', 'r+') as hsd:
             lines = hsd.readlines()
             if mac_str not in lines:
-                fh.write(mac_str)
+                hsd.write(mac_str)
         self.reload_hostapd()
 
     def remove_from_hostapd_blacklist(self, mac):
