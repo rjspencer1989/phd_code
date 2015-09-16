@@ -29,6 +29,7 @@ class Rollback(object):
         doc_arr = []
         doc_list = self.get_docs_to_revert(timestamp)
         for key, doc in doc_list.iteritems():
+            print "%s - %s\n" % (key, doc['_id'])
             r = perform_undo.perform_undo(doc)
             item = {}
             item['doc_id'] = doc['_id']
