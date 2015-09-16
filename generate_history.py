@@ -146,6 +146,18 @@ dt = datetime.datetime(2015, 07, 20, hour=19, minute=30, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
 add_history.add_history_item("Device Permitted", "rjsxperia1 was permitted to access your network", doc_arr, undoable=True, ts=dt.isoformat())
 
+psxrjs-mbp = devices.Device("3c:07:54:67:7f:9b", "10.2.0.33", "psxrjs-mbp", "eth3")
+res = db.save_doc(psxrjs-mbp.get_doc(), force_update=True)
+
+psxrjs-mbp.set_field("device_name", "psxrjs-mbp")
+psxrjs-mbp.set_field("notification_service", "phone")
+psxrjs-mbp.set_field("name", "John")
+psxrjs-mbp.set_field("device_type", "laptop")
+psxrjs-mbp.set_field("state", "permit")
+res = db.save_doc(psxrjs-mbp.get_doc(), force_update=True)
+doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
+add_history.add_history_item("permitted your own laptop", "useless person", doc_arr, undoable=True, ts=None)
+
 dt = datetime.datetime(2014, 07, 25, hour=18, minute=30, tzinfo=tzutc())
 john_email = notifications.Notification("John", "email", "rob@robspencer.me.uk", timestamp=dt.isoformat())
 res = db.save_doc(john_email.get_doc(), force_update=True)
