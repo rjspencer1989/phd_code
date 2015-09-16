@@ -32,7 +32,7 @@ class Rollback(object):
             print "%s - %s\n" % (key, doc['_id'])
             r = perform_undo.perform_undo(doc)
             item = {}
-            item['doc_id'] = doc['_id']
+            item['doc_id'] = key
             item['doc_rev'] = r
             item['doc_collection'] = doc['collection']
             item['action'] = 'edit'
