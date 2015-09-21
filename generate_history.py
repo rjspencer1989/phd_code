@@ -107,44 +107,13 @@ res = db.save_doc(mrltablet6.get_doc(), force_update=True)
 
 mrltablet6.set_field("device_name", "mrltablet6")
 mrltablet6.set_field("notification_service", "twitter")
-mrltablet6.set_field("name", "Mary")
+mrltablet6.set_field("name", "John")
 mrltablet6.set_field("device_type", "tablet")
 mrltablet6.set_field("state", "permit")
 res = db.save_doc(mrltablet6.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 12, 27, hour=13, minute=0, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
 add_history.add_history_item("Device Permitted", "mrltablet6 was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
-
-bad_ipod = devices.Device("c8:b5:b7:5d:f4:ab", "10.2.0.25", "iPod", "wlan0")
-res = db.save_doc(bad_ipod.get_doc(), force_update=True)
-
-bad_ipod.set_field("device_name", "bad ipod")
-bad_ipod.set_field("state", "deny")
-res = db.save_doc(bad_ipod.get_doc(), force_update=True)
-dt = datetime.datetime(2015, 01, 29, hour=19, minute=12, tzinfo=tzutc())
-doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Denied", "bad ipod was denied from accessing your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
-
-wifi.set_field("ssid", "john_and_mary")
-wifi.set_field("password", "whatever")
-wifi.set_field("with_bss", False)
-wifi.set_field("status", "pending")
-dt = datetime.datetime(2015, 01, 30, hour=19, minute=0, tzinfo=tzutc())
-wifi.set_field("event_timestamp", dt.isoformat())
-res = db.save_doc(wifi.get_doc(), force_update=True)
-
-rjsxperia1 = devices.Device("a0:e4:53:55:00:cc", "10.2.0.29", "android-5f251018c8685b52", "wlan0")
-res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
-
-rjsxperia1.set_field("device_name", "rjsxperia1")
-rjsxperia1.set_field("notification_service", "phone")
-rjsxperia1.set_field("name", "John")
-rjsxperia1.set_field("device_type", "phone")
-rjsxperia1.set_field("state", "permit")
-res = db.save_doc(rjsxperia1.get_doc(), force_update=True)
-dt = datetime.datetime(2015, 07, 20, hour=19, minute=30, tzinfo=tzutc())
-doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Permitted", "rjsxperia1 was permitted to access your network", doc_arr, undoable=True, ts=dt.isoformat())
 
 psxrjs_mbp = devices.Device("3c:07:54:67:7f:9b", "10.2.0.33", "psxrjs-mbp", "eth3")
 res = db.save_doc(psxrjs_mbp.get_doc(), force_update=True)
