@@ -10,6 +10,7 @@ def get_db():
                                         "DB": "config",
                                         "SERVER_NAME": "localhost"})
     path = "%s/couchdb.conf" % (expanduser('~'))
+    print path
     config.read(path)
     user = config.get('DEFAULT', 'ADMIN')
     password = config.get('DEFAULT', 'ADMIN_PASSWORD')
