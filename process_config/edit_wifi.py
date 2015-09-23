@@ -16,7 +16,7 @@ db = couchdb_config_parser.get_db()
 
 
 def get_connected_devices():
-    vr = db.view('homework-remote/connected_devices')
+    vr = db.view('homework-remote/connected_via_wifi')
     return vr.all()
 
 
