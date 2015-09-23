@@ -79,7 +79,7 @@ add_history.add_history_item("Device Permitted", "mrldesx2 is permitted to acces
 iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.13", "iPhone", "wlan0")
 res = db.save_doc(iphone.get_doc(), force_update=True)
 
-iphone.set_field("device_name", "iphone")
+iphone.set_field("device_name", "mrliphone1")
 iphone.set_field("notification_service", "phone")
 iphone.set_field("name", "John")
 iphone.set_field("device_type", "phone")
