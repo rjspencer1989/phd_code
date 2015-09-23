@@ -47,7 +47,7 @@ main_user.set_field("event_timestamp", dt.isoformat())
 res=db.save_doc(main_user.get_doc(), force_update=True)
 
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=22, tzinfo=tzutc())
-john_phone = notifications.Notification("John", "phone", "+447972058628", timestamp=dt.isoformat())
+john_phone = notifications.Notification("John", "phone", "+447523221070", timestamp=dt.isoformat())
 res = db.save_doc(john_phone.get_doc(), force_update=True)
 
 callison = devices.Device("00:13:77:e1:d2:41", "10.2.0.5", "CALLISON", "eth2")
@@ -67,8 +67,8 @@ mrldesx2 = devices.Device("a0:f4:50:f3:48:50", "10.2.0.9", "android-aa474646cd34
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 
 mrldesx2.set_field("device_name", "mrldesx2")
-mrldesx2.set_field("notification_service", "twitter")
-mrldesx2.set_field("name", "John")
+mrldesx2.set_field("notification_service", "email")
+mrldesx2.set_field("name", "Mary")
 mrldesx2.set_field("device_type", "phone")
 mrldesx2.set_field("state", "permit")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
@@ -81,7 +81,7 @@ res = db.save_doc(iphone.get_doc(), force_update=True)
 
 iphone.set_field("device_name", "iphone")
 iphone.set_field("notification_service", "phone")
-iphone.set_field("name", "Mary")
+iphone.set_field("name", "John")
 iphone.set_field("device_type", "phone")
 iphone.set_field("state", "permit")
 res = db.save_doc(iphone.get_doc(), force_update=True)
@@ -106,7 +106,7 @@ mrltablet6 = devices.Device("e0:b9:a5:8c:45:cd", "10.2.0.21", "android_8a0b6f3a0
 res = db.save_doc(mrltablet6.get_doc(), force_update=True)
 
 mrltablet6.set_field("device_name", "mrltablet6")
-mrltablet6.set_field("notification_service", "twitter")
+mrltablet6.set_field("notification_service", "phone")
 mrltablet6.set_field("name", "John")
 mrltablet6.set_field("device_type", "tablet")
 mrltablet6.set_field("state", "permit")
@@ -119,7 +119,7 @@ psxrjs_mbp = devices.Device("3c:07:54:67:7f:9b", "10.2.0.33", "psxrjs-mbp", "eth
 res = db.save_doc(psxrjs_mbp.get_doc(), force_update=True)
 
 psxrjs_mbp.set_field("device_name", "psxrjs-mbp")
-psxrjs_mbp.set_field("notification_service", "phone")
+psxrjs_mbp.set_field("notification_service", "growl")
 psxrjs_mbp.set_field("name", "John")
 psxrjs_mbp.set_field("device_type", "laptop")
 psxrjs_mbp.set_field("state", "permit")
@@ -127,25 +127,13 @@ res = db.save_doc(psxrjs_mbp.get_doc(), force_update=True)
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
 add_history.add_history_item("permitted your own laptop", "otherwise debug won't work", doc_arr, undoable=True, ts=None)
 
-dt = datetime.datetime(2014, 07, 25, hour=18, minute=30, tzinfo=tzutc())
-john_email = notifications.Notification("John", "email", "rob@robspencer.me.uk", timestamp=dt.isoformat())
-res = db.save_doc(john_email.get_doc(), force_update=True)
-
 dt = datetime.datetime(2014, 01, 12, hour=11, minute=02, tzinfo=tzutc())
-john_twitter = notifications.Notification("John", "twitter", "rjspencer1989", timestamp=dt.isoformat())
+john_twitter = notifications.Notification("John", "growl", "10.2.0.33", timestamp=dt.isoformat())
 res = db.save_doc(john_twitter.get_doc(), force_update=True)
 
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=32, tzinfo=tzutc())
-mary_email = notifications.Notification("Mary", "email", "rob@robspencer.me.uk", timestamp=dt.isoformat())
+mary_email = notifications.Notification("Mary", "email", "psxrjs-demo@outlook.com", timestamp=dt.isoformat())
 res = db.save_doc(mary_email.get_doc(), force_update=True)
-
-dt = datetime.datetime(2014, 01, 12, hour=19, minute=36, tzinfo=tzutc())
-mary_phone = notifications.Notification("Mary", "phone", "+447972058628", timestamp=dt.isoformat())
-res = db.save_doc(mary_phone.get_doc(), force_update=True)
-
-dt = datetime.datetime(2014, 12, 27, hour=13, minute=01, tzinfo=tzutc())
-mary_twitter = notifications.Notification("Mary", "twitter", "rjspencer1989", timestamp=dt.isoformat())
-res = db.save_doc(mary_twitter.get_doc(), force_update=True)
 
 cmd = ['/sbin/start', 'homework-pox']
 res = subprocess.Popen(cmd)
