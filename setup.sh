@@ -9,8 +9,8 @@ service homework-device-edit-processor stop
 service homework-ethtool-monitor stop
 service homework-iw-monitor stop
 service homework-user-edit stop
-curl http://homeuser:homework@localhost:8000/config -X DELETE
-curl http://homeuser:homework@localhost:8000/config -X PUT
+curl http://admin:homework@localhost:8000/config -X DELETE
+curl http://admin:homework@localhost:8000/config -X PUT
 cd database && couchapp push && cd ..
 service homework-notifications start
 service homework-notification-registration start
