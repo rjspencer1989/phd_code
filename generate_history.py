@@ -13,7 +13,7 @@ res = db.save_doc(main_user.get_doc(), force_update=True)
 
 connection_state = connection_state.ConnectionState()
 res = db.save_doc(connection_state.get_doc(), force_update=True)
-
+random.seed(1)
 ssid = "homework-%d" % (int(random.getrandbits(25)))
 password = ''.join(random.sample(string.ascii_lowercase + string.digits, 10))
 channel = random.choice(range(1,12))
