@@ -115,18 +115,6 @@ dt = datetime.datetime(2014, 12, 27, hour=13, minute=0, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
 add_history.add_history_item("Device Permitted", "mrltablet6 was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
-psxrjs_mbp = devices.Device("3c:07:54:67:7f:9b", "10.2.0.33", "psxrjs-mbp", "eth3")
-res = db.save_doc(psxrjs_mbp.get_doc(), force_update=True)
-
-psxrjs_mbp.set_field("device_name", "psxrjs-mbp")
-psxrjs_mbp.set_field("notification_service", "growl")
-psxrjs_mbp.set_field("name", "John")
-psxrjs_mbp.set_field("device_type", "laptop")
-psxrjs_mbp.set_field("state", "permit")
-res = db.save_doc(psxrjs_mbp.get_doc(), force_update=True)
-doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("permitted your own laptop", "otherwise debug won't work", doc_arr, undoable=True, ts=None)
-
 dt = datetime.datetime(2014, 01, 12, hour=11, minute=02, tzinfo=tzutc())
 john_twitter = notifications.Notification("John", "growl", "10.2.0.33", timestamp=dt.isoformat())
 res = db.save_doc(john_twitter.get_doc(), force_update=True)
