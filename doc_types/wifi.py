@@ -7,11 +7,13 @@ class Wifi(object):
         self.status = 'pending'
         self.collection = 'wifi'
         self.encryption_type = 'wpa'
-        self.with_bss = False,
+        self.with_bss = False
         self.event_timestamp = timestamp
+        self._id = 'wifi'
 
     def get_doc(self):
         doc = {
+            "_id": self._id,
             "ssid": self.ssid,
             "password": self.password,
             "mode": self.mode,
