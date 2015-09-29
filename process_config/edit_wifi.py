@@ -130,6 +130,7 @@ def process_wifi(doc, from_undo=False):
         undoable = False
     doc_arr = [{'doc_id': doc['_id'], 'doc_rev': doc['_rev'], 'doc_collection': 'wifi', 'action': 'edit'}]
     add_history.add_history_item(title, desc, doc_arr, undoable=undoable, ts=ts)
+    db.save_doc(doc, force_update=True)
     if 'ENV_TESTS' not in os.environ:
         write_config_file(line_list)
         if notify(devices):
