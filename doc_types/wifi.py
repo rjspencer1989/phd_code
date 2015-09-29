@@ -25,8 +25,7 @@ class Wifi(object):
             "event_timestamp": self.event_timestamp
         }
         
-        if hasattr(self, '_id'):
-            doc["_id"] = self._id
+        if hasattr(self, '_rev'):
             doc["_rev"] = self._rev
         return doc
 
