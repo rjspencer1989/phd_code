@@ -40,10 +40,16 @@ window.App.Views.Device = Backbone.View.extend({
         this.$el.empty().append(this.template(this.model.toJSON()));
         this.$el.addClass("device");
         var txt = "No";
+        var port = this.model.get("port");
+        var re = /^wlan0(_1)?$/;
+        if(re.test(port)){
+            port = 'WiFi';
+        }
         if(this.model.get("connection_event") === "connect"){
             txt = "Yes";
         }
         this.$(".is_connected").html(txt);
+        this.$(".port").html(port);
         var router_ip = window.location.hostname;
         var end = parseInt(router_ip.substr(router_ip.lastIndexOf('.') + 1));
         var client_ip = '10.2.0.' + (end - 1).toString();
