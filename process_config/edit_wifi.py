@@ -118,13 +118,16 @@ def process_wifi(doc, from_undo=False):
     if 'event_timestamp' in doc:
         ts = doc['event_timestamp']
         del doc['event_timestamp']
-    db.save_doc(doc)
     title = "New WiFi Configuration"
     desc = "WiFi configuration has been updated. "
     desc += "You will need to reconnect your devices"
+    undoable = True
     if from_undo is True:
         title = "Undo change to WiFi Configuration"
-    undoable = False if doc['_rev'].startswith('1-') else True
+    if doc['_rev'].startswith('1-'):
+        title = 'Initial WiFi Configuration'
+        desc = 'WiFi initialised with default values.'
+        undoable = False
     doc_arr = [{'doc_id': doc['_id'], 'doc_rev': doc['_rev'], 'doc_collection': 'wifi', 'action': 'edit'}]
     add_history.add_history_item(title, desc, doc_arr, undoable=undoable, ts=ts)
     if 'ENV_TESTS' not in os.environ:

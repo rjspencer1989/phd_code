@@ -21,8 +21,6 @@ dt = datetime.datetime(2014, 01, 12, hour=10, minute=15, tzinfo=tzutc())
 wifi = wifi.Wifi(ssid, password, 'n', channel, timestamp=dt.isoformat())
 res = db.save_doc(wifi.get_doc(), force_update=True)
 wifi.set_field('_rev', res['rev'])
-doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'wifi', 'action': 'edit'}]
-add_history.add_history_item('Initial Wifi configuration', 'Wifi network created', doc_arr, undoable=False, ts=dt.isoformat())
 
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=20, tzinfo=tzutc())
 ballard = devices.Device("00:27:0e:30:22:5d", "10.2.0.1", "ballard", "eth1", state="permit", timestamp=dt.isoformat())
