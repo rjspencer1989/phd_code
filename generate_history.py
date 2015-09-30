@@ -90,8 +90,8 @@ camera = devices.Device("20:13:e0:d7:a1:36", "10.2.0.17", "DHCP-Thread", "wlan0"
 res = db.save_doc(camera.get_doc(), force_update=True)
 
 camera.set_field("device_name", "Camera")
-camera.set_field("notification_service", "email")
-camera.set_field("name", "everyone")
+camera.set_field("notification_service", "phone")
+camera.set_field("name", "John")
 camera.set_field("device_type", "other")
 camera.set_field("state", "permit")
 res = db.save_doc(camera.get_doc(), force_update=True)
