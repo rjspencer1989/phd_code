@@ -67,11 +67,11 @@ mrldesx2.set_field("device_name", "mrldesx2")
 mrldesx2.set_field("notification_service", "email")
 mrldesx2.set_field("name", "Mary")
 mrldesx2.set_field("device_type", "phone")
-mrldesx2.set_field("state", "permit")
+mrldesx2.set_field("state", "deny")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=11, minute=1, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Permitted", "mrldesx2 is permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
+add_history.add_history_item("Device Permitted", "mrldesx2 is denied access to your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.13", "iPhone", "wlan0")
 res = db.save_doc(iphone.get_doc(), force_update=True)
