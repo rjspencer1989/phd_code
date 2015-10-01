@@ -67,11 +67,11 @@ mrldesx2.set_field("device_name", "mrldesx2")
 mrldesx2.set_field("notification_service", "email")
 mrldesx2.set_field("name", "Mary")
 mrldesx2.set_field("device_type", "phone")
-mrldesx2.set_field("state", "deny")
+mrldesx2.set_field("state", "permit")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=11, minute=1, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Permitted", "mrldesx2 is denied access to your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
+add_history.add_history_item("Device Permitted", "mrldesx2 is permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.13", "iPhone", "wlan0")
 res = db.save_doc(iphone.get_doc(), force_update=True)
@@ -119,6 +119,12 @@ res = db.save_doc(john_twitter.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=32, tzinfo=tzutc())
 mary_email = notifications.Notification("Mary", "email", "psxrjs-demo@outlook.com", timestamp=dt.isoformat())
 res = db.save_doc(mary_email.get_doc(), force_update=True)
+
+dt = datetime.datetime(2015, 09, 20, hour=10, minute=45, tzinfo=tzutc())
+mrldesx2.set_field("state", "deny")
+res = db.save_doc(mrldesx2.get_doc(), force_update=True)
+doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
+add_history.add_history_item("Device Denied", "mrldesx2 is denied access to your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 cmd = ['/sbin/start', 'homework-pox']
 res = subprocess.Popen(cmd)
