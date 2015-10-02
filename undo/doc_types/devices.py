@@ -1,5 +1,6 @@
 from base_doc import BaseDoc
 from process_config import add_history
+import subprocess
 
 class Devices(BaseDoc):
     def get_rev_list(self):
@@ -10,6 +11,21 @@ class Devices(BaseDoc):
             if doc['changed_by'] == 'user':
                 revs.append(doc['_rev'])
         return revs
+
+    def reload_hostapd(self):
+        cmd = ['/etc/init.d/hostapd', 'reload']
+        res = subprocess.Popen(cmd)
+
+    def remove_from_hostapd_blacklist(self, mac):
+        mac_str = "%s\n" % (mac)
+        with open('/etc/hostapd.deny', 'r+') as hsd:
+            lines = hsd.readlines()
+            if mac_str in lines:
+                lines.remove(mac_str)
+                hsd.seek(0)
+                hsd.writelines(lines)
+                hsd.truncate()
+        self.reload_hostapd()
 
     def undo(self):
         rev_list = self.get_rev_list()
@@ -27,4 +43,5 @@ class Devices(BaseDoc):
             res = self.db.save_doc(self.doc, force_update=True)
             doc_arr = [{'doc_id': self.doc['_id'], 'doc_rev': res['rev'], 'doc_collection': self.doc['collection'], 'action': 'delete'}]
             add_history.add_history_item("Device removed", "%s has been removed" % self.doc['device_name'], doc_arr, undoable=False)
+            
         return res['rev']
