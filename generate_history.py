@@ -120,7 +120,7 @@ dt = datetime.datetime(2014, 01, 12, hour=10, minute=32, tzinfo=tzutc())
 mary_email = notifications.Notification("Mary", "email", "psxrjs-demo@outlook.com", timestamp=dt.isoformat())
 res = db.save_doc(mary_email.get_doc(), force_update=True)
 
-dt = datetime.datetime(2015, 09, 20, hour=10, minute=45, tzinfo=tzutc())
+dt = datetime.datetime(2015, 9, 20, hour=10, minute=45, tzinfo=tzutc())
 mrldesx2.set_field("state", "deny")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
