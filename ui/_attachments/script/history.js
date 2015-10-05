@@ -4,12 +4,8 @@ window.App.Models.Event = Backbone.Model.extend({
         description: "",
         timestamp: new Date().toISOString(),
         collection: "events",
-        doc_id: "",
-        doc_rev: "",
         undoable: false,
-        perform_undo: false,
-        doc_collection: "",
-        action : "edit"
+        perform_undo: false
     }
 });
 
