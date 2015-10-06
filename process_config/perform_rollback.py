@@ -24,14 +24,13 @@ class Rollback(object):
             for ed_doc in event['docs']:
                 if ed_doc['doc_id'] not in doc_list:
                     doc_list[ed_doc['doc_id']] = event
-        doc_list.reverse()
         pprint.pprint(doc_list)
         return doc_list
 
     def revert(self, timestamp):
         doc_arr = []
         doc_list = self.get_docs_to_revert(timestamp)
-        for key, doc in doc_list.iteritems():
+        for key, doc in reversed(doc_list.items()):
             print "%s - %s\n" % (key, doc['_id'])
             r = perform_undo.perform_undo(doc)
             item = {}
