@@ -2,7 +2,7 @@ from add_history import add_history_item
 from undo import perform_undo
 import datetime
 from dateutil.tz import tzlocal
-from collection import OrderedDict
+from collections import OrderedDict
 import dateutil.parser
 import pprint
 
