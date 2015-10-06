@@ -2,6 +2,7 @@ from add_history import add_history_item
 from undo import perform_undo
 import datetime
 from dateutil.tz import tzlocal
+from collection import OrderedDict
 import dateutil.parser
 import pprint
 
@@ -18,7 +19,7 @@ class Rollback(object):
     def get_docs_to_revert(self, timestamp):
         events = self.get_events_after_timestamp(timestamp)
         events.reverse()
-        doc_list = {}
+        doc_list = OrderedDict()
         for event_val in events:
             event = event_val['value']
             for ed_doc in event['docs']:
