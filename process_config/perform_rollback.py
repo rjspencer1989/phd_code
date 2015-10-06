@@ -24,6 +24,7 @@ class Rollback(object):
             for ed_doc in event['docs']:
                 if ed_doc['doc_id'] not in doc_list:
                     doc_list[ed_doc['doc_id']] = event
+        doc_list.reverse()
         pprint.pprint(doc_list)
         return doc_list
 
