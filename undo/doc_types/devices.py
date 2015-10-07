@@ -40,6 +40,8 @@ class Devices(BaseDoc):
             res = self.db.save_doc(self.doc, force_update=True)
         else:
             self.doc['_deleted'] = True
+            self.doc['device_name'] = self.doc['device_name'] + '_old'
+            self.remove_from_hostapd_blacklist(self.doc['mac_address'])
             res = self.db.save_doc(self.doc, force_update=True)
             doc_arr = [{'doc_id': self.doc['_id'], 'doc_rev': res['rev'], 'doc_collection': self.doc['collection'], 'action': 'delete'}]
             add_history.add_history_item("Device removed", "%s has been removed" % self.doc['device_name'], doc_arr, undoable=False)
