@@ -12,6 +12,9 @@ service homework-user-edit stop
 curl http://admin:homework@localhost:8000/config -X DELETE
 curl http://admin:homework@localhost:8000/config -X PUT
 cd database && couchapp push && cd ..
+rm /etc/hostapd.deny
+touch /etc/hostapd.deny
+/etc/init.d/hostapd reload
 service homework-notifications start
 service homework-notification-registration start
 service homework-wifi-processor start
