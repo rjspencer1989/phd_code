@@ -26,12 +26,12 @@ class HomeworkMain(EventMixin):
         strings = {}
         strings['permit'] = {
             'title': 'Device Permitted',
-            'desc': 'Device %s was permitted to access your network' % (device)
+            'desc': '%s was permitted to access your network' % (device)
         }
 
         strings['deny'] = {
             'title': 'Device Denied',
-            'desc': 'Device %s was denied access to your network' % (device)
+            'desc': '%s was denied access to your network' % (device)
         }
 
         return strings[state]
@@ -43,7 +43,7 @@ class HomeworkMain(EventMixin):
             the_id = change['id']
             the_rev = change['changes'][0]['rev']
             doc = self.selected_db.open_doc(the_id, rev=the_rev)
-            prompt = True if ('prompt' in doc and doc['prompt'] == True) else False
+            prompt = True if (doc['state'] == 'pending') else False
             doc_arr = [{'doc_id': the_id, 'doc_rev': the_rev, 'doc_collection': 'devices', 'action': 'edit'}]
             strings = self.get_history_strings(doc['device_name'],
                                                doc['action'])
