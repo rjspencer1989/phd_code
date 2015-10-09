@@ -26,9 +26,9 @@ dt = datetime.datetime(2014, 01, 12, hour=10, minute=20, tzinfo=tzutc())
 ballard = devices.Device("00:27:0e:30:22:5d", "10.2.0.1", "ballard", "eth1", state="permit", timestamp=dt.isoformat())
 res = db.save_doc(ballard.get_doc(), force_update=True)
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Permitted", "Device 00:27:0e:30:22:5d (ballard) was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
+add_history.add_history_item("Device Permitted", "John's Computer was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
-ballard.set_field("device_name", "ballard")
+ballard.set_field("device_name", "John's Computer")
 ballard.set_field("notification_service", "phone")
 ballard.set_field("name", "John")
 ballard.set_field("device_type", "desktop")
@@ -50,7 +50,7 @@ res = db.save_doc(john_phone.get_doc(), force_update=True)
 callison = devices.Device("00:13:77:e1:d2:41", "10.2.0.5", "CALLISON", "eth2")
 res = db.save_doc(callison.get_doc(), force_update=True)
 
-callison.set_field("device_name", "callison")
+callison.set_field("device_name", "Mary's Laptop")
 callison.set_field("notification_service", "email")
 callison.set_field("name", "Mary")
 callison.set_field("device_type", "laptop")
@@ -58,12 +58,12 @@ callison.set_field("state", "permit")
 res = db.save_doc(callison.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=31, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device permitted", "callison was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
+add_history.add_history_item("Device permitted", "Mary's Laptop was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 mrldesx2 = devices.Device("a0:f4:50:f3:48:50", "10.2.0.9", "android-aa474646cd34eeaa", "wlan0")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 
-mrldesx2.set_field("device_name", "mrldesx2")
+mrldesx2.set_field("device_name", "Mary's Phone")
 mrldesx2.set_field("notification_service", "email")
 mrldesx2.set_field("name", "Mary")
 mrldesx2.set_field("device_type", "phone")
@@ -71,12 +71,12 @@ mrldesx2.set_field("state", "permit")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=11, minute=1, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Permitted", "mrldesx2 is permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
+add_history.add_history_item("Device Permitted", "Mary's Phone is permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
-iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.13", "iPhone", "wlan0")
+iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.13", "johns_iphone", "wlan0")
 res = db.save_doc(iphone.get_doc(), force_update=True)
 
-iphone.set_field("device_name", "mrliphone1")
+iphone.set_field("device_name", "John's iPhone")
 iphone.set_field("notification_service", "phone")
 iphone.set_field("name", "John")
 iphone.set_field("device_type", "phone")
@@ -84,7 +84,7 @@ iphone.set_field("state", "permit")
 res = db.save_doc(iphone.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=19, minute=35, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Permitted", "iphone is permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
+add_history.add_history_item("Device Permitted", "John's iphone is permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 camera = devices.Device("20:13:e0:d7:a1:36", "10.2.0.17", "DHCP-Thread", "wlan0")
 res = db.save_doc(camera.get_doc(), force_update=True)
@@ -102,15 +102,15 @@ add_history.add_history_item("Device Permitted", "Camera was permitted to access
 mrltablet6 = devices.Device("e0:b9:a5:8c:45:cd", "10.2.0.21", "android_8a0b6f3a084dc84a", "wlan0")
 res = db.save_doc(mrltablet6.get_doc(), force_update=True)
 
-mrltablet6.set_field("device_name", "mrltablet6")
-mrltablet6.set_field("notification_service", "phone")
-mrltablet6.set_field("name", "John")
+mrltablet6.set_field("device_name", "Mary's Tablet")
+mrltablet6.set_field("notification_service", "email")
+mrltablet6.set_field("name", "Mary")
 mrltablet6.set_field("device_type", "tablet")
 mrltablet6.set_field("state", "permit")
 res = db.save_doc(mrltablet6.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 12, 27, hour=13, minute=0, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Permitted", "mrltablet6 was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
+add_history.add_history_item("Device Permitted", "Mary's Tablet was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 dt = datetime.datetime(2014, 01, 12, hour=11, minute=02, tzinfo=tzutc())
 john_twitter = notifications.Notification("John", "growl", "10.2.0.33", timestamp=dt.isoformat())
@@ -124,7 +124,7 @@ dt = datetime.datetime(2015, 9, 20, hour=10, minute=45, tzinfo=tzutc())
 mrldesx2.set_field("state", "deny")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Denied", "mrldesx2 is denied access to your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
+add_history.add_history_item("Device Denied", "Mary's Phone is denied access to your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 cmd = ['/sbin/start', 'homework-pox']
 res = subprocess.Popen(cmd)
