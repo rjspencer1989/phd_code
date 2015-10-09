@@ -54,7 +54,7 @@ window.App.Views.Event = Backbone.View.extend({
         var should_undo = true;
         var docs = this.model.get('docs');
         if(docs.length === 1){
-            if (docs[0]['doc_collection'] === 'devices' && this.model.get('prompt') === true){
+            if (docs[0].doc_collection === 'devices' && this.model.get('prompt') === true){
                 if(!window.confirm("This is a new device. Undoing this change will make your router forget about the device. Do you wish to continue?")){
                     should_undo = false;
                 }
