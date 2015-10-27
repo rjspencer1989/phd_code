@@ -28,7 +28,7 @@ def notify(devices):
                 service = row['value']['notification_service']
                 to = row['value']['name']
                 timestr = datetime.datetime.now().strftime("%H:%M:%S")
-                msg = "Hi %s. Network settings were updated at %s. You need to connect %s using the new settings" % (to, timestr, row['value']['device_name'])
+                msg = "Hi %s. A new network was created at %s. You need to connect %s to this new network. The current network will be turned off in 24 hours, and %s won't be able to connect" % (to, timestr, row['value']['device_name'], row['value']['device_name'])
                 change_notification.sendNotification(to, service, msg)
     return True
 
