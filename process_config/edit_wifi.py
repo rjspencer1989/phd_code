@@ -20,7 +20,7 @@ def get_connected_devices():
     return vr.all()
 
 
-def notify(devices):
+def notify(devices, ssid):
     if devices is not None and len(devices) > 0:
         for row in devices:
             if (len(row['value']['notification_service']) > 0 and
@@ -28,7 +28,7 @@ def notify(devices):
                 service = row['value']['notification_service']
                 to = row['value']['name']
                 timestr = datetime.datetime.now().strftime("%H:%M:%S")
-                msg = "Hi %s. A new network was created at %s. You need to connect %s to this new network. The current network will be turned off in 24 hours, and %s won't be able to connect" % (to, timestr, row['value']['device_name'], row['value']['device_name'])
+                msg = "Hi %s. A new network was created at %s. You need to connect %s to this new network. The new name is %s. The current network will be turned off in 24 hours, and %s won't be able to connect" % (to, timestr, row['value']['device_name'], row['value']['device_name'])
                 change_notification.sendNotification(to, service, msg)
     return True
 
@@ -133,7 +133,7 @@ def process_wifi(doc, from_undo=False):
     db.save_doc(doc, force_update=True)
     if 'ENV_TESTS' not in os.environ:
         write_config_file(line_list)
-        if notify(devices):
+        if notify(devices, doc['ssid']):
             reload_hostapd()
             add_vlan_to_bridge()
             if bss is True:
