@@ -121,10 +121,11 @@ mary_email = notifications.Notification("Mary", "email", "psxrjs-demo@outlook.co
 res = db.save_doc(mary_email.get_doc(), force_update=True)
 
 dt = datetime.datetime(2015, 9, 20, hour=10, minute=45, tzinfo=tzutc())
-mrldesx2.set_field("state", "deny")
+mrldesx2.set_field("action", "deny")
+mrldesx2.set_field("changed_by", "user")
+mrldesx2.set_field("event_timestamp", dt.isoformat())
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Denied", "Mary's Phone is denied access to your network", doc_arr, undoable=True, prompt=False, ts=dt.isoformat())
 
 cmd = ['/sbin/start', 'homework-pox']
 res = subprocess.Popen(cmd)
