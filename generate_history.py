@@ -125,7 +125,6 @@ mrldesx2.set_field("action", "deny")
 mrldesx2.set_field("changed_by", "user")
 mrldesx2.set_field("event_timestamp", dt.isoformat())
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
-doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
 
 cmd = ['/sbin/start', 'homework-pox']
 res = subprocess.Popen(cmd)
