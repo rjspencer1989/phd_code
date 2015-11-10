@@ -88,6 +88,7 @@ window.App.Views.Wifi = Backbone.View.extend({
                 }
             });
         }
+        return false;
     },
 
     exit: function(){
