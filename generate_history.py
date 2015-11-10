@@ -69,7 +69,7 @@ mrldesx2.set_field("notification_service", "email")
 mrldesx2.set_field("name", "Mary")
 mrldesx2.set_field("device_type", "phone")
 mrldesx2.set_field("state", "permit")
-pprint.pprint(mrldesx2)
+pprint.pprint(vars(mrldesx2))
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=11, minute=1, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
