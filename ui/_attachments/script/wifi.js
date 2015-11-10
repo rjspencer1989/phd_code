@@ -54,21 +54,26 @@ window.App.Views.Wifi = Backbone.View.extend({
     saveWifi: function(e){
         "use strict";
         e.preventDefault();
+        var changed = false;
         var newSSID = $("#ssid_input").val();
         var newChannel = $("#channel_select :selected").val();
         var newPassword = $("#password_input").val();
         var newMode = $("#mode_select :selected").val();
         var mod = this.collection.at(0);
         if(newSSID !== ""){
+            changed = true;
             mod.set({ssid: newSSID});
         }
         if(newChannel !== "blank"){
+            changed = true;
             mod.set({channel: newChannel});
         }
         if(newMode !== "blank"){
+            changed = true;
             mod.set({mode: newMode});
         }
         if(newPassword !== ""){
+            changed = true;
             mod.set({password: newPassword});
         }
         mod.set({status: "pending"});
@@ -76,12 +81,13 @@ window.App.Views.Wifi = Backbone.View.extend({
         if (newSSID === "" && newPassword === "") {
             mod.set({with_bss: false});
         }
-
-        mod.save(null, {
-            error: function(model, response){
-                $(".alert").append(response.reason).show();
-            }
-        });
+        if(changed === true){
+            mod.save(null, {
+                error: function(model, response){
+                    $(".alert").append(response.reason).show();
+                }
+            });
+        }
     },
 
     exit: function(){
