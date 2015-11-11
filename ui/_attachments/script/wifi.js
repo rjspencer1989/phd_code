@@ -51,9 +51,9 @@ window.App.Views.Wifi = Backbone.View.extend({
         return this;
     },
 
-    saveWifi: function(e){
+    saveWifi: function(event){
         "use strict";
-        e.preventDefault();
+        event.preventDefault();
         var changed = false;
         var newSSID = $("#ssid_input").val();
         var newChannel = $("#channel_select :selected").val();
@@ -84,7 +84,10 @@ window.App.Views.Wifi = Backbone.View.extend({
         if(changed === true){
             mod.save(null, {
                 error: function(model, response){
-                    $(".alert").append(response.reason).show();
+                    $(".alert.alert-danger").append(response.reason).show();
+                },
+                success: function(model, response){
+                    $(".alert.alert-success").show();
                 }
             });
         }
