@@ -100,10 +100,6 @@ dt = datetime.datetime(2014, 12, 27, hour=13, minute=0, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
 add_history.add_history_item("Device Permitted", "Mary's Tablet was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
-dt = datetime.datetime(2014, 01, 12, hour=11, minute=02, tzinfo=tzutc())
-john_twitter = notifications.Notification("John", "growl", "10.2.0.33", timestamp=dt.isoformat())
-res = db.save_doc(john_twitter.get_doc(), force_update=True)
-
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=32, tzinfo=tzutc())
 mary_email = notifications.Notification("Mary", "email", "psxrjs-demo@outlook.com", timestamp=dt.isoformat())
 res = db.save_doc(mary_email.get_doc(), force_update=True)
