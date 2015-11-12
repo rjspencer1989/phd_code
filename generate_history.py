@@ -69,7 +69,6 @@ mrldesx2.set_field("notification_service", "email")
 mrldesx2.set_field("name", "Mary")
 mrldesx2.set_field("device_type", "phone")
 mrldesx2.set_field("state", "permit")
-pprint.pprint(vars(mrldesx2))
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 dt = datetime.datetime(2014, 01, 12, hour=11, minute=1, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
@@ -88,7 +87,7 @@ dt = datetime.datetime(2014, 01, 12, hour=19, minute=35, tzinfo=tzutc())
 doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
 add_history.add_history_item("Device Permitted", "John's iphone is permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
-mrltablet6 = devices.Device("e0:b9:a5:8c:45:cd", "10.2.0.21", "android_8a0b6f3a084dc84a", "wlan0")
+mrltablet6 = devices.Device("e0:b9:a5:8c:45:cd", "10.2.0.17", "android_8a0b6f3a084dc84a", "wlan0")
 res = db.save_doc(mrltablet6.get_doc(), force_update=True)
 
 mrltablet6.set_field("device_name", "Mary's Tablet")
