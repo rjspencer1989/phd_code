@@ -105,7 +105,7 @@ class HomeworkDHCP(object):
                 current_doc['connection_event'] = 'disconnect'
             current_doc['port'] = port
             current_doc['changed_by'] = 'system'
-        elif len(vr_all) == 0:
+        elif len(vr_all) == 0 and lease_action == 'add':
             current_doc = {}
             current_doc['_id'] = str(mac)
             current_doc['collection'] = 'devices'
