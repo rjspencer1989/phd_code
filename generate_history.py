@@ -114,7 +114,7 @@ doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devic
 add_history.add_history_item("Device Permitted", "XBOX One was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=32, tzinfo=tzutc())
-mary_email = notifications.Notification("Mary", "email", "psxrjs-demo@outlook.com", ts=dt.isoformat())
+mary_email = notifications.Notification("Mary", "email", "psxrjs-demo@outlook.com", timestamp=dt.isoformat())
 res = db.save_doc(mary_email.get_doc(), force_update=True)
 
 updated = db.get(mrldesx2.mac_address)

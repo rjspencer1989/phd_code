@@ -1,5 +1,5 @@
 class Notification(object):
-    def __init__(self, name, service, user, timestamp = None):
+    def __init__(self, name, service, user, timestamp=None):
         self.name = name
         self.service = service
         self.user = user
