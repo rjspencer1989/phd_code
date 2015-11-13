@@ -64,15 +64,15 @@ add_history.add_history_item("Device permitted", "Mary's Laptop was permitted to
 mrldesx2 = devices.Device("a0:f4:50:f3:48:50", "10.2.0.9", "android-aa474646cd34eeaa", "wlan0")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
 
-mrldesx2.set_field("device_name", "Mary's Phone")
-mrldesx2.set_field("notification_service", "email")
-mrldesx2.set_field("name", "Mary")
-mrldesx2.set_field("device_type", "phone")
-mrldesx2.set_field("state", "permit")
-res = db.save_doc(mrldesx2.get_doc(), force_update=True)
-dt = datetime.datetime(2014, 01, 12, hour=11, minute=1, tzinfo=tzutc())
-doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Permitted", "Mary's Phone is permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
+# mrldesx2.set_field("device_name", "Mary's Phone")
+# mrldesx2.set_field("notification_service", "email")
+# mrldesx2.set_field("name", "Mary")
+# mrldesx2.set_field("device_type", "phone")
+# mrldesx2.set_field("state", "permit")
+# res = db.save_doc(mrldesx2.get_doc(), force_update=True)
+# dt = datetime.datetime(2014, 01, 12, hour=11, minute=1, tzinfo=tzutc())
+# doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
+# add_history.add_history_item("Device Permitted", "Mary's Phone is permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 iphone = devices.Device("40:d3:2d:e3:92:d2", "10.2.0.13", "johns_iphone", "wlan0")
 res = db.save_doc(iphone.get_doc(), force_update=True)
@@ -116,12 +116,3 @@ add_history.add_history_item("Device Permitted", "XBOX One was permitted to acce
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=32, tzinfo=tzutc())
 mary_email = notifications.Notification("Mary", "email", "psxrjs-demo@outlook.com", timestamp=dt.isoformat())
 res = db.save_doc(mary_email.get_doc(), force_update=True)
-
-updated = db.get(mrldesx2.mac_address)
-mrldesx2.set_field("_rev", updated["_rev"])
-dt = datetime.datetime(2015, 9, 20, hour=10, minute=45, tzinfo=tzutc())
-mrldesx2.set_field("action", "deny")
-mrldesx2.set_field("changed_by", "user")
-mrldesx2.set_field("event_timestamp", dt.isoformat())
-res = db.save_doc(mrldesx2.get_doc(), force_update=True)
-doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
