@@ -119,7 +119,7 @@ res = db.save_doc(mary_email.get_doc(), force_update=True)
 
 cmd = ['/sbin/start', 'homework-pox']
 res = subprocess.Popen(cmd)
-
+time.sleep(10)
 updated = db.get(mrldesx2.mac_address)
 mrldesx2.set_field("_rev", updated["_rev"])
 dt = datetime.datetime(2015, 9, 20, hour=10, minute=45, tzinfo=tzutc())
