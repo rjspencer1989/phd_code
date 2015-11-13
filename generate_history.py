@@ -114,17 +114,15 @@ doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devic
 add_history.add_history_item("Device Permitted", "XBOX One was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
 
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=32, tzinfo=tzutc())
-mary_email = notifications.Notification("Mary", "email", "psxrjs-demo@outlook.com", timestamp=dt.isoformat())
+mary_email = notifications.Notification
 res = db.save_doc(mary_email.get_doc(), force_update=True)
 
 updated = db.get(mrldesx2.mac_address)
-mrldesx2.set_field("action", updated["action"])
-mrldesx2.set_field("state", updated["state"])
+mrldesx2.set_field("_rev", updated["_rev"])
 dt = datetime.datetime(2015, 9, 20, hour=10, minute=45, tzinfo=tzutc())
-mrldesx2.set_field("action", "deny")
-mrldesx2.set_field("changed_by", "user")
-mrldesx2.set_field("event_timestamp", dt.isoformat())
+mrldesx2.set_field("state", "deny")
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
-
+doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
+add_history.add_history_item("Device Denied", "Mary\'s Phone is denied from accessing your network", doc_arr, undoable=True, prompt=False, ts=dt.isoformat())
 cmd = ['/sbin/start', 'homework-pox']
 res = subprocess.Popen(cmd)
