@@ -25,7 +25,7 @@ res = db.save_doc(wifi.get_doc(), force_update=True)
 wifi.set_field('_rev', res['rev'])
 
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=20, tzinfo=tzutc())
-ballard = devices.Device("00:27:0e:30:22:5d", "10.2.0.1", "ballard", "eth1", state="permit", timestamp=dt.isoformat())
+ballard = devices.Device("00:27:0e:30:22:5d", "10.2.0.1", "ballard", "eth1", timestamp=dt.isoformat())
 res = db.save_doc(ballard.get_doc(), force_update=True)
 
 
