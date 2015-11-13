@@ -27,13 +27,14 @@ wifi.set_field('_rev', res['rev'])
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=20, tzinfo=tzutc())
 ballard = devices.Device("00:27:0e:30:22:5d", "10.2.0.1", "ballard", "eth1", state="permit", timestamp=dt.isoformat())
 res = db.save_doc(ballard.get_doc(), force_update=True)
-doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Permitted", "John's Computer was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
+
 
 ballard.set_field("device_name", "John's Computer")
 ballard.set_field("notification_service", "phone")
 ballard.set_field("name", "John")
 ballard.set_field("device_type", "desktop")
+ballard.set_field("changed_by", "user")
+ballard.set_field("action", "permit")
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=21, tzinfo=tzutc())
 ballard.set_field("event_timestamp", dt.isoformat())
 res = db.save_doc(ballard.get_doc(), force_update=True)
@@ -117,7 +118,6 @@ add_history.add_history_item("Device Permitted", "XBOX One was permitted to acce
 dt = datetime.datetime(2014, 01, 12, hour=10, minute=32, tzinfo=tzutc())
 mary_email = notifications.Notification("Mary", "email", "psxrjs-demo@outlook.com", timestamp=dt.isoformat())
 res = db.save_doc(mary_email.get_doc(), force_update=True)
-
 
 updated = db.get(mrldesx2.mac_address)
 mrldesx2.set_field("_rev", updated["_rev"])
