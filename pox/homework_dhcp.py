@@ -88,6 +88,8 @@ class HomeworkDHCP(object):
             current_doc['state'] = state
             current_doc['action'] = ''
             current_doc['changed_by'] = 'system'
+            if 'event_timestamp' in current_doc:
+                current_doc['event_timestamp'] = None
             self.selected_db.save_doc(current_doc, force_update=True)
 
     def insert_couchdb(self, lease_action, ip, mac, hostname, port):

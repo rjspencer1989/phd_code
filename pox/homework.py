@@ -47,11 +47,12 @@ class HomeworkMain(EventMixin):
             doc_arr = [{'doc_id': the_id, 'doc_rev': the_rev, 'doc_collection': 'devices', 'action': 'edit'}]
             strings = self.get_history_strings(doc['device_name'],
                                                doc['action'])
+            timestamp = doc['event_timestamp'] if 'event_timestamp' in doc else None
             add_history_item(strings['title'], strings['desc'],
                              docs=doc_arr,
                              undoable=True,
                              prompt=prompt,
-                             ts=doc['event_timestamp'] if 'event_timestamp' in doc else None)
+                             ts=timestamp)
             device = {'mac': EthAddr(doc['mac_address']),
                       'action': doc['action']}
             devices = [device]
