@@ -15,6 +15,10 @@ cd database && couchapp push && cd ..
 rm /etc/hostapd.deny
 touch /etc/hostapd.deny
 /etc/init.d/hostapd reload
+ifdown eth1
+ifdown eth2
+ifdown eth3
+/etc/init.d/hostapd stop
 service homework-notifications start
 service homework-notification-registration start
 service homework-wifi-processor start
