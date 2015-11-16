@@ -11,6 +11,7 @@ with open("/etc/dnsmasq.conf", "r") as dh:
     lines = dh.readlines()
 
 dns_doc = dns.DNS()
+dns_doc.set_field("status", "error")
 db.save_doc(dns_doc.get_doc(), force_update=True)
 
 if len(lines) > 0 and "no-resolv\n" not in lines:
