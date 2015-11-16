@@ -10,7 +10,7 @@ lines = []
 with open("/etc/dnsmasq.conf", "r") as dh:
     lines = dh.readlines()
 
-if len(lines) > 0:
+if len(lines) > 0 and "no-resolv\n" not in lines:
     lines.append("no-resolv\n")
     with open("/etc/dnsmasq.conf", "w") as dhw:
         dhw.writelines(lines)
