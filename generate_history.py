@@ -124,3 +124,11 @@ mrldesx2.set_field("changed_by", "user")
 dt = datetime.datetime(2015, 10, 25, hour=15, minute=20, tzinfo=tzutc())
 mrldesx2.set_field("event_timestamp", dt.isoformat())
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
+
+ports = ["eth1", "eth2", "eth3"]
+for port in ports:
+    cmd = ["ifup", port]
+    subprocess.call(cmd)
+
+cmd = ["/etc/init.d/hostapd", "start"]
+subprocess.call(cmd)
