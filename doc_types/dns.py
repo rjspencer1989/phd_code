@@ -8,4 +8,4 @@ class DNS(object):
         return self.__dict__
 
     def set_field(self, field, value):
-        setattr(field, value)
+        setattr(self, field, value)
