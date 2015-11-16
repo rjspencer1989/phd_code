@@ -20,8 +20,8 @@ function (newDoc, oldDoc, userCtx){
     }
 
     function is_valid_collection(){
-        if(["wifi", "notifications", "devices", "events", "request_notification", "request_revert", "main_user", "connection_state"].indexOf(newDoc.collection) === -1){
-            throw({forbidden: "collection must be one of wifi, notifications, devices, events, request_notification, request_revert, main_user, connection_state"});
+        if(["wifi", "notifications", "devices", "events", "request_notification", "request_revert", "main_user", "connection_state", "dns"].indexOf(newDoc.collection) === -1){
+            throw({forbidden: "collection must be one of wifi, notifications, devices, events, request_notification, request_revert, main_user, connection_state", "dns"});
         }
     }
 
@@ -146,7 +146,7 @@ function (newDoc, oldDoc, userCtx){
         empty_string('mac_address');
         empty_string('ip_address');
         mac_address_regex('mac_address');
-        
+
         if(newDoc.action === "" && (newDoc.name.length > 0 || newDoc.device_name.length > 0 || newDoc.device_type.length > 0 || newDoc.notification_service.length > 0) && newDoc.changed_by === "user" && newDoc.state === "pending"){
             throw({forbidden: "Device details cannot be changed when a device is pending, without also permitting or denying the device"});
         }
@@ -160,19 +160,19 @@ function (newDoc, oldDoc, userCtx){
         required("undoable");
         required("perform_undo");
         required("docs");
-        
+
         required_array_object("docs", "doc_id");
         required_array_object("docs", "doc_rev");
         required_array_object("docs", "action");
         required_array_object("docs", "doc_collection");
-        
+
         if(newDoc.undoable === false && newDoc.perform_undo === true){
             throw({forbidden: 'You can\'t undo an event that isn\'t undoable'});
         }
         date_regex('timestamp');
         if(newDoc.undoable === false && newDoc.prompt){
             throw({forbidden: "prompt should only be used if undoable is true"});
-        } 
+        }
     } else if(newDoc.collection === "request_notification"){
         required("collection");
         unchanged("collection");
