@@ -10,13 +10,13 @@ lines = []
 with open("/etc/dnsmasq.conf", "r") as dh:
     lines = dh.readlines()
 
+dns_doc = dns.DNS()
+db.save_doc(dns_doc.get_doc(), force_update=True)
+
 if len(lines) > 0 and "no-resolv\n" not in lines:
     lines.append("no-resolv\n")
     with open("/etc/dnsmasq.conf", "w") as dhw:
         dhw.writelines(lines)
 
-dns_doc = dns.DNS()
-db.save_doc(dns_doc.get_doc(), force_update=True)
-
-cmd = ["service", "dnsmasq", "restart"]
-subprocess.call(cmd)
+        cmd = ["service", "dnsmasq", "restart"]
+        subprocess.call(cmd)
