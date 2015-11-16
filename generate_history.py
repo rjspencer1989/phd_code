@@ -117,6 +117,8 @@ mary_email = notifications.Notification("Mary", "email", "psxrjs-demo@outlook.co
 res = db.save_doc(mary_email.get_doc(), force_update=True)
 
 time.sleep(10)
+updated = db.get(mrldesx2.mac_address)
+mrldesx2.set_field("state", updated["state"])
 mrldesx2.set_field("action", "deny")
 mrldesx2.set_field("changed_by", "user")
 dt = datetime.datetime(2015, 10, 25, hour=15, minute=20, tzinfo=tzutc())
