@@ -93,11 +93,12 @@ xbox.set_field("device_name", "XBOX One")
 xbox.set_field("notification_service", "phone")
 xbox.set_field("name", "John")
 xbox.set_field("device_type", "other")
-res = db.save_doc(xbox.get_doc(), force_update=True)
 xbox.set_field("action", "permit")
+xbox.set_field("changed_by", "user")
 dt = datetime.datetime(2014, 07, 25, hour=18, minute=25, tzinfo=tzutc())
-doc_arr = [{'doc_id': res['id'], 'doc_rev': res['rev'], 'doc_collection': 'devices', 'action': 'edit'}]
-add_history.add_history_item("Device Permitted", "XBOX One was permitted to access your network", doc_arr, undoable=True, prompt=True, ts=dt.isoformat())
+xbox.set_field("event_timestamp", dt.isoformat())
+res = db.save_doc(xbox.get_doc(), force_update=True)
+
 mrltablet6 = devices.Device("e0:b9:a5:8c:45:cd", "10.2.0.17", "android_8a0b6f3a084dc84a", "wlan0")
 res = db.save_doc(mrltablet6.get_doc(), force_update=True)
 
