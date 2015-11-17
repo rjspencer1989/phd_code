@@ -25,7 +25,6 @@ window.App.Views.Device = Backbone.View.extend({
     initialize: function(options){
         "use strict";
         this.template = window.JST[options.template];
-        this.listenTo(this.model, "change", this.render)
     },
 
     events: {
@@ -144,6 +143,7 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
         this.listenTo(this.collection, "reset", this.render);
         this.listenTo(this.collection, "add", this.addOne);
         this.listenTo(this.collection, "remove", this.render);
+        this.listenTo(this.collection, "change", this.changed);
         this.collection.fetch({reset: true});
         this.subviews = [];
     },
@@ -159,6 +159,11 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
         }
     },
 
+    changed: function(event){
+        "use strict";
+        console.log(event);
+    },
+
     render: function(){
         "use strict";
         this.$el.html(this.template());
@@ -169,13 +174,18 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
         return this;
     },
 
-    exit: function(){
+    closeSubViews: function(){
         "use strict";
         var item = {};
         for (var index in this.subviews) {
             item = this.subviews[index];
             item.remove();
         }
+    },
+
+    exit: function(){
+        "use strict";
+        this.closeSubViews();
         this.remove();
     }
 });
