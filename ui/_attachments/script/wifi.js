@@ -39,7 +39,7 @@ window.App.Views.Wifi = Backbone.View.extend({
     },
 
     events: {
-        "submit": "saveWifi"
+        "submit #save-wifi-form": "saveWifi"
     },
 
     render: function(){
@@ -49,6 +49,7 @@ window.App.Views.Wifi = Backbone.View.extend({
         window.setActiveLink("wifi-link");
         $(".alert").hide();
         $('[data-toggle="tooltip"]').tooltip();
+        this.delegateEvents();
         return this;
     },
 
