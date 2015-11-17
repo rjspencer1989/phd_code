@@ -36,7 +36,6 @@ window.App.Views.Wifi = Backbone.View.extend({
         this.collection.fetch({
             reset: true
         });
-        $('[data-toggle="tooltip"]').tooltip();
     },
 
     events: {
@@ -49,6 +48,7 @@ window.App.Views.Wifi = Backbone.View.extend({
         $("#main-row").empty().append(this.el);
         window.setActiveLink("wifi-link");
         $(".alert").hide();
+        $('[data-toggle="tooltip"]').tooltip();
         return this;
     },
 
