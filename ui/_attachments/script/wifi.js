@@ -54,6 +54,7 @@ window.App.Views.Wifi = Backbone.View.extend({
 
     saveWifi: function(event){
         "use strict";
+
         event.preventDefault();
         var changed = false;
         var newSSID = $("#ssid_input").val();
@@ -92,6 +93,7 @@ window.App.Views.Wifi = Backbone.View.extend({
                 }
             });
         }
+        console.log(changed);
         return false;
     },
 
