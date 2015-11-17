@@ -143,7 +143,7 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
         this.listenTo(this.collection, "reset", this.render);
         this.listenTo(this.collection, "add", this.addOne);
         this.listenTo(this.collection, "remove", this.render);
-        this.listenTo(this.collection, "change", this.addOne);
+        this.listenTo(this.collection, "change", this.render);
         this.collection.fetch({reset: true});
         this.subviews = [];
     },
@@ -157,11 +157,6 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
         if(sel === "pending"){
             view.$el.addClass("edit-device");
         }
-    },
-
-    changed: function(device){
-        "use strict";
-
     },
 
     render: function(){
