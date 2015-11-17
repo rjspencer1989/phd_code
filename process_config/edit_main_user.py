@@ -13,7 +13,8 @@ def edit_user(current_doc, from_undo=False):
         title = 'Undo Edit Main User'
         desc = 'Undo Edit of Main User. %s' % (desc)
     ts = current_doc['event_timestamp'] if 'event_timestamp' in current_doc else None
-    add_history_item(title, desc, current_doc['_id'], current_doc['_rev'], 'main_user', 'edit', True, ts=ts)
+    doc_arr = [{'doc_id': current_doc['_id'], 'doc_rev': current_doc['_rev'], 'doc_collection': 'main_user', 'action': 'edit'}]
+    add_history_item(title, desc, doc_arr, True, ts=ts)
     if 'event_timestamp' in current_doc:
         del current_doc['event_timestamp']
     current_doc['status'] = 'done'
