@@ -39,7 +39,7 @@ window.App.Views.Wifi = Backbone.View.extend({
     },
 
     events: {
-        "submit #save-wifi-form": "saveWifi"
+        "submit": "saveWifi"
     },
 
     render: function(){
