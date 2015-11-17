@@ -36,6 +36,7 @@ window.App.Views.Wifi = Backbone.View.extend({
         this.collection.fetch({
             reset: true
         });
+        $('[data-toggle="tooltip"]').tooltip();
     },
 
     events: {
