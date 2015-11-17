@@ -143,7 +143,7 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
         this.listenTo(this.collection, "reset", this.render);
         this.listenTo(this.collection, "add", this.addOne);
         this.listenTo(this.collection, "remove", this.render);
-        this.listenTo(this.collection, "change", this.changed);
+        this.listenTo(this.collection, "change", this.addOne);
         this.collection.fetch({reset: true});
         this.subviews = [];
     },
@@ -159,9 +159,9 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
         }
     },
 
-    changed: function(event){
+    changed: function(device){
         "use strict";
-        console.log(event.toJSON());
+
     },
 
     render: function(){
