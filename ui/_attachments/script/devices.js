@@ -25,6 +25,7 @@ window.App.Views.Device = Backbone.View.extend({
     initialize: function(options){
         "use strict";
         this.template = window.JST[options.template];
+        this.listenTo(this.model, "change", this.render)
     },
 
     events: {
@@ -142,7 +143,6 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
         "use strict";
         this.listenTo(this.collection, "reset", this.render);
         this.listenTo(this.collection, "add", this.addOne);
-        this.listenTo(this.collection, "change", this.render);
         this.listenTo(this.collection, "remove", this.render);
         this.collection.fetch({reset: true});
         this.subviews = [];
