@@ -161,7 +161,7 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
 
     changed: function(event){
         "use strict";
-        console.log(event);
+        console.log(event.toJSON());
     },
 
     render: function(){
