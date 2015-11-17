@@ -16,5 +16,5 @@ def edit_user(current_doc, from_undo=False):
     add_history_item(title, desc, current_doc['_id'], current_doc['_rev'], 'main_user', 'edit', True, ts=ts)
     if 'event_timestamp' in current_doc:
         del current_doc['event_timestamp']
-        current_doc['status'] = 'done'
-        db.save_doc(current_doc, force_update=True)
+    current_doc['status'] = 'done'
+    db.save_doc(current_doc, force_update=True)
