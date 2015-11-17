@@ -161,6 +161,7 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
 
     render: function(){
         "use strict";
+        console.log("render");
         this.$el.html(this.template());
         $("#main-row").empty().append(this.el);
         window.setActiveLink("devices-link");
