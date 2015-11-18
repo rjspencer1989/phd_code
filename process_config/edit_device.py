@@ -13,7 +13,8 @@ def edit_device(current_doc, from_undo=False):
         title = 'Undo %s' % (title)
         desc = 'Undo %s' % (desc)
     ts = current_doc['event_timestamp'] if 'event_timestamp' in current_doc else None
-    add_history_item(title, desc, theId, theRev, 'devices', 'edit', True, ts=ts)
+    doc_arr = [{'doc_id': current_doc['_id'], 'doc_rev': current_doc['_rev'], 'doc_collection': 'devices', 'action': 'edit'}]
+    add_history_item(title, desc, doc_arr, True, ts=ts)
     if 'event_timestamp' in current_doc:
         del current_doc['event_timestamp']
         db.save_doc(current_doc, force_update=True)
