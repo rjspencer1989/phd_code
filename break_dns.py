@@ -13,7 +13,8 @@ with open("/etc/dnsmasq.conf", "r") as dh:
     lines = dh.readlines()
 
 dns_doc = dns.DNS()
-dns_doc.set_field("status", "error")
+dns_doc.set_field("dns_status", "error")
+dns_doc.set_field("status", "pending")
 dt = datetime.now(tz=tzutc()) + timedelta(weeks=-3)
 dns_doc.set_field("event_timestamp", dt.isoformat())
 db.save_doc(dns_doc.get_doc(), force_update=True)

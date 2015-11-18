@@ -14,4 +14,5 @@ def break_dns(current_doc):
     add_history_item(title, desc, doc_arr, undoable=True, ts=ts)
     if 'event_timestamp' in current_doc:
         del current_doc['event_timestamp']
+        current_doc['status'] = 'done'
         db.save_doc(current_doc, force_update=True)
