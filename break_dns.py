@@ -23,5 +23,5 @@ if len(lines) > 0 and "no-resolv\n" not in lines:
     with open("/etc/dnsmasq.conf", "w") as dhw:
         dhw.writelines(lines)
 
-        cmd = ["/etc/init.d/dnsmasq", "restart"]
-        subprocess.call(cmd)
+    cmd = ["/etc/init.d/dnsmasq", "restart"]
+    subprocess.call(cmd)
