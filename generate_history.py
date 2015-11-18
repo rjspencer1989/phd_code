@@ -18,7 +18,7 @@ res = db.save_doc(connection_state.get_doc(), force_update=True)
 random.seed(1)
 ssid = "homework-%d" % (int(random.getrandbits(25)))
 password = ''.join(random.sample(string.ascii_lowercase + string.digits, 10))
-channel = random.choice(range(1,12))
+channel = random.choice(range(1, 12))
 dt = datetime(2014, 01, 12, hour=10, minute=15, tzinfo=tzutc())
 wifi = wifi.Wifi(ssid, password, 'n', channel, timestamp=dt.isoformat())
 res = db.save_doc(wifi.get_doc(), force_update=True)
@@ -41,7 +41,7 @@ main_user.set_field("service", "phone")
 main_user.set_field("status", "pending")
 dt = datetime(2014, 01, 12, hour=10, minute=21, tzinfo=tzutc())
 main_user.set_field("event_timestamp", dt.isoformat())
-res=db.save_doc(main_user.get_doc(), force_update=True)
+res = db.save_doc(main_user.get_doc(), force_update=True)
 
 dt = datetime(2014, 01, 12, hour=10, minute=22, tzinfo=tzutc())
 john_phone = notifications.Notification("John", "phone", "+447523221070", timestamp=dt.isoformat())
@@ -124,7 +124,6 @@ mrldesx2.set_field("changed_by", "user")
 dt = datetime(2015, 10, 25, hour=15, minute=20, tzinfo=tzutc())
 mrldesx2.set_field("event_timestamp", dt.isoformat())
 res = db.save_doc(mrldesx2.get_doc(), force_update=True)
-    
 
 ports = ["eth1", "eth2", "eth3"]
 for port in ports:
