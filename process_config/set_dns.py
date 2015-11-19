@@ -6,7 +6,7 @@ import couchdb_config_parser
 db = couchdb_config_parser.get_db()
 
 
-def break_dns(current_doc):
+def set_dns(current_doc):
     title = 'DNS settings updated'
     desc = "You are now using Google's DNS servers."
     ts = current_doc['event_timestamp'] if 'event_timestamp' in current_doc else None
