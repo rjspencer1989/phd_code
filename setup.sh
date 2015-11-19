@@ -31,5 +31,5 @@ service homework-ethtool-monitor start
 service homework-iw-monitor start
 service homework-user-edit start
 service homework-set-dns start
-service homework-break-dns-start
+service homework-break-dns start
 service homework-pox start
