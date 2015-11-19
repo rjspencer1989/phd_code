@@ -116,6 +116,13 @@ dt = datetime(2014, 01, 12, hour=10, minute=32, tzinfo=tzutc())
 mary_email = notifications.Notification("Mary", "email", "psxrjs-demo@outlook.com", timestamp=dt.isoformat())
 res = db.save_doc(mary_email.get_doc(), force_update=True)
 
+dns_doc = dns.DNS()
+dns_doc.set_field("dns_status", "active")
+dns_doc.set_field("status", "done")
+dt = datetime.now(tz=tzutc()) + timedelta(weeks=-3)
+dns_doc.set_field("event_timestamp", dt.isoformat())
+db.save_doc(dns_doc.get_doc(), force_update=True)
+
 time.sleep(10)
 updated = db.get(mrldesx2.mac_address)
 mrldesx2.set_field("state", updated["state"])
