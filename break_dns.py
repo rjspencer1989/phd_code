@@ -15,8 +15,6 @@ with open("/etc/dnsmasq.conf", "r") as dh:
 dns_doc = db.get("dns")
 dns_doc["dns_status"] =  "error"
 dns_doc["status"] = "pending"
-dt = datetime.now(tz=tzutc()) + timedelta(weeks=-3)
-dns_doc["event_timestamp"] = dt.isoformat()
 db.save_doc(dns_doc, force_update=True)
 
 if len(lines) > 0 and "no-resolv\n" not in lines:
