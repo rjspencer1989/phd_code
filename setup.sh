@@ -10,6 +10,7 @@ service homework-ethtool-monitor stop
 service homework-iw-monitor stop
 service homework-user-edit stop
 service homework-set-dns stop
+service homework-break-dns stop
 curl http://admin:homework@localhost:8000/config -X DELETE
 curl http://admin:homework@localhost:8000/config -X PUT
 cd database && couchapp push && cd ..
@@ -30,4 +31,5 @@ service homework-ethtool-monitor start
 service homework-iw-monitor start
 service homework-user-edit start
 service homework-set-dns start
+service homework-break-dns-start
 service homework-pox start
