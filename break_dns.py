@@ -12,12 +12,12 @@ lines = []
 with open("/etc/dnsmasq.conf", "r") as dh:
     lines = dh.readlines()
 
-dns_doc = dns.DNS()
-dns_doc.set_field("dns_status", "error")
-dns_doc.set_field("status", "pending")
+dns_doc = db.get("dns")
+dns_doc["dns_status"] =  "error"
+dns_doc["status"] = "pending"
 dt = datetime.now(tz=tzutc()) + timedelta(weeks=-3)
-dns_doc.set_field("event_timestamp", dt.isoformat())
-db.save_doc(dns_doc.get_doc(), force_update=True)
+dns_doc["event_timestamp"] = dt.isoformat()
+db.save_doc(dns_doc, force_update=True)
 
 if len(lines) > 0 and "no-resolv\n" not in lines:
     lines.append("no-resolv\n")

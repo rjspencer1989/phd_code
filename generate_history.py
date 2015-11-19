@@ -118,10 +118,11 @@ res = db.save_doc(mary_email.get_doc(), force_update=True)
 
 dns_doc = dns.DNS()
 dns_doc.set_field("dns_status", "active")
-dns_doc.set_field("status", "done")
+db.save_doc(dns_doc.get_doc(), force_update=True)
+
+dns_doc.set_field("status", "pending")
 dt = datetime.now(tz=tzutc()) + timedelta(weeks=-3)
 dns_doc.set_field("event_timestamp", dt.isoformat())
-db.save_doc(dns_doc.get_doc(), force_update=True)
 
 time.sleep(10)
 updated = db.get(mrldesx2.mac_address)
