@@ -121,7 +121,7 @@ dns_doc.set_field("dns_status", "active")
 db.save_doc(dns_doc.get_doc(), force_update=True)
 
 dns_doc.set_field("status", "pending")
-dt = datetime.now(tz=tzutc()) + timedelta(weeks=20)
+dt = datetime.now(tz=tzutc()) + timedelta(weeks=-20)
 dns_doc.set_field("event_timestamp", dt.isoformat())
 db.save_doc(dns_doc.get_doc(), force_update=True)
 
