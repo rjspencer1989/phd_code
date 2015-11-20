@@ -1,4 +1,5 @@
 from base_doc import BaseDoc
+import subprocess
 
 class Dns(BaseDoc):
     def get_rev_list(self):
@@ -9,6 +10,21 @@ class Dns(BaseDoc):
             if doc['status'] == "done":
                 rev_list.append(rev)
         return rev_list
+
+    def fix_dns(self):
+        lines = []
+        with open("/etc/dnsmasq.conf", "r") as dc:
+            lines = dc.readlines()
+            if "no-resolv\n" in lines:
+                lines.remove("no-resolv\n")
+
+        with open("/etc/dnsmasq.conf", "w") as dcw:
+            dcw.seek(0)
+            dcw.writelines(lines)
+            dcw.truncate()
+        cmd = ["/etc/init.d/dnsmasq", "restart"]
+        subprocess.call(cmd)
+
 
     def undo(self):
         rev_list = self.get_rev_list()
