@@ -138,7 +138,7 @@ ports = ["eth1", "eth2", "eth3"]
 for port in ports:
     cmd = ["ifup", port]
     subprocess.call(cmd)
-cmd = ["/usr/local/bin/ovs-vsctl", "del-port", "--if-exists", "br0", "wlan0"]
+cmd = ["/usr/local/bin/ovs-vsctl", "--if-exists", "del-port", "br0", "wlan0"]
 subprocess.call(cmd)
 
 cmd = ["/usr/local/bin/ovs-vsctl", "add-port", "br0", "wlan0"]
