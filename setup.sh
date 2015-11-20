@@ -33,3 +33,4 @@ service homework-user-edit start
 service homework-set-dns start
 service homework-break-dns start
 service homework-pox start
+ovs-vsctl del-port --if-exists br0 wlan0_1
