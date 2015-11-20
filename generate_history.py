@@ -125,7 +125,7 @@ dt = datetime.now(tz=tzutc()) + timedelta(weeks=-20)
 dns_doc.set_field("event_timestamp", dt.isoformat())
 db.save_doc(dns_doc.get_doc(), force_update=True)
 
-time.sleep(10)
+time.sleep(5)
 updated = db.get(mrldesx2.mac_address)
 mrldesx2.set_field("state", updated["state"])
 mrldesx2.set_field("action", "deny")
