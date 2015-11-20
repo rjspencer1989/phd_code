@@ -52,7 +52,7 @@ def write_config_file(lines):
 
 def reload_hostapd():
     cmd = ['/etc/init.d/hostapd', 'restart']
-    res = subprocess.Popen(cmd)
+    res = subprocess.call(cmd)
 
 
 def add_vlan_to_bridge():
