@@ -1,4 +1,5 @@
 from base_doc import BaseDoc
+from process_config import set_dns
 import subprocess
 
 class Dns(BaseDoc):
@@ -35,4 +36,5 @@ class Dns(BaseDoc):
         self.doc = doc
         self.fix_dns()
         res = self.db.save_doc(self.doc, force_update=True)
+        set_dns.set_dns(self.doc, from_undo=True)
         return res
