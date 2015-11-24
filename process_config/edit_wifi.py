@@ -8,6 +8,7 @@ import couchdb_config_parser
 import subprocess
 import change_notification
 import os
+import pprint
 import add_history
 import remove_vlan
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -17,6 +18,7 @@ db = couchdb_config_parser.get_db()
 
 def get_connected_devices():
     vr = db.view('homework-remote/connected_via_wifi')
+    pprint.pprint(vr.all())
     return vr.all()
 
 
