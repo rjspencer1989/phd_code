@@ -108,7 +108,7 @@ def generate_config(current_doc, with_bss=True):
 
 def process_wifi(doc, from_undo=False):
     bss = True
-    if 'with_bss' in doc and doc['with_bss'] == True:
+    if 'with_bss' in doc and doc['with_bss'] is True:
         line_list = generate_config(doc)
         doc['bss_active'] = True
     else:
