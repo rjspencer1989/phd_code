@@ -33,5 +33,6 @@ class Dns(BaseDoc):
         rev = rev_list[0]
         doc = self.db.get(self.doc['_id'], rev=rev)
         self.doc = doc
+        self.fix_dns()
         res = self.db.save_doc(self.doc, force_update=True)
         return res
