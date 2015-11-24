@@ -133,13 +133,12 @@ def process_wifi(doc, from_undo=False):
     db.save_doc(doc, force_update=True)
     if 'ENV_TESTS' not in os.environ:
         write_config_file(line_list)
-        if bss is False:
-            if notify(devices, doc['ssid']):
-                reload_hostapd()
-                add_vlan_to_bridge()
-                if bss is True:
-                    scheduler = BackgroundScheduler()
-                    cur_time = datetime.datetime.now()
-                    dt = cur_time + datetime.timedelta(days=1)
-                    scheduler.add_job(remove_vlan.remove_vlan, 'date', run_date=dt)
-                    scheduler.start()
+        if notify(devices, doc['ssid']):
+            reload_hostapd()
+            add_vlan_to_bridge()
+            if bss is True:
+                scheduler = BackgroundScheduler()
+                cur_time = datetime.datetime.now()
+                dt = cur_time + datetime.timedelta(days=1)
+                scheduler.add_job(remove_vlan.remove_vlan, 'date', run_date=dt)
+                scheduler.start()
