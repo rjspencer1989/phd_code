@@ -135,8 +135,8 @@ def process_wifi(doc, from_undo=False):
         write_config_file(line_list)
         if notify(devices, doc['ssid']):
             reload_hostapd()
-            add_vlan_to_bridge()
             if bss is True:
+                add_vlan_to_bridge()
                 scheduler = BackgroundScheduler()
                 cur_time = datetime.datetime.now()
                 dt = cur_time + datetime.timedelta(days=1)
