@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 import subprocess
 import os
+from process_config import couchdb_config_parser
+
+db = couchdb_config_parser.get_db()
 
 
 def reload_hostapd():
@@ -56,6 +59,10 @@ def generate_config():
 
 
 def remove_vlan():
+    doc = db.get('wifi')
+    if 'bss_active' in doc and doc['bss_active'] is True:
+        doc['bss_active'] = False
+        db.save_doc(doc, force_update=True)
     lines = generate_config()
     write_config_file(lines)
     reload_hostapd()

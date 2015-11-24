@@ -110,8 +110,10 @@ def process_wifi(doc, from_undo=False):
     bss = True
     if 'with_bss' in doc and doc['with_bss'] == True:
         line_list = generate_config(doc)
+        doc['bss_active'] = True
     else:
         line_list = generate_config(doc, False)
+        doc['bss_active'] = False
         bss = False
     devices = get_connected_devices()
     doc['with_bss'] = True

@@ -9,6 +9,7 @@ class Wifi(object):
         self.encryption_type = 'wpa'
         self.with_bss = False
         self.event_timestamp = timestamp
+        self.bss_active = False
         self._id = 'wifi'
 
     def get_doc(self):
@@ -22,9 +23,10 @@ class Wifi(object):
             "encryption_type": self.encryption_type,
             "collection": self.collection,
             "with_bss": self.with_bss,
-            "event_timestamp": self.event_timestamp
+            "event_timestamp": self.event_timestamp,
+            "bss_active": self.bss_active
         }
-        
+
         if hasattr(self, '_rev'):
             doc["_rev"] = self._rev
         return doc

@@ -6,7 +6,8 @@ window.App.Models.Wifi = Backbone.Model.extend({
         password: "",
         encryption_type: "wpa",
         mode: "n",
-        channel: 1
+        channel: 1,
+        bss_active: false
     }
 });
 
