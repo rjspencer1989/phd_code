@@ -87,6 +87,7 @@ window.App.Views.Wifi = Backbone.View.extend({
             mod.save(null, {
                 error: function(model, response){
                     $(".alert.alert-danger").append(response.reason).show();
+                    this.collection.fetch({reset: true});
                 },
                 success: function(model, response){
                     $(".alert.alert-success").show();
