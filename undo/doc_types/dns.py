@@ -3,7 +3,7 @@ import subprocess
 
 class Dns(BaseDoc):
     def get_rev_list(self):
-        rl = super(Dns, self)
+        rl = super(Dns, self).get_rev_list()
         rev_list = []
         for rev in rl:
             doc = self.db.get(self.doc['_id'], rev=rev)
