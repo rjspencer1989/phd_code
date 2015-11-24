@@ -15,6 +15,10 @@ class Wifi(BaseDoc):
     def undo(self):
         rev_list = self.get_rev_list()
         doc = self.db.get(self.doc['_id'], rev=rev_list[0])
+        if doc['bss_active'] is True:
+            doc['bss_active'] = False
+            doc['with_bss'] = False
+        
         res = self.db.save_doc(doc, force_update=True)
         doc = self.db.get(self.doc['_id'])
         edit_wifi.process_wifi(doc, from_undo=True)
