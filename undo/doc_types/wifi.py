@@ -16,7 +16,7 @@ class Wifi(BaseDoc):
     def undo(self):
         rev_list = self.get_rev_list()
         doc = self.db.get(self.doc['_id'], rev=rev_list[0])
-        if self.doc['bss_active'] is True:
+        if  'bss_active' in self.doc and self.doc['bss_active'] is True:
             print "bss active\n"
             doc['bss_active'] = False
             doc['with_bss'] = False

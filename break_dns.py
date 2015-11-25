@@ -13,7 +13,7 @@ with open("/etc/dnsmasq.conf", "r") as dh:
     lines = dh.readlines()
 
 dns_doc = db.get("dns")
-dns_doc["dns_status"] =  "error"
+dns_doc["dns_status"] = "error"
 dns_doc["status"] = "pending"
 db.save_doc(dns_doc, force_update=True)
 
