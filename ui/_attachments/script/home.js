@@ -42,9 +42,18 @@ window.App.Views.CollectionHome = Backbone.View.extend({
         this.listenTo(this.collection, "reset", this.render);
         this.listenTo(this.collection, "change", this.render);
         this.subviews = [];
-        this.collection.fetch({
+        var fetch_options = {
             reset: true
-        });
+        };
+        
+        if(options.limit > 0){
+            fetch_options.limit = options.limit;
+        }
+        
+        if(options.descending === true){
+            fetch_options.descending = true;
+        }
+        this.collection.fetch(fetch_options);
     },
     
     addOne: function(item){
@@ -93,6 +102,15 @@ window.App.Views.Home = Backbone.View.extend({
             el: "#home-devices"
         };
         this.devices_view = new window.App.Views.CollectionHome(options);
+        options = {
+            collection: "Events",
+            descending: true,
+            limit: 5,
+            template: "home_history",
+            sub_template: "home_event",
+            el: "#home-history"
+        };
+        this.history_view = new window.App.Views.CollectionHome(options);
     },
 
     render: function () {
@@ -107,6 +125,7 @@ window.App.Views.Home = Backbone.View.extend({
         this.wifi_view.remove();
         this.devices_view.exit();
         this.notifications_view.exit();
+        this.history_view.exit();
         this.remove();
     }
 });
