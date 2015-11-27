@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/jquery/jquery.d.ts"/>
-/// <reference path="../../../typings/backbone/backbone.d.ts"/>
 window.App = {
     Models: {},
     Collections: {},
@@ -24,6 +22,7 @@ window.setActiveLink = function(element){
 
 window.getDateComponents = function(date){
     "use strict";
+    var d = new Date(d);
     var data = {};
     data.day = date.getDate();
     data.month = this.months[date.getMonth()];
