@@ -20,9 +20,9 @@ window.setActiveLink = function(element){
     .addClass("active");
 };
 
-window.getDateComponents = function(date){
+window.getDateComponents = function(d){
     "use strict";
-    var d = new Date(d);
+    var date = new Date(d);
     var data = {};
     data.day = date.getDate();
     data.month = this.months[date.getMonth()];
