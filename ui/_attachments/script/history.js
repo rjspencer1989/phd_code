@@ -33,19 +33,10 @@ window.App.Views.Event = Backbone.View.extend({
     },
     render: function(){
         "use strict";
-        var data = {};
+        var date = new Date(this.model.get("timestamp"));
+        var data = getDateComponents();
         data.title = this.model.get("title");
         data.description = this.model.get("description");
-        var date = new Date(this.model.get("timestamp"));
-        data.day = date.getDate();
-        data.month = this.months[date.getMonth()];
-        data.year = date.getFullYear();
-        data.hour = date.getHours();
-        data.hour = ("0" + data.hour).slice(-2);
-        data.minute = date.getMinutes();
-        data.minute = ("0" + data.minute).slice(-2);
-        data.second = date.getSeconds();
-        data.second = ("0" + data.second).slice(-2);
         this.$el.empty().append(this.template(data));
         return this;
     },
@@ -58,12 +49,12 @@ window.App.Views.Event = Backbone.View.extend({
                 if(!window.confirm("This is a new device. Undoing this change will make your router forget about the device. Do you wish to continue?")){
                     should_undo = false;
                 }
-            }    
+            }
         }
-        
+
         if(should_undo){
             this.model.set({perform_undo: true});
-            this.model.save();   
+            this.model.save();
         }
     },
     revert_state: function(){
@@ -86,7 +77,7 @@ window.App.Views.Events = Backbone.View.extend({
         this.collection.fetch({reset: true, descending: true});
         this.subviews = [];
     },
-    
+
     add_event: function(){
         "use strict";
         console.log(this);

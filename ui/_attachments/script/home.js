@@ -24,7 +24,7 @@ window.App.Views.TableRow = Backbone.View.extend({
         "use strict";
         this.template = window.JST[options.template];
     },
-    
+
     render: function(){
         "use strict";
         this.$el.empty().append(this.template(this.model.toJSON()));
@@ -45,17 +45,17 @@ window.App.Views.CollectionHome = Backbone.View.extend({
         var fetch_options = {
             reset: true
         };
-        
+
         if(options.limit > 0){
             fetch_options.limit = options.limit;
         }
-        
+
         if(options.descending === true){
             fetch_options.descending = true;
         }
         this.collection.fetch(fetch_options);
     },
-    
+
     addOne: function(item){
         "use strict";
         var view = new window.App.Views.TableRow({model: item, template: this.subTemplate});
@@ -86,12 +86,19 @@ window.App.Views.Home = Backbone.View.extend({
     template: window.JST.home,
     initialize: function () {
         "use strict";
+        _.template.formatDate = function(date){
+            var d = new Date(date);
+            var components = getDateComponents(d);
+            return components.day + "/" + components.month + "/"
+                + components.year + " " + components.hour + ":"
+                + components.minute + ":" + components.second;
+        };
         this.render();
         this.wifi_view = new window.App.Views.WifiHome();
         var options = {
-            collection: "Notifications", 
-            template: "home_notifications", 
-            sub_template: "home_notification", 
+            collection: "Notifications",
+            template: "home_notifications",
+            sub_template: "home_notification",
             el: "#home-notifications"
         };
         this.notifications_view = new window.App.Views.CollectionHome(options);

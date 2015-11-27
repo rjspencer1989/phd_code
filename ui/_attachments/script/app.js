@@ -21,3 +21,18 @@ window.setActiveLink = function(element){
         .end()
     .addClass("active");
 };
+
+window.getDateComponents = function(date){
+    "use strict";
+    var data = {};
+    data.day = date.getDate();
+    data.month = this.months[date.getMonth()];
+    data.year = date.getFullYear();
+    data.hour = date.getHours();
+    data.hour = ("0" + data.hour).slice(-2);
+    data.minute = date.getMinutes();
+    data.minute = ("0" + data.minute).slice(-2);
+    data.second = date.getSeconds();
+    data.second = ("0" + data.second).slice(-2);
+    return data;
+};
