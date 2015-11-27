@@ -85,6 +85,7 @@ window.App.Views.Events = Backbone.View.extend({
         this.$el.html(this.template());
         $("#main-row").empty().append(this.el);
         window.setActiveLink("history-link");
+        this.$(".date-picker").datepicker();
         this.collection.each(this.addOne, this);
         return this;
     },

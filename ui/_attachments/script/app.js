@@ -36,3 +36,11 @@ window.getDateComponents = function(d){
     data.second = ("0" + data.second).slice(-2);
     return data;
 };
+
+window.formatDate = function(date){
+    var d = new Date(date);
+    var components = getDateComponents(d);
+    return components.day + "/" + components.month + "/" +
+        components.year + " " + components.hour + ":" +
+        components.minute + ":" + components.second;
+};
