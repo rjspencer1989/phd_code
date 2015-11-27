@@ -30,7 +30,8 @@ window.App.Views.Event = Backbone.View.extend({
     render: function(){
         "use strict";
         var date = new Date(this.model.get("timestamp"));
-        var data = getDateComponents();
+        var data = getDateComponents(date);
+        console.log(data);
         data.title = this.model.get("title");
         data.description = this.model.get("description");
         this.$el.empty().append(this.template(data));
