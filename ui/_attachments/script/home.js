@@ -89,9 +89,9 @@ window.App.Views.Home = Backbone.View.extend({
         _.template.formatDate = function(date){
             var d = new Date(date);
             var components = getDateComponents(d);
-            return components.day + "/" + components.month + "/"
-                + components.year + " " + components.hour + ":"
-                + components.minute + ":" + components.second;
+            return components.day + "/" + components.month + "/" +
+                components.year + " " + components.hour + ":" +
+                components.minute + ":" + components.second;
         };
         this.render();
         this.wifi_view = new window.App.Views.WifiHome();
