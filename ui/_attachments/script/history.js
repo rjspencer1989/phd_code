@@ -22,10 +22,6 @@ window.App.Collections.Events = Backbone.Collection.extend({
 window.App.Views.Event = Backbone.View.extend({
     tagName: "dd",
     template: window.JST.history_item,
-    initialize: function(){
-        "use strict";
-        this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    },
 
     events: {
         "click .undo-button": "request_undo",

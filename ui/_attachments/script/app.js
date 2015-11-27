@@ -24,8 +24,9 @@ window.getDateComponents = function(d){
     "use strict";
     var date = new Date(d);
     var data = {};
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     data.day = date.getDate();
-    data.month = this.months[date.getMonth()];
+    data.month = months[date.getMonth()];
     data.year = date.getFullYear();
     data.hour = date.getHours();
     data.hour = ("0" + data.hour).slice(-2);
