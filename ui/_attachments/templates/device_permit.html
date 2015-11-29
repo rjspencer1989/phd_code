@@ -1,20 +1,16 @@
-<td>
+
     <div class="view">
         <%-device_name%>
     </div>
     <div class="edit-controls">
         <input type="text" name="edit_device_name_input" id="edit_device_name_input" value="<%-device_name%>">
     </div>
-</td>
-<td>
     <div class="view">
         <%-name%>
     </div>
     <div class="edit-controls">
         <input type="text" name="edit_owner_input" id="edit_owner_input" value="<%-name%>">
     </div>
-</td>
-<td>
     <div class="view">
         <%-device_type%>
     </div>
@@ -27,8 +23,6 @@
             <option value="other">Other</option>
         </select>
     </div>
-</td>
-<td>
     <div class="view">
         <%-notification_service%>
     </div>
@@ -40,12 +34,11 @@
             <option value="twitter">Twitter</option>
         </select>
     </div>
-</td>
-<td><%-mac_address%></td>
-<td><%-ip_address%></td>
-<td class="port"><%-port%></td>
-<td class="is_connected"></td>
-<td>
+<div><%-mac_address%></div>
+<div><%-ip_address%></div>
+<div class="port"><%-port%></div>
+<div class="is_connected"></div>
+<div>
     <div class="view">
         <button class="btn btn-danger deny-button" type="button">Deny</button>
         <button class="btn btn-default edit-button" type="button">Edit</button>
@@ -54,4 +47,4 @@
         <button class="btn btn-primary save-button" type="button">Save</button>
         <button class="btn btn-default cancel-button" type="button">Cancel</button>
     </div>
-</td>
+</div>

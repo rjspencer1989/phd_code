@@ -21,7 +21,7 @@ window.App.Collections.ConnectedDevices = Backbone.Collection.extend({
 });
 
 window.App.Views.Device = Backbone.View.extend({
-    tagName: "tr",
+    className: "col-lg-3 col-md-4 col-sm-6",
     initialize: function(options){
         "use strict";
         this.template = window.JST[options.template];
@@ -153,7 +153,7 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
         var sel = device.get("state");
         var view = new window.App.Views.Device({model: device, template: "device_" + sel});
         this.subviews.push(view);
-        this.$("." + sel).append(view.render().el);
+        this.$(".row").append(view.render().el);
         if(sel === "pending"){
             view.$el.addClass("edit-device");
         }
