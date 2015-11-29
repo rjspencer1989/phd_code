@@ -21,7 +21,7 @@ window.App.Collections.ConnectedDevices = Backbone.Collection.extend({
 });
 
 window.App.Views.Device = Backbone.View.extend({
-    className: "col-lg-3 col-md-4 col-sm-6",
+    className: "col-lg-3 col-md-4 col-sm-6 device",
     initialize: function(options){
         "use strict";
         this.template = window.JST[options.template];
