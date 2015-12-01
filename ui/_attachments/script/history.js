@@ -19,24 +19,37 @@ RouterConfigApp.Collections.Events = Backbone.Collection.extend({
     }
 });
 
-Event = Backbone.View.extend({
+Event = Marionette.ItemView.extend({
     tagName: "dd",
     template: window.JST.history_item,
+    className: 'clearfix',
+    
+    initialize: function(options){
+        this.isLeft = options.is_left;   
+    },
 
     events: {
         "click .undo-button": "request_undo",
         "click .revert-button": "revert_state"
     },
-    render: function(){
+    
+    serializeData: function(){
         "use strict";
         var date = new Date(this.model.get("timestamp"));
-        var data = getDateComponents(date);
-        console.log(data);
-        data.title = this.model.get("title");
-        data.description = this.model.get("description");
-        this.$el.empty().append(this.template(data));
-        return this;
+        var components = getDateComponents(date);
+        components.title = this.model.get("title");
+        components.description = this.model.get("description");
+        return components;
     },
+    
+    onRender: function(){
+        if (this.isLeft) {
+            this.$el.removeClass('pos-right').addClass('pos-left');
+        } else {
+            this.$el.removeClass('pos-left').addClass('pos-right');
+        }
+    },
+    
     request_undo: function(){
         "use strict";
         var should_undo = true;
@@ -62,55 +75,25 @@ Event = Backbone.View.extend({
     }
 });
 
-Events = Backbone.View.extend({
+Events = Marionette.CompositeView.extend({
     tagName: "div",
     className: "col-md-12",
     template: window.JST.history,
-    collection: new RouterConfigApp.Collections.Events(),
-    initialize: function(){
-        "use strict";
-        this.listenTo(this.collection, "reset", this.render);
-        this.listenTo(this.collection, "add", this.add_event);
-        this.collection.fetch({reset: true, descending: true});
-        this.subviews = [];
+    childView: Event,
+    childViewContainer: 'dl',
+    
+    childViewOptions: function(model, index){
+        var isLeft = (index % 2 === 0)
+        return {
+            is_left: isLeft
+        }
     },
 
-    add_event: function(){
+    onRender: function(){
         "use strict";
-        console.log(this);
-        this.collection.fetch({reset: true, descending: true});
-    },
-
-    render: function(){
-        "use strict";
-        this.$el.html(this.template());
-        $("#main-row").empty().append(this.el);
         window.setActiveLink("history-link");
         this.$(".date-picker").datepicker();
-        this.collection.each(this.addOne, this);
         return this;
-    },
-
-    addOne: function(event, index){
-        "use strict";
-        var cn = "pos-left clearfix";
-        if (index % 2 === 0) {
-            cn = "pos-right clearfix";
-        }
-        var view = new RouterConfigApp.Views.Event({model: event, className: cn});
-        this.subviews.push(view);
-        this.$("dl").append(view.render().el);
-        if(event.get("undoable") === true){
-            view.$el.addClass("undoable");
-        }
-    },
-
-    exit: function(){
-        "use strict";
-        for (var index in this.subviews) {
-            this.subviews[index].remove();
-        }
-        this.remove();
     }
 });
 

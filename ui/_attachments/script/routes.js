@@ -14,12 +14,16 @@ Router = Marionette.AppRouter.extend({
     
         history: function(){
             "use strict";
-            RouterConfigApp.root.main.show(new History());
+            var collection = new RouterConfigApp.Collections.Events();
+            collection.fetch({reset: true, descending: true});
+            RouterConfigApp.root.main.show(new Events({collection: collection}));
         },
     
         notifications: function(){
             "use strict";
-            RouterConfigApp.root.main.show(new Notifications());
+            var collection = new RouterConfigApp.Collections.Notifications();
+            collection.fetch({reset: true});
+            RouterConfigApp.root.main.show(new Notifications({collection: collection}));
         },
     
         controlPanel: function(){

@@ -43,10 +43,10 @@ WifiModel = Marionette.ItemView.extend({
         "use strict";
         event.preventDefault();
         var changed = false;
-        var newSSID = ui.ssid.val();
-        var newChannel = ui.channel.val();
-        var newPassword = ui.pasword.val();
-        var newMode = ui.mode.val();
+        var newSSID = this.ui.ssid.val();
+        var newChannel = this.ui.channel.val();
+        var newPassword = this.ui.pasword.val();
+        var newMode = this.ui.mode.val();
         var mod = this.collection.at(0);
         if(newSSID !== ""){
             changed = true;
