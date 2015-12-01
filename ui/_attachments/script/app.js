@@ -3,20 +3,54 @@ RouterConfigApp = new Marionette.Application();
 RouterConfigApp.on('start', function(){
     RouterConfigApp.router = new Router();
     RouterConfigApp.root = new RootView();
+    RouterConfigApp.root.render();
+    var linkCollection = new RouterConfigApp.Collections.Links(RouterConfigApp.links);
+    var LinkView = new Links({collection: linkCollection});
+    RouterConfigApp.root.nav.show(LinkView); 
     Backbone.history.start(); 
 });
 
 RootView = Marionette.LayoutView.extend({
-    el: '#container',
-    template: JST['main'],
+    el: 'body',
+    template: JST.main,
     regions: {
+        'nav': '#header',
         'main': '#main-row'
     }
 });
 
+RouterConfigApp.links = [
+    {
+        title: "Home",
+        link: "index.html/#/home",
+        icon: "glyphicon-home",
+        tag_id: "home-link"
+    }, {
+        title: "Wi-Fi",
+        link: "index.html/#/wifi",
+        icon: "glyphicon-signal",
+        tag_id: "wifi-link"
+    }
+];
+
 RouterConfigApp.Models = {};
 RouterConfigApp.Collections = {};
-RouterConfigApp.Views = {};
+
+RouterConfigApp.Models.Link = Backbone.Model.extend({});
+RouterConfigApp.Collections.Links = Backbone.Collection.extend({
+    model: RouterConfigApp.Models.Link
+});
+
+Link = Marionette.ItemView.extend({
+    template: JST.link,
+    tagName: 'li'
+});
+
+Links = Marionette.CompositeView.extend({
+    childView: Link,
+    childViewContainer: '#navbar-collapse > ul',
+    template: JST.nav
+});
 
 Backbone.couch_connector.config.db_name = "config";
 Backbone.couch_connector.config.ddoc_name = "homework-remote";

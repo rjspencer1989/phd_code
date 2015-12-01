@@ -25,7 +25,27 @@ RouterConfigApp.Collections.WifiHome = Backbone.Collection.extend({
     url: "wifi"
 });
 
-RouterConfigApp.Views.Wifi = Backbone.View.extend({
+WifiModel = Marionette.ItemView.extend({
+   template: JST.wifi,
+   
+   events: {
+        "submit #save-wifi-form": "saveWifi"
+    },
+    
+   onRender: function(){
+        window.setActiveLink("wifi-link");
+        $(".alert").hide();
+        $('[data-toggle="tooltip"]').tooltip();
+   }
+});
+
+WiFi = Marionette.CollectionView.extend({
+   tagName: 'div',
+   className: 'col-md-12',
+   childView: WifiModel
+});
+
+WifiLegacy = Backbone.View.extend({
     collection: new RouterConfigApp.Collections.Wifi(),
     tagName: "div",
     className: "col-md-12",

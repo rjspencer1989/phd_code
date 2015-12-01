@@ -1,6 +1,9 @@
 HomeWifi = Marionette.ItemView.extend({
-    collection: new RouterConfigApp.Collections.WifiHome(),
     template: window.JST.home_wifi
+});
+
+HomeWifiCollection = Marionette.CollectionView.extend({
+    childView: HomeWifi
 });
 
 HomeNotification = Marionette.ItemView.extend({
@@ -9,10 +12,9 @@ HomeNotification = Marionette.ItemView.extend({
 });
 
 HomeNotifications = Marionette.CompositeView.extend({
-    collection: new RouterConfigApp.Collections.Notifications(),
     template: JST.home_notifications,
     childViewContainer: 'tbody',
-    childView: Notification
+    childView: HomeNotification
 });
 
 HomeDevice = Marionette.ItemView.extend({
@@ -21,7 +23,6 @@ HomeDevice = Marionette.ItemView.extend({
 });
 
 HomeDevices = Marionette.CompositeView.extend({
-    collection: new RouterConfigApp.Collections.ConnectedDevices(),
     template: JST.home_devices,
     childView: HomeDevice,
     childViewContainer: 'tbody'
@@ -41,7 +42,13 @@ Home = Marionette.LayoutView.extend({
     onRender: function () {
         "use strict";
         window.setActiveLink("home-link");
-        var notifications = new HomeNotifications();
+        var wifiCollection = new RouterConfigApp.Collections.WifiHome();
+        wifiCollection.fetch({reset: true});
+        var wifi = new HomeWifiCollection({collection: wifiCollection});
+        this.wifi.show(wifi);
+        var notificationCollection = new RouterConfigApp.Collections.Notifications();
+        notificationCollection.fetch({reset: true});
+        var notifications = new HomeNotifications({collection: notificationCollection});
         this.notifications.show(notifications);
         var deviceCollection = new RouterConfigApp.Collections.ConnectedDevices();
         deviceCollection.fetch({reset: true});

@@ -23,6 +23,10 @@ h2 {
     padding :5px;
 }
 
+.alert{
+    display: none;
+}
+
 .device-inner{
     padding: 5px;
     border: 2px solid black;

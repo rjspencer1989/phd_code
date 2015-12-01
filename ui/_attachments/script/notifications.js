@@ -28,7 +28,7 @@ RouterConfigApp.Collections.Notifications = Backbone.Collection.extend({
     }
 });
 
-RouterConfigApp.Views.Notification = Backbone.View.extend({
+Notification = Backbone.View.extend({
     tagName: "tr",
     template: window.JST.notification_item,
 
@@ -103,7 +103,7 @@ RouterConfigApp.Views.Notification = Backbone.View.extend({
     }
 });
 
-RouterConfigApp.Views.MainUser = Backbone.View.extend({
+MainUser = Backbone.View.extend({
     className: "main_user_el",
     template: window.JST.main_user,
     events: {
@@ -128,7 +128,7 @@ RouterConfigApp.Views.MainUser = Backbone.View.extend({
     }
 });
 
-RouterConfigApp.Views.Notifications = Backbone.View.extend({
+Notifications = Backbone.View.extend({
     collection: new RouterConfigApp.Collections.Notifications(),
     tagName: "div",
     className: "col-md-12",

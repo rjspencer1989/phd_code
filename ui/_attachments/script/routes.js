@@ -7,7 +7,9 @@ Router = Marionette.AppRouter.extend({
 
         wifi: function(){
             "use strict";
-            RouterConfigApp.root.main.show(new WiFi());
+            var collection = new RouterConfigApp.Collections.Wifi();
+            collection.fetch({reset: true});
+            RouterConfigApp.root.main.show(new WiFi({collection: collection}));
         },
     
         history: function(){
@@ -27,6 +29,7 @@ Router = Marionette.AppRouter.extend({
     },
 
     appRoutes: {
+        "home": "home",
         "": "home",
         "wifi": "wifi",
         "history": "history",

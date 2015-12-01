@@ -20,7 +20,7 @@ RouterConfigApp.Collections.ConnectedDevices = Backbone.Collection.extend({
     model: RouterConfigApp.Models.Device
 });
 
-RouterConfigApp.Views.Device = Backbone.View.extend({
+Device = Backbone.View.extend({
     className: "col-lg-3 col-md-4 col-sm-6 device",
     initialize: function(options){
         "use strict";
@@ -132,7 +132,7 @@ RouterConfigApp.Views.Device = Backbone.View.extend({
     }
 });
 
-RouterConfigApp.Views.ControlPanelView = Backbone.View.extend({
+ControlPanelView = Backbone.View.extend({
     collection: new RouterConfigApp.Collections.Devices(),
     tagName: "div",
     className: "col-md-12",

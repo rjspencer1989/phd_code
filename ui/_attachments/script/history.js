@@ -19,7 +19,7 @@ RouterConfigApp.Collections.Events = Backbone.Collection.extend({
     }
 });
 
-RouterConfigApp.Views.Event = Backbone.View.extend({
+Event = Backbone.View.extend({
     tagName: "dd",
     template: window.JST.history_item,
 
@@ -62,7 +62,7 @@ RouterConfigApp.Views.Event = Backbone.View.extend({
     }
 });
 
-RouterConfigApp.Views.Events = Backbone.View.extend({
+Events = Backbone.View.extend({
     tagName: "div",
     className: "col-md-12",
     template: window.JST.history,
