@@ -20,8 +20,21 @@ h2 {
 }
 
 .device {
+    padding :5px;
+}
+
+.device-inner{
+    padding: 5px;
     border: 2px solid black;
     border-radius: 5px;
+}
+
+.permit>div{
+    border: 2px solid green;
+}
+
+.deny>div{
+    border:2px solid red;
 }
 
 .editing .edit-controls{

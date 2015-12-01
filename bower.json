@@ -6,6 +6,7 @@
     "jquery-ui": "latest",
     "backbone": "latest",
     "backbone-couchdb": "latest",
+    "marionette": "latest",
     "jasmine": "latest",
     "jasmine-jquery": "latest",
     "bootstrap": "latest",

@@ -1,4 +1,4 @@
-window.App.Models.Wifi = Backbone.Model.extend({
+RouterConfigApp.Models.Wifi = Backbone.Model.extend({
     defaults: {
         collection: "wifi",
         status: "pending",
@@ -11,8 +11,8 @@ window.App.Models.Wifi = Backbone.Model.extend({
     }
 });
 
-window.App.Collections.Wifi = Backbone.Collection.extend({
-    model: window.App.Models.Wifi,
+RouterConfigApp.Collections.Wifi = Backbone.Collection.extend({
+    model: RouterConfigApp.Models.Wifi,
     url: "wifi",
     db: {
         changes: true,
@@ -20,13 +20,13 @@ window.App.Collections.Wifi = Backbone.Collection.extend({
     }
 });
 
-window.App.Collections.WifiHome = Backbone.Collection.extend({
-    model: window.App.Models.Wifi,
+RouterConfigApp.Collections.WifiHome = Backbone.Collection.extend({
+    model: RouterConfigApp.Models.Wifi,
     url: "wifi"
 });
 
-window.App.Views.Wifi = Backbone.View.extend({
-    collection: new window.App.Collections.Wifi(),
+RouterConfigApp.Views.Wifi = Backbone.View.extend({
+    collection: new RouterConfigApp.Collections.Wifi(),
     tagName: "div",
     className: "col-md-12",
     template: window.JST.wifi,

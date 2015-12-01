@@ -1,50 +1,109 @@
-
-    <div class="view">
-        <%-device_name%>
+<div class="device-inner container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            Device Name
+        </div>
+        <div class="col-md-2 col-md-offset-2">
+            <div class="view">
+                <%-device_name%>
+            </div>
+            <div class="edit-controls">
+                <input type="text" name="edit_device_name_input" id="edit_device_name_input" value="<%-device_name%>">
+            </div>
+        </div>
     </div>
-    <div class="edit-controls">
-        <input type="text" name="edit_device_name_input" id="edit_device_name_input" value="<%-device_name%>">
+    <div class="row">
+        <div class="col-md-2">
+            Owner       
+        </div>
+        <div class="col-md-2 col-md-offset-2">
+            <div class="view">
+                <%-name%>
+            </div>
+            <!--<div class="edit-controls">-->
+            <!--    <input type="text" name="edit_owner_input" id="edit_owner_input" value="<%-name%>">-->
+            <!--</div>    -->
+        </div>
     </div>
-    <div class="view">
-        <%-name%>
+    <div class="row">
+        <div class="col-md-2">
+            Device Type
+        </div>
+        <div class="col-md-2 col-md-offset-2">
+            <div class="view">
+                <%-device_type%>
+            </div>
+            <!--<div class="edit-controls">-->
+            <!--    <select name="device_type_select" id="device_type_select">-->
+            <!--        <option value="desktop">Desktop</option>-->
+            <!--        <option value="laptop">Laptop</option>-->
+            <!--        <option value="phone">Phone</option>-->
+            <!--        <option value="tablet">Tablet</option>-->
+            <!--        <option value="other">Other</option>-->
+            <!--    </select>-->
+            <!--</div>        -->
+        </div>
     </div>
-    <div class="edit-controls">
-        <input type="text" name="edit_owner_input" id="edit_owner_input" value="<%-name%>">
+    <div class="row">
+        <div class="col-md-2">
+            Notification Service
+        </div>
+        <div class="col-md-2 col-md-offset-2">
+            <div class="view">
+                <%-notification_service%>
+            </div>
+            <!--<div class="edit-controls">-->
+            <!--    <select name="device_notification_select" id="device_notification_select">-->
+            <!--        <option value="email">Email</option>-->
+            <!--        <option value="phone">SMS</option>-->
+            <!--        <option value="growl">Growl</option>-->
+            <!--        <option value="twitter">Twitter</option>-->
+            <!--    </select>-->
+            <!--</div>-->
+        </div>
     </div>
-    <div class="view">
-        <%-device_type%>
+    
+    <div class="row">
+        <div class="col-md-2">
+            MAC Address
+        </div>
+        <div class="col-md-2 col-md-offset-2">
+            <%-mac_address%>
+        </div>
     </div>
-    <div class="edit-controls">
-        <select name="device_type_select" id="device_type_select">
-            <option value="desktop">Desktop</option>
-            <option value="laptop">Laptop</option>
-            <option value="phone">Phone</option>
-            <option value="tablet">Tablet</option>
-            <option value="other">Other</option>
-        </select>
+    
+    <div class="row">
+        <div class="col-md-2">
+            IP Address
+        </div>
+        <div class="col-md-2 col-md-offset-2">
+            <%-ip_address%>
+        </div>
     </div>
-    <div class="view">
-        <%-notification_service%>
+    
+    <div class="row">
+        <div class="col-md-2">
+            Port
+        </div>
+        <div class="col-md-2 col-md-offset-2 port">
+            <%-port%>
+        </div>
     </div>
-    <div class="edit-controls">
-        <select name="device_notification_select" id="device_notification_select">
-            <option value="email">Email</option>
-            <option value="phone">SMS</option>
-            <option value="growl">Growl</option>
-            <option value="twitter">Twitter</option>
-        </select>
+    
+    <div class="row">
+        <div class="col-md-2">
+            Connected?
+        </div>
+        <div class="col-md-2 col-md-offset-2 is_connected"></div>
     </div>
-<div><%-mac_address%></div>
-<div><%-ip_address%></div>
-<div class="port"><%-port%></div>
-<div class="is_connected"></div>
-<div>
-    <div class="view">
-        <button class="btn btn-danger deny-button" type="button">Deny</button>
-        <button class="btn btn-default edit-button" type="button">Edit</button>
-    </div>
-    <div class="edit-controls">
-        <button class="btn btn-primary save-button" type="button">Save</button>
-        <button class="btn btn-default cancel-button" type="button">Cancel</button>
-    </div>
+    <!--<div>-->
+    <!--    <div class="view">-->
+    <!--        <button class="btn btn-danger deny-button" type="button">Deny</button>-->
+    <!--        <button class="btn btn-default edit-button" type="button">Edit</button>-->
+    <!--    </div>-->
+    <!--    <div class="edit-controls">-->
+    <!--        <button class="btn btn-primary save-button" type="button">Save</button>-->
+    <!--        <button class="btn btn-default cancel-button" type="button">Cancel</button>-->
+    <!--    </div>-->
+    <!--</div>-->
 </div>

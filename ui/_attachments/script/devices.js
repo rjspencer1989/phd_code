@@ -1,26 +1,26 @@
-window.App.Models.Device = Backbone.Model.extend({
+RouterConfigApp.Models.Device = Backbone.Model.extend({
     url: this.mac_address
 });
 
-window.App.Collections.Devices = Backbone.Collection.extend({
+RouterConfigApp.Collections.Devices = Backbone.Collection.extend({
     url: "devices",
     db: {
         view: "control",
         changes: true,
         filter: Backbone.couch_connector.config.ddoc_name + "/devices_ui"
     },
-    model: window.App.Models.Device
+    model: RouterConfigApp.Models.Device
 });
 
-window.App.Collections.ConnectedDevices = Backbone.Collection.extend({
+RouterConfigApp.Collections.ConnectedDevices = Backbone.Collection.extend({
     url: "devices",
     db: {
         view: "connected_devices"
     },
-    model: window.App.Models.Device
+    model: RouterConfigApp.Models.Device
 });
 
-window.App.Views.Device = Backbone.View.extend({
+RouterConfigApp.Views.Device = Backbone.View.extend({
     className: "col-lg-3 col-md-4 col-sm-6 device",
     initialize: function(options){
         "use strict";
@@ -38,7 +38,6 @@ window.App.Views.Device = Backbone.View.extend({
     render: function(){
         "use strict";
         this.$el.empty().append(this.template(this.model.toJSON()));
-        this.$el.addClass("device");
         var txt = "No";
         var port = this.model.get("port");
         var re = /^wlan0(_1)?$/;
@@ -133,8 +132,8 @@ window.App.Views.Device = Backbone.View.extend({
     }
 });
 
-window.App.Views.ControlPanelView = Backbone.View.extend({
-    collection: new window.App.Collections.Devices(),
+RouterConfigApp.Views.ControlPanelView = Backbone.View.extend({
+    collection: new RouterConfigApp.Collections.Devices(),
     tagName: "div",
     className: "col-md-12",
     template: window.JST.control_panel,
@@ -151,9 +150,9 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
     addOne: function(device){
         "use strict";
         var sel = device.get("state");
-        var view = new window.App.Views.Device({model: device, template: "device_" + sel});
+        var view = new RouterConfigApp.Views.Device({model: device, template: "device_" + sel});
         this.subviews.push(view);
-        this.$(".row").append(view.render().el);
+        this.$(".device_container").append(view.render().el);
         if(sel === "pending"){
             view.$el.addClass("edit-device");
         }
@@ -161,7 +160,6 @@ window.App.Views.ControlPanelView = Backbone.View.extend({
 
     render: function(){
         "use strict";
-        console.log("render");
         this.$el.html(this.template());
         $("#main-row").empty().append(this.el);
         window.setActiveLink("devices-link");

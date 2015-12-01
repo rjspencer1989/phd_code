@@ -1,4 +1,4 @@
-window.App.Models.Notification = Backbone.Model.extend({
+RouterConfigApp.Models.Notification = Backbone.Model.extend({
     defaults: {
         collection: "notifications",
         name: "",
@@ -8,7 +8,7 @@ window.App.Models.Notification = Backbone.Model.extend({
     }
 });
 
-window.App.Models.MainUser = Backbone.Model.extend({
+RouterConfigApp.Models.MainUser = Backbone.Model.extend({
     defaults: {
         collection: "main_user",
         name: "",
@@ -19,8 +19,8 @@ window.App.Models.MainUser = Backbone.Model.extend({
     url: "main_user"
 });
 
-window.App.Collections.Notifications = Backbone.Collection.extend({
-    model: window.App.Models.Notification,
+RouterConfigApp.Collections.Notifications = Backbone.Collection.extend({
+    model: RouterConfigApp.Models.Notification,
     url: "notifications",
     db: {
         changes: true,
@@ -28,7 +28,7 @@ window.App.Collections.Notifications = Backbone.Collection.extend({
     }
 });
 
-window.App.Views.Notification = Backbone.View.extend({
+RouterConfigApp.Views.Notification = Backbone.View.extend({
     tagName: "tr",
     template: window.JST.notification_item,
 
@@ -103,7 +103,7 @@ window.App.Views.Notification = Backbone.View.extend({
     }
 });
 
-window.App.Views.MainUser = Backbone.View.extend({
+RouterConfigApp.Views.MainUser = Backbone.View.extend({
     className: "main_user_el",
     template: window.JST.main_user,
     events: {
@@ -128,8 +128,8 @@ window.App.Views.MainUser = Backbone.View.extend({
     }
 });
 
-window.App.Views.Notifications = Backbone.View.extend({
-    collection: new window.App.Collections.Notifications(),
+RouterConfigApp.Views.Notifications = Backbone.View.extend({
+    collection: new RouterConfigApp.Collections.Notifications(),
     tagName: "div",
     className: "col-md-12",
     template: window.JST.notification_collection,
@@ -137,7 +137,7 @@ window.App.Views.Notifications = Backbone.View.extend({
         "use strict";
         this.listenTo(this.collection, "reset", this.render);
         this.listenTo(this.collection, "add", this.addOne);
-        this.main_user_model = new window.App.Models.MainUser();
+        this.main_user_model = new RouterConfigApp.Models.MainUser();
         this.main_user_model.fetch({reset: true});
         this.collection.fetch({reset: true});
         this.subviews = [];
@@ -156,7 +156,7 @@ window.App.Views.Notifications = Backbone.View.extend({
         this.collection.each(this.addOne, this);
         this.$el.find("#service").trigger("change");
         $(".alert").hide();
-        var main_user_view = new window.App.Views.MainUser({model: this.main_user_model});
+        var main_user_view = new RouterConfigApp.Views.MainUser({model: this.main_user_model});
         this.subviews.push(main_user_view);
         $("#main-user-div").empty().append(main_user_view.render().el);
         return this;
@@ -169,7 +169,7 @@ window.App.Views.Notifications = Backbone.View.extend({
 
     addOne: function (notification) {
         "use strict";
-        var view = new window.App.Views.Notification({model: notification});
+        var view = new RouterConfigApp.Views.Notification({model: notification});
         this.subviews.push(view);
         this.$("#notification-registration-table > tbody").append(view.render().el);
     },
@@ -177,7 +177,7 @@ window.App.Views.Notifications = Backbone.View.extend({
     addNotification: function (e) {
         "use strict";
         e.preventDefault();
-        var newModel = new window.App.Models.Notification();
+        var newModel = new RouterConfigApp.Models.Notification();
         $("#add-notification-form").children("input").each(function (i, el) {
             if ($(el).val() !== "") {
                 newModel.set(el.id, $(el).val());

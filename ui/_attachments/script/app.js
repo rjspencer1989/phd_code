@@ -1,10 +1,22 @@
-window.App = {
-    Models: {},
-    Collections: {},
-    Views: {},
-    Routers: {},
-    routerInstance: null
-};
+RouterConfigApp = new Marionette.Application();
+
+RouterConfigApp.on('start', function(){
+    RouterConfigApp.router = new Router();
+    RouterConfigApp.root = new RootView();
+    Backbone.history.start(); 
+});
+
+RootView = Marionette.LayoutView.extend({
+    el: '#container',
+    template: JST['main'],
+    regions: {
+        'main': '#main-row'
+    }
+});
+
+RouterConfigApp.Models = {};
+RouterConfigApp.Collections = {};
+RouterConfigApp.Views = {};
 
 Backbone.couch_connector.config.db_name = "config";
 Backbone.couch_connector.config.ddoc_name = "homework-remote";

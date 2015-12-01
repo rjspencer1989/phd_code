@@ -1,4 +1,4 @@
-window.App.Models.Event = Backbone.Model.extend({
+RouterConfigApp.Models.Event = Backbone.Model.extend({
     defaults: {
         title: "",
         description: "",
@@ -9,9 +9,9 @@ window.App.Models.Event = Backbone.Model.extend({
     }
 });
 
-window.App.Collections.Events = Backbone.Collection.extend({
+RouterConfigApp.Collections.Events = Backbone.Collection.extend({
     url: "events",
-    model: window.App.Models.Event,
+    model: RouterConfigApp.Models.Event,
     db: {
         view: "events",
         changes: true,
@@ -19,7 +19,7 @@ window.App.Collections.Events = Backbone.Collection.extend({
     }
 });
 
-window.App.Views.Event = Backbone.View.extend({
+RouterConfigApp.Views.Event = Backbone.View.extend({
     tagName: "dd",
     template: window.JST.history_item,
 
@@ -56,17 +56,17 @@ window.App.Views.Event = Backbone.View.extend({
     },
     revert_state: function(){
         "use strict";
-        var newDoc = new window.App.Models.Rollback();
+        var newDoc = new RouterConfigApp.Models.Rollback();
         newDoc.set({timestamp: this.model.get("timestamp")});
         newDoc.save();
     }
 });
 
-window.App.Views.Events = Backbone.View.extend({
+RouterConfigApp.Views.Events = Backbone.View.extend({
     tagName: "div",
     className: "col-md-12",
     template: window.JST.history,
-    collection: new window.App.Collections.Events(),
+    collection: new RouterConfigApp.Collections.Events(),
     initialize: function(){
         "use strict";
         this.listenTo(this.collection, "reset", this.render);
@@ -97,7 +97,7 @@ window.App.Views.Events = Backbone.View.extend({
         if (index % 2 === 0) {
             cn = "pos-right clearfix";
         }
-        var view = new window.App.Views.Event({model: event, className: cn});
+        var view = new RouterConfigApp.Views.Event({model: event, className: cn});
         this.subviews.push(view);
         this.$("dl").append(view.render().el);
         if(event.get("undoable") === true){
@@ -114,7 +114,7 @@ window.App.Views.Events = Backbone.View.extend({
     }
 });
 
-window.App.Models.Rollback = Backbone.Model.extend({
+RouterConfigApp.Models.Rollback = Backbone.Model.extend({
     url: this.id,
     defaults: {
         collection: "request_revert",
