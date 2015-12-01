@@ -34,9 +34,9 @@ WifiModel = Marionette.ItemView.extend({
     
     ui: {
         ssid: '#ssid_input',
-        channel: '#channel_select : selected',
+        channel: '#channel_select',
         pasword: '#password_input',
-        mode: '#mode_select: selected'
+        mode: '#mode_select'
     },
     
     saveWifi: function(event){
@@ -47,41 +47,40 @@ WifiModel = Marionette.ItemView.extend({
         var newChannel = this.ui.channel.val();
         var newPassword = this.ui.pasword.val();
         var newMode = this.ui.mode.val();
-        var mod = this.collection.at(0);
+
         if(newSSID !== ""){
             changed = true;
-            mod.set({ssid: newSSID});
+            this.model.set({ssid: newSSID});
         }
         if(newChannel !== "blank"){
             changed = true;
-            mod.set({channel: newChannel});
+            this.model.set({channel: newChannel});
         }
         if(newMode !== "blank"){
             changed = true;
-            mod.set({mode: newMode});
+            this.model.set({mode: newMode});
         }
         if(newPassword !== ""){
             changed = true;
-            mod.set({password: newPassword});
+            this.model.set({password: newPassword});
         }
-        mod.set({status: "pending"});
+        this.model.set({status: "pending"});
 
         if (newSSID === "" && newPassword === "") {
-            mod.set({with_bss: false});
+            this.model.set({with_bss: false});
         }
         if(changed === true){
-            mod.save(null, {
+            this.model.save(null, {
                 error: function(model, response){
                     $(".alert.alert-danger").append(response.reason).show();
-                    this.collection.fetch({reset: true});
+                    model.fetch({reset: true});
                 },
                 success: function(model, response){
                     $(".alert.alert-success").show();
+                    model.fetch({reset: true});
                 }
             });
         }
-        console.log(changed);
-        return false;
     }
 });
 
