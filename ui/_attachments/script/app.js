@@ -30,6 +30,21 @@ RouterConfigApp.links = [
         link: "index.html/#/wifi",
         icon: "glyphicon-signal",
         tag_id: "wifi-link"
+    }, {
+        title: "Notifications",
+        link: "index.html/#/notifications",
+        icon: "glyphicon-inbox",
+        tag_id: "registrations-link"
+    }, {
+        title: "Devices",
+        icon: "glyphicon-phone",
+        link: "index.html/#/devices",
+        tag_id: "devices_link"
+    }, {
+        title: "History",
+        icon: "glyphicon-time",
+        link: "index.html/#/history",
+        tag_id: "history_link"
     }
 ];
 
