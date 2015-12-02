@@ -7,7 +7,6 @@ Router = Marionette.AppRouter.extend({
 
         wifi: function(){
             "use strict";
-            console.log('rofl');
             var collection = new RouterConfigApp.Collections.Wifi();
             collection.fetch({reset: true});
             RouterConfigApp.root.main.show(new WiFi({collection: collection}));
@@ -22,10 +21,14 @@ Router = Marionette.AppRouter.extend({
     
         notifications: function(){
             "use strict";
-            console.log('foobar');
-            var collection = new RouterConfigApp.Collections.Notifications();
-            collection.fetch({reset: true});
-            RouterConfigApp.root.main.show(new Notifications({collection: collection}));
+            var notificationCollection = new RouterConfigApp.Collections.Notifications();
+            notificationCollection.fetch({reset: true});
+            var userCollection = new RouterConfigApp.Collections.MainUser();
+            userCollection.fetch({reset: true});
+            var notificationLayout = new NotificationLayout();
+            RouterConfigApp.root.main.show(notificationLayout);
+            notificationLayout.notification_region.show(new Notifications({collection: notificationCollection}));
+            notificationLayout.main_user_region.show(new MainUserCollection({collection: userCollection}));
         },
     
         controlPanel: function(){
