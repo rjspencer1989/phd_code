@@ -27,6 +27,10 @@ h2 {
     display: none;
 }
 
+#ui-datepicker-div{
+    z-index: 1000 !important;
+}
+
 .device-inner{
     padding: 5px;
     border: 2px solid black;

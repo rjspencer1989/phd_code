@@ -83,17 +83,32 @@ Events = Marionette.CompositeView.extend({
     childViewContainer: 'dl',
     
     childViewOptions: function(model, index){
-        var isLeft = (index % 2 === 0)
+        var isLeft = (index % 2 === 0);
         return {
             is_left: isLeft
-        }
+        };
+    },
+    
+    events: {
+        "submit #revert_datepicker_form": "revertDatepicker"   
     },
 
     onRender: function(){
         "use strict";
         window.setActiveLink("history-link");
-        this.$(".date-picker").datepicker();
+        this.$("#datepicker").datepicker();
+        this.$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
         return this;
+    },
+    
+    revertDatepicker: function(event){
+        "use strict";
+        event.preventDefault();
+        var newDoc = new RouterConfigApp.Models.Rollback();
+        var ts = this.$("#datepicker").val();
+        ts += "T00:00:00Z";
+        newDoc.set({timestamp: ts});
+        newDoc.save();
     }
 });
 
