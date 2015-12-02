@@ -23,6 +23,10 @@ RouterConfigApp.Collections.Wifi = Backbone.Collection.extend({
 WifiModel = Marionette.ItemView.extend({
    template: JST.wifi,
    
+   initialize: function(){
+       this.listenTo(this.model, 'change', this.render);
+   },
+   
    events: {
         "submit #save-wifi-form": "saveWifi"
     },
@@ -77,7 +81,6 @@ WifiModel = Marionette.ItemView.extend({
                 },
                 success: function(model, response){
                     $(".alert.alert-success").show();
-                    model.fetch({reset: true});
                 }
             });
         }
