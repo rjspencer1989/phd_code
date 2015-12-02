@@ -20,11 +20,12 @@ RouterConfigApp.Collections.ConnectedDevices = Backbone.Collection.extend({
     model: RouterConfigApp.Models.Device
 });
 
-Device = Backbone.View.extend({
+Device = Marionette.ItemView.extend({
     className: "col-lg-3 col-md-4 col-sm-6 device",
-    initialize: function(options){
-        "use strict";
-        this.template = window.JST[options.template];
+    
+    getTemplate: function(){
+        
+        return JST[this.model.get('state')]
     },
 
     events: {
@@ -34,10 +35,17 @@ Device = Backbone.View.extend({
         "click .cancel-button": "cancel",
         "click .save-button": "save"
     },
+    
+    modelEvents: {
+        "change": "deviceChanged"
+    },
+    
+    deviceChanged: function(){
+        this.render();
+    },
 
-    render: function(){
+    onRender: function(){
         "use strict";
-        this.$el.empty().append(this.template(this.model.toJSON()));
         var txt = "No";
         var port = this.model.get("port");
         var re = /^wlan0(_1)?$/;
@@ -50,12 +58,15 @@ Device = Backbone.View.extend({
         this.$(".is_connected").html(txt);
         this.$(".port").html(port);
         var router_ip = window.location.hostname;
-        var end = parseInt(router_ip.substr(router_ip.lastIndexOf('.') + 1));
+        var end = parseInt(router_ip.substr(router_ip.lastIndexOf('.') + 1), 10);
         var client_ip = '10.2.0.' + (end - 1).toString();
         if(this.model.get('ip_address') === client_ip){
             this.$('.deny-button').attr('disabled', true);
         }
-        return this;
+        
+        if(this.model.get('state') === 'pending'){
+            this.$el.addClass('editing');
+        }
     },
 
     deny: function(){
@@ -132,54 +143,16 @@ Device = Backbone.View.extend({
     }
 });
 
-ControlPanelView = Backbone.View.extend({
+Devices = Marionette.CompositeView.extend({
     collection: new RouterConfigApp.Collections.Devices(),
     tagName: "div",
     className: "col-md-12",
     template: window.JST.control_panel,
-    initialize: function(){
-        "use strict";
-        this.listenTo(this.collection, "reset", this.render);
-        this.listenTo(this.collection, "add", this.addOne);
-        this.listenTo(this.collection, "remove", this.render);
-        this.listenTo(this.collection, "change", this.render);
-        this.collection.fetch({reset: true});
-        this.subviews = [];
-    },
+    childView: Device,
+    childViewContainer: '.device_container',
 
-    addOne: function(device){
+    onRender: function(){
         "use strict";
-        var sel = device.get("state");
-        var view = new RouterConfigApp.Views.Device({model: device, template: "device_" + sel});
-        this.subviews.push(view);
-        this.$(".device_container").append(view.render().el);
-        if(sel === "pending"){
-            view.$el.addClass("edit-device");
-        }
-    },
-
-    render: function(){
-        "use strict";
-        this.$el.html(this.template());
-        $("#main-row").empty().append(this.el);
         window.setActiveLink("devices-link");
-        $(".alert").hide();
-        this.collection.each(this.addOne, this);
-        return this;
-    },
-
-    closeSubViews: function(){
-        "use strict";
-        var item = {};
-        for (var index in this.subviews) {
-            item = this.subviews[index];
-            item.remove();
-        }
-    },
-
-    exit: function(){
-        "use strict";
-        this.closeSubViews();
-        this.remove();
     }
 });

@@ -22,13 +22,17 @@ RouterConfigApp.Collections.Wifi = Backbone.Collection.extend({
 
 WifiModel = Marionette.ItemView.extend({
    template: JST.wifi,
-   
-   initialize: function(){
-       this.listenTo(this.model, 'change', this.render);
-   },
-   
+
    events: {
         "submit #save-wifi-form": "saveWifi"
+    },
+    
+    modelEvents: {
+        'change': 'dataChanged'
+    },
+    
+    dataChanged: function(){
+        this.render();
     },
     
     onShow: function(){

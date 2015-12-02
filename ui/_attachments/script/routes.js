@@ -33,7 +33,9 @@ Router = Marionette.AppRouter.extend({
     
         controlPanel: function(){
             "use strict";
-            RouterConfigApp.root.main.show(new Devices());
+            var collection = new RouterConfigApp.Collections.Devices();
+            collection.fetch({reset: true});
+            RouterConfigApp.root.main.show(new Devices({collection: collection}));
         }   
     },
 
@@ -43,6 +45,6 @@ Router = Marionette.AppRouter.extend({
         "wifi": "wifi",
         "history": "history",
         "notifications": "notifications",
-        "control": "controlPanel"
+        "devices": "controlPanel"
     }
 });
