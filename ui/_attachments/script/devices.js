@@ -24,24 +24,30 @@ Device = Marionette.ItemView.extend({
     className: "col-lg-3 col-md-4 col-sm-6 device",
     
     getTemplate: function(){
-        
         return JST[this.model.get('state')];
+    },
+    
+    ui: {
+        device_name : '#edit_device_name_input',
+        port: '.port',
+        isConnected: '.is_connected',
+        denyButton: '.deny-button',
+        permitButton: '.permit-button',
+        editButton: '.edit-button'
     },
 
     events: {
-        "click .deny-button": "deny",
-        "click .permit-button": "permit",
-        "click .edit-button": "edit",
+        "click @ui.denyButton": "deny",
+        "click @ui.permitButton": "permit",
+        "click @ui.editButton": "edit",
         "click .cancel-button": "cancel",
         "click .save-button": "save"
     },
     
     modelEvents: {
-        "change": "deviceChanged"
-    },
-    
-    deviceChanged: function(){
-        this.render();
+        "change": function(){
+            this.render();
+        }
     },
 
     onRender: function(){
@@ -55,23 +61,25 @@ Device = Marionette.ItemView.extend({
         if(this.model.get("connection_event") === "connect"){
             txt = "Yes";
         }
-        this.$(".is_connected").html(txt);
-        this.$(".port").html(port);
+        this.ui.isConnected.html(txt);
+        this.ui.port.html(port);
         var router_ip = window.location.hostname;
         var end = parseInt(router_ip.substr(router_ip.lastIndexOf('.') + 1), 10);
         var client_ip = '10.2.0.' + (end - 1).toString();
         if(this.model.get('ip_address') === client_ip){
-            this.$('.deny-button').attr('disabled', true);
+            this.ui.denyButton.attr('disabled', true);
         }
         
         if(this.model.get('state') === 'pending'){
             this.$el.addClass('editing');
+        } else{
+            this.$el.removeClass('editing');
         }
     },
 
     deny: function(){
         "use strict";
-        if(this.$el.hasClass("edit-device")){
+        if(this.$el.hasClass("editing")){
             var owner = this.$("#device_owner_input").val();
             var device_name = this.$("#device_name_input").val();
             var device_type = this.$("#device_type_select :selected").val();
@@ -92,7 +100,7 @@ Device = Marionette.ItemView.extend({
 
     permit: function(){
         "use strict";
-        if(this.$el.hasClass("edit-device")){
+        if(this.$el.hasClass("editing")){
             var owner = this.$("#device_owner_input").val();
             var device_name = this.$("#device_name_input").val();
             var device_type = this.$("#device_type_select :selected").val();
@@ -136,10 +144,9 @@ Device = Marionette.ItemView.extend({
         this.model.set({changed_by: "user"});
         this.model.save(null, {
             error: function(model, response){
-                $(".alert").append(response.reason).show();
+                $(".alert-danger").show();
             }
         });
-        this.$el.removeClass("editing");
     }
 });
 

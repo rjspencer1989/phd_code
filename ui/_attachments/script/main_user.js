@@ -28,7 +28,7 @@ MainUser = Marionette.ItemView.extend({
     
     ui: {
         name: "#main-name",
-        service: "#main-service :selected"
+        service: "#main-service"
     },
     
     set_main_user: function(e){
@@ -39,7 +39,13 @@ MainUser = Marionette.ItemView.extend({
         this.model.set("name", name);
         this.model.set("service", service);
         this.model.set("status", "pending");
-        this.model.save();
+        this.model.save(null, {
+            success: function(model, response){
+                $('.alert.alert-success').show();
+            }, error: function(model, response){
+                $('.alert.alert-danger').show();
+            }
+        });
     }
 });
 
