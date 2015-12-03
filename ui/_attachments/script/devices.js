@@ -29,19 +29,23 @@ Device = Marionette.ItemView.extend({
     
     ui: {
         device_name : '#edit_device_name_input',
+        owner: '#device_owner_input',
         port: '.port',
         isConnected: '.is_connected',
         denyButton: '.deny-button',
         permitButton: '.permit-button',
-        editButton: '.edit-button'
+        editButton: '.edit-button',
+        cancelButton: '.cancel-button',
+        saveButton: '.save-button',
+        errorAlert: '.alert-danger strong'
     },
 
     events: {
         "click @ui.denyButton": "deny",
         "click @ui.permitButton": "permit",
         "click @ui.editButton": "edit",
-        "click .cancel-button": "cancel",
-        "click .save-button": "save"
+        "click @ui.cancelButton": "cancel",
+        "click @ui.saveButton": "save"
     },
     
     modelEvents: {
@@ -80,7 +84,7 @@ Device = Marionette.ItemView.extend({
     deny: function(){
         "use strict";
         if(this.$el.hasClass("editing")){
-            var owner = this.$("#device_owner_input").val();
+            var owner = this.ui.owner.val();
             var device_name = this.$("#device_name_input").val();
             var device_type = this.$("#device_type_select :selected").val();
             var notification_service = this.$("#device_notification_select :selected").val();
@@ -93,7 +97,8 @@ Device = Marionette.ItemView.extend({
         this.model.set({changed_by: "user"});
         this.model.save(null, {
             error: function(model, response){
-                $(".alert").append(response.reason).show();
+                this.ui.errorAlert.append(response.reason);
+                this.ui.errorAlert.show();
             }
         });
     },
@@ -101,7 +106,7 @@ Device = Marionette.ItemView.extend({
     permit: function(){
         "use strict";
         if(this.$el.hasClass("editing")){
-            var owner = this.$("#device_owner_input").val();
+            var owner = this.ui.owner.val();
             var device_name = this.$("#device_name_input").val();
             var device_type = this.$("#device_type_select :selected").val();
             var notification_service = this.$("#device_notification_select :selected").val();
@@ -114,7 +119,8 @@ Device = Marionette.ItemView.extend({
         this.model.set({changed_by: "user"});
         this.model.save(null, {
             error: function(model, response){
-                $(".alert").append(response.reason).show();
+                this.ui.errorAlert.append(response.reason);
+                this.ui.errorAlert.show();
             }
         });
     },
@@ -133,7 +139,7 @@ Device = Marionette.ItemView.extend({
 
     save: function(){
         "use strict";
-        var owner = this.$("#edit_owner_input").val();
+        var owner = this.ui.owner.val();
         var device_name = this.$("#edit_device_name_input").val();
         var device_type = this.$("#device_type_select :selected").val();
         var notification_service = this.$("#device_notification_select :selected").val();
@@ -144,7 +150,8 @@ Device = Marionette.ItemView.extend({
         this.model.set({changed_by: "user"});
         this.model.save(null, {
             error: function(model, response){
-                $(".alert-danger").show();
+                this.ui.errorAlert.append(response.reason);
+                this.ui.errorAlert.show();
             }
         });
     }
