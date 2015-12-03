@@ -39,12 +39,12 @@ RouterConfigApp.links = [
         title: "Devices",
         icon: "glyphicon-phone",
         link: "index.html/#/devices",
-        tag_id: "devices_link"
+        tag_id: "devices-link"
     }, {
         title: "History",
         icon: "glyphicon-time",
         link: "index.html/#/history",
-        tag_id: "history_link"
+        tag_id: "history-link"
     }
 ];
 

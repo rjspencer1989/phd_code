@@ -25,7 +25,7 @@ Device = Marionette.ItemView.extend({
     
     getTemplate: function(){
         
-        return JST[this.model.get('state')]
+        return JST[this.model.get('state')];
     },
 
     events: {

@@ -96,8 +96,6 @@ Events = Marionette.CompositeView.extend({
     onRender: function(){
         "use strict";
         window.setActiveLink("history-link");
-        this.$("#datepicker").datepicker();
-        this.$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
         return this;
     },
     
@@ -106,7 +104,7 @@ Events = Marionette.CompositeView.extend({
         event.preventDefault();
         var newDoc = new RouterConfigApp.Models.Rollback();
         var ts = this.$("#datepicker").val();
-        ts += "T00:00:00Z";
+        ts = new Date(ts).toISOString();
         newDoc.set({timestamp: ts});
         newDoc.save();
     }

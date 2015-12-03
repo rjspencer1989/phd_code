@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "dependencies": {
     "jquery": "latest",
-    "jquery-ui": "latest",
     "backbone": "latest",
     "backbone-couchdb": "latest",
     "marionette": "latest",

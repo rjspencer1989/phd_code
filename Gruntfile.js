@@ -47,8 +47,6 @@ module.exports = function(grunt){
                     'libs/jasmine/jasmine.css': 'jasmine/lib/jasmine-core/jasmine.css',
                     'libs/jasmine-jquery.js': 'jasmine-jquery/lib/jasmine-jquery.js',
                     'libs/jquery.min.js': 'jquery/dist/jquery.min.js',
-                    'libs/jquery-ui.min.js': 'jquery-ui/jquery-ui.min.js',
-                    'libs/jquery-ui.min.css': 'jquery-ui/themes/smoothness/jquery-ui.min.css',
                     'libs/jquery.json.min.js': 'jquery-json/dist/jquery.json.min.js',
                     'libs/underscore-min.js': 'underscore/underscore-min.js'
                 }
