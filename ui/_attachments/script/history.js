@@ -48,7 +48,7 @@ Event = Marionette.ItemView.extend({
         } else {
             this.$el.removeClass('pos-left').addClass('pos-right');
         }
-        if (this.model.undoable) {
+        if (this.model.get('undoable') === true) {
             this.$el.addClass('undoable');
         }
     },
