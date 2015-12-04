@@ -57,7 +57,6 @@ Event = Marionette.ItemView.extend({
         var macCollection = new RouterConfigApp.Collections.MacLookup();
         macCollection.fetch({reset: true, key: client_ip, success: function(collection){
             mac = macCollection.at(0).get('mac_address');
-            console.log(mac);
             if (currentView.model.get('docs')[0].doc_id === mac) {
                 currentView.$el.removeClass('undoable');
             }
