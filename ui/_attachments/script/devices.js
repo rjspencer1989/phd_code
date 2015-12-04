@@ -20,7 +20,11 @@ RouterConfigApp.Collections.ConnectedDevices = Backbone.Collection.extend({
     model: RouterConfigApp.Models.Device
 });
 
-RouterConfigApp.Models.IPMapping = Backbone.Model.extend({});
+RouterConfigApp.Models.IPMapping = Backbone.Model.extend({
+    defaults: {
+        mac_address: ""
+    }
+});
 
 RouterConfigApp.Collections.MacLookup = Backbone.Collection.extend({
     url: "devices",
