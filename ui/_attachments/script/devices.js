@@ -17,14 +17,14 @@ RouterConfigApp.Collections.ConnectedDevices = Backbone.Collection.extend({
     db: {
         view: "connected_devices"
     },
-    model: RouterConfigApp.Models.IPMapping
+    model: RouterConfigApp.Models.Device
 });
 
 RouterConfigApp.Models.IPMapping = Backbone.Model.extend({});
 
 RouterConfigApp.Collections.MacLookup = Backbone.Collection.extend({
     url: "devices",
-    model: RouterConfigApp.Models.Device,
+    model: RouterConfigApp.Models.IPMapping,
     db: {
         view: "mac_from_ip"
     }
