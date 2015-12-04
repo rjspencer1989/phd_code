@@ -23,16 +23,16 @@ Event = Marionette.ItemView.extend({
     tagName: "dd",
     template: window.JST.history_item,
     className: 'clearfix',
-    
+
     initialize: function(options){
-        this.isLeft = options.is_left;   
+        this.isLeft = options.is_left;
     },
 
     events: {
         "click .undo-button": "request_undo",
         "click .revert-button": "revert_state"
     },
-    
+
     serializeData: function(){
         "use strict";
         var date = new Date(this.model.get("timestamp"));
@@ -41,15 +41,18 @@ Event = Marionette.ItemView.extend({
         components.description = this.model.get("description");
         return components;
     },
-    
+
     onRender: function(){
         if (this.isLeft) {
             this.$el.removeClass('pos-right').addClass('pos-left');
         } else {
             this.$el.removeClass('pos-left').addClass('pos-right');
         }
+        if (this.model.undoable) {
+            this.$el.addClass('undoable');
+        }
     },
-    
+
     request_undo: function(){
         "use strict";
         var should_undo = true;
@@ -81,16 +84,16 @@ Events = Marionette.CompositeView.extend({
     template: window.JST.history,
     childView: Event,
     childViewContainer: 'dl',
-    
+
     childViewOptions: function(model, index){
         var isLeft = (index % 2 === 0);
         return {
             is_left: isLeft
         };
     },
-    
+
     events: {
-        "submit #revert_datepicker_form": "revertDatepicker"   
+        "submit #revert_datepicker_form": "revertDatepicker"
     },
 
     onRender: function(){
@@ -98,7 +101,7 @@ Events = Marionette.CompositeView.extend({
         window.setActiveLink("history-link");
         return this;
     },
-    
+
     revertDatepicker: function(event){
         "use strict";
         event.preventDefault();
