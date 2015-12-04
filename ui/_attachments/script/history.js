@@ -43,6 +43,7 @@ Event = Marionette.ItemView.extend({
     },
 
     onRender: function(){
+        var currentView = this;
         if (this.isLeft) {
             this.$el.removeClass('pos-right').addClass('pos-left');
         } else {
@@ -51,6 +52,17 @@ Event = Marionette.ItemView.extend({
         if (this.model.get('undoable') === true) {
             this.$el.addClass('undoable');
         }
+
+        var client_ip = getClientIP();
+        var macCollection = new RouterConfigApp.Collections.MacLookup();
+        macCollection.fetch({reset: true, key: client_ip, success: function(collection){
+            mac = macCollection.at(0).mac_address;
+            if (currentView.model.get('docs')[0].doc_id === mac) {
+                currentView.$el.removeClass('undoable');
+            }
+
+        }});
+
     },
 
     request_undo: function(){

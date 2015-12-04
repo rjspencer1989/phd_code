@@ -6,8 +6,8 @@ RouterConfigApp.on('start', function(){
     RouterConfigApp.root.render();
     var linkCollection = new RouterConfigApp.Collections.Links(RouterConfigApp.links);
     var LinkView = new Links({collection: linkCollection});
-    RouterConfigApp.root.nav.show(LinkView); 
-    Backbone.history.start(); 
+    RouterConfigApp.root.nav.show(LinkView);
+    Backbone.history.start();
 });
 
 RootView = Marionette.LayoutView.extend({
@@ -97,6 +97,13 @@ window.getDateComponents = function(d){
     data.second = ("0" + data.second).slice(-2);
     return data;
 };
+
+window.getClientIP = function () {
+    var router_ip = window.location.hostname;
+    var end = parseInt(router_ip.substr(router_ip.lastIndexOf('.') + 1), 10);
+    var client_ip = '10.2.0.' + (end - 1).toString();
+    return client_ip;
+}
 
 window.formatDate = function(date){
     var d = new Date(date);
