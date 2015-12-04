@@ -20,13 +20,21 @@ RouterConfigApp.Collections.ConnectedDevices = Backbone.Collection.extend({
     model: RouterConfigApp.Models.Device
 });
 
+RouterConfigApp.Collections.MacLookup = Backbone.Collection.extend({
+    url: "devices",
+    model: RouterConfigApp.Models.Device,
+    db: {
+        view: "mac_from_ip"
+    }
+});
+
 Device = Marionette.ItemView.extend({
     className: "col-lg-3 col-md-4 col-sm-6 device",
-    
+
     getTemplate: function(){
         return JST[this.model.get('state')];
     },
-    
+
     ui: {
         device_name : '#edit_device_name_input',
         owner: '#device_owner_input',
@@ -47,7 +55,7 @@ Device = Marionette.ItemView.extend({
         "click @ui.cancelButton": "cancel",
         "click @ui.saveButton": "save"
     },
-    
+
     modelEvents: {
         "change": function(){
             this.render();
@@ -73,7 +81,7 @@ Device = Marionette.ItemView.extend({
         if(this.model.get('ip_address') === client_ip){
             this.ui.denyButton.attr('disabled', true);
         }
-        
+
         if(this.model.get('state') === 'pending'){
             this.$el.addClass('editing');
         } else{
