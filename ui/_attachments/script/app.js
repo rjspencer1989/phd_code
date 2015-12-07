@@ -103,7 +103,7 @@ window.getClientIP = function () {
     var end = parseInt(router_ip.substr(router_ip.lastIndexOf('.') + 1), 10);
     var client_ip = '10.2.0.' + (end - 1).toString();
     return client_ip;
-}
+};
 
 window.formatDate = function(date){
     var d = new Date(date);
