@@ -7,7 +7,7 @@ html, body{
 }
 
 h3{
-    padding-left:5px;
+    padding-left: 5px;
 }
 
 h2 {
@@ -19,8 +19,35 @@ h2 {
 	margin: 0 auto;
 }
 
+.device {
+    padding :5px;
+}
+
+.alert{
+    display: none;
+    padding-top:60px;
+}
+
+.device-inner{
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.permit{
+    border: 2px solid #a0d468;
+}
+
+.deny{
+    border: 2px solid #da4453;
+}
+
 .editing .edit-controls{
 	display: block;
+}
+
+.view{
+    padding-bottom: 3px;
 }
 
 .editing .view{
@@ -37,8 +64,8 @@ h2 {
 }
 
 .item{
-	height:480px;
-	width:1200px;
+	height: 480px;
+	width: 1200px;
 	background-color:#222222;
 }
 
@@ -47,11 +74,11 @@ h2 {
 }
 
 .revert-button{
-    display:none;
+    display: none;
 }
 
 .undoable .revert-button{
-    display:block;
+    display: block;
 }
 
 .undoable .undo-button{

@@ -1,54 +1,50 @@
-window.App.Routers.Router = Backbone.Router.extend({
-    initialize: function () {
-        "use strict";
-        this.view = null;
+Router = Marionette.AppRouter.extend({
+    controller: {
+        home: function(){
+            "use strict";
+            RouterConfigApp.root.main.show(new Home());
+        },
+
+        wifi: function(){
+            "use strict";
+            var collection = new RouterConfigApp.Collections.Wifi();
+            collection.fetch({reset: true});
+            RouterConfigApp.root.main.show(new WiFi({collection: collection}));
+        },
+    
+        history: function(){
+            "use strict";
+            var collection = new RouterConfigApp.Collections.Events();
+            collection.fetch({reset: true, descending: true});
+            RouterConfigApp.root.main.show(new Events({collection: collection}));
+        },
+    
+        notifications: function(){
+            "use strict";
+            var notificationCollection = new RouterConfigApp.Collections.Notifications();
+            notificationCollection.fetch({reset: true});
+            var userCollection = new RouterConfigApp.Collections.MainUser();
+            userCollection.fetch({reset: true});
+            var notificationLayout = new NotificationLayout();
+            RouterConfigApp.root.main.show(notificationLayout);
+            notificationLayout.notification_region.show(new Notifications({collection: notificationCollection}));
+            notificationLayout.main_user_region.show(new MainUserCollection({collection: userCollection}));
+        },
+    
+        controlPanel: function(){
+            "use strict";
+            var collection = new RouterConfigApp.Collections.Devices();
+            collection.fetch({reset: true});
+            RouterConfigApp.root.main.show(new Devices({collection: collection}));
+        }   
     },
 
-    routes: {
+    appRoutes: {
+        "home": "home",
         "": "home",
         "wifi": "wifi",
         "history": "history",
         "notifications": "notifications",
-        "control": "controlPanel"
-    },
-
-    home: function(){
-        "use strict";
-        if (this.view) {
-            this.view.exit();
-        }
-        this.view = new window.App.Views.Home();
-    },
-
-    wifi: function(){
-        "use strict";
-        if (this.view) {
-            this.view.exit();
-        }
-        this.view = new window.App.Views.Wifi();
-    },
-
-    history: function(){
-        "use strict";
-        if (this.view) {
-            this.view.exit();
-        }
-        this.view = new window.App.Views.Events();
-    },
-
-    notifications: function(){
-        "use strict";
-        if (this.view) {
-            this.view.exit();
-        }
-        this.view = new window.App.Views.Notifications();
-    },
-
-    controlPanel: function(){
-        "use strict";
-        if (this.view) {
-            this.view.exit();
-        }
-        this.view = new window.App.Views.ControlPanelView();
+        "devices": "controlPanel"
     }
 });

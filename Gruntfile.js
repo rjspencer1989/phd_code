@@ -36,6 +36,7 @@ module.exports = function(grunt){
 
                 files: {
                     'libs/backbone.js': 'backbone/backbone.js',
+                    'libs/backbone.marionette.min.js': 'marionette/lib/backbone.marionette.min.js',
                     'libs/backbone-couchdb.js': 'backbone-couchdb/backbone-couchdb.js',
                     'libs/bootstrap/css/bootstrap.css': 'bootstrap/dist/css/bootstrap.css',
                     'libs/bootstrap/fonts': 'bootstrap/dist/fonts',

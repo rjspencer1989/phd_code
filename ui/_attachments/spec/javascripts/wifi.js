@@ -2,7 +2,7 @@ describe("wifi data", function () {
     model = null;
     collection = null;
     beforeEach(function () {
-        model = new App.Models.Wifi();
+        model = new RouterConfigApp.Models.Wifi();
         collection = new App.Collections.Wifi();
     });
 
@@ -12,7 +12,7 @@ describe("wifi data", function () {
     });
 
     it("should have a model property", function () {
-        expect(App.Models.Wifi).toBeDefined();
+        expect(RouterApp.Models.Wifi).toBeDefined();
     });
 
     it("model should contain a set of defaults", function () {

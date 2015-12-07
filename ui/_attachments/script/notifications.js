@@ -1,4 +1,4 @@
-window.App.Models.Notification = Backbone.Model.extend({
+RouterConfigApp.Models.Notification = Backbone.Model.extend({
     defaults: {
         collection: "notifications",
         name: "",
@@ -8,19 +8,8 @@ window.App.Models.Notification = Backbone.Model.extend({
     }
 });
 
-window.App.Models.MainUser = Backbone.Model.extend({
-    defaults: {
-        collection: "main_user",
-        name: "",
-        service: "",
-        _id: "main_user",
-        status: "pending"
-    },
-    url: "main_user"
-});
-
-window.App.Collections.Notifications = Backbone.Collection.extend({
-    model: window.App.Models.Notification,
+RouterConfigApp.Collections.Notifications = Backbone.Collection.extend({
+    model: RouterConfigApp.Models.Notification,
     url: "notifications",
     db: {
         changes: true,
@@ -28,14 +17,9 @@ window.App.Collections.Notifications = Backbone.Collection.extend({
     }
 });
 
-window.App.Views.Notification = Backbone.View.extend({
+Notification = Marionette.ItemView.extend({
     tagName: "tr",
     template: window.JST.notification_item,
-
-    initialize: function(){
-        "use strict";
-        this.listenTo(this.model, "change", this.change_handler);
-    },
 
     events: {
         "click .edit-notification-button": "edit",
@@ -43,17 +27,9 @@ window.App.Views.Notification = Backbone.View.extend({
         "click .delete-notification-button": "delete",
         "click .cancel-notification-button": "cancel"
     },
-
-    render: function () {
-        "use strict";
-        this.$el.empty().append(this.template(this.model.toJSON()));
-        this.input = this.$(".edit");
-        return this;
-    },
-
-    change_handler: function(){
-        "use strict";
-        this.render();
+    
+    ui: {
+        input: ".edit"
     },
 
     delete: function () {
@@ -73,21 +49,21 @@ window.App.Views.Notification = Backbone.View.extend({
 
     edit: function () {
         "use strict";
-        this.input.parents("td").addClass("editing");
-        this.input.focus();
+        this.ui.input.parents("td").addClass("editing");
+        this.ui.input.focus();
     },
 
     cancel: function () {
         "use strict";
-        this.input.parents("td").removeClass("editing");
+        this.ui.input.parents("td").removeClass("editing");
     },
 
     save: function (e) {
         "use strict";
         e.preventDefault();
         var self = this;
-        this.input.parents("td").removeClass("editing");
-        var value = this.input.val();
+        this.ui.input.parents("td").removeClass("editing");
+        var value = this.ui.input.val();
         if (value) {
             this.model.set({user: value});
             this.model.set({status: "pending"});
@@ -103,62 +79,22 @@ window.App.Views.Notification = Backbone.View.extend({
     }
 });
 
-window.App.Views.MainUser = Backbone.View.extend({
-    className: "main_user_el",
-    template: window.JST.main_user,
-    events: {
-        "submit #set-main-user": "set_main_user"
-    },
-    render: function(){
-        "use strict";
-        this.$el.html(this.template(this.model.toJSON()));
-        var selection = this.$el.find("#main-service option[value=\'" + this.model.get("service") + "\']");
-        selection.attr('selected', true);
-        return this;
-    },
-    set_main_user: function(e){
-        "use strict";
-        e.preventDefault();
-        var name = $("#main-name").val();
-        var service = $("#main-service :selected").val();
-        this.model.set("name", name);
-        this.model.set("service", service);
-        this.model.set("status", "pending");
-        this.model.save();
-    }
-});
-
-window.App.Views.Notifications = Backbone.View.extend({
-    collection: new window.App.Collections.Notifications(),
+Notifications = Marionette.CompositeView.extend({
     tagName: "div",
     className: "col-md-12",
     template: window.JST.notification_collection,
-    initialize: function () {
-        "use strict";
-        this.listenTo(this.collection, "reset", this.render);
-        this.listenTo(this.collection, "add", this.addOne);
-        this.main_user_model = new window.App.Models.MainUser();
-        this.main_user_model.fetch({reset: true});
-        this.collection.fetch({reset: true});
-        this.subviews = [];
-    },
-
+    childView: Notification,
+    childViewContainer: 'tbody',
+    
     events: {
         "change #service": "getPrompt",
         "submit #add-notification-form": "addNotification"
     },
 
-    render: function () {
+    onRender: function () {
         "use strict";
-        this.$el.html(this.template());
-        $("#main-row").empty().append(this.el);
         window.setActiveLink("registrations-link");
-        this.collection.each(this.addOne, this);
         this.$el.find("#service").trigger("change");
-        $(".alert").hide();
-        var main_user_view = new window.App.Views.MainUser({model: this.main_user_model});
-        this.subviews.push(main_user_view);
-        $("#main-user-div").empty().append(main_user_view.render().el);
         return this;
     },
 
@@ -167,17 +103,10 @@ window.App.Views.Notifications = Backbone.View.extend({
         this.$("#user").attr("placeholder", this.$("#service :selected").data("prompt"));
     },
 
-    addOne: function (notification) {
-        "use strict";
-        var view = new window.App.Views.Notification({model: notification});
-        this.subviews.push(view);
-        this.$("#notification-registration-table > tbody").append(view.render().el);
-    },
-
     addNotification: function (e) {
         "use strict";
         e.preventDefault();
-        var newModel = new window.App.Models.Notification();
+        var newModel = new RouterConfigApp.Models.Notification();
         $("#add-notification-form").children("input").each(function (i, el) {
             if ($(el).val() !== "") {
                 newModel.set(el.id, $(el).val());
@@ -188,16 +117,14 @@ window.App.Views.Notifications = Backbone.View.extend({
         this.collection.create(newModel);
         $("#add-notification-form").get(0).reset();
         this.getPrompt();
-    },
+    }
+});
 
-    exit: function(){
-        "use strict";
-        var item = null;
-        for (var index in this.subviews) {
-            item = this.subviews[index];
-            item.remove();
-        }
-        this.collection = {};
-        this.remove();
+NotificationLayout = Marionette.LayoutView.extend({
+    className: 'col-md-12',
+    template: JST.notification_layout,
+    regions: {
+        notification_region: '#notification_region',
+        main_user_region: '#main_user_region'
     }
 });

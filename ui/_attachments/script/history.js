@@ -1,4 +1,4 @@
-window.App.Models.Event = Backbone.Model.extend({
+RouterConfigApp.Models.Event = Backbone.Model.extend({
     defaults: {
         title: "",
         description: "",
@@ -9,9 +9,9 @@ window.App.Models.Event = Backbone.Model.extend({
     }
 });
 
-window.App.Collections.Events = Backbone.Collection.extend({
+RouterConfigApp.Collections.Events = Backbone.Collection.extend({
     url: "events",
-    model: window.App.Models.Event,
+    model: RouterConfigApp.Models.Event,
     db: {
         view: "events",
         changes: true,
@@ -19,23 +19,58 @@ window.App.Collections.Events = Backbone.Collection.extend({
     }
 });
 
-window.App.Views.Event = Backbone.View.extend({
+Event = Marionette.ItemView.extend({
     tagName: "dd",
     template: window.JST.history_item,
+    className: 'clearfix',
+
+    initialize: function(options){
+        this.isLeft = options.is_left;
+    },
+
+    modelEvents: {
+        "change": function () {
+            this.render();
+        }
+    },
 
     events: {
         "click .undo-button": "request_undo",
         "click .revert-button": "revert_state"
     },
-    render: function(){
+
+    serializeData: function(){
         "use strict";
         var date = new Date(this.model.get("timestamp"));
-        var data = getDateComponents();
-        data.title = this.model.get("title");
-        data.description = this.model.get("description");
-        this.$el.empty().append(this.template(data));
-        return this;
+        var components = getDateComponents(date);
+        components.title = this.model.get("title");
+        components.description = this.model.get("description");
+        return components;
     },
+
+    onRender: function(){
+        var currentView = this;
+        if (this.isLeft) {
+            this.$el.removeClass('pos-right').addClass('pos-left');
+        } else {
+            this.$el.removeClass('pos-left').addClass('pos-right');
+        }
+        if (this.model.get('undoable') === true) {
+            this.$el.addClass('undoable');
+        }
+
+        var client_ip = getClientIP();
+        var macCollection = new RouterConfigApp.Collections.MacLookup();
+        macCollection.fetch({reset: true, key: client_ip, success: function(collection){
+            mac = macCollection.at(0).get('mac_address');
+            if (currentView.model.get('docs')[0].doc_id === mac) {
+                currentView.$el.removeClass('undoable');
+            }
+
+        }});
+
+    },
+
     request_undo: function(){
         "use strict";
         var should_undo = true;
@@ -55,64 +90,53 @@ window.App.Views.Event = Backbone.View.extend({
     },
     revert_state: function(){
         "use strict";
-        var newDoc = new window.App.Models.Rollback();
+        var newDoc = new RouterConfigApp.Models.Rollback();
         newDoc.set({timestamp: this.model.get("timestamp")});
         newDoc.save();
     }
 });
 
-window.App.Views.Events = Backbone.View.extend({
+Events = Marionette.CompositeView.extend({
     tagName: "div",
     className: "col-md-12",
     template: window.JST.history,
-    collection: new window.App.Collections.Events(),
-    initialize: function(){
-        "use strict";
-        this.listenTo(this.collection, "reset", this.render);
-        this.listenTo(this.collection, "add", this.add_event);
-        this.collection.fetch({reset: true, descending: true});
-        this.subviews = [];
+    childView: Event,
+    childViewContainer: 'dl',
+
+    childViewOptions: function(model, index){
+        var isLeft = (index % 2 === 0);
+        return {
+            is_left: isLeft
+        };
     },
 
-    add_event: function(){
-        "use strict";
-        console.log(this);
-        this.collection.fetch({reset: true, descending: true});
+    events: {
+        "submit #revert_datepicker_form": "revertDatepicker"
     },
 
-    render: function(){
+    collectionEvents: {
+        "add": function(){
+            this.render();
+        }
+    },
+
+    onRender: function(){
         "use strict";
-        this.$el.html(this.template());
-        $("#main-row").empty().append(this.el);
         window.setActiveLink("history-link");
-        this.collection.each(this.addOne, this);
-        return this;
     },
 
-    addOne: function(event, index){
+    revertDatepicker: function(event){
         "use strict";
-        var cn = "pos-left clearfix";
-        if (index % 2 === 0) {
-            cn = "pos-right clearfix";
-        }
-        var view = new window.App.Views.Event({model: event, className: cn});
-        this.subviews.push(view);
-        this.$("dl").append(view.render().el);
-        if(event.get("undoable") === true){
-            view.$el.addClass("undoable");
-        }
-    },
-
-    exit: function(){
-        "use strict";
-        for (var index in this.subviews) {
-            this.subviews[index].remove();
-        }
-        this.remove();
+        event.preventDefault();
+        var newDoc = new RouterConfigApp.Models.Rollback();
+        var ts = this.$("#datepicker").val();
+        ts = new Date(ts).toISOString();
+        newDoc.set({timestamp: ts});
+        newDoc.save();
     }
 });
 
-window.App.Models.Rollback = Backbone.Model.extend({
+RouterConfigApp.Models.Rollback = Backbone.Model.extend({
     url: this.id,
     defaults: {
         collection: "request_revert",

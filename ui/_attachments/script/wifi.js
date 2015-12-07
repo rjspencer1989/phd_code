@@ -1,4 +1,4 @@
-window.App.Models.Wifi = Backbone.Model.extend({
+RouterConfigApp.Models.Wifi = Backbone.Model.extend({
     defaults: {
         collection: "wifi",
         status: "pending",
@@ -11,8 +11,8 @@ window.App.Models.Wifi = Backbone.Model.extend({
     }
 });
 
-window.App.Collections.Wifi = Backbone.Collection.extend({
-    model: window.App.Models.Wifi,
+RouterConfigApp.Collections.Wifi = Backbone.Collection.extend({
+    model: RouterConfigApp.Models.Wifi,
     url: "wifi",
     db: {
         changes: true,
@@ -20,88 +20,79 @@ window.App.Collections.Wifi = Backbone.Collection.extend({
     }
 });
 
-window.App.Collections.WifiHome = Backbone.Collection.extend({
-    model: window.App.Models.Wifi,
-    url: "wifi"
-});
+WifiModel = Marionette.ItemView.extend({
+   template: JST.wifi,
 
-window.App.Views.Wifi = Backbone.View.extend({
-    collection: new window.App.Collections.Wifi(),
-    tagName: "div",
-    className: "col-md-12",
-    template: window.JST.wifi,
-    initialize: function(){
-        "use strict";
-        this.listenTo(this.collection, "reset", this.render);
-        this.listenTo(this.collection, "change", this.render);
-        this.collection.fetch({
-            reset: true
-        });
-    },
-
-    events: {
+   events: {
         "submit #save-wifi-form": "saveWifi"
     },
-
-    render: function(){
-        "use strict";
-        this.$el.html(this.template(this.collection.at(0).toJSON()));
-        $("#main-row").empty().append(this.el);
-        window.setActiveLink("wifi-link");
-        $(".alert").hide();
-        $('[data-toggle="tooltip"]').tooltip();
-        this.delegateEvents();
-        return this;
+    
+    modelEvents: {
+        'change': 'dataChanged'
     },
-
+    
+    dataChanged: function(){
+        this.render();
+    },
+    
+    onShow: function(){
+        window.setActiveLink("wifi-link");
+        $('[data-toggle="tooltip"]').tooltip();
+    },
+    
+    ui: {
+        ssid: '#ssid_input',
+        channel: '#channel_select',
+        pasword: '#password_input',
+        mode: '#mode_select'
+    },
+    
     saveWifi: function(event){
         "use strict";
         event.preventDefault();
         var changed = false;
-        var newSSID = $("#ssid_input").val();
-        var newChannel = $("#channel_select :selected").val();
-        var newPassword = $("#password_input").val();
-        var newMode = $("#mode_select :selected").val();
-        var mod = this.collection.at(0);
+        var newSSID = this.ui.ssid.val();
+        var newChannel = this.ui.channel.val();
+        var newPassword = this.ui.pasword.val();
+        var newMode = this.ui.mode.val();
+
         if(newSSID !== ""){
             changed = true;
-            mod.set({ssid: newSSID});
+            this.model.set({ssid: newSSID});
         }
         if(newChannel !== "blank"){
             changed = true;
-            mod.set({channel: newChannel});
+            this.model.set({channel: newChannel});
         }
         if(newMode !== "blank"){
             changed = true;
-            mod.set({mode: newMode});
+            this.model.set({mode: newMode});
         }
         if(newPassword !== ""){
             changed = true;
-            mod.set({password: newPassword});
+            this.model.set({password: newPassword});
         }
-        mod.set({status: "pending"});
+        this.model.set({status: "pending"});
 
         if (newSSID === "" && newPassword === "") {
-            mod.set({with_bss: false});
+            this.model.set({with_bss: false});
         }
         if(changed === true){
-            mod.save(null, {
+            this.model.save(null, {
                 error: function(model, response){
                     $(".alert.alert-danger").append(response.reason).show();
-                    this.collection.fetch({reset: true});
+                    model.fetch({reset: true});
                 },
                 success: function(model, response){
                     $(".alert.alert-success").show();
                 }
             });
         }
-        console.log(changed);
-        return false;
-    },
-
-    exit: function(){
-        "use strict";
-        this.collection = {};
-        this.remove();
     }
+});
+
+WiFi = Marionette.CollectionView.extend({
+   tagName: 'div',
+   className: 'col-md-12',
+   childView: WifiModel
 });

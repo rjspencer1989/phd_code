@@ -1,44 +1,75 @@
-window.App.Models.Device = Backbone.Model.extend({
+RouterConfigApp.Models.Device = Backbone.Model.extend({
     url: this.mac_address
 });
 
-window.App.Collections.Devices = Backbone.Collection.extend({
+RouterConfigApp.Collections.Devices = Backbone.Collection.extend({
     url: "devices",
     db: {
         view: "control",
         changes: true,
         filter: Backbone.couch_connector.config.ddoc_name + "/devices_ui"
     },
-    model: window.App.Models.Device
+    model: RouterConfigApp.Models.Device
 });
 
-window.App.Collections.ConnectedDevices = Backbone.Collection.extend({
+RouterConfigApp.Collections.ConnectedDevices = Backbone.Collection.extend({
     url: "devices",
     db: {
         view: "connected_devices"
     },
-    model: window.App.Models.Device
+    model: RouterConfigApp.Models.Device
 });
 
-window.App.Views.Device = Backbone.View.extend({
-    tagName: "tr",
-    initialize: function(options){
-        "use strict";
-        this.template = window.JST[options.template];
+RouterConfigApp.Models.IPMapping = Backbone.Model.extend({
+    defaults: {
+        mac_address: ""
+    }
+});
+
+RouterConfigApp.Collections.MacLookup = Backbone.Collection.extend({
+    url: "devices",
+    model: RouterConfigApp.Models.IPMapping,
+    db: {
+        view: "mac_from_ip"
+    }
+});
+
+Device = Marionette.ItemView.extend({
+    className: "col-lg-3 col-md-4 col-sm-6 device",
+
+    getTemplate: function(){
+        return JST[this.model.get('state')];
+    },
+
+    ui: {
+        device_name : '#edit_device_name_input',
+        owner: '#device_owner_input',
+        port: '.port',
+        isConnected: '.is_connected',
+        denyButton: '.deny-button',
+        permitButton: '.permit-button',
+        editButton: '.edit-button',
+        cancelButton: '.cancel-button',
+        saveButton: '.save-button',
+        errorAlert: '.alert-danger strong'
     },
 
     events: {
-        "click .deny-button": "deny",
-        "click .permit-button": "permit",
-        "click .edit-button": "edit",
-        "click .cancel-button": "cancel",
-        "click .save-button": "save"
+        "click @ui.denyButton": "deny",
+        "click @ui.permitButton": "permit",
+        "click @ui.editButton": "edit",
+        "click @ui.cancelButton": "cancel",
+        "click @ui.saveButton": "save"
     },
 
-    render: function(){
+    modelEvents: {
+        "change": function(){
+            this.render();
+        }
+    },
+
+    onRender: function(){
         "use strict";
-        this.$el.empty().append(this.template(this.model.toJSON()));
-        this.$el.addClass("device");
         var txt = "No";
         var port = this.model.get("port");
         var re = /^wlan0(_1)?$/;
@@ -48,21 +79,24 @@ window.App.Views.Device = Backbone.View.extend({
         if(this.model.get("connection_event") === "connect"){
             txt = "Yes";
         }
-        this.$(".is_connected").html(txt);
-        this.$(".port").html(port);
-        var router_ip = window.location.hostname;
-        var end = parseInt(router_ip.substr(router_ip.lastIndexOf('.') + 1));
-        var client_ip = '10.2.0.' + (end - 1).toString();
+        this.ui.isConnected.html(txt);
+        this.ui.port.html(port);
+        var client_ip = getClientIP();
         if(this.model.get('ip_address') === client_ip){
-            this.$('.deny-button').attr('disabled', true);
+            this.ui.denyButton.attr('disabled', true);
         }
-        return this;
+
+        if(this.model.get('state') === 'pending'){
+            this.$el.addClass('editing');
+        } else{
+            this.$el.removeClass('editing');
+        }
     },
 
     deny: function(){
         "use strict";
-        if(this.$el.hasClass("edit-device")){
-            var owner = this.$("#device_owner_input").val();
+        if(this.$el.hasClass("editing")){
+            var owner = this.ui.owner.val();
             var device_name = this.$("#device_name_input").val();
             var device_type = this.$("#device_type_select :selected").val();
             var notification_service = this.$("#device_notification_select :selected").val();
@@ -75,15 +109,16 @@ window.App.Views.Device = Backbone.View.extend({
         this.model.set({changed_by: "user"});
         this.model.save(null, {
             error: function(model, response){
-                $(".alert").append(response.reason).show();
+                this.ui.errorAlert.append(response.reason);
+                this.ui.errorAlert.show();
             }
         });
     },
 
     permit: function(){
         "use strict";
-        if(this.$el.hasClass("edit-device")){
-            var owner = this.$("#device_owner_input").val();
+        if(this.$el.hasClass("editing")){
+            var owner = this.ui.owner.val();
             var device_name = this.$("#device_name_input").val();
             var device_type = this.$("#device_type_select :selected").val();
             var notification_service = this.$("#device_notification_select :selected").val();
@@ -96,7 +131,8 @@ window.App.Views.Device = Backbone.View.extend({
         this.model.set({changed_by: "user"});
         this.model.save(null, {
             error: function(model, response){
-                $(".alert").append(response.reason).show();
+                this.ui.errorAlert.append(response.reason);
+                this.ui.errorAlert.show();
             }
         });
     },
@@ -115,7 +151,7 @@ window.App.Views.Device = Backbone.View.extend({
 
     save: function(){
         "use strict";
-        var owner = this.$("#edit_owner_input").val();
+        var owner = this.ui.owner.val();
         var device_name = this.$("#edit_device_name_input").val();
         var device_type = this.$("#device_type_select :selected").val();
         var notification_service = this.$("#device_notification_select :selected").val();
@@ -126,62 +162,23 @@ window.App.Views.Device = Backbone.View.extend({
         this.model.set({changed_by: "user"});
         this.model.save(null, {
             error: function(model, response){
-                $(".alert").append(response.reason).show();
+                this.ui.errorAlert.append(response.reason);
+                this.ui.errorAlert.show();
             }
         });
-        this.$el.removeClass("editing");
     }
 });
 
-window.App.Views.ControlPanelView = Backbone.View.extend({
-    collection: new window.App.Collections.Devices(),
+Devices = Marionette.CompositeView.extend({
+    collection: new RouterConfigApp.Collections.Devices(),
     tagName: "div",
     className: "col-md-12",
     template: window.JST.control_panel,
-    initialize: function(){
-        "use strict";
-        this.listenTo(this.collection, "reset", this.render);
-        this.listenTo(this.collection, "add", this.addOne);
-        this.listenTo(this.collection, "remove", this.render);
-        this.listenTo(this.collection, "change", this.render);
-        this.collection.fetch({reset: true});
-        this.subviews = [];
-    },
+    childView: Device,
+    childViewContainer: '.device_container',
 
-    addOne: function(device){
+    onRender: function(){
         "use strict";
-        var sel = device.get("state");
-        var view = new window.App.Views.Device({model: device, template: "device_" + sel});
-        this.subviews.push(view);
-        this.$("." + sel).append(view.render().el);
-        if(sel === "pending"){
-            view.$el.addClass("edit-device");
-        }
-    },
-
-    render: function(){
-        "use strict";
-        console.log("render");
-        this.$el.html(this.template());
-        $("#main-row").empty().append(this.el);
         window.setActiveLink("devices-link");
-        $(".alert").hide();
-        this.collection.each(this.addOne, this);
-        return this;
-    },
-
-    closeSubViews: function(){
-        "use strict";
-        var item = {};
-        for (var index in this.subviews) {
-            item = this.subviews[index];
-            item.remove();
-        }
-    },
-
-    exit: function(){
-        "use strict";
-        this.closeSubViews();
-        this.remove();
     }
 });
