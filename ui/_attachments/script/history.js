@@ -28,6 +28,12 @@ Event = Marionette.ItemView.extend({
         this.isLeft = options.is_left;
     },
 
+    modelEvents: {
+        "change": function () {
+            this.render();
+        }
+    },
+
     events: {
         "click .undo-button": "request_undo",
         "click .revert-button": "revert_state"
@@ -108,10 +114,15 @@ Events = Marionette.CompositeView.extend({
         "submit #revert_datepicker_form": "revertDatepicker"
     },
 
+    collectionEvents: {
+        "add": function(){
+            this.render();
+        }
+    },
+
     onRender: function(){
         "use strict";
         window.setActiveLink("history-link");
-        return this;
     },
 
     revertDatepicker: function(event){
