@@ -115,7 +115,7 @@ Events = Marionette.CompositeView.extend({
     },
 
     collectionEvents: {
-        "add", function(){
+        "add": function(){
             this.collection.fetch({reset: true, descending: true});
         }
     },
