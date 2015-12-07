@@ -16,6 +16,9 @@ RouterConfigApp.Collections.Events = Backbone.Collection.extend({
         view: "events",
         changes: true,
         filter: Backbone.couch_connector.config.ddoc_name + "/history"
+    },
+    comparator: function(item){
+        return -item.get('timestamp');
     }
 });
 
@@ -113,12 +116,6 @@ Events = Marionette.CompositeView.extend({
     events: {
         "submit #revert_datepicker_form": "revertDatepicker"
     },
-
-    // collectionEvents: {
-    //     "add": function(){
-    //         this.render();
-    //     }
-    // },
 
     onRender: function(){
         "use strict";
