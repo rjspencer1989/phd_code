@@ -114,11 +114,11 @@ Events = Marionette.CompositeView.extend({
         "submit #revert_datepicker_form": "revertDatepicker"
     },
 
-    collectionEvents: {
-        "add": function(){
-            this.render();
-        }
-    },
+    // collectionEvents: {
+    //     "add": function(){
+    //         this.render();
+    //     }
+    // },
 
     onRender: function(){
         "use strict";
