@@ -98,7 +98,7 @@ Events = Marionette.CompositeView.extend({
 
     initialize: function(options){
         this.collection.each(function(model){
-            console.log(model.toJSON());
+            console.log(model);
         });
     },
 
