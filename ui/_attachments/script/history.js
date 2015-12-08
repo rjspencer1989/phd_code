@@ -94,7 +94,7 @@ Events = Marionette.CompositeView.extend({
 
     onRenderCollection: function(options){
         var macCollection = new RouterConfigApp.Collections.MacLookup();
-        macCollection.fetch({reset: true, key=RouterConfigApp.clientIP, success: function(data){
+        macCollection.fetch({reset: true, key:RouterConfigApp.clientIP, success: function(data){
             RouterConfigApp.clientMAC = macCollection.at(0).get('mac_address');
         }});
     },
