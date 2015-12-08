@@ -1,5 +1,8 @@
 RouterConfigApp = new Marionette.Application();
 
+RouterConfigApp.Models = {};
+RouterConfigApp.Collections = {};
+
 RouterConfigApp.Models.IPMapping = Backbone.Model.extend({
     defaults: {
         mac_address: ""
@@ -68,9 +71,6 @@ RouterConfigApp.links = [
         tag_id: "history-link"
     }
 ];
-
-RouterConfigApp.Models = {};
-RouterConfigApp.Collections = {};
 
 RouterConfigApp.Models.Link = Backbone.Model.extend({});
 RouterConfigApp.Collections.Links = Backbone.Collection.extend({
