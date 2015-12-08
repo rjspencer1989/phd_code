@@ -20,7 +20,7 @@ RouterConfigApp.Collections.MacLookup = Backbone.Collection.extend({
 RouterConfigApp.on('start', function(){
     RouterConfigApp.clientIP = getClientIP();
     RouterConfigApp.clientMAC = "";
-    var macs = RouterConfigApp.Collections.MacLookup();
+    var macs = new RouterConfigApp.Collections.MacLookup();
     macs.fetch({reset:true, key:RouterConfigApp.clientIP, success:function(data){
         RouterConfigApp.clientMAC = data.at(0).get('mac_address');
     }});
