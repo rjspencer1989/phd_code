@@ -20,20 +20,6 @@ RouterConfigApp.Collections.ConnectedDevices = Backbone.Collection.extend({
     model: RouterConfigApp.Models.Device
 });
 
-RouterConfigApp.Models.IPMapping = Backbone.Model.extend({
-    defaults: {
-        mac_address: ""
-    }
-});
-
-RouterConfigApp.Collections.MacLookup = Backbone.Collection.extend({
-    url: "devices",
-    model: RouterConfigApp.Models.IPMapping,
-    db: {
-        view: "mac_from_ip"
-    }
-});
-
 Device = Marionette.ItemView.extend({
     className: "col-lg-3 col-md-4 col-sm-6 device",
 

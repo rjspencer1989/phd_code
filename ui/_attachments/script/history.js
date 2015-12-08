@@ -92,19 +92,11 @@ Events = Marionette.CompositeView.extend({
     childView: Event,
     childViewContainer: 'dl',
 
-    onRenderCollection: function(options){
-        var macCollection = new RouterConfigApp.Collections.MacLookup();
-        macCollection.fetch({reset: true, key:RouterConfigApp.clientIP, success: function(data){
-            RouterConfigApp.clientMAC = macCollection.at(0).get('mac_address');
-        }});
-    },
-
     childViewOptions: function(model, index){
         var isLeft = (index % 2 === 0);
         var client_ip = getClientIP();
         return {
-            is_left: isLeft,
-            client_ip: client_ip
+            is_left: isLeft
         };
     },
 

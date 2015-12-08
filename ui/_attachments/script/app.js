@@ -1,8 +1,27 @@
 RouterConfigApp = new Marionette.Application();
 
+RouterConfigApp.Models.IPMapping = Backbone.Model.extend({
+    defaults: {
+        mac_address: ""
+    }
+});
+
+RouterConfigApp.Collections.MacLookup = Backbone.Collection.extend({
+    url: "devices",
+    model: RouterConfigApp.Models.IPMapping,
+    db: {
+        view: "mac_from_ip"
+    }
+});
+
 RouterConfigApp.on('start', function(){
     RouterConfigApp.clientIP = getClientIP();
     RouterConfigApp.clientMAC = "";
+    var macs = RouterConfigApp.Collections.MacLookup();
+    macs.fetch({reset:true, key=RouterConfigApp.clientIP, success:function(data){
+        RouterConfigApp.clientMAC = data.at(0).get('mac_address');
+    }});
+    
     RouterConfigApp.router = new Router();
     RouterConfigApp.root = new RootView();
     RouterConfigApp.root.render();
