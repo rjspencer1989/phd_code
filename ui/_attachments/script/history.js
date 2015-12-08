@@ -26,12 +26,9 @@ Event = Marionette.ItemView.extend({
 
     initialize: function(options){
         this.isLeft = options.is_left;
-    },
-
-    modelEvents: {
-        "change": function () {
-            this.render();
-        }
+        this.collection.each(function(model){
+            console.log(model.toJSON());
+        });
     },
 
     events: {
@@ -59,7 +56,6 @@ Event = Marionette.ItemView.extend({
             this.$el.addClass('undoable');
         }
 
-        var client_ip = getClientIP();
         var macCollection = new RouterConfigApp.Collections.MacLookup();
         macCollection.fetch({reset: true, key: client_ip, success: function(collection){
             mac = macCollection.at(0).get('mac_address');
@@ -105,8 +101,10 @@ Events = Marionette.CompositeView.extend({
 
     childViewOptions: function(model, index){
         var isLeft = (index % 2 === 0);
+        var client_ip = getClientIP();
         return {
-            is_left: isLeft
+            is_left: isLeft,
+            client_ip: client_ip
         };
     },
 

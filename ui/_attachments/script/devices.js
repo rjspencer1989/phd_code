@@ -81,8 +81,7 @@ Device = Marionette.ItemView.extend({
         }
         this.ui.isConnected.html(txt);
         this.ui.port.html(port);
-        var client_ip = getClientIP();
-        if(this.model.get('ip_address') === client_ip){
+        if(this.model.get('ip_address') === RouterConfigApp.clientIP){
             this.ui.denyButton.attr('disabled', true);
         }
 

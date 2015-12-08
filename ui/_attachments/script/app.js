@@ -1,6 +1,7 @@
 RouterConfigApp = new Marionette.Application();
 
 RouterConfigApp.on('start', function(){
+    RouterConfigApp.clientIP = getClientIP();
     RouterConfigApp.router = new Router();
     RouterConfigApp.root = new RootView();
     RouterConfigApp.root.render();
