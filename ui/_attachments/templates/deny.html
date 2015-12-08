@@ -14,7 +14,7 @@
     </div>
     <div class="row">
         <div class="col-md-2">
-            <strong>Owner</strong>       
+            <strong>Owner</strong>
         </div>
         <div class="col-md-2 col-md-offset-2">
             <div class="view">
@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-md-2">
             <strong>MAC Address</strong>
@@ -71,7 +71,7 @@
             <%-mac_address%>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-md-2">
             <strong>IP Address</strong>
@@ -80,7 +80,7 @@
             <%-ip_address%>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-md-2">
             <strong>Port</strong>
@@ -89,23 +89,31 @@
             <%-port%>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-md-2">
             <strong>Connected?</strong>
         </div>
         <div class="col-md-2 col-md-offset-2 is_connected"></div>
     </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <strong>Network Access</strong>
+            <div class="col-md2 col-md-offset-2"><%-state%></div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-2">
             <div class="view">
-                <button class="btn btn-success permit-button" type="button">Permit</button>    
+                <button class="btn btn-success permit-button" type="button">Permit</button>
             </div>
             <div class="edit-controls">
                 <button class="btn btn-primary save-button" type="button">Save</button>
             </div>
         </div>
-        
+
         <div class="col-md-2 col-md-offset-2">
             <div class="view">
                 <button class="btn btn-default edit-button" type="button">Edit</button>
