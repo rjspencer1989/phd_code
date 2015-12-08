@@ -26,9 +26,6 @@ Event = Marionette.ItemView.extend({
 
     initialize: function(options){
         this.isLeft = options.is_left;
-        this.collection.each(function(model){
-            console.log(model.toJSON());
-        });
     },
 
     events: {
@@ -98,6 +95,12 @@ Events = Marionette.CompositeView.extend({
     template: window.JST.history,
     childView: Event,
     childViewContainer: 'dl',
+
+    initialize: function(options){
+        this.collection.each(function(model){
+            console.log(model.toJSON());
+        });
+    },
 
     childViewOptions: function(model, index){
         var isLeft = (index % 2 === 0);
