@@ -53,15 +53,11 @@ Event = Marionette.ItemView.extend({
             this.$el.addClass('undoable');
         }
 
-        var macCollection = new RouterConfigApp.Collections.MacLookup();
-        macCollection.fetch({reset: true, key: RouterConfigApp.clientIP, success: function(collection){
-            mac = macCollection.at(0).get('mac_address');
-            if (currentView.model.get('docs')[0].doc_id === mac) {
-                currentView.$el.removeClass('undoable');
+        if(RouterConfigApp.clientMAC !=== ""){
+            if (this.model.get('docs')[0].doc_id === mac) {
+                this.$el.removeClass('undoable');
             }
-
-        }});
-
+        }
     },
 
     request_undo: function(){
@@ -97,10 +93,10 @@ Events = Marionette.CompositeView.extend({
     childViewContainer: 'dl',
 
     onRenderCollection: function(options){
-        console.log(this.collection);
-        this.collection.each(function(model){
-            console.log(model);
-        });
+        var macCollection = new RouterConfigApp.Collections.MacLookup();
+        macCollection.fetch({reset: true, key=RouterConfigApp.clientIP, success: function(data){
+            RouterConfigApp.clientMAC = macCollection.at(0).get('mac_address');
+        }});
     },
 
     childViewOptions: function(model, index){

@@ -2,6 +2,7 @@ RouterConfigApp = new Marionette.Application();
 
 RouterConfigApp.on('start', function(){
     RouterConfigApp.clientIP = getClientIP();
+    RouterConfigApp.clientMAC = "";
     RouterConfigApp.router = new Router();
     RouterConfigApp.root = new RootView();
     RouterConfigApp.root.render();
