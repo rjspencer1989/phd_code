@@ -54,7 +54,7 @@ Event = Marionette.ItemView.extend({
         }
 
         if(RouterConfigApp.clientMAC !== ""){
-            if (this.model.get('docs')[0].doc_id === mac) {
+            if (this.model.get('docs')[0].doc_id === RouterConfigApp.clientMAC) {
                 this.$el.removeClass('undoable');
             }
         }
