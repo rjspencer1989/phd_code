@@ -97,7 +97,7 @@ Events = Marionette.CompositeView.extend({
     childViewContainer: 'dl',
 
     onBeforeRender: function(options){
-        console.log('before render');
+        console.log(this.collection);
         this.collection.each(function(model){
             console.log(model);
         });
