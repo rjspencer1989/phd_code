@@ -100,14 +100,24 @@ Events = Marionette.CompositeView.extend({
         };
     },
 
+    ui: {
+        datePickerForm: "#revert_datepicker_form",
+        restartButton: "#restart_button"
+    },
+
     events: {
-        "submit #revert_datepicker_form": "revertDatepicker"
+        "submit @ui.datePickerForm": "revertDatepicker",
+        "click @ui.restartButton": "restart"
     },
 
     collectionEvents: {
         "add": function(){
             this.collection.fetch({reset: true, descending: true});
         }
+    },
+
+    restart: function(){
+
     },
 
     onRender: function(){
