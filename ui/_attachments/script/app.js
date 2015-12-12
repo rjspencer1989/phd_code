@@ -22,7 +22,9 @@ RouterConfigApp.on('start', function(){
     RouterConfigApp.clientMAC = "";
     var macs = new RouterConfigApp.Collections.MacLookup();
     macs.fetch({reset:true, key:RouterConfigApp.clientIP, success:function(data){
-        RouterConfigApp.clientMAC = data.at(0).get('mac_address');
+        if(data.length > 0){
+            RouterConfigApp.clientMAC = data.at(0).get('mac_address');
+        }
     }});
 
     RouterConfigApp.router = new Router();

@@ -22,9 +22,30 @@ RouterConfigApp.Collections.ConnectedDevices = Backbone.Collection.extend({
 
 Device = Marionette.ItemView.extend({
     className: "col-lg-3 col-md-4 col-sm-6 device",
-
     getTemplate: function(){
-        return JST[this.model.get('state')];
+        if(this.edit_mode){
+            return JST.edit;
+        } else if(this.model.get('state') === 'pending'){
+            return JST.pending;
+        } else {
+            return JST.device;
+        }
+    },
+    
+    templateHelpers: {
+        states: {
+            permit: {
+                button_text: 'Deny',
+                button_class: 'deny-button',
+                bootstrap_class: 'btn-danger'
+            },
+        
+            deny: {
+                button_text: 'Permit',
+                button_class: 'permit-button',
+                bootstrap_class: 'btn-success'
+            }
+        }
     },
 
     ui: {
@@ -70,12 +91,9 @@ Device = Marionette.ItemView.extend({
         if(this.model.get('ip_address') === RouterConfigApp.clientIP){
             this.ui.denyButton.attr('disabled', true);
         }
-
-        if(this.model.get('state') === 'pending'){
-            this.$el.addClass('editing');
-        } else{
-            this.$el.removeClass('editing');
-        }
+        
+        this.$el.find("#device_notification_select").val(this.model.get("notification_service"));
+        this.$el.find("#device_type_select").val(this.model.get("device_type"));
     },
 
     deny: function(){
@@ -124,14 +142,14 @@ Device = Marionette.ItemView.extend({
 
     edit: function(){
         "use strict";
-        this.$el.addClass("editing");
-        this.$el.find("#device_notification_select").val(this.model.get("notification_service"));
-        this.$el.find("#device_type_select").val(this.model.get("device_type"));
+        this.edit_mode = true;
+        this.render();
     },
 
     cancel: function(){
         "use strict";
-        this.$el.removeClass("editing");
+        this.edit_mode = false;
+        this.render();
     },
 
     save: function(){
@@ -155,7 +173,6 @@ Device = Marionette.ItemView.extend({
 });
 
 Devices = Marionette.CompositeView.extend({
-    collection: new RouterConfigApp.Collections.Devices(),
     tagName: "div",
     className: "col-md-12",
     template: window.JST.control_panel,
@@ -164,6 +181,6 @@ Devices = Marionette.CompositeView.extend({
 
     onRender: function(){
         "use strict";
-        window.setActiveLink("devices-link");
+        setActiveLink("devices-link");
     }
 });
