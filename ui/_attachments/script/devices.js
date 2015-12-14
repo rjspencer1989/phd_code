@@ -93,7 +93,7 @@ Device = Marionette.ItemView.extend({
         }
         
         this.$el.find("#device_notification_select").val(this.model.get("notification_service"));
-        this.$el.find("#device_type_select").val(this.model.get("device_type"));
+        // this.$el.find("#device_type_select").val(this.model.get("device_type"));
     },
 
     deny: function(){
