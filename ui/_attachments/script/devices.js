@@ -97,7 +97,7 @@ var Device = Marionette.ItemView.extend({
 
     deny: function(){
         "use strict";
-        if(this.$el.hasClass("editing")){
+        if(this.model.get('state') === 'pending'){
             var owner = this.ui.owner.val();
             var device_name = this.ui.device_name.val();
             var device_type = this.ui.device_type.val();
@@ -119,7 +119,7 @@ var Device = Marionette.ItemView.extend({
 
     permit: function(){
         "use strict";
-        if(this.$el.hasClass("editing")){
+        if(this.model.get('state') === 'pending'){
             var owner = this.ui.owner.val();
             var device_name = this.ui.device_name.val();
             var device_type = this.ui.device_type.val();
