@@ -18,11 +18,11 @@
             <label for="device_type_select" class="control-label col-md-2">Device Type</label>
             <div class="col-md-8 col-md-offset-2">
                 <select name="device_type_select" id="device_type_select" class="form-control">
-                    <option value="desktop" <%(device_type === "desktop")? "selected" : "foo"%>>Desktop</option>
-                    <option value="laptop" <%(device_type === "laptop")? "selected" : "foo"%>>Laptop</option>
-                    <option value="phone" <%(device_type === "phone")? "selected" : "foo"%>>Phone</option>
-                    <option value="tablet" <%(device_type === "tablet")? "selected" : "foo"%>>Tablet</option>
-                    <option value="other" <%(device_type === "other")? "selected" : "foo"%>>Other</option>
+                    <option value="desktop" <%(device_type === "desktop") ? print("selected") : print("")%>>Desktop</option>
+                    <option value="laptop" <%(device_type === "laptop") ? print("selected") : print("")%>>Laptop</option>
+                    <option value="phone" <%(device_type === "phone") ? print("selected") : print("")%>>Phone</option>
+                    <option value="tablet" <%(device_type === "tablet") ? print("selected") : print("")%>>Tablet</option>
+                    <option value="other" <%(device_type === "other") ? print("selected") : print("")%>>Other</option>
                 </select>
             </div>    
         </div>
