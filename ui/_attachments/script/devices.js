@@ -160,7 +160,7 @@ var Device = Marionette.ItemView.extend({
         this.model.set({device_type: device_type});
         this.model.set({notification_service: notification_service});
         this.model.set({changed_by: "user"});
-        var error_alert = this.ui.errorAlert();
+        var error_alert = this.ui.errorAlert;
         this.model.save(null, {
             error: function(model, response){
                 error_alert.append(response.reason);
