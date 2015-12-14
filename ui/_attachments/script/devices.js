@@ -49,8 +49,8 @@ var Device = Marionette.ItemView.extend({
     },
 
     ui: {
-        device_name : '#edit_device_name_input',
-        owner: '#device_owner_input',
+        device_name : '#device_name_input',
+        owner: '#edit_owner_input',
         port: '.port',
         isConnected: '.is_connected',
         denyButton: '.deny-button',
