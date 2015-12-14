@@ -17,12 +17,12 @@
         <div class="form-group">
             <label for="device_type_select" class="control-label col-md-2">Device Type</label>
             <div class="col-md-8 col-md-offset-2">
-                <select name="device_type_select" id="device_type_select" class="form-control" value="<%-device_type%>">
-                    <option value="desktop">Desktop</option>
-                    <option value="laptop">Laptop</option>
-                    <option value="phone">Phone</option>
-                    <option value="tablet">Tablet</option>
-                    <option value="other">Other</option>
+                <select name="device_type_select" id="device_type_select" class="form-control">
+                    <option value="desktop" <%(device_type === "desktop")? "selected" : ""%>>Desktop</option>
+                    <option value="laptop" <%(device_type === "laptop")? "selected" : ""%>>Laptop</option>
+                    <option value="phone" <%(device_type === "phone")? "selected" : ""%>>Phone</option>
+                    <option value="tablet" <%(device_type === "tablet")? "selected" : ""%>>Tablet</option>
+                    <option value="other" <%(device_type === "other")? "selected" : ""%>>Other</option>
                 </select>
             </div>    
         </div>
