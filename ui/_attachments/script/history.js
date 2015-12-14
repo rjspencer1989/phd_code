@@ -142,3 +142,10 @@ RouterConfigApp.Models.Rollback = Backbone.Model.extend({
         status: "pending"
     }
 });
+
+RouterConfigApp.Models.Restart = Backbone.Model.extend({
+    url: this.id,
+    defaults: {
+        collection: 'restart'
+    }
+});
