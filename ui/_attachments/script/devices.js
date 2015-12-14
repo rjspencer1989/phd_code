@@ -179,6 +179,12 @@ var Devices = Marionette.CompositeView.extend({
     template: window.JST.control_panel,
     childView: Device,
     childViewContainer: '.device_container',
+    
+    collectionEvents: {
+        'add': function(){
+            this.render();
+        }
+    },
 
     onRender: function(){
         "use strict";
