@@ -19,7 +19,7 @@ RouterConfigApp.Collections.Events = Backbone.Collection.extend({
     }
 });
 
-Event = Marionette.ItemView.extend({
+var EventView = Marionette.ItemView.extend({
     tagName: "dd",
     template: window.JST.history_item,
     className: 'clearfix',
@@ -36,14 +36,13 @@ Event = Marionette.ItemView.extend({
     serializeData: function(){
         "use strict";
         var date = new Date(this.model.get("timestamp"));
-        var components = getDateComponents(date);
+        var components = window.getDateComponents(date);
         components.title = this.model.get("title");
         components.description = this.model.get("description");
         return components;
     },
 
     onRender: function(){
-        var currentView = this;
         if (this.isLeft) {
             this.$el.removeClass('pos-right').addClass('pos-left');
         } else {
@@ -85,16 +84,16 @@ Event = Marionette.ItemView.extend({
     }
 });
 
-Events = Marionette.CompositeView.extend({
+var Events = Marionette.CompositeView.extend({
     tagName: "div",
     className: "col-md-12",
     template: window.JST.history,
-    childView: Event,
+    childView: EventView,
     childViewContainer: 'dl',
 
     childViewOptions: function(model, index){
         var isLeft = (index % 2 === 0);
-        var client_ip = getClientIP();
+
         return {
             is_left: isLeft
         };

@@ -20,8 +20,8 @@ RouterConfigApp.Collections.Wifi = Backbone.Collection.extend({
     }
 });
 
-WifiModel = Marionette.ItemView.extend({
-   template: JST.wifi,
+var WifiModel = Marionette.ItemView.extend({
+   template: window.JST.wifi,
 
    events: {
         "submit #save-wifi-form": "saveWifi"
@@ -91,7 +91,7 @@ WifiModel = Marionette.ItemView.extend({
     }
 });
 
-WiFi = Marionette.CollectionView.extend({
+var WiFi = Marionette.CollectionView.extend({
    tagName: 'div',
    className: 'col-md-12',
    childView: WifiModel

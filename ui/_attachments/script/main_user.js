@@ -13,7 +13,7 @@ RouterConfigApp.Collections.MainUser = Backbone.Collection.extend({
     url: 'main_user'
 });
 
-MainUser = Marionette.ItemView.extend({
+var MainUser = Marionette.ItemView.extend({
     className: "main_user_el",
     template: window.JST.main_user,
     events: {
@@ -49,7 +49,7 @@ MainUser = Marionette.ItemView.extend({
     }
 });
 
-MainUserCollection = Marionette.CollectionView.extend({
+var MainUserCollection = Marionette.CollectionView.extend({
     childView: MainUser,
     className: 'col-md-12'
 });

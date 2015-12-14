@@ -20,15 +20,15 @@ RouterConfigApp.Collections.ConnectedDevices = Backbone.Collection.extend({
     model: RouterConfigApp.Models.Device
 });
 
-Device = Marionette.ItemView.extend({
+var Device = Marionette.ItemView.extend({
     className: "col-lg-3 col-md-4 col-sm-6 device",
     getTemplate: function(){
         if(this.edit_mode){
-            return JST.edit;
+            return window.JST.edit;
         } else if(this.model.get('state') === 'pending'){
-            return JST.pending;
+            return window.JST.pending;
         } else {
-            return JST.device;
+            return window.JST.device;
         }
     },
     
@@ -169,7 +169,7 @@ Device = Marionette.ItemView.extend({
     }
 });
 
-Devices = Marionette.CompositeView.extend({
+var Devices = Marionette.CompositeView.extend({
     tagName: "div",
     className: "col-md-12",
     template: window.JST.control_panel,
@@ -178,6 +178,6 @@ Devices = Marionette.CompositeView.extend({
 
     onRender: function(){
         "use strict";
-        setActiveLink("devices-link");
+        window.setActiveLink("devices-link");
     }
 });

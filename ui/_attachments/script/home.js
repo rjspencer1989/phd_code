@@ -1,45 +1,45 @@
-HomeWifi = Marionette.ItemView.extend({
+var HomeWifi = Marionette.ItemView.extend({
     template: window.JST.home_wifi
 });
 
-HomeWifiCollection = Marionette.CollectionView.extend({
+var HomeWifiCollection = Marionette.CollectionView.extend({
     childView: HomeWifi
 });
 
-HomeNotification = Marionette.ItemView.extend({
+var HomeNotification = Marionette.ItemView.extend({
     tagName: 'tr',
-    template: JST.home_notification
+    template: window.JST.home_notification
 });
 
-HomeNotifications = Marionette.CompositeView.extend({
-    template: JST.home_notifications,
+var HomeNotifications = Marionette.CompositeView.extend({
+    template: window.JST.home_notifications,
     childViewContainer: 'tbody',
     childView: HomeNotification
 });
 
-HomeDevice = Marionette.ItemView.extend({
+var HomeDevice = Marionette.ItemView.extend({
     tagName: 'tr',
-    template: JST.home_device
+    template: window.JST.home_device
 });
 
-HomeDevices = Marionette.CompositeView.extend({
-    template: JST.home_devices,
+var HomeDevices = Marionette.CompositeView.extend({
+    template: window.JST.home_devices,
     childView: HomeDevice,
     childViewContainer: 'tbody'
 });
 
-HomeEvent = Marionette.ItemView.extend({
+var HomeEvent = Marionette.ItemView.extend({
     tagName: 'tr',
-    template: JST.home_event
+    template: window.JST.home_event
 });
 
-HomeHistory = Marionette.CompositeView.extend({
-    template: JST.home_history,
+var HomeHistory = Marionette.CompositeView.extend({
+    template: window.JST.home_history,
     childView: HomeEvent,
     childViewContainer: 'tbody'
 });
 
-Home = Marionette.LayoutView.extend({
+var Home = Marionette.LayoutView.extend({
     tagName: "div",
     className: "col-md-12",
     template: window.JST.home,

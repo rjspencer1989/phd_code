@@ -1,4 +1,4 @@
-Router = Marionette.AppRouter.extend({
+var Router = Marionette.AppRouter.extend({
     controller: {
         home: function(){
             "use strict";

@@ -19,7 +19,7 @@ RouterConfigApp.Collections.MacLookup = Backbone.Collection.extend({
 });
 
 RouterConfigApp.on('start', function(){
-    RouterConfigApp.clientIP = getClientIP();
+    RouterConfigApp.clientIP = window.getClientIP();
     RouterConfigApp.clientMAC = "";
     var macs = new RouterConfigApp.Collections.MacLookup();
     macs.fetch({reset:true, key:RouterConfigApp.clientIP, success:function(data){
@@ -39,7 +39,7 @@ RouterConfigApp.on('start', function(){
 
 var RootView = Marionette.LayoutView.extend({
     el: 'body',
-    template: JST.main,
+    template: window.JST.main,
     regions: {
         'nav': '#header',
         'main': '#main-row'
@@ -81,14 +81,14 @@ RouterConfigApp.Collections.Links = Backbone.Collection.extend({
 });
 
 var Link = Marionette.ItemView.extend({
-    template: JST.link,
+    template: window.JST.link,
     tagName: 'li'
 });
 
 var Links = Marionette.CompositeView.extend({
     childView: Link,
     childViewContainer: '#navbar-collapse > ul',
-    template: JST.nav
+    template: window.JST.nav
 });
 
 Backbone.couch_connector.config.db_name = "config";
@@ -131,7 +131,7 @@ window.getClientIP = function () {
 
 window.formatDate = function(date){
     var d = new Date(date);
-    var components = getDateComponents(d);
+    var components = window.getDateComponents(d);
     return components.day + "/" + components.month + "/" +
         components.year + " " + components.hour + ":" +
         components.minute + ":" + components.second;

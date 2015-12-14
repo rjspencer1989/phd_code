@@ -17,7 +17,7 @@ RouterConfigApp.Collections.Notifications = Backbone.Collection.extend({
     }
 });
 
-Notification = Marionette.ItemView.extend({
+var Notification = Marionette.ItemView.extend({
     tagName: "tr",
     template: window.JST.notification_item,
 
@@ -79,7 +79,7 @@ Notification = Marionette.ItemView.extend({
     }
 });
 
-Notifications = Marionette.CompositeView.extend({
+var Notifications = Marionette.CompositeView.extend({
     tagName: "div",
     className: "col-md-12",
     template: window.JST.notification_collection,
@@ -120,9 +120,9 @@ Notifications = Marionette.CompositeView.extend({
     }
 });
 
-NotificationLayout = Marionette.LayoutView.extend({
+var NotificationLayout = Marionette.LayoutView.extend({
     className: 'col-md-12',
-    template: JST.notification_layout,
+    template: window.JST.notification_layout,
     regions: {
         notification_region: '#notification_region',
         main_user_region: '#main_user_region'
