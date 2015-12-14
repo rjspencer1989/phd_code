@@ -13,5 +13,8 @@
 "notification_collection.html",
 "notification_item.html",
 "wifi.html",
-"bower.json"
+"bower.json",
+"typings/*",
+"tsd.json",
+"jsconfig.json"
 ]

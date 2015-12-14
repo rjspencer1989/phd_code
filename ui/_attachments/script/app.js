@@ -1,4 +1,5 @@
-RouterConfigApp = new Marionette.Application();
+
+var RouterConfigApp = new Marionette.Application();
 
 RouterConfigApp.Models = {};
 RouterConfigApp.Collections = {};
@@ -36,7 +37,7 @@ RouterConfigApp.on('start', function(){
     Backbone.history.start();
 });
 
-RootView = Marionette.LayoutView.extend({
+var RootView = Marionette.LayoutView.extend({
     el: 'body',
     template: JST.main,
     regions: {
@@ -79,12 +80,12 @@ RouterConfigApp.Collections.Links = Backbone.Collection.extend({
     model: RouterConfigApp.Models.Link
 });
 
-Link = Marionette.ItemView.extend({
+var Link = Marionette.ItemView.extend({
     template: JST.link,
     tagName: 'li'
 });
 
-Links = Marionette.CompositeView.extend({
+var Links = Marionette.CompositeView.extend({
     childView: Link,
     childViewContainer: '#navbar-collapse > ul',
     template: JST.nav

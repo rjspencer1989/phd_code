@@ -91,9 +91,6 @@ Device = Marionette.ItemView.extend({
         if(this.model.get('ip_address') === RouterConfigApp.clientIP){
             this.ui.denyButton.attr('disabled', true);
         }
-        
-        this.$el.find("#device_notification_select").val(this.model.get("notification_service"));
-        // this.$el.find("#device_type_select").val(this.model.get("device_type"));
     },
 
     deny: function(){
