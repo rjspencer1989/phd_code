@@ -152,7 +152,7 @@ var Device = Marionette.ItemView.extend({
     save: function(){
         "use strict";
         var owner = this.ui.owner.val();
-        var device_name = this.$("#edit_device_name_input").val();
+        var device_name = this.ui.device_name.val();
         var device_type = this.$("#device_type_select :selected").val();
         var notification_service = this.$("#device_notification_select :selected").val();
         this.model.set({name: owner});
