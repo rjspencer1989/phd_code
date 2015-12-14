@@ -120,9 +120,9 @@ var Device = Marionette.ItemView.extend({
         "use strict";
         if(this.$el.hasClass("editing")){
             var owner = this.ui.owner.val();
-            var device_name = this.$("#device_name_input").val();
-            var device_type = this.$("#device_type_select :selected").val();
-            var notification_service = this.$("#device_notification_select :selected").val();
+            var device_name = this.ui.device_name.val();
+            var device_type = this.ui.device_type.val();
+            var notification_service = this.ui.notification_service.val();
             this.model.set({name: owner});
             this.model.set({device_name: device_name});
             this.model.set({device_type: device_type});
@@ -153,10 +153,9 @@ var Device = Marionette.ItemView.extend({
     save: function(){
         "use strict";
         var owner = this.ui.owner.val();
-        console.log(owner);
         var device_name = this.ui.device_name.val();
-        var device_type = this.$("#device_type_select :selected").val();
-        var notification_service = this.$("#device_notification_select :selected").val();
+        var device_type = this.ui.device_type.val();
+        var notification_service = this.ui.notification_service.val();
         this.model.set({name: owner});
         this.model.set({device_name: device_name});
         this.model.set({device_type: device_type});
