@@ -152,6 +152,7 @@ var Device = Marionette.ItemView.extend({
     save: function(){
         "use strict";
         var owner = this.ui.owner.val();
+        console.log(owner);
         var device_name = this.ui.device_name.val();
         var device_type = this.$("#device_type_select :selected").val();
         var notification_service = this.$("#device_notification_select :selected").val();
