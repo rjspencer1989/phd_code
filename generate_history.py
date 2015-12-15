@@ -11,8 +11,8 @@ import time
 
 def generate():
     db = couchdb_config_parser.get_db()
-    main_user = main_user.MainUser("", "")
-    res = db.save_doc(main_user.get_doc(), force_update=True)
+    main_user_instance = main_user.MainUser("", "")
+    res = db.save_doc(main_user_instance.get_doc(), force_update=True)
     
     connection_state = connection_state.ConnectionState()
     res = db.save_doc(connection_state.get_doc(), force_update=True)
@@ -37,12 +37,12 @@ def generate():
     ballard.set_field("event_timestamp", dt.isoformat())
     res = db.save_doc(ballard.get_doc(), force_update=True)
     
-    main_user.set_field("name", "John")
-    main_user.set_field("service", "phone")
-    main_user.set_field("status", "pending")
+    main_user_instance.set_field("name", "John")
+    main_user_instance.set_field("service", "phone")
+    main_user_instance.set_field("status", "pending")
     dt = datetime(2014, 01, 12, hour=10, minute=21, tzinfo=tzutc())
-    main_user.set_field("event_timestamp", dt.isoformat())
-    res = db.save_doc(main_user.get_doc(), force_update=True)
+    main_user_instance.set_field("event_timestamp", dt.isoformat())
+    res = db.save_doc(main_user_instance.get_doc(), force_update=True)
     
     dt = datetime(2014, 01, 12, hour=10, minute=22, tzinfo=tzutc())
     john_phone = notifications.Notification("John", "phone", "+447523221070", timestamp=dt.isoformat())
