@@ -19,6 +19,7 @@ class ResetListener(threading.Thread):
     def run(self):
         changeStream = ChangesStream(db, feed="continuous", heartbeat=True, since=self.since, filter="homework-remote/start_again")
         for change in changeStream:
+            print change
             self.shared_object.put(change)
 
 
