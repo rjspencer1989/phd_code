@@ -151,5 +151,7 @@ def generate():
     cmd = ["/sbin/restart", "homework-pox"]
     subprocess.call(cmd)
 
+    cmd = ["/sbin/restart", "homework-reset"]
+
 if __name__ == "__main__":
     generate()
