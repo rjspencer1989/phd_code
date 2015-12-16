@@ -4,6 +4,7 @@ from couchdbkit import *
 from Queue import Queue
 import threading
 from process_config import reset
+import os
 
 db = couchdb_config_parser.get_db()
 db_info = db.info()
