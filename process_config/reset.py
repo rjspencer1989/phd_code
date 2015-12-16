@@ -4,8 +4,8 @@ import time
 import generate_history
 
 def reset():
-    cmd = ["./setup.sh"]
-    subprocess.call(cmd, cwd="..")
+    cmd = ["/home/homeuser/phd_code/setup.sh"]
+    subprocess.call(cmd, cwd="/home/homeuser/phd_code")
     print 'reset'
     time.sleep(5)
     print 'generating history'
