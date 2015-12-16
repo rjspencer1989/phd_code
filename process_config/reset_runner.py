@@ -15,6 +15,7 @@ class ResetListener(threading.Thread):
         threading.Thread.__init__(self, name=threadName)
         self.shared_object = queue
         self.since = db_info['update_seq']
+        print self.since
 
     def run(self):
         changeStream = ChangesStream(db, feed="continuous", heartbeat=True, since=self.since, filter="homework-remote/start_again")
