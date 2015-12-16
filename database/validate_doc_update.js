@@ -20,8 +20,8 @@ function (newDoc, oldDoc, userCtx){
     }
 
     function is_valid_collection(){
-        if(["wifi", "notifications", "devices", "events", "request_notification", "request_revert", "main_user", "connection_state", "dns"].indexOf(newDoc.collection) === -1){
-            throw({forbidden: "collection must be one of wifi, notifications, devices, events, request_notification, request_revert, main_user, connection_state, dns"});
+        if(["wifi", "notifications", "devices", "events", "request_notification", "request_revert", "main_user", "connection_state", "dns", "reset"].indexOf(newDoc.collection) === -1){
+            throw({forbidden: "collection must be one of wifi, notifications, devices, events, request_notification, request_revert, main_user, connection_state, dns or reset"});
         }
     }
 
