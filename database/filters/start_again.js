@@ -1,5 +1,5 @@
 function(doc, req){
-    if(doc.collection === "reset" && doc['_rev'].startswith("1-")){
+    if(doc.collection === "reset"){
         return true;
     }
     return false;
