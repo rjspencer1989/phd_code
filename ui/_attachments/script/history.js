@@ -116,7 +116,8 @@ var Events = Marionette.CompositeView.extend({
     },
 
     restart: function(){
-
+        var newDoc = new RouterConfigApp.Models.Restart();
+        newDoc.save();
     },
 
     onRender: function(){
@@ -146,6 +147,6 @@ RouterConfigApp.Models.Rollback = Backbone.Model.extend({
 RouterConfigApp.Models.Restart = Backbone.Model.extend({
     url: this.id,
     defaults: {
-        collection: 'restart'
+        collection: 'reset'
     }
 });
