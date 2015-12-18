@@ -3,6 +3,7 @@ import subprocess
 import time
 import generate_history
 
+
 def reset():
     cmd = ["/home/homeuser/phd_code/setup.sh"]
     subprocess.call(cmd, cwd="/home/homeuser/phd_code")
