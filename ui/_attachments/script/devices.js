@@ -46,8 +46,12 @@ var Device = Marionette.ItemView.extend({
                 bootstrap_class: 'btn-success'
             }
         },
-        port : window.friendlyPort(this.model.get("port")),
-        connected : (this.model.get("connection_event") === "connect") ? "Yes" : "No"
+        port : function(){
+            return window.friendlyPort(this.model.get('port'));
+        },
+        connected : function(){
+            return (this.model.get("connection_event") === "connect") ? "Yes" : "No";
+        }
     },
 
     ui: {

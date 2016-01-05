@@ -146,4 +146,4 @@ window.friendlyPort = function(port){
         return 'WiFi';
     }
     return port;
-}
+};
