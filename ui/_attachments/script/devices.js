@@ -81,12 +81,6 @@ var Device = Marionette.ItemView.extend({
 
     onRender: function(){
         "use strict";
-        var txt = "No";
-        
-        if(this.model.get("connection_event") === "connect"){
-            txt = "Yes";
-        }
-        this.ui.isConnected.html(txt);
         if(this.model.get('ip_address') === RouterConfigApp.clientIP){
             this.ui.denyButton.attr('disabled', true);
         }
