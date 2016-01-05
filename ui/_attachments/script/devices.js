@@ -47,7 +47,7 @@ var Device = Marionette.ItemView.extend({
             }
         },
         port : function(){
-            return window.friendlyPort(this.port);
+            return (RouterConfigApp.wifiRegex.test(this.port)) ? "WiFi" : this.port;
         },
         connected : function(){
             return (this.connection_event === "connect") ? "Yes" : "No";

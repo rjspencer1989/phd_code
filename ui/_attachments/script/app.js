@@ -18,6 +18,8 @@ RouterConfigApp.Collections.MacLookup = Backbone.Collection.extend({
     }
 });
 
+RouterConfigApp.wifiRegex = /^wlan0(_1)?$/;
+
 RouterConfigApp.on('start', function(){
     RouterConfigApp.clientIP = window.getClientIP();
     RouterConfigApp.clientMAC = "";
@@ -137,13 +139,4 @@ window.formatDate = function(date){
     return components.day + "/" + components.month + "/" +
         components.year + " " + components.hour + ":" +
         components.minute + ":" + components.second;
-};
-
-window.friendlyPort = function(port){
-    "use strict";
-    var re = /^wlan0(_1)?$/;
-    if(re.test(port)){
-        return 'WiFi';
-    }
-    return port;
 };
