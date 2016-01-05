@@ -123,6 +123,7 @@ window.getDateComponents = function(d){
 };
 
 window.getClientIP = function () {
+    "use strict";
     var router_ip = window.location.hostname;
     var end = parseInt(router_ip.substr(router_ip.lastIndexOf('.') + 1), 10);
     var client_ip = '10.2.0.' + (end - 1).toString();
@@ -130,9 +131,19 @@ window.getClientIP = function () {
 };
 
 window.formatDate = function(date){
+    "use strict";
     var d = new Date(date);
     var components = window.getDateComponents(d);
     return components.day + "/" + components.month + "/" +
         components.year + " " + components.hour + ":" +
         components.minute + ":" + components.second;
 };
+
+window.friendlyPort = function(port){
+    "use strict";
+    var re = /^wlan0(_1)?$/;
+    if(re.test(port)){
+        return 'WiFi';
+    }
+    return port;
+}

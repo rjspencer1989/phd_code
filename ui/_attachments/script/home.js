@@ -19,7 +19,10 @@ var HomeNotifications = Marionette.CompositeView.extend({
 
 var HomeDevice = Marionette.ItemView.extend({
     tagName: 'tr',
-    template: window.JST.home_device
+    template: window.JST.home_device,
+    templateHelpers: {
+        port : window.friendlyPort(this.model.get("port"))
+    }
 });
 
 var HomeDevices = Marionette.CompositeView.extend({

@@ -45,7 +45,9 @@ var Device = Marionette.ItemView.extend({
                 button_class: 'permit-button',
                 bootstrap_class: 'btn-success'
             }
-        }
+        },
+        port : window.friendlyPort(this.model.get("port")),
+        connected : (this.model.get("connection_event") === "connect") ? "Yes" : "No"
     },
 
     ui: {
@@ -80,16 +82,11 @@ var Device = Marionette.ItemView.extend({
     onRender: function(){
         "use strict";
         var txt = "No";
-        var port = this.model.get("port");
-        var re = /^wlan0(_1)?$/;
-        if(re.test(port)){
-            port = 'WiFi';
-        }
+        
         if(this.model.get("connection_event") === "connect"){
             txt = "Yes";
         }
         this.ui.isConnected.html(txt);
-        this.ui.port.html(port);
         if(this.model.get('ip_address') === RouterConfigApp.clientIP){
             this.ui.denyButton.attr('disabled', true);
         }
