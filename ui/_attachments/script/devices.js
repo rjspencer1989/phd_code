@@ -47,10 +47,10 @@ var Device = Marionette.ItemView.extend({
             }
         },
         port : function(){
-            return window.friendlyPort(this.model.get('port'));
+            return window.friendlyPort(this.port);
         },
         connected : function(){
-            return (this.model.get("connection_event") === "connect") ? "Yes" : "No";
+            return (this.connection_event === "connect") ? "Yes" : "No";
         }
     },
 
