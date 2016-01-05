@@ -18,8 +18,6 @@ RouterConfigApp.Collections.MacLookup = Backbone.Collection.extend({
     }
 });
 
-RouterConfigApp.wifiRegex = /^wlan0(_1)?$/;
-
 RouterConfigApp.on('start', function(){
     RouterConfigApp.clientIP = window.getClientIP();
     RouterConfigApp.clientMAC = "";

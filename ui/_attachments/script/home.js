@@ -22,7 +22,7 @@ var HomeDevice = Marionette.ItemView.extend({
     template: window.JST.home_device,
     templateHelpers: {
         port : function(){
-            return (RouterConfigApp.wifiRegex.test(this.port)) ? "WiFi" : this.port;
+            return (/^wlan0(_1)?$/.test(this.port)) ? "WiFi" : this.port;
         }
     }
 });
