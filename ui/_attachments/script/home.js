@@ -21,7 +21,9 @@ var HomeDevice = Marionette.ItemView.extend({
     tagName: 'tr',
     template: window.JST.home_device,
     templateHelpers: {
-        port : window.friendlyPort(this.model.get("port"))
+        port : function(){
+            window.friendlyPort(this.port);
+        }
     }
 });
 
