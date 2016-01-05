@@ -1,6 +1,6 @@
 
 var RouterConfigApp = new Marionette.Application();
-
+RouterConfigApp.wifiRegex = /^wlan0(-1)?$/;
 RouterConfigApp.Models = {};
 RouterConfigApp.Collections = {};
 
