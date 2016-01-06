@@ -36,12 +36,6 @@ def update_device_list():
             continue
         doc = db.get(device)
         print "[%s - %s]\n" % (doc['_id'], doc['connection_event'])
-        if doc['state'] == 'pending':
-            main_doc = db.get('main_user')
-            user = main_doc['name']
-            service = main_doc['service']
-            msg = "%s is requesting access to your network" % (name)
-            sendNotification(user, service, msg)
         if doc['connection_event'] != 'connect':
             doc['connection_event'] = 'connect'
             doc['changed_by'] = 'connected_devices'
