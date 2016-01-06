@@ -5,7 +5,6 @@ from couchdbkit import *
 from subprocess import *
 import couchdb_config_parser
 import time
-from change_notification import sendNotification
 
 db = couchdb_config_parser.get_db()
 interface_list = netifaces.interfaces()
@@ -32,12 +31,6 @@ while True:
                 if device_doc['connection_event'] == 'disconnect':
                     device_doc['connection_event'] = 'connect'
                     device_doc['changed_by'] = 'connected_devices'
-                    if device_doc['state'] == 'pending':
-                        main_doc = db.get('main_user')
-                        user = main_doc['name']
-                        service = main_doc['service']
-                        msg = "%s is requesting access to your network" % (name)
-                        sendNotification(user, service, msg)
                     res = db.save_doc(device_doc)
             else:
                 if device_doc['connection_event'] == 'connect':

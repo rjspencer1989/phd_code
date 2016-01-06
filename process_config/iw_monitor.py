@@ -7,7 +7,6 @@ from process_config import couchdb_config_parser
 import pprint
 from apscheduler.schedulers.background import BackgroundScheduler
 import time
-from change_notification import sendNotification
 
 db = couchdb_config_parser.get_db()
 
