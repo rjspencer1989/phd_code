@@ -134,7 +134,7 @@ window.formatDate = function(date){
     "use strict";
     var d = new Date(date);
     var components = window.getDateComponents(d);
-    return components.day + "/" + components.month + "/" +
+    return components.day + "-" + components.month + "-" +
         components.year + " " + components.hour + ":" +
         components.minute + ":" + components.second;
 };
