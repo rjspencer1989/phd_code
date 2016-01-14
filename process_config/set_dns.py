@@ -12,7 +12,7 @@ def set_dns(current_doc, from_undo=False):
     undoable = True
     if from_undo is True:
         title = "Undo DNS change"
-        desc = "DNS configuration has been reverted."
+        desc = "DNS configuration change has been undone. You are no longer using Google's DNS Servers."
         undoable = False
     ts = current_doc['event_timestamp'] if 'event_timestamp' in current_doc else None
     doc_arr = [{'doc_id': current_doc['_id'], 'doc_rev': current_doc['_rev'], 'doc_collection': 'dns', 'action': 'edit'}]
