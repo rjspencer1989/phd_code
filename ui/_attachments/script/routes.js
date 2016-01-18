@@ -33,6 +33,7 @@ var Router = Marionette.AppRouter.extend({
     
         controlPanel: function(){
             "use strict";
+            console.log("application control panel view");
             var collection = new RouterConfigApp.Collections.Devices();
             collection.fetch({reset: true});
             RouterConfigApp.root.main.show(new Devices({collection: collection}));
