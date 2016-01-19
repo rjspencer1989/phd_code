@@ -51,5 +51,10 @@ var MainUser = Marionette.ItemView.extend({
 
 var MainUserCollection = Marionette.CollectionView.extend({
     childView: MainUser,
-    className: 'col-md-12'
+    className: 'col-md-12',
+    
+    onDestroy: function(){
+        "use strict";
+        this.collection.stop_changes();
+    }
 });

@@ -133,6 +133,11 @@ var Events = Marionette.CompositeView.extend({
         ts = new Date(ts).toISOString();
         newDoc.set({timestamp: ts});
         newDoc.save();
+    },
+    
+    onDestroy: function(){
+        "use strict";
+        this.collection.stop_changes();
     }
 });
 

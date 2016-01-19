@@ -94,5 +94,10 @@ var WifiModel = Marionette.ItemView.extend({
 var WiFi = Marionette.CollectionView.extend({
    tagName: 'div',
    className: 'col-md-12',
-   childView: WifiModel
+   childView: WifiModel,
+    
+    onDestroy: function(){
+        "use strict";
+        this.collection.stop_changes();
+    }
 });

@@ -117,6 +117,11 @@ var Notifications = Marionette.CompositeView.extend({
         this.collection.create(newModel);
         $("#add-notification-form").get(0).reset();
         this.getPrompt();
+    },
+    
+    onDestroy: function(){
+        "use strict";
+        this.collection.stop_changes();
     }
 });
 
