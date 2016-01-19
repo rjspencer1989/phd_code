@@ -3,7 +3,12 @@ var HomeWifi = Marionette.ItemView.extend({
 });
 
 var HomeWifiCollection = Marionette.CollectionView.extend({
-    childView: HomeWifi
+    childView: HomeWifi,
+    
+    onDestroy: function(){
+        "use strict";
+        this.collection.stop_changes();
+    }
 });
 
 var HomeNotification = Marionette.ItemView.extend({
@@ -14,7 +19,12 @@ var HomeNotification = Marionette.ItemView.extend({
 var HomeNotifications = Marionette.CompositeView.extend({
     template: window.JST.home_notifications,
     childViewContainer: 'tbody',
-    childView: HomeNotification
+    childView: HomeNotification,
+    
+    onDestroy: function(){
+        "use strict";
+        this.collection.stop_changes();
+    }
 });
 
 var HomeDevice = Marionette.ItemView.extend({
@@ -30,7 +40,12 @@ var HomeDevice = Marionette.ItemView.extend({
 var HomeDevices = Marionette.CompositeView.extend({
     template: window.JST.home_devices,
     childView: HomeDevice,
-    childViewContainer: 'tbody'
+    childViewContainer: 'tbody',
+    
+    onDestroy: function(){
+        "use strict";
+        this.collection.stop_changes();
+    }
 });
 
 var HomeEvent = Marionette.ItemView.extend({
@@ -41,7 +56,12 @@ var HomeEvent = Marionette.ItemView.extend({
 var HomeHistory = Marionette.CompositeView.extend({
     template: window.JST.home_history,
     childView: HomeEvent,
-    childViewContainer: 'tbody'
+    childViewContainer: 'tbody',
+    
+    onDestroy: function(){
+        "use strict";
+        this.collection.stop_changes();
+    }
 });
 
 var Home = Marionette.LayoutView.extend({
