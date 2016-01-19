@@ -180,5 +180,10 @@ var Devices = Marionette.CompositeView.extend({
     onRender: function(){
         "use strict";
         window.setActiveLink("devices-link");
+    },
+    
+    onDestroy: function(){
+        "use strict";
+        this.collection.stop_changes();
     }
 });
