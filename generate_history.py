@@ -27,7 +27,7 @@ def generate():
     wifi_instance.set_field('_rev', res['rev'])
 
     dt = datetime(2014, 01, 12, hour=10, minute=20, tzinfo=tzutc())
-    ballard = devices.Device("00:27:0e:30:22:5d", "10.2.0.1", "ballard", "eth1", timestamp=dt.isoformat())
+    ballard = devices.Device("d0:27:88:80:d9:ef", "10.2.0.1", "aspire", "eth1", timestamp=dt.isoformat())
     ballard.set_field("device_name", "John's Computer")
     ballard.set_field("notification_service", "phone")
     ballard.set_field("name", "John")
