@@ -52,7 +52,7 @@ var EventView = Marionette.ItemView.extend({
             this.$el.addClass('undoable');
         }
 
-        if(RouterConfigApp.clientMAC !== ""){
+        if(RouterConfigApp.clientMAC !== "" && this.model.get('docs').length > 0){
             if (this.model.get('docs')[0].doc_id === RouterConfigApp.clientMAC) {
                 this.$el.removeClass('undoable');
             }
@@ -134,7 +134,7 @@ var Events = Marionette.CompositeView.extend({
         newDoc.set({timestamp: ts});
         newDoc.save();
     },
-    
+
     onDestroy: function(){
         "use strict";
         this.collection.stop_changes();
